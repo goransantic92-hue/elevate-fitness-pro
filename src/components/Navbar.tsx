@@ -1,0 +1,94 @@
+import { useState } from "react";
+import { Link, useLocation } from "react-router-dom";
+import { Menu, X, Dumbbell } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+const navLinks = [
+  { href: "/", label: "Home" },
+  { href: "/program", label: "Program" },
+  { href: "/training", label: "Training" },
+  { href: "/nutrition", label: "Nutrition" },
+  { href: "/results", label: "Results" },
+  { href: "/faq", label: "FAQ" },
+  { href: "/pricing", label: "Pricing" },
+];
+
+const Navbar = () => {
+  const [open, setOpen] = useState(false);
+  const location = useLocation();
+
+  return (
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
+      <div className="container mx-auto flex items-center justify-between h-16 px-4">
+        <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-tight">
+          <Dumbbell className="h-6 w-6 text-primary" />
+          <span>BUSY<span className="text-primary">STRONG</span>90</span>
+        </Link>
+
+        <div className="hidden lg:flex items-center gap-1">
+          {navLinks.map((link) => (
+            <Link
+              key={link.href}
+              to={link.href}
+              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                location.pathname === link.href
+                  ? "text-primary bg-primary/10"
+                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+              }`}
+            >
+              {link.label}
+            </Link>
+          ))}
+        </div>
+
+        <div className="hidden lg:flex items-center gap-3">
+          <Link to="/login">
+            <Button variant="ghost" size="sm">Log In</Button>
+          </Link>
+          <Link to="/pricing">
+            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
+              Get Started — €39
+            </Button>
+          </Link>
+        </div>
+
+        <button className="lg:hidden text-foreground" onClick={() => setOpen(!open)}>
+          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        </button>
+      </div>
+
+      {open && (
+        <div className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-border">
+          <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.href}
+                to={link.href}
+                onClick={() => setOpen(false)}
+                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                  location.pathname === link.href
+                    ? "text-primary bg-primary/10"
+                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                }`}
+              >
+                {link.label}
+              </Link>
+            ))}
+            <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
+              <Link to="/login" onClick={() => setOpen(false)}>
+                <Button variant="ghost" className="w-full">Log In</Button>
+              </Link>
+              <Link to="/pricing" onClick={() => setOpen(false)}>
+                <Button className="w-full bg-primary text-primary-foreground font-semibold">
+                  Get Started — €39
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+    </nav>
+  );
+};
+
+export default Navbar;
