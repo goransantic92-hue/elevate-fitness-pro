@@ -2,57 +2,27 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp, Scale, Dumbbell, Battery, Eye } from "lucide-react";
 import coachFront from "@/assets/coach-front.jpg";
+import { progressExpectations, habits, trackingGuidance } from "@/data/busyStrong90";
+import { PageMeta } from "@/components/seo/PageMeta";
 
-const progressData = [
-  {
-    metric: "Body Weight",
-    icon: Scale,
-    week1: "May stay same or drop 1–2kg",
-    week5: "1–2kg fat loss",
-    week9: "1–2kg more fat loss",
-  },
-  {
-    metric: "Bench Press",
-    icon: Dumbbell,
-    week1: "+2.5–5kg possible",
-    week5: "+2.5–5kg more",
-    week9: "+2.5kg more",
-  },
-  {
-    metric: "Squat / Leg Press",
-    icon: TrendingUp,
-    week1: "+5–10kg possible",
-    week5: "+5–10kg more",
-    week9: "+5kg more",
-  },
-  {
-    metric: "Energy Levels",
-    icon: Battery,
-    week1: "Rising from week 2",
-    week5: "Noticeably higher",
-    week9: "Peak — sustained",
-  },
-  {
-    metric: "Visible Change",
-    icon: Eye,
-    week1: "Subtle week 3–4",
-    week5: "Clear changes week 6–7",
-    week9: "Significant by week 10",
-  },
-];
+const progressIcons = [Scale, Dumbbell, TrendingUp, Battery, Eye];
 
-const habits = [
-  { number: 1, title: "Non-Negotiable Training Slots", description: "Schedule your 3 sessions like doctor appointments — they cannot be moved. Same time, same days, every week.", action: "6:00 AM Monday · 12:30 PM Wednesday · 6:00 AM Friday" },
-  { number: 2, title: "Sleep Is Your #1 Performance Drug", description: "7–9 hours is non-negotiable. Sleep debt destroys testosterone, raises cortisol, kills motivation, and increases fat storage.", action: "Target: 7.5 hours minimum · Consistent wake time daily" },
-  { number: 3, title: "Daily Protein First", description: "At every meal, ask: where is my protein? Build your plate around it. 1.6–2.2g per kg of bodyweight daily.", action: "Example 80kg: 128–176g protein per day" },
-  { number: 4, title: "The 5-Minute Rule", description: "On days you don't feel like training, commit to just 5 minutes. Almost nobody stops at 5 minutes. Momentum is everything.", action: "Put your gym clothes out the night before. Always." },
-  { number: 5, title: "Track Something — Not Everything", description: "Weigh yourself every Monday morning. Take monthly progress photos. Log your main lifts.", action: "Weekly: weight · Monthly: photos · Per session: main lifts" },
-  { number: 6, title: "The Sunday Reset", description: "Every Sunday: prep 3 meals, review next week's schedule, shop for protein sources. 90 minutes saves you from 7 days of poor decisions.", action: "Prep · Plan · Shop · Sleep. Every Sunday." },
-];
+const progressData = progressExpectations.map((row, i) => ({
+  metric: row.metric,
+  icon: progressIcons[i] ?? Scale,
+  week1: row.w1,
+  week5: row.w2,
+  week9: row.w3,
+}));
 
 const ResultsPage = () => {
   return (
     <div>
+      <PageMeta
+        title="Results, progress tracking & habits"
+        description="Realistic 90-day progress timeline, how to track like an athlete, and the six habit pillars from BUSY STRONG 90."
+        path="/results"
+      />
       {/* Hero */}
       <section className="relative py-28 md:py-36 overflow-hidden">
         <div className="absolute inset-0">
@@ -64,9 +34,7 @@ const ResultsPage = () => {
           <h1 className="text-4xl md:text-6xl font-black mb-6">
             What to <span className="text-gradient">Expect</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            You cannot manage what you cannot measure. Here's the realistic rate of progress and the habit system that makes it all automatic.
-          </p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{trackingGuidance.body}</p>
         </div>
       </section>
 
@@ -149,12 +117,12 @@ const ResultsPage = () => {
           </div>
           <div className="space-y-4">
             {habits.map((habit) => (
-              <div key={habit.number} className="glass-card p-6 md:p-8 hover:border-primary/30 transition-colors">
+              <div key={habit.n} className="glass-card p-6 md:p-8 hover:border-primary/30 transition-colors">
                 <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 text-primary font-black">{habit.number}</div>
+                  <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0 text-primary font-black">{habit.n}</div>
                   <div className="flex-1">
                     <h3 className="font-bold text-lg mb-2">{habit.title}</h3>
-                    <p className="text-sm text-muted-foreground mb-3">{habit.description}</p>
+                    <p className="text-sm text-muted-foreground mb-3">{habit.body}</p>
                     <div className="inline-flex items-center gap-2 text-xs text-primary bg-primary/10 px-3 py-1.5 rounded-full">
                       <span className="font-medium">ACTION:</span> {habit.action}
                     </div>

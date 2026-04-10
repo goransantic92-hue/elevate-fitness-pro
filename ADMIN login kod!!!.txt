@@ -1,0 +1,15 @@
+Korak 3.3 — SQL: postavi ulogu admin
+SQL Editor → New query.
+Ubaci (zameni email svojim):
+update public.profiles
+set role = 'admin'
+where email = 'tvoj-email@example.com';
+Run.
+Trebalo bi da piše npr. 1 row updated (ako je email tačan).
+Korak 3.4 — Provera u aplikaciji
+Odjavi se pa ponovo uloguj (da se osveži sesija ako negde keširaš profil — kod tebe AuthContext povlači profil pri loginu).
+U navigaciji bi trebalo da se pojavi Admin (i link na /admin).
+Redosled (važno)
+Prvo migracija (tačka 1).
+Zatim signup da postoji profiles red.
+Zatim update ... role = 'admin' (tačka 3).

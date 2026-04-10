@@ -1,0 +1,111 @@
+Build a premium, production-ready fitness coaching platform from the PDF I provide.
+
+I will upload:
+1. A PDF containing the full training program, nutrition system, phases, coaching structure, rules, and all content/features.
+2. A design reference image to use as visual inspiration.
+
+Your job:
+Turn the PDF into a complete, polished digital product.
+
+The PDF is the source of truth.
+The design reference is only for visual style.
+Do not create random features that are not supported by the PDF.
+
+I want a full platform with:
+
+- A high-converting public website
+- Authentication
+- A premium member dashboard
+- A coach/admin dashboard
+- Supabase backend
+- Stripe payments
+- Tracking features
+- Reminder/notification-ready structure
+
+Public website should include:
+- Homepage
+- Program overview
+- Training overview
+- Nutrition overview
+- Benefits/results
+- FAQ
+- Testimonials placeholders
+- Strong CTA sections
+- SEO-optimized content and structure
+
+Member dashboard should include:
+- Dashboard overview
+- Training plans
+- Workout breakdowns
+- Nutrition plans
+- Meal guidance
+- Progress tracking
+- Program roadmap/phases
+- Notifications/reminders
+- Profile/settings
+
+Coach/admin dashboard should include:
+- Manage members
+- Manage workouts
+- Manage nutrition plans
+- Manage content/resources
+- Track member progress/adherence
+- Manage reminders/notifications
+- View subscriptions/payments
+
+Backend requirements:
+Use Supabase for:
+- Auth
+- Database
+- Role-based access
+- Secure RLS policies
+- Scalable schema
+- Storage if needed
+
+Payments:
+Use Stripe for:
+- Pricing plans
+- Checkout
+- Subscription/payment logic
+- Access control after payment
+
+Tracking:
+- Workout completion tracking
+- Nutrition adherence tracking
+- Progress tracking
+- Reminder-ready architecture
+- Push notification-ready structure if relevant
+
+Design requirements:
+Use the reference image as inspiration and make the UI:
+- premium
+- modern
+- athletic
+- clean
+- bold
+- high-end
+- mobile-first
+- easy to use
+- visually strong but practical
+
+SEO requirements:
+- Semantic HTML
+- Strong heading hierarchy
+- Optimized titles and meta descriptions
+- Search-friendly public pages
+- Fast loading
+- Conversion-focused structure
+
+Instructions:
+1. Read and analyze the PDF first.
+2. Extract the full product structure from it.
+3. Build the information architecture around the PDF.
+4. Then generate the complete public site, member dashboard, admin dashboard, and backend structure.
+5. Keep everything aligned with the PDF.
+6. Make the final result feel like a real premium fitness SaaS/coaching product.
+
+Important:
+- Prioritize UX, clarity, and premium execution.
+- Keep the product highly polished.
+- Make it feel premium enough to sell.
+- Avoid template-like output.

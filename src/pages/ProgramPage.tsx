@@ -2,47 +2,19 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
 import coachHanging from "@/assets/coach-hanging.jpg";
+import { phases, weeklySchedule } from "@/data/busyStrong90";
+import { PageMeta } from "@/components/seo/PageMeta";
 
-const phases = [
-  {
-    number: "01",
-    name: "FOUNDATION",
-    weeks: "Weeks 1–4",
-    description: "You are learning the movements, building the habit, and establishing your baseline. Do not go too heavy. Perfect form now saves injury later. Energy will rise. Sleep will improve. Clothes may already feel different.",
-    focus: ["Technique", "Habit building", "Baseline nutrition"],
-    color: "from-primary/20 to-primary/5",
-  },
-  {
-    number: "02",
-    name: "INTENSITY",
-    weeks: "Weeks 5–8",
-    description: "Weights go up. Volume increases slightly. You are now comfortable with the movements. This is where visible fat loss accelerates and strength jumps noticeably. Nutrition compliance becomes automatic. People around you start to notice.",
-    focus: ["Progressive overload", "Fat loss", "Strength gains"],
-    color: "from-primary/30 to-primary/10",
-  },
-  {
-    number: "03",
-    name: "TRANSFORMATION",
-    weeks: "Weeks 9–12",
-    description: "The final phase. Maximum intensity. You have the habits, the technique, the nutrition. Everything comes together here. Photos taken at week 12 will look nothing like week 1.",
-    focus: ["Peak intensity", "Body recomposition", "Permanent lifestyle lock-in"],
-    color: "from-primary/40 to-primary/15",
-  },
-];
-
-const schedule = [
-  { day: "Monday", session: "Training A", duration: "35 min", focus: "Upper Body Push", note: "Priority session — never skip" },
-  { day: "Tuesday", session: "Rest / Walk", duration: "20 min", focus: "Active Recovery", note: "15–20 min walk. Move." },
-  { day: "Wednesday", session: "Training B", duration: "40 min", focus: "Lower Body", note: "Heaviest session of the week" },
-  { day: "Thursday", session: "Rest / Walk", duration: "20 min", focus: "Active Recovery", note: "Mobility work optional" },
-  { day: "Friday", session: "Training C", duration: "35 min", focus: "Upper Body Pull", note: "End the week strong" },
-  { day: "Saturday", session: "10-Min Bonus", duration: "10 min", focus: "Full Body", note: "Optional — emergency workout" },
-  { day: "Sunday", session: "Full Rest", duration: "—", focus: "Recovery", note: "Meal prep + plan next week" },
-];
+const phaseColors = ["from-primary/20 to-primary/5", "from-primary/30 to-primary/10", "from-primary/40 to-primary/15"];
 
 const ProgramPage = () => {
   return (
     <div>
+      <PageMeta
+        title="Program overview — 90-day roadmap"
+        description="Three 4-week phases, weekly training schedule, and everything included in BUSY STRONG 90 for busy people 35+."
+        path="/program"
+      />
       {/* Hero */}
       <section className="relative py-28 md:py-36 overflow-hidden">
         <div className="absolute inset-0">
@@ -65,7 +37,7 @@ const ProgramPage = () => {
         <div className="container mx-auto max-w-5xl">
           <div className="space-y-8">
             {phases.map((phase, i) => (
-              <div key={phase.number} className={`glass-card p-8 md:p-10 bg-gradient-to-r ${phase.color} relative overflow-hidden`}>
+              <div key={phase.number} className={`glass-card p-8 md:p-10 bg-gradient-to-r ${phaseColors[i] ?? phaseColors[0]} relative overflow-hidden`}>
                 <div className="absolute top-4 right-6 text-8xl font-black text-primary/5">{phase.number}</div>
                 <div className="relative z-10">
                   <div className="flex items-center gap-3 mb-2">
@@ -98,7 +70,7 @@ const ProgramPage = () => {
             <p className="text-muted-foreground">Same structure for all 12 weeks. Consistency is king.</p>
           </div>
           <div className="space-y-3">
-            {schedule.map((day) => {
+            {weeklySchedule.map((day) => {
               const isTraining = day.session.startsWith("Training") || day.session === "10-Min Bonus";
               return (
                 <div key={day.day} className={`glass-card p-5 flex flex-col md:flex-row md:items-center gap-3 md:gap-6 ${isTraining ? "border-primary/20" : ""}`}>

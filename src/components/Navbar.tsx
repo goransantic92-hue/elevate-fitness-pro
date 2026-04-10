@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Dumbbell } from "lucide-react";
+import { Menu, X, Dumbbell, LayoutDashboard, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAuth } from "@/context/AuthContext";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -16,6 +17,7 @@ const navLinks = [
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
+  const { user, isAdmin, signOut } = useAuth();
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
@@ -41,15 +43,41 @@ const Navbar = () => {
           ))}
         </div>
 
-        <div className="hidden lg:flex items-center gap-3">
-          <Link to="/login">
-            <Button variant="ghost" size="sm">Log In</Button>
-          </Link>
-          <Link to="/pricing">
-            <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
-              Get Started — €39
-            </Button>
-          </Link>
+        <div className="hidden lg:flex items-center gap-2">
+          {user ? (
+            <>
+              <Link to="/dashboard">
+                <Button variant="ghost" size="sm" className="gap-1.5">
+                  <LayoutDashboard className="h-4 w-4" />
+                  Dashboard
+                </Button>
+              </Link>
+              {isAdmin && (
+                <Link to="/admin">
+                  <Button variant="ghost" size="sm" className="gap-1.5 text-amber-500">
+                    <Shield className="h-4 w-4" />
+                    Admin
+                  </Button>
+                </Link>
+              )}
+              <Button variant="outline" size="sm" onClick={() => signOut()}>
+                Sign out
+              </Button>
+            </>
+          ) : (
+            <>
+              <Link to="/login">
+                <Button variant="ghost" size="sm">
+                  Log In
+                </Button>
+              </Link>
+              <Link to="/pricing">
+                <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
+                  Get Started — €39
+                </Button>
+              </Link>
+            </>
+          )}
         </div>
 
         <button className="lg:hidden text-foreground" onClick={() => setOpen(!open)}>
@@ -75,14 +103,40 @@ const Navbar = () => {
               </Link>
             ))}
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
-              <Link to="/login" onClick={() => setOpen(false)}>
-                <Button variant="ghost" className="w-full">Log In</Button>
-              </Link>
-              <Link to="/pricing" onClick={() => setOpen(false)}>
-                <Button className="w-full bg-primary text-primary-foreground font-semibold">
-                  Get Started — €39
-                </Button>
-              </Link>
+              {user ? (
+                <>
+                  <Link to="/dashboard" onClick={() => setOpen(false)}>
+                    <Button variant="ghost" className="w-full justify-start gap-2">
+                      <LayoutDashboard className="h-4 w-4" />
+                      Dashboard
+                    </Button>
+                  </Link>
+                  {isAdmin && (
+                    <Link to="/admin" onClick={() => setOpen(false)}>
+                      <Button variant="ghost" className="w-full justify-start gap-2 text-amber-500">
+                        <Shield className="h-4 w-4" />
+                        Admin
+                      </Button>
+                    </Link>
+                  )}
+                  <Button variant="outline" className="w-full" onClick={() => { setOpen(false); signOut(); }}>
+                    Sign out
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Link to="/login" onClick={() => setOpen(false)}>
+                    <Button variant="ghost" className="w-full">
+                      Log In
+                    </Button>
+                  </Link>
+                  <Link to="/pricing" onClick={() => setOpen(false)}>
+                    <Button className="w-full bg-primary text-primary-foreground font-semibold">
+                      Get Started — €39
+                    </Button>
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>
