@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Dumbbell, LayoutDashboard, Shield } from "lucide-react";
+import { Menu, X, Dumbbell, Instagram, LayoutDashboard, Link2, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { programPublicPath } from "@/lib/programNav";
@@ -14,6 +14,10 @@ const navLinks = [
   { href: "/faq", label: "FAQ" },
   { href: "/pricing", label: "Pricing" },
 ] as const;
+
+const INSTAGRAM_URL = "https://www.instagram.com/_coachmilos/";
+const LINKTREE_URL =
+  "https://linktr.ee/pt_dubai_milos35?utm_source=ig&utm_medium=social&utm_content=link_in_bio";
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
@@ -59,41 +63,55 @@ const Navbar = () => {
           })}
         </div>
 
-        <div className="hidden lg:flex items-center gap-2">
-          {user ? (
-            <>
-              <Link to="/dashboard">
-                <Button variant="ghost" size="sm" className="gap-1.5">
-                  <LayoutDashboard className="h-4 w-4" />
-                  Dashboard
-                </Button>
-              </Link>
-              {isAdmin && (
-                <Link to="/admin">
-                  <Button variant="ghost" size="sm" className="gap-1.5 text-amber-500">
-                    <Shield className="h-4 w-4" />
-                    Admin
+        <div className="hidden lg:flex items-center gap-3">
+          <div className="flex items-center gap-1">
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Coach Milos on Instagram">
+              <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-foreground">
+                <Instagram className="h-4 w-4" />
+              </Button>
+            </a>
+            <a href={LINKTREE_URL} target="_blank" rel="noopener noreferrer" aria-label="Coach Milos on Linktree">
+              <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-foreground">
+                <Link2 className="h-4 w-4" />
+              </Button>
+            </a>
+          </div>
+          <div className="flex items-center gap-2">
+            {user ? (
+              <>
+                <Link to="/dashboard">
+                  <Button variant="ghost" size="sm" className="gap-1.5">
+                    <LayoutDashboard className="h-4 w-4" />
+                    Dashboard
                   </Button>
                 </Link>
-              )}
-              <Button variant="outline" size="sm" onClick={() => signOut()}>
-                Sign out
-              </Button>
-            </>
-          ) : (
-            <>
-              <Link to="/login">
-                <Button variant="ghost" size="sm">
-                  Log In
+                {isAdmin && (
+                  <Link to="/admin">
+                    <Button variant="ghost" size="sm" className="gap-1.5 text-amber-500">
+                      <Shield className="h-4 w-4" />
+                      Admin
+                    </Button>
+                  </Link>
+                )}
+                <Button variant="outline" size="sm" onClick={() => signOut()}>
+                  Sign out
                 </Button>
-              </Link>
-              <Link to="/pricing">
-                <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
-                  Get Started — €39
-                </Button>
-              </Link>
-            </>
-          )}
+              </>
+            ) : (
+              <>
+                <Link to="/login">
+                  <Button variant="ghost" size="sm">
+                    Log In
+                  </Button>
+                </Link>
+                <Link to="/pricing">
+                  <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
+                    Get Started — €39
+                  </Button>
+                </Link>
+              </>
+            )}
+          </div>
         </div>
 
         <button className="lg:hidden text-foreground" onClick={() => setOpen(!open)}>
@@ -119,6 +137,18 @@ const Navbar = () => {
                 </Link>
               );
             })}
+            <div className="flex items-center justify-center gap-2 py-3 border-t border-border">
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                <Button variant="outline" size="icon" className="h-10 w-10">
+                  <Instagram className="h-4 w-4" />
+                </Button>
+              </a>
+              <a href={LINKTREE_URL} target="_blank" rel="noopener noreferrer" aria-label="Linktree">
+                <Button variant="outline" size="icon" className="h-10 w-10">
+                  <Link2 className="h-4 w-4" />
+                </Button>
+              </a>
+            </div>
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
               {user ? (
                 <>

@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
-import { Dumbbell, Instagram, Mail } from "lucide-react";
+import { Dumbbell, Instagram, Link2, Mail } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { programPublicPath } from "@/lib/programNav";
+
+const INSTAGRAM_URL = "https://www.instagram.com/_coachmilos/";
+const LINKTREE_URL =
+  "https://linktr.ee/pt_dubai_milos35?utm_source=ig&utm_medium=social&utm_content=link_in_bio";
 
 const Footer = () => {
   const { configured, hasProgramAccess, loading, user } = useAuth();
@@ -45,8 +49,11 @@ const Footer = () => {
           <div>
             <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Connect</h4>
             <div className="flex flex-col gap-2">
-              <a href="https://instagram.com/_coachmilos" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                <Instagram className="h-4 w-4" /> @_coachmilos
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Instagram className="h-4 w-4 shrink-0" /> @_coachmilos
+              </a>
+              <a href={LINKTREE_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Link2 className="h-4 w-4 shrink-0" /> Linktree — all links
               </a>
               <a href="mailto:hello@busystrong90.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Mail className="h-4 w-4" /> hello@busystrong90.com
