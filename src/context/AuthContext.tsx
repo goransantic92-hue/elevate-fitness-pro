@@ -100,10 +100,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUp = useCallback(async (email: string, password: string, fullName: string) => {
     if (!isSupabaseConfigured) return { error: new Error("Supabase is not configured") };
+    const site =
+      (import.meta.env.VITE_SITE_URL?.trim().replace(/\/$/, "") || "") ||
+      (typeof window !== "undefined" ? window.location.origin : "");
     const { error } = await supabase.auth.signUp({
       email,
       password,
-      options: { data: { full_name: fullName } },
+      options: {
+        data: { full_name: fullName },
+        // Must match Supabase Auth → URL Configuration → Redirect URLs
+        emailRedirectTo: site ? `${site}/` : undefined,
+      },
     });
     return { error: error ? new Error(error.message) : null };
   }, []);

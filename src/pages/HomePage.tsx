@@ -61,15 +61,15 @@ const HomePage = () => {
             <p className="text-sm text-muted-foreground mb-8 italic">
               "You don't need to suffer more. You need to suffer smarter." — Coach Milos
             </p>
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Link to="/pricing">
-                <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-lg px-8 h-14 glow-green">
+            <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+              <Link to="/pricing" className="inline-flex w-fit max-w-full">
+                <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-sm h-10 px-4 glow-green whitespace-normal text-left sm:text-center">
                   Start Your Transformation — €39
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                  <ArrowRight className="ml-2 h-4 w-4 shrink-0" />
                 </Button>
               </Link>
-              <Link to="/program">
-                <Button size="lg" variant="outline" className="border-border text-foreground hover:bg-secondary h-14 px-8">
+              <Link to="/program" className="inline-flex w-fit max-w-full">
+                <Button variant="outline" className="border-border text-foreground hover:bg-secondary h-10 px-4 text-sm font-medium">
                   Explore the Program
                 </Button>
               </Link>
@@ -205,12 +205,14 @@ const HomePage = () => {
           <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
             The program. The nutrition framework. The habit system. Everything you need. The only thing standing between you and the body you want is starting.
           </p>
-          <Link to="/pricing">
-            <Button size="lg" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold text-lg px-10 h-14 glow-green animate-pulse-glow">
-              Get Started Now — €39
-              <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
+          <div className="flex justify-center">
+            <Link to="/pricing" className="inline-flex w-fit max-w-full">
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-sm h-10 px-5 glow-green animate-pulse-glow whitespace-normal">
+                Get Started Now — €39
+                <ArrowRight className="ml-2 h-4 w-4 shrink-0" />
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>
