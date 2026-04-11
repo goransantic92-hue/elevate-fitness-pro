@@ -58,4 +58,13 @@
   .section-padding {
     @apply py-20 md:py-28 px-4 md:px-8;
   }
+  .dashboard-bg {
+    pointer-events: none;
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    background: radial-gradient(ellipse 90% 55% at 50% -25%, hsl(110 100% 55% / 0.14), transparent 55%),
+      radial-gradient(ellipse 50% 40% at 100% 10%, hsl(160 70% 45% / 0.09), transparent 50%),
+      radial-gradient(ellipse 45% 35% at 0% 80%, hsl(110 100% 55% / 0.06), transparent 45%);
+  }
 }

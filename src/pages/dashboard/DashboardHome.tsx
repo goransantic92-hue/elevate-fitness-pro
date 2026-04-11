@@ -1,22 +1,96 @@
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, CheckCircle2, Circle } from "lucide-react";
+import { ArrowRight, Sparkles } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { MemberGate } from "@/components/MemberGate";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { ProgramProgressRing } from "@/components/dashboard/ProgramProgressRing";
+import { WeightLineChart } from "@/components/dashboard/WeightLineChart";
+import { WeekWorkoutChecklist } from "@/components/dashboard/WeekWorkoutChecklist";
 import { programMeta, weeklySchedule } from "@/data/busyStrong90";
+import { getProgramAnchorIso, getProgramProgress } from "@/lib/programProgress";
+import { supabase } from "@/lib/supabase";
+import { useToast } from "@/hooks/use-toast";
+import type { Database } from "@/types/database";
+
+type Checkin = Database["public"]["Tables"]["progress_checkins"]["Row"];
+type WLog = Database["public"]["Tables"]["workout_session_logs"]["Row"];
+type Slot = WLog["slot"];
 
 export default function DashboardHome() {
-  const { hasProgramAccess, profile } = useAuth();
+  const { hasProgramAccess, profile, user, memberAccess } = useAuth();
+  const { toast } = useToast();
+  const [checkins, setCheckins] = useState<Checkin[]>([]);
+  const [logs, setLogs] = useState<WLog[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [toggleBusy, setToggleBusy] = useState(false);
+  const [variant, setVariant] = useState<"gym" | "home">("gym");
+
+  const anchorIso = useMemo(() => getProgramAnchorIso(memberAccess), [memberAccess]);
+  const progress = useMemo(() => getProgramProgress(anchorIso), [anchorIso]);
+
+  const load = useCallback(async () => {
+    if (!user) return;
+    setLoading(true);
+    const [c, w] = await Promise.all([
+      supabase.from("progress_checkins").select("*").eq("user_id", user.id).order("week_number"),
+      supabase.from("workout_session_logs").select("*").eq("user_id", user.id),
+    ]);
+    if (c.error) toast({ title: "Could not load check-ins", description: c.error.message, variant: "destructive" });
+    else setCheckins(c.data ?? []);
+    if (w.error) toast({ title: "Could not load workouts", description: w.error.message, variant: "destructive" });
+    else setLogs(w.data ?? []);
+    setLoading(false);
+  }, [user, toast]);
+
+  useEffect(() => {
+    if (hasProgramAccess && user) load();
+    else setLoading(false);
+  }, [hasProgramAccess, user, load]);
+
+  const weightChartData = useMemo(
+    () =>
+      checkins
+        .filter((x) => x.weight_kg != null)
+        .map((x) => ({ week: x.week_number, kg: x.weight_kg as number })),
+    [checkins]
+  );
+
+  async function onToggleSlot(slot: Slot, done: boolean) {
+    if (!user) return;
+    setToggleBusy(true);
+    const { error } = await supabase.from("workout_session_logs").upsert(
+      {
+        user_id: user.id,
+        week_number: progress.weekNumber,
+        slot,
+        variant,
+        completed: done,
+      },
+      { onConflict: "user_id,week_number,slot" }
+    );
+    setToggleBusy(false);
+    if (error) {
+      toast({ title: "Update failed", description: error.message, variant: "destructive" });
+      return;
+    }
+    load();
+  }
 
   return (
-    <div className="max-w-4xl mx-auto space-y-8">
+    <div className="max-w-5xl mx-auto space-y-10 md:space-y-12">
       <div>
-        <h1 className="text-3xl md:text-4xl font-black tracking-tight">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-wider mb-4">
+          <Sparkles className="h-3.5 w-3.5" />
+          Member hub
+        </div>
+        <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">
           Hey{profile?.full_name ? `, ${profile.full_name.split(" ")[0]}` : ""}
+          <br />
+          <span className="text-gradient">Stay on the system.</span>
         </h1>
-        <p className="text-muted-foreground mt-2">
-          {programMeta.name} — {programMeta.tagline} Your digital command center for training, nutrition, and progress.
+        <p className="text-muted-foreground mt-3 md:text-lg max-w-2xl leading-relaxed">
+          {programMeta.name} — same energy as the main site: train smart, log light, let consistency do the work.
         </p>
       </div>
 
@@ -26,70 +100,133 @@ export default function DashboardHome() {
         </MemberGate>
       ) : (
         <>
-          <div className="grid sm:grid-cols-2 gap-4">
-            <Card className="glass-card border-primary/20">
-              <CardHeader>
-                <CardTitle className="text-lg">This week</CardTitle>
-                <CardDescription>Same structure all 12 weeks — consistency is king.</CardDescription>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                {weeklySchedule.slice(0, 5).map((d) => (
-                  <div key={d.day} className="flex justify-between text-sm border-b border-border/40 pb-2 last:border-0">
-                    <span className="font-medium">{d.day}</span>
-                    <span className="text-muted-foreground text-right">{d.session}</span>
+          {/* Hero: progress + ring */}
+          <section className="glass-card glow-green border-primary/15 overflow-hidden">
+            <div className="grid md:grid-cols-2 gap-8 md:gap-10 p-6 md:p-10 items-center">
+              <div className="space-y-6">
+                <div>
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">90-day block</p>
+                  <p className="text-2xl md:text-3xl font-black leading-tight">
+                    {progress.isComplete ? "You closed the 90." : `Day ${progress.currentDay} of ${90}`}
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-2">
+                    {progress.isComplete
+                      ? "Keep logging if you want — habits outlive the countdown."
+                      : `Week ${progress.weekNumber} of 12 · ${progress.percentComplete}% through the program arc.`}
+                  </p>
+                </div>
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
+                    <p className="text-2xl font-black text-primary tabular-nums">{progress.percentComplete}%</p>
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Done</p>
                   </div>
-                ))}
-                <Button variant="link" className="px-0 text-primary" asChild>
-                  <Link to="/dashboard/roadmap">
-                    Full schedule <ArrowRight className="h-4 w-4 ml-1" />
-                  </Link>
-                </Button>
-              </CardContent>
-            </Card>
-            <Card className="glass-card">
-              <CardHeader>
-                <CardTitle className="text-lg">Quick actions</CardTitle>
-                <CardDescription>Everything from your manual, organized for daily use.</CardDescription>
-              </CardHeader>
-              <CardContent className="flex flex-col gap-2">
-                <Button asChild variant="secondary" className="justify-between">
-                  <Link to="/dashboard/training">
-                    Open training plans <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button asChild variant="secondary" className="justify-between">
-                  <Link to="/dashboard/nutrition">
-                    Nutrition system <ArrowRight className="h-4 w-4" />
-                  </Link>
-                </Button>
-                <Button asChild variant="secondary" className="justify-between">
+                  <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
+                    <p className="text-2xl font-black tabular-nums">{progress.isComplete ? 0 : progress.daysRemaining}</p>
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Days left</p>
+                  </div>
+                  <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
+                    <p className="text-2xl font-black tabular-nums">{progress.weekNumber}</p>
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Week</p>
+                  </div>
+                </div>
+                <Button asChild variant="secondary" className="font-semibold">
                   <Link to="/dashboard/progress">
-                    Log progress <ArrowRight className="h-4 w-4" />
+                    Full progress &amp; check-ins <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+              <div className="flex justify-center md:justify-end">
+                <ProgramProgressRing
+                  percent={progress.percentComplete}
+                  currentDay={progress.currentDay}
+                  daysRemaining={progress.daysRemaining}
+                  weekNumber={progress.weekNumber}
+                  isComplete={progress.isComplete}
+                />
+              </div>
+            </div>
+          </section>
+
+          {/* Weight + schedule snapshot */}
+          <div className="grid lg:grid-cols-2 gap-6 md:gap-8">
+            <section className="glass-card p-6 md:p-8 border-border/60">
+              <div className="flex items-start justify-between gap-4 mb-4">
+                <div>
+                  <h2 className="text-lg md:text-xl font-black">Weight trend</h2>
+                  <p className="text-sm text-muted-foreground mt-1">From your Monday check-ins (kg by week).</p>
+                </div>
+              </div>
+              {loading ? (
+                <div className="h-[220px] flex items-center justify-center text-sm text-muted-foreground">Loading chart…</div>
+              ) : (
+                <WeightLineChart data={weightChartData} />
+              )}
+            </section>
+
+            <section className="glass-card p-6 md:p-8 border-border/60">
+              <h2 className="text-lg md:text-xl font-black mb-1">Weekly rhythm</h2>
+              <p className="text-sm text-muted-foreground mb-4">Same structure all 12 weeks — protect these slots.</p>
+              <ul className="space-y-2">
+                {weeklySchedule.slice(0, 5).map((d) => {
+                  const isTraining = d.session.startsWith("Training") || d.session === "10-Min Bonus";
+                  return (
+                    <li
+                      key={d.day}
+                      className="flex justify-between gap-3 text-sm py-2 border-b border-border/40 last:border-0"
+                    >
+                      <span className={isTraining ? "font-semibold text-primary" : "text-muted-foreground"}>{d.day}</span>
+                      <span className="text-muted-foreground text-right">{d.session}</span>
+                    </li>
+                  );
+                })}
+              </ul>
+              <Button variant="link" className="px-0 text-primary mt-2 h-auto font-semibold" asChild>
+                <Link to="/dashboard/roadmap">
+                  Open roadmap <ArrowRight className="h-4 w-4 ml-1" />
+                </Link>
+              </Button>
+            </section>
           </div>
 
-          <Card className="glass-card border-border/60">
-            <CardHeader>
-              <CardTitle className="text-lg">Today&apos;s mindset</CardTitle>
-              <CardDescription>From the manual</CardDescription>
-            </CardHeader>
-            <CardContent className="space-y-3">
-              <p className="text-sm text-muted-foreground italic">&ldquo;{programMeta.quote}&rdquo; — {programMeta.coach.name}</p>
-              <ul className="text-sm space-y-2">
-                <li className="flex gap-2">
-                  <CheckCircle2 className="h-4 w-4 text-primary shrink-0 mt-0.5" />
-                  Train smart — minimum effective dose, not maximum suffering.
-                </li>
-                <li className="flex gap-2">
-                  <Circle className="h-4 w-4 text-muted-foreground shrink-0 mt-0.5" />
-                  Log Monday weight, main lifts each session, photos every 4 weeks.
-                </li>
-              </ul>
-            </CardContent>
-          </Card>
+          {/* Session checklist */}
+          <section className="glass-card p-6 md:p-8 border-primary/10">
+            <WeekWorkoutChecklist
+              weekNumber={progress.weekNumber}
+              variant={variant}
+              onVariantChange={setVariant}
+              logs={logs}
+              busy={toggleBusy || loading}
+              onToggle={onToggleSlot}
+            />
+          </section>
+
+          {/* Quick actions */}
+          <section className="grid sm:grid-cols-3 gap-4">
+            {[
+              { to: "/dashboard/training", title: "Training", sub: "Plans A · B · C" },
+              { to: "/dashboard/nutrition", title: "Nutrition", sub: "Framework & habits" },
+              { to: "/dashboard/reminders", title: "Reminders", sub: "Stay consistent" },
+            ].map((x) => (
+              <Link
+                key={x.to}
+                to={x.to}
+                className="glass-card p-5 border-border/60 hover:border-primary/30 hover:bg-card/80 transition-all group flex flex-col"
+              >
+                <span className="font-black text-lg">{x.title}</span>
+                <span className="text-xs text-muted-foreground mt-1">{x.sub}</span>
+                <span className="text-primary text-sm font-semibold mt-3 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
+                  Open <ArrowRight className="h-4 w-4" />
+                </span>
+              </Link>
+            ))}
+          </section>
+
+          <section className="glass-card p-6 md:p-8 border-border/60">
+            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">Mindset</p>
+            <p className="text-sm md:text-base text-muted-foreground italic leading-relaxed">
+              &ldquo;{programMeta.quote}&rdquo; — {programMeta.coach.name}
+            </p>
+          </section>
         </>
       )}
     </div>
