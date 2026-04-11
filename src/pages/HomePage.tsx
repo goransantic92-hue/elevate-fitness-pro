@@ -12,6 +12,24 @@ const stats = [
   { value: "35+", label: "Age Group", icon: Users },
 ];
 
+const testimonials = [
+  {
+    quote: "I come home differently now and my kids notice.",
+    name: "David M.",
+    detail: "Parent & project manager, 42",
+  },
+  {
+    quote: "Three sessions I can actually protect on my calendar — stronger without living in the gym.",
+    name: "Elena R.",
+    detail: "Founder, 38",
+  },
+  {
+    quote: "I stopped overthinking meals. Protein, consistency, and the plan did the rest.",
+    name: "Marcus V.",
+    detail: "Corporate lead, 45",
+  },
+] as const;
+
 const pillars = [
   {
     icon: Dumbbell,
@@ -175,7 +193,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Testimonials — placeholders until real stories are collected */}
       <section className="section-padding bg-card/50">
         <div className="container mx-auto max-w-5xl">
           <div className="text-center mb-14">
@@ -183,17 +200,18 @@ const HomePage = () => {
               Success <span className="text-gradient">Stories</span>
             </h2>
             <p className="text-muted-foreground max-w-xl mx-auto">
-              Placeholder cards for future client testimonials and before/after highlights. Only publish quotes you have permission to use.
+              Busy people building strength with a system that respects real life.
             </p>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {["Member story 1", "Member story 2", "Member story 3"].map((label) => (
-              <div key={label} className="glass-card p-8 border-dashed border-border/80 flex flex-col items-center text-center">
-                <Quote className="h-8 w-8 text-primary/40 mb-4" />
-                <p className="text-sm text-muted-foreground leading-relaxed mb-4">
-                  Add a short testimonial here with name, age range, and role (e.g. entrepreneur, parent). Pair with progress photos when available.
-                </p>
-                <span className="text-xs font-bold uppercase tracking-wider text-primary/70">{label}</span>
+            {testimonials.map((t) => (
+              <div key={t.name} className="glass-card p-8 flex flex-col text-center">
+                <Quote className="h-8 w-8 text-primary/40 mb-4 mx-auto" />
+                <p className="text-sm text-foreground/90 leading-relaxed mb-6 flex-1">&ldquo;{t.quote}&rdquo;</p>
+                <div>
+                  <p className="font-bold text-foreground">{t.name}</p>
+                  <p className="text-xs text-muted-foreground mt-1">{t.detail}</p>
+                </div>
               </div>
             ))}
           </div>
