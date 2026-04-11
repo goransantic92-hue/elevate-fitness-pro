@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Dumbbell, LayoutDashboard, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
+import { programPublicPath } from "@/lib/programNav";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -12,12 +13,26 @@ const navLinks = [
   { href: "/results", label: "Results" },
   { href: "/faq", label: "FAQ" },
   { href: "/pricing", label: "Pricing" },
-];
+] as const;
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
-  const { user, isAdmin, signOut } = useAuth();
+  const { user, isAdmin, signOut, configured, hasProgramAccess, loading } = useAuth();
+
+  const navOpts = { configured, hasProgramAccess, loading, user };
+
+  const linkTo = (href: string) => {
+    if (href === "/training") return programPublicPath("/training", navOpts);
+    if (href === "/nutrition") return programPublicPath("/nutrition", navOpts);
+    return href;
+  };
+
+  const linkActive = (href: string, to: string) => {
+    if (href === "/training") return location.pathname === "/training";
+    if (href === "/nutrition") return location.pathname === "/nutrition";
+    return location.pathname === to;
+  };
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
@@ -28,19 +43,20 @@ const Navbar = () => {
         </Link>
 
         <div className="hidden lg:flex items-center gap-1">
-          {navLinks.map((link) => (
-            <Link
-              key={link.href}
-              to={link.href}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                location.pathname === link.href
-                  ? "text-primary bg-primary/10"
-                  : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-              }`}
-            >
-              {link.label}
-            </Link>
-          ))}
+          {navLinks.map((link) => {
+            const to = linkTo(link.href);
+            return (
+              <Link
+                key={link.href}
+                to={to}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
+                  linkActive(link.href, to) ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                }`}
+              >
+                {link.label}
+              </Link>
+            );
+          })}
         </div>
 
         <div className="hidden lg:flex items-center gap-2">
@@ -88,20 +104,21 @@ const Navbar = () => {
       {open && (
         <div className="lg:hidden bg-background/95 backdrop-blur-xl border-b border-border">
           <div className="container mx-auto px-4 py-4 flex flex-col gap-2">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                to={link.href}
-                onClick={() => setOpen(false)}
-                className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                  location.pathname === link.href
-                    ? "text-primary bg-primary/10"
-                    : "text-muted-foreground hover:text-foreground hover:bg-secondary"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
+            {navLinks.map((link) => {
+              const to = linkTo(link.href);
+              return (
+                <Link
+                  key={link.href}
+                  to={to}
+                  onClick={() => setOpen(false)}
+                  className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
+                    linkActive(link.href, to) ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              );
+            })}
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
               {user ? (
                 <>

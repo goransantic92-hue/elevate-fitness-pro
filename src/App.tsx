@@ -4,6 +4,8 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { ProgramContentGate } from "@/components/ProgramContentGate";
+import { ScrollToTop } from "@/components/ScrollToTop";
 import PublicLayout from "@/components/PublicLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AdminLayout from "@/layouts/AdminLayout";
@@ -39,12 +41,27 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route element={<PublicLayout />}>
             <Route path="/" element={<HomePage />} />
             <Route path="/program" element={<ProgramPage />} />
-            <Route path="/training" element={<TrainingPage />} />
-            <Route path="/nutrition" element={<NutritionPage />} />
+            <Route
+              path="/training"
+              element={
+                <ProgramContentGate>
+                  <TrainingPage />
+                </ProgramContentGate>
+              }
+            />
+            <Route
+              path="/nutrition"
+              element={
+                <ProgramContentGate>
+                  <NutritionPage />
+                </ProgramContentGate>
+              }
+            />
             <Route path="/results" element={<ResultsPage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/pricing" element={<PricingPage />} />

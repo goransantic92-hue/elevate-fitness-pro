@@ -40,10 +40,14 @@ const HomePage = () => {
       />
       {/* Hero */}
       <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img src={coachHero} alt="Coach Milos demonstrating fitness" className="w-full h-full object-cover object-top" />
-          <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 to-background/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent to-background/30" />
+        <div className="absolute inset-0 overflow-hidden">
+          <img
+            src={coachHero}
+            alt="Coach Milos demonstrating fitness"
+            className="h-full w-full min-h-full object-cover md:object-top max-md:object-[8%_0%] max-md:scale-[1.14] max-md:origin-[0%_0%]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-background max-md:via-background/78 max-md:to-background/20 md:via-background/85 md:to-background/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent max-md:to-background/15 to-background/30" />
         </div>
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-2xl">

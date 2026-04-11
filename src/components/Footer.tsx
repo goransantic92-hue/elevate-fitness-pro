@@ -1,7 +1,14 @@
 import { Link } from "react-router-dom";
 import { Dumbbell, Instagram, Mail } from "lucide-react";
+import { useAuth } from "@/context/AuthContext";
+import { programPublicPath } from "@/lib/programNav";
 
 const Footer = () => {
+  const { configured, hasProgramAccess, loading, user } = useAuth();
+  const navOpts = { configured, hasProgramAccess, loading, user };
+  const trainingTo = programPublicPath("/training", navOpts);
+  const nutritionTo = programPublicPath("/nutrition", navOpts);
+
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-16">
@@ -20,8 +27,8 @@ const Footer = () => {
             <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Program</h4>
             <div className="flex flex-col gap-2">
               <Link to="/program" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Program Overview</Link>
-              <Link to="/training" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Training Plans</Link>
-              <Link to="/nutrition" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Nutrition Guide</Link>
+              <Link to={trainingTo} className="text-sm text-muted-foreground hover:text-foreground transition-colors">Training Plans</Link>
+              <Link to={nutritionTo} className="text-sm text-muted-foreground hover:text-foreground transition-colors">Nutrition Guide</Link>
               <Link to="/results" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Results</Link>
             </div>
           </div>

@@ -50,7 +50,9 @@ const PricingPage = () => {
                 <Zap className="h-3 w-3" /> LAUNCH PRICE — LIMITED TIME
               </div>
               <h2 className="text-4xl md:text-5xl font-black mb-2">€39</h2>
-              <p className="text-muted-foreground text-sm">One-time payment · Lifetime access</p>
+              <p className="text-muted-foreground text-[10px] leading-tight sm:text-xs md:text-sm whitespace-nowrap tracking-tight text-center">
+                One-time payment · Lifetime access
+              </p>
             </div>
 
             <div className="p-8">
@@ -67,13 +69,12 @@ const PricingPage = () => {
               </div>
 
               <Button
-                className="w-full bg-primary text-primary-foreground font-bold text-lg h-14 hover:bg-primary/90 animate-pulse-glow"
-                size="lg"
+                className="w-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-base h-auto min-h-10 py-2.5 px-3 sm:min-h-11 sm:py-3 md:h-12 md:py-0 hover:bg-primary/90 animate-pulse-glow leading-snug"
                 asChild
               >
-                <Link to="/signup">
-                  Create account (checkout soon)
-                  <ArrowRight className="ml-2 h-5 w-5" />
+                <Link to="/signup" className="inline-flex w-full items-center justify-center gap-1.5 text-center">
+                  <span className="max-w-[calc(100%-1.5rem)]">Create account (checkout soon)</span>
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" />
                 </Link>
               </Button>
 
