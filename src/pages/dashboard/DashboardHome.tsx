@@ -14,7 +14,7 @@ import type { PlanTab } from "@/lib/dashboardSessionLinks";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import type { Database } from "@/types/database";
-import { countFullyCompletedProgramWeeks } from "@/lib/weekCompletionStats";
+import { countFullyCompletedProgramWeeks, isWeekFullyCompleteForVariant } from "@/lib/weekCompletionStats";
 
 type Checkin = Database["public"]["Tables"]["progress_checkins"]["Row"];
 type WLog = Database["public"]["Tables"]["workout_session_logs"]["Row"];
@@ -29,6 +29,7 @@ export default function DashboardHome() {
   const [toggleBusy, setToggleBusy] = useState(false);
   const [savingCheckin, setSavingCheckin] = useState(false);
   const [planTab, setPlanTab] = useState<PlanTab>("gym");
+  const [checkinWeek, setCheckinWeek] = useState<number | null>(null);
 
   const anchorIso = useMemo(() => getProgramAnchorIso(memberAccess), [memberAccess]);
   const progress = useMemo(() => getProgramProgress(anchorIso), [anchorIso]);
@@ -51,6 +52,12 @@ export default function DashboardHome() {
     if (hasProgramAccess && user) load();
     else setLoading(false);
   }, [hasProgramAccess, user, load]);
+
+  useEffect(() => {
+    if (hasProgramAccess && checkinWeek === null) {
+      setCheckinWeek(progress.weekNumber);
+    }
+  }, [hasProgramAccess, checkinWeek, progress.weekNumber]);
 
   const weightChartData = useMemo(
     () =>
@@ -82,6 +89,12 @@ export default function DashboardHome() {
       toast({ title: "Update failed", description: error.message, variant: "destructive" });
       return;
     }
+    if (planTab === "gym" || planTab === "home") {
+      const { data: fresh } = await supabase.from("workout_session_logs").select("*").eq("user_id", user.id);
+      if (fresh?.length && isWeekFullyCompleteForVariant(fresh, progress.weekNumber, planTab)) {
+        setCheckinWeek(Math.min(12, progress.weekNumber + 1));
+      }
+    }
     load();
   }
 
@@ -102,6 +115,9 @@ export default function DashboardHome() {
     if (error) {
       toast({ title: "Update failed", description: error.message, variant: "destructive" });
       return;
+    }
+    if (complete) {
+      setCheckinWeek(Math.min(12, progress.weekNumber + 1));
     }
     load();
   }
@@ -262,7 +278,8 @@ export default function DashboardHome() {
 
           <DashboardWeeklyCheckinCard
             checkins={checkins}
-            defaultWeek={progress.weekNumber}
+            week={checkinWeek ?? progress.weekNumber}
+            onWeekChange={setCheckinWeek}
             saving={savingCheckin}
             onSave={onSaveCheckin}
           />
