@@ -9,19 +9,19 @@ import { WeightLineChart } from "@/components/dashboard/WeightLineChart";
 import { WeekWorkoutChecklist } from "@/components/dashboard/WeekWorkoutChecklist";
 import { DashboardWeeklyCheckinCard } from "@/components/dashboard/DashboardWeeklyCheckinCard";
 import { programMeta, weeklySchedule } from "@/data/busyStrong90";
-import { getProgramAnchorIso, getProgramProgress } from "@/lib/programProgress";
+import { getProgramProgressFromSessionLogs } from "@/lib/programProgress";
 import type { PlanTab } from "@/lib/dashboardSessionLinks";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import type { Database } from "@/types/database";
-import { countFullyCompletedProgramWeeks, isWeekFullyCompleteForVariant } from "@/lib/weekCompletionStats";
+import { isWeekFullyCompleteUnion } from "@/lib/weekCompletionStats";
 
 type Checkin = Database["public"]["Tables"]["progress_checkins"]["Row"];
 type WLog = Database["public"]["Tables"]["workout_session_logs"]["Row"];
 type Slot = WLog["slot"];
 
 export default function DashboardHome() {
-  const { hasProgramAccess, profile, user, memberAccess } = useAuth();
+  const { hasProgramAccess, profile, user } = useAuth();
   const { toast } = useToast();
   const [checkins, setCheckins] = useState<Checkin[]>([]);
   const [logs, setLogs] = useState<WLog[]>([]);
@@ -31,8 +31,7 @@ export default function DashboardHome() {
   const [planTab, setPlanTab] = useState<PlanTab>("gym");
   const [checkinWeek, setCheckinWeek] = useState<number | null>(null);
 
-  const anchorIso = useMemo(() => getProgramAnchorIso(memberAccess), [memberAccess]);
-  const progress = useMemo(() => getProgramProgress(anchorIso), [anchorIso]);
+  const progress = useMemo(() => getProgramProgressFromSessionLogs(logs), [logs]);
 
   const load = useCallback(async () => {
     if (!user) return;
@@ -67,8 +66,7 @@ export default function DashboardHome() {
     [checkins]
   );
 
-  const fullTrainingWeeks = useMemo(() => countFullyCompletedProgramWeeks(logs), [logs]);
-  const trainingWeeksRemaining = Math.max(0, 12 - fullTrainingWeeks);
+  const trainingWeeksRemaining = Math.max(0, 12 - progress.completedContiguousWeeks);
 
   async function onToggleSlot(slot: Slot, done: boolean) {
     if (!user) return;
@@ -91,7 +89,7 @@ export default function DashboardHome() {
     }
     if (planTab === "gym" || planTab === "home") {
       const { data: fresh } = await supabase.from("workout_session_logs").select("*").eq("user_id", user.id);
-      if (fresh?.length && isWeekFullyCompleteForVariant(fresh, progress.weekNumber, planTab)) {
+      if (fresh?.length && isWeekFullyCompleteUnion(fresh, progress.weekNumber)) {
         setCheckinWeek(Math.min(12, progress.weekNumber + 1));
       }
     }
@@ -176,11 +174,13 @@ export default function DashboardHome() {
                   <p className="text-sm text-muted-foreground mt-2">
                     {progress.isComplete
                       ? "Keep logging if you want — habits outlive the countdown."
-                      : `Calendar week ${progress.weekNumber} of 12 · ${progress.percentComplete}% through the 90-day arc.`}
+                      : `Training week ${progress.weekNumber} of 12 · ${progress.percentComplete}% of the 90-day arc (from your checkboxes).`}
                   </p>
                   <p className="text-xs text-primary/90 mt-2 font-medium">
-                    {fullTrainingWeeks} of 12 program weeks have all four sessions checked (gym or home).{" "}
-                    {trainingWeeksRemaining > 0 ? `${trainingWeeksRemaining} week blocks still open to complete.` : "All weeks fully logged."}
+                    {progress.completedContiguousWeeks} of 12 weeks fully done in order (Mon · Wed · Fri · Sat — gym or home).{" "}
+                    {trainingWeeksRemaining > 0
+                      ? `${trainingWeeksRemaining} more week blocks to finish in sequence.`
+                      : "All 12 weeks checked off."}
                   </p>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
@@ -194,11 +194,11 @@ export default function DashboardHome() {
                   </div>
                   <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
                     <p className="text-2xl font-black tabular-nums">{progress.weekNumber}</p>
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Calendar wk</p>
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Train wk</p>
                   </div>
                   <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
                     <p className="text-2xl font-black text-primary tabular-nums">
-                      {fullTrainingWeeks}
+                      {progress.completedContiguousWeeks}
                       <span className="text-muted-foreground text-lg font-bold">/12</span>
                     </p>
                     <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Weeks logged</p>
@@ -284,10 +284,8 @@ export default function DashboardHome() {
             onSave={onSaveCheckin}
           />
 
-          {/* Quick actions */}
-          <section className="grid sm:grid-cols-3 gap-4">
+          <section className="grid sm:grid-cols-2 gap-4 max-w-3xl">
             {[
-              { to: "/dashboard/training", title: "Training", sub: "Plans A · B · C" },
               { to: "/dashboard/nutrition", title: "Nutrition", sub: "Framework & habits" },
               { to: "/dashboard/reminders", title: "Reminders", sub: "Stay consistent" },
             ].map((x) => (
