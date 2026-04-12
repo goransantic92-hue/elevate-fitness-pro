@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { Database } from "@/types/database";
 import { getSessionLinkMeta, type PlanTab, type SessionSlot } from "@/lib/dashboardSessionLinks";
+import { PROGRAM_TOTAL_DAYS } from "@/lib/programProgress";
 
 type Slot = Database["public"]["Tables"]["workout_session_logs"]["Row"]["slot"];
 
@@ -26,6 +27,10 @@ type Props = {
   busy: boolean;
   onToggle: (slot: Slot, done: boolean) => void;
   onSetWholeWeek: (complete: boolean) => void;
+  /** From session-based 90-day arc (updates after saves / whole week). */
+  currentDay: number;
+  daysRemaining: number;
+  programArcComplete: boolean;
 };
 
 export function WeekWorkoutChecklist({
@@ -36,6 +41,9 @@ export function WeekWorkoutChecklist({
   busy,
   onToggle,
   onSetWholeWeek,
+  currentDay,
+  daysRemaining,
+  programArcComplete,
 }: Props) {
   const doneMap = useMemo(() => {
     const m: Record<string, boolean> = {};
@@ -150,11 +158,35 @@ export function WeekWorkoutChecklist({
           <label htmlFor={`whole-week-${weekNumber}-${planTab}`} className="text-sm leading-snug cursor-pointer select-none">
             <span className="font-semibold text-foreground">Mark whole week complete</span>
             <span className="block text-xs text-muted-foreground mt-1">
-              Checks all four {planTab} sessions for week {weekNumber}. Your overview &quot;weeks fully logged&quot; updates when every slot in a week is done (here or one by one).
+              Checks all four {planTab} sessions for week {weekNumber}. When this week is fully done (here or slot by slot), your{" "}
+              <span className="text-foreground font-medium">{PROGRAM_TOTAL_DAYS}-day</span> arc advances — same numbers as the overview ring.
             </span>
           </label>
         </div>
       )}
+
+      <div className="rounded-xl border border-primary/25 bg-primary/5 px-4 py-3 space-y-1.5">
+        <p className="text-[10px] font-bold uppercase tracking-widest text-primary">90-day program</p>
+        {programArcComplete ? (
+          <p className="text-sm font-semibold text-primary">Arc complete — all 12 weeks checked off in order. Keep training if you want.</p>
+        ) : (
+          <>
+            <p className="text-sm text-foreground">
+              <span className="font-black tabular-nums text-2xl text-primary">{daysRemaining}</span>
+              <span className="text-muted-foreground font-medium"> days left</span>
+              <span className="text-muted-foreground"> · </span>
+              <span className="text-sm text-muted-foreground">
+                Day <span className="font-bold text-foreground tabular-nums">{currentDay}</span> of {PROGRAM_TOTAL_DAYS}
+              </span>
+            </p>
+            <p className="text-xs text-muted-foreground leading-snug">
+              {showCheckboxes
+                ? `Finish all four ${planTab} sessions for week ${weekNumber}, or use “Mark whole week complete”, to move the countdown forward.`
+                : "Switch to Gym or Home and check off a full week to advance your 90-day arc."}
+            </p>
+          </>
+        )}
+      </div>
     </div>
   );
 }

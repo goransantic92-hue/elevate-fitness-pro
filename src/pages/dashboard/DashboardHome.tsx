@@ -273,6 +273,9 @@ export default function DashboardHome() {
               busy={toggleBusy || loading}
               onToggle={onToggleSlot}
               onSetWholeWeek={onSetWholeWeek}
+              currentDay={progress.currentDay}
+              daysRemaining={progress.daysRemaining}
+              programArcComplete={progress.isComplete}
             />
           </section>
 
