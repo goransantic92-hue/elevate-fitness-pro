@@ -10,7 +10,6 @@ const LINKTREE_URL =
 const Footer = () => {
   const { configured, hasProgramAccess, loading, user } = useAuth();
   const navOpts = { configured, hasProgramAccess, loading, user };
-  const trainingTo = programPublicPath("/training", navOpts);
   const nutritionTo = programPublicPath("/nutrition", navOpts);
 
   return (
@@ -31,7 +30,6 @@ const Footer = () => {
             <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Program</h4>
             <div className="flex flex-col gap-2">
               <Link to="/program" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Program Overview</Link>
-              <Link to={trainingTo} className="text-sm text-muted-foreground hover:text-foreground transition-colors">Training Plans</Link>
               <Link to={nutritionTo} className="text-sm text-muted-foreground hover:text-foreground transition-colors">Nutrition Guide</Link>
               <Link to="/results" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Results</Link>
             </div>
