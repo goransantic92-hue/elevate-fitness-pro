@@ -1,38 +1,60 @@
 import { useMemo } from "react";
-import { Check, Dumbbell } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import type { Database } from "@/types/database";
+import { getSessionLinkMeta, type PlanTab, type SessionSlot } from "@/lib/dashboardSessionLinks";
 
 type Slot = Database["public"]["Tables"]["workout_session_logs"]["Row"]["slot"];
 
-const SLOTS: { slot: Slot; label: string; short: string }[] = [
-  { slot: "mon", label: "Monday — Training A", short: "Mon · A" },
-  { slot: "wed", label: "Wednesday — Training B", short: "Wed · B" },
-  { slot: "fri", label: "Friday — Training C", short: "Fri · C" },
-  { slot: "sat_bonus", label: "Saturday — 10 min bonus", short: "Sat · Bonus" },
-];
+const SLOTS: SessionSlot[] = ["mon", "wed", "fri", "sat_bonus"];
+
+const SLOT_SHORT: Record<SessionSlot, string> = {
+  mon: "Mon · A",
+  wed: "Wed · B",
+  fri: "Fri · C",
+  sat_bonus: "Sat · Bonus",
+};
 
 type Props = {
   weekNumber: number;
-  variant: "gym" | "home";
-  onVariantChange: (v: "gym" | "home") => void;
+  planTab: PlanTab;
+  onPlanTabChange: (t: PlanTab) => void;
   logs: Database["public"]["Tables"]["workout_session_logs"]["Row"][];
   busy: boolean;
   onToggle: (slot: Slot, done: boolean) => void;
+  onSetWholeWeek: (complete: boolean) => void;
 };
 
-export function WeekWorkoutChecklist({ weekNumber, variant, onVariantChange, logs, busy, onToggle }: Props) {
+export function WeekWorkoutChecklist({
+  weekNumber,
+  planTab,
+  onPlanTabChange,
+  logs,
+  busy,
+  onToggle,
+  onSetWholeWeek,
+}: Props) {
   const doneMap = useMemo(() => {
     const m: Record<string, boolean> = {};
     for (const s of SLOTS) {
-      const row = logs.find((l) => l.week_number === weekNumber && l.slot === s.slot && l.variant === variant);
-      m[s.slot] = row?.completed ?? false;
+      if (planTab === "emergency") {
+        const g = logs.find((l) => l.week_number === weekNumber && l.slot === s && l.variant === "gym");
+        const h = logs.find((l) => l.week_number === weekNumber && l.slot === s && l.variant === "home");
+        m[s] = Boolean(g?.completed || h?.completed);
+      } else {
+        const row = logs.find((l) => l.week_number === weekNumber && l.slot === s && l.variant === planTab);
+        m[s] = row?.completed ?? false;
+      }
     }
     return m;
-  }, [logs, weekNumber, variant]);
+  }, [logs, weekNumber, planTab]);
 
-  const doneCount = SLOTS.filter((s) => doneMap[s.slot]).length;
+  const doneCount = SLOTS.filter((s) => doneMap[s]).length;
+  const showCheckboxes = planTab === "gym" || planTab === "home";
+  const weekAllDone = SLOTS.every((s) => doneMap[s]);
 
   return (
     <div className="space-y-4">
@@ -44,59 +66,95 @@ export function WeekWorkoutChecklist({ weekNumber, variant, onVariantChange, log
           </p>
         </div>
         <div className="flex rounded-xl border border-border/60 p-0.5 bg-background/50">
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className={cn("rounded-lg h-8 px-3 text-xs", variant === "gym" && "bg-primary/15 text-primary")}
-            onClick={() => onVariantChange("gym")}
-          >
-            Gym
-          </Button>
-          <Button
-            type="button"
-            variant="ghost"
-            size="sm"
-            className={cn("rounded-lg h-8 px-3 text-xs", variant === "home" && "bg-primary/15 text-primary")}
-            onClick={() => onVariantChange("home")}
-          >
-            Home
-          </Button>
+          {(["gym", "home", "emergency"] as const).map((tab) => (
+            <Button
+              key={tab}
+              type="button"
+              variant="ghost"
+              size="sm"
+              className={cn(
+                "rounded-lg h-8 px-2.5 sm:px-3 text-xs capitalize",
+                planTab === tab && "bg-primary/15 text-primary"
+              )}
+              onClick={() => onPlanTabChange(tab)}
+            >
+              {tab === "emergency" ? "10 min" : tab}
+            </Button>
+          ))}
         </div>
       </div>
+
+      {planTab === "emergency" && (
+        <p className="text-xs text-muted-foreground rounded-lg border border-border/50 bg-card/30 px-3 py-2">
+          Quick sessions from the manual. To log a main slot as done, switch to <span className="text-foreground font-medium">Gym</span> or{" "}
+          <span className="text-foreground font-medium">Home</span> and check it off.
+        </p>
+      )}
+
       <ul className="space-y-2">
-        {SLOTS.map((s) => {
-          const done = doneMap[s.slot] ?? false;
+        {SLOTS.map((slot) => {
+          const done = doneMap[slot] ?? false;
+          const meta = getSessionLinkMeta(slot, planTab);
+          const checkId = `session-${weekNumber}-${planTab}-${slot}`;
+
           return (
-            <li key={s.slot}>
-              <button
-                type="button"
-                disabled={busy}
-                onClick={() => onToggle(s.slot, !done)}
+            <li key={slot} className="flex gap-3 items-center">
+              {showCheckboxes && (
+                <div className="shrink-0 pt-0.5">
+                  <Checkbox
+                    id={checkId}
+                    checked={done}
+                    disabled={busy}
+                    className="h-5 w-5 rounded-md border-2 border-border data-[state=checked]:border-primary"
+                    onCheckedChange={(v) => onToggle(slot, v === true)}
+                  />
+                </div>
+              )}
+              <Link
+                to={meta.to}
                 className={cn(
-                  "w-full flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all",
-                  done
-                    ? "border-primary/40 bg-primary/10 shadow-[0_0_20px_hsl(110_100%_55%/0.08)]"
-                    : "border-border/60 bg-card/40 hover:border-primary/25 hover:bg-card/60"
+                  "flex-1 min-w-0 flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all group",
+                  done && showCheckboxes
+                    ? "border-primary/30 bg-primary/5"
+                    : "border-border/60 bg-card/40 hover:border-primary/35 hover:bg-card/70"
                 )}
               >
-                <span
-                  className={cn(
-                    "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border-2 transition-colors",
-                    done ? "border-primary bg-primary text-primary-foreground" : "border-border text-muted-foreground"
-                  )}
-                >
-                  {done ? <Check className="h-5 w-5" /> : <Dumbbell className="h-4 w-4" />}
-                </span>
                 <span className="flex-1 min-w-0">
-                  <span className="block font-semibold text-sm md:text-base">{s.short}</span>
-                  <span className="block text-xs text-muted-foreground truncate">{s.label}</span>
+                  <span className="flex flex-wrap items-center gap-2">
+                    <span className="font-semibold text-sm md:text-base">{SLOT_SHORT[slot]}</span>
+                    {meta.badge && (
+                      <span className="text-[10px] font-bold uppercase tracking-wide text-primary bg-primary/10 px-2 py-0.5 rounded-md">
+                        {meta.badge}
+                      </span>
+                    )}
+                  </span>
+                  <span className="block text-xs text-muted-foreground mt-1 leading-snug line-clamp-3">{meta.description}</span>
+                  <span className="sr-only">{meta.title}</span>
                 </span>
-              </button>
+                <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
+              </Link>
             </li>
           );
         })}
       </ul>
+
+      {showCheckboxes && (
+        <div className="flex items-start gap-3 pt-4 mt-2 border-t border-border/50">
+          <Checkbox
+            id={`whole-week-${weekNumber}-${planTab}`}
+            checked={weekAllDone}
+            disabled={busy}
+            className="h-5 w-5 mt-0.5 rounded-md border-2 border-border data-[state=checked]:border-primary"
+            onCheckedChange={(v) => onSetWholeWeek(v === true)}
+          />
+          <label htmlFor={`whole-week-${weekNumber}-${planTab}`} className="text-sm leading-snug cursor-pointer select-none">
+            <span className="font-semibold text-foreground">Mark whole week complete</span>
+            <span className="block text-xs text-muted-foreground mt-1">
+              Checks all four {planTab} sessions for week {weekNumber}. Your overview &quot;weeks fully logged&quot; updates when every slot in a week is done (here or one by one).
+            </span>
+          </label>
+        </div>
+      )}
     </div>
   );
 }

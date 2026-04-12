@@ -76,7 +76,12 @@ export default function DashboardTrainingPage() {
                       <span className="text-xs font-bold text-primary bg-primary/10 px-2 py-1 rounded">{w.time}</span>
                     </div>
                   </CardHeader>
-                  <CardContent>
+                  <CardContent className="space-y-3">
+                    <Button asChild size="sm" variant="secondary" className="w-full justify-between">
+                      <Link to={`/dashboard/training/emergency/${w.id}`}>
+                        Open workout <ArrowRight className="h-4 w-4" />
+                      </Link>
+                    </Button>
                     <table className="w-full text-xs text-muted-foreground">
                       <thead>
                         <tr className="text-left border-b border-border/50">

@@ -22,6 +22,7 @@ import SignupPage from "@/pages/auth/SignupPage";
 import DashboardHome from "@/pages/dashboard/DashboardHome";
 import DashboardTrainingPage from "@/pages/dashboard/DashboardTrainingPage";
 import DashboardWorkoutDetailPage from "@/pages/dashboard/DashboardWorkoutDetailPage";
+import DashboardEmergencyWorkoutPage from "@/pages/dashboard/DashboardEmergencyWorkoutPage";
 import DashboardNutritionPage from "@/pages/dashboard/DashboardNutritionPage";
 import DashboardRoadmapPage from "@/pages/dashboard/DashboardRoadmapPage";
 import DashboardProgressPage from "@/pages/dashboard/DashboardProgressPage";
@@ -80,6 +81,7 @@ const App = () => (
           >
             <Route index element={<DashboardHome />} />
             <Route path="training" element={<DashboardTrainingPage />} />
+            <Route path="training/emergency/:id" element={<DashboardEmergencyWorkoutPage />} />
             <Route path="training/:variant/:code" element={<DashboardWorkoutDetailPage />} />
             <Route path="nutrition" element={<DashboardNutritionPage />} />
             <Route path="roadmap" element={<DashboardRoadmapPage />} />

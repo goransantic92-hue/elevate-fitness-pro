@@ -7,11 +7,14 @@ import { Button } from "@/components/ui/button";
 import { ProgramProgressRing } from "@/components/dashboard/ProgramProgressRing";
 import { WeightLineChart } from "@/components/dashboard/WeightLineChart";
 import { WeekWorkoutChecklist } from "@/components/dashboard/WeekWorkoutChecklist";
+import { DashboardWeeklyCheckinCard } from "@/components/dashboard/DashboardWeeklyCheckinCard";
 import { programMeta, weeklySchedule } from "@/data/busyStrong90";
 import { getProgramAnchorIso, getProgramProgress } from "@/lib/programProgress";
+import type { PlanTab } from "@/lib/dashboardSessionLinks";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
 import type { Database } from "@/types/database";
+import { countFullyCompletedProgramWeeks } from "@/lib/weekCompletionStats";
 
 type Checkin = Database["public"]["Tables"]["progress_checkins"]["Row"];
 type WLog = Database["public"]["Tables"]["workout_session_logs"]["Row"];
@@ -24,7 +27,8 @@ export default function DashboardHome() {
   const [logs, setLogs] = useState<WLog[]>([]);
   const [loading, setLoading] = useState(true);
   const [toggleBusy, setToggleBusy] = useState(false);
-  const [variant, setVariant] = useState<"gym" | "home">("gym");
+  const [savingCheckin, setSavingCheckin] = useState(false);
+  const [planTab, setPlanTab] = useState<PlanTab>("gym");
 
   const anchorIso = useMemo(() => getProgramAnchorIso(memberAccess), [memberAccess]);
   const progress = useMemo(() => getProgramProgress(anchorIso), [anchorIso]);
@@ -56,15 +60,19 @@ export default function DashboardHome() {
     [checkins]
   );
 
+  const fullTrainingWeeks = useMemo(() => countFullyCompletedProgramWeeks(logs), [logs]);
+  const trainingWeeksRemaining = Math.max(0, 12 - fullTrainingWeeks);
+
   async function onToggleSlot(slot: Slot, done: boolean) {
     if (!user) return;
+    if (planTab !== "gym" && planTab !== "home") return;
     setToggleBusy(true);
     const { error } = await supabase.from("workout_session_logs").upsert(
       {
         user_id: user.id,
         week_number: progress.weekNumber,
         slot,
-        variant,
+        variant: planTab,
         completed: done,
       },
       { onConflict: "user_id,week_number,slot" }
@@ -74,6 +82,46 @@ export default function DashboardHome() {
       toast({ title: "Update failed", description: error.message, variant: "destructive" });
       return;
     }
+    load();
+  }
+
+  async function onSetWholeWeek(complete: boolean) {
+    if (!user) return;
+    if (planTab !== "gym" && planTab !== "home") return;
+    setToggleBusy(true);
+    const slots: Slot[] = ["mon", "wed", "fri", "sat_bonus"];
+    const rows = slots.map((slot) => ({
+      user_id: user.id,
+      week_number: progress.weekNumber,
+      slot,
+      variant: planTab,
+      completed: complete,
+    }));
+    const { error } = await supabase.from("workout_session_logs").upsert(rows, { onConflict: "user_id,week_number,slot" });
+    setToggleBusy(false);
+    if (error) {
+      toast({ title: "Update failed", description: error.message, variant: "destructive" });
+      return;
+    }
+    load();
+  }
+
+  async function onSaveCheckin(payload: { week: number; weightKg: string; notes: string }) {
+    if (!user) return;
+    setSavingCheckin(true);
+    const upsertPayload = {
+      user_id: user.id,
+      week_number: payload.week,
+      weight_kg: payload.weightKg ? Number(payload.weightKg) : null,
+      notes: payload.notes.trim() || null,
+    };
+    const { error } = await supabase.from("progress_checkins").upsert(upsertPayload, { onConflict: "user_id,week_number" });
+    setSavingCheckin(false);
+    if (error) {
+      toast({ title: "Save failed", description: error.message, variant: "destructive" });
+      return;
+    }
+    toast({ title: "Saved", description: `Week ${payload.week} check-in updated.` });
     load();
   }
 
@@ -112,13 +160,17 @@ export default function DashboardHome() {
                   <p className="text-sm text-muted-foreground mt-2">
                     {progress.isComplete
                       ? "Keep logging if you want — habits outlive the countdown."
-                      : `Week ${progress.weekNumber} of 12 · ${progress.percentComplete}% through the program arc.`}
+                      : `Calendar week ${progress.weekNumber} of 12 · ${progress.percentComplete}% through the 90-day arc.`}
+                  </p>
+                  <p className="text-xs text-primary/90 mt-2 font-medium">
+                    {fullTrainingWeeks} of 12 program weeks have all four sessions checked (gym or home).{" "}
+                    {trainingWeeksRemaining > 0 ? `${trainingWeeksRemaining} week blocks still open to complete.` : "All weeks fully logged."}
                   </p>
                 </div>
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
                     <p className="text-2xl font-black text-primary tabular-nums">{progress.percentComplete}%</p>
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Done</p>
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Days arc</p>
                   </div>
                   <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
                     <p className="text-2xl font-black tabular-nums">{progress.isComplete ? 0 : progress.daysRemaining}</p>
@@ -126,7 +178,14 @@ export default function DashboardHome() {
                   </div>
                   <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
                     <p className="text-2xl font-black tabular-nums">{progress.weekNumber}</p>
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Week</p>
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Calendar wk</p>
+                  </div>
+                  <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
+                    <p className="text-2xl font-black text-primary tabular-nums">
+                      {fullTrainingWeeks}
+                      <span className="text-muted-foreground text-lg font-bold">/12</span>
+                    </p>
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Weeks logged</p>
                   </div>
                 </div>
                 <Button asChild variant="secondary" className="font-semibold">
@@ -192,13 +251,21 @@ export default function DashboardHome() {
           <section className="glass-card p-6 md:p-8 border-primary/10">
             <WeekWorkoutChecklist
               weekNumber={progress.weekNumber}
-              variant={variant}
-              onVariantChange={setVariant}
+              planTab={planTab}
+              onPlanTabChange={setPlanTab}
               logs={logs}
               busy={toggleBusy || loading}
               onToggle={onToggleSlot}
+              onSetWholeWeek={onSetWholeWeek}
             />
           </section>
+
+          <DashboardWeeklyCheckinCard
+            checkins={checkins}
+            defaultWeek={progress.weekNumber}
+            saving={savingCheckin}
+            onSave={onSaveCheckin}
+          />
 
           {/* Quick actions */}
           <section className="grid sm:grid-cols-3 gap-4">
