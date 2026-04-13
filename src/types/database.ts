@@ -111,7 +111,7 @@ export type Database = {
           user_id: string;
           week_number: number;
           slot: "mon" | "wed" | "fri" | "sat_bonus";
-          variant: "gym" | "home";
+          variant: "gym" | "home" | "emergency";
           completed: boolean;
           main_lifts_note: string | null;
           created_at: string;
@@ -122,7 +122,7 @@ export type Database = {
           user_id: string;
           week_number: number;
           slot: "mon" | "wed" | "fri" | "sat_bonus";
-          variant?: "gym" | "home";
+          variant?: "gym" | "home" | "emergency";
           completed?: boolean;
           main_lifts_note?: string | null;
           created_at?: string;
@@ -133,7 +133,7 @@ export type Database = {
           user_id?: string;
           week_number?: number;
           slot?: "mon" | "wed" | "fri" | "sat_bonus";
-          variant?: "gym" | "home";
+          variant?: "gym" | "home" | "emergency";
           completed?: boolean;
           main_lifts_note?: string | null;
           created_at?: string;

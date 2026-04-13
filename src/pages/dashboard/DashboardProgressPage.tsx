@@ -35,7 +35,7 @@ export default function DashboardProgressPage() {
   const [saving, setSaving] = useState(false);
 
   const [logWeek, setLogWeek] = useState(1);
-  const [variant, setVariant] = useState<"gym" | "home">("gym");
+  const [variant, setVariant] = useState<WLog["variant"]>("gym");
   const [slotStates, setSlotStates] = useState<Record<string, boolean>>({});
 
   const load = useCallback(async () => {
@@ -96,7 +96,7 @@ export default function DashboardProgressPage() {
         variant,
         completed: done,
       },
-      { onConflict: "user_id,week_number,slot" }
+      { onConflict: "user_id,week_number,slot,variant" }
     );
     if (error) {
       toast({ title: "Update failed", description: error.message, variant: "destructive" });
@@ -210,13 +210,14 @@ export default function DashboardProgressPage() {
                 </div>
                 <div className="space-y-2">
                   <Label>Version</Label>
-                  <Select value={variant} onValueChange={(v) => setVariant(v as "gym" | "home")}>
-                    <SelectTrigger className="w-[120px]">
+                  <Select value={variant} onValueChange={(v) => setVariant(v as WLog["variant"])}>
+                    <SelectTrigger className="w-[140px]">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
                       <SelectItem value="gym">Gym</SelectItem>
                       <SelectItem value="home">Home</SelectItem>
+                      <SelectItem value="emergency">10 min</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>

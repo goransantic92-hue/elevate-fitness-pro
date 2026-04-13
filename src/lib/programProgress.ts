@@ -17,13 +17,13 @@ export type ProgramProgress = {
   daysRemaining: number;
   isComplete: boolean;
   anchorDate: Date | null;
-  /** Weeks 1..n fully checked in order (Mon+Wed+Fri+Sat, gym or home). */
+  /** Weeks 1..n fully checked in order (Mon+Wed+Fri+Sat; any track per slot). */
   completedContiguousWeeks: number;
 };
 
 /**
  * Member dashboard: progress only from session checkboxes.
- * One program week = all four slots done (Mon, Wed, Fri, Sat bonus) — gym or home per slot.
+ * One program week = all four slots done (Mon, Wed, Fri, Sat bonus) — gym, home, or 10 min per slot.
  * Weeks count in order from 1; if week 2 is incomplete, week 3+ do not advance the bar.
  * Day 1–90 is spread across 12 completed weeks (linear).
  */

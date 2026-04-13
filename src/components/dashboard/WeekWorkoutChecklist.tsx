@@ -9,6 +9,7 @@ import { getSessionLinkMeta, type PlanTab, type SessionSlot } from "@/lib/dashbo
 import { PROGRAM_TOTAL_DAYS } from "@/lib/programProgress";
 
 type Slot = Database["public"]["Tables"]["workout_session_logs"]["Row"]["slot"];
+type LogVariant = Database["public"]["Tables"]["workout_session_logs"]["Row"]["variant"];
 
 const SLOTS: SessionSlot[] = ["mon", "wed", "fri", "sat_bonus"];
 
@@ -27,11 +28,14 @@ type Props = {
   busy: boolean;
   onToggle: (slot: Slot, done: boolean) => void;
   onSetWholeWeek: (complete: boolean) => void;
-  /** From session-based 90-day arc (updates after saves / whole week). */
   currentDay: number;
   daysRemaining: number;
   programArcComplete: boolean;
 };
+
+function variantForTab(tab: PlanTab): LogVariant {
+  return tab;
+}
 
 export function WeekWorkoutChecklist({
   weekNumber,
@@ -45,23 +49,18 @@ export function WeekWorkoutChecklist({
   daysRemaining,
   programArcComplete,
 }: Props) {
+  const v = variantForTab(planTab);
+
   const doneMap = useMemo(() => {
     const m: Record<string, boolean> = {};
     for (const s of SLOTS) {
-      if (planTab === "emergency") {
-        const g = logs.find((l) => l.week_number === weekNumber && l.slot === s && l.variant === "gym");
-        const h = logs.find((l) => l.week_number === weekNumber && l.slot === s && l.variant === "home");
-        m[s] = Boolean(g?.completed || h?.completed);
-      } else {
-        const row = logs.find((l) => l.week_number === weekNumber && l.slot === s && l.variant === planTab);
-        m[s] = row?.completed ?? false;
-      }
+      const row = logs.find((l) => l.week_number === weekNumber && l.slot === s && l.variant === v);
+      m[s] = row?.completed ?? false;
     }
     return m;
-  }, [logs, weekNumber, planTab]);
+  }, [logs, weekNumber, v]);
 
   const doneCount = SLOTS.filter((s) => doneMap[s]).length;
-  const showCheckboxes = planTab === "gym" || planTab === "home";
   const weekAllDone = SLOTS.every((s) => doneMap[s]);
 
   return (
@@ -71,6 +70,9 @@ export function WeekWorkoutChecklist({
           <p className="text-xs font-bold uppercase tracking-widest text-primary">This week&apos;s sessions</p>
           <p className="text-sm text-muted-foreground mt-0.5">
             Week {weekNumber} · {doneCount}/{SLOTS.length} checked
+            {planTab === "emergency" && (
+              <span className="text-primary/90"> · 10 min track</span>
+            )}
           </p>
         </div>
         <div className="flex rounded-xl border border-border/60 p-0.5 bg-background/50">
@@ -92,13 +94,6 @@ export function WeekWorkoutChecklist({
         </div>
       </div>
 
-      {planTab === "emergency" && (
-        <p className="text-xs text-muted-foreground rounded-lg border border-border/50 bg-card/30 px-3 py-2">
-          Quick sessions from the manual. To log a main slot as done, switch to <span className="text-foreground font-medium">Gym</span> or{" "}
-          <span className="text-foreground font-medium">Home</span> and check it off.
-        </p>
-      )}
-
       <ul className="space-y-2">
         {SLOTS.map((slot) => {
           const done = doneMap[slot] ?? false;
@@ -107,24 +102,20 @@ export function WeekWorkoutChecklist({
 
           return (
             <li key={slot} className="flex gap-3 items-center">
-              {showCheckboxes && (
-                <div className="shrink-0 pt-0.5">
-                  <Checkbox
-                    id={checkId}
-                    checked={done}
-                    disabled={busy}
-                    className="h-5 w-5 rounded-md border-2 border-border data-[state=checked]:border-primary"
-                    onCheckedChange={(v) => onToggle(slot, v === true)}
-                  />
-                </div>
-              )}
+              <div className="shrink-0 pt-0.5">
+                <Checkbox
+                  id={checkId}
+                  checked={done}
+                  disabled={busy}
+                  className="h-5 w-5 rounded-md border-2 border-border data-[state=checked]:border-primary"
+                  onCheckedChange={(checked) => onToggle(slot, checked === true)}
+                />
+              </div>
               <Link
                 to={meta.to}
                 className={cn(
                   "flex-1 min-w-0 flex items-center gap-3 rounded-xl border px-4 py-3 text-left transition-all group",
-                  done && showCheckboxes
-                    ? "border-primary/30 bg-primary/5"
-                    : "border-border/60 bg-card/40 hover:border-primary/35 hover:bg-card/70"
+                  done ? "border-primary/30 bg-primary/5" : "border-border/60 bg-card/40 hover:border-primary/35 hover:bg-card/70"
                 )}
               >
                 <span className="flex-1 min-w-0">
@@ -146,24 +137,22 @@ export function WeekWorkoutChecklist({
         })}
       </ul>
 
-      {showCheckboxes && (
-        <div className="flex items-start gap-3 pt-4 mt-2 border-t border-border/50">
-          <Checkbox
-            id={`whole-week-${weekNumber}-${planTab}`}
-            checked={weekAllDone}
-            disabled={busy}
-            className="h-5 w-5 mt-0.5 rounded-md border-2 border-border data-[state=checked]:border-primary"
-            onCheckedChange={(v) => onSetWholeWeek(v === true)}
-          />
-          <label htmlFor={`whole-week-${weekNumber}-${planTab}`} className="text-sm leading-snug cursor-pointer select-none">
-            <span className="font-semibold text-foreground">Mark whole week complete</span>
-            <span className="block text-xs text-muted-foreground mt-1">
-              Checks all four {planTab} sessions for week {weekNumber}. When this week is fully done (here or slot by slot), your{" "}
-              <span className="text-foreground font-medium">{PROGRAM_TOTAL_DAYS}-day</span> arc advances — same numbers as the overview ring.
-            </span>
-          </label>
-        </div>
-      )}
+      <div className="flex items-start gap-3 pt-4 mt-2 border-t border-border/50">
+        <Checkbox
+          id={`whole-week-${weekNumber}-${planTab}`}
+          checked={weekAllDone}
+          disabled={busy}
+          className="h-5 w-5 mt-0.5 rounded-md border-2 border-border data-[state=checked]:border-primary"
+          onCheckedChange={(checked) => onSetWholeWeek(checked === true)}
+        />
+        <label htmlFor={`whole-week-${weekNumber}-${planTab}`} className="text-sm leading-snug cursor-pointer select-none">
+          <span className="font-semibold text-foreground">Mark whole week complete</span>
+          <span className="block text-xs text-muted-foreground mt-1">
+            Checks all four {planTab === "emergency" ? "10 min" : planTab} sessions for week {weekNumber}. When this week is fully done, your{" "}
+            <span className="text-foreground font-medium">{PROGRAM_TOTAL_DAYS}-day</span> arc advances — same numbers as the overview ring.
+          </span>
+        </label>
+      </div>
 
       <div className="rounded-xl border border-primary/25 bg-primary/5 px-4 py-3 space-y-1.5">
         <p className="text-[10px] font-bold uppercase tracking-widest text-primary">90-day program</p>
@@ -180,9 +169,7 @@ export function WeekWorkoutChecklist({
               </span>
             </p>
             <p className="text-xs text-muted-foreground leading-snug">
-              {showCheckboxes
-                ? `Finish all four ${planTab} sessions for week ${weekNumber}, or use “Mark whole week complete”, to move the countdown forward.`
-                : "Switch to Gym or Home and check off a full week to advance your 90-day arc."}
+              Finish all four slots for week {weekNumber} on this tab (or use “Mark whole week complete”) to move the countdown. Gym, Home, and 10 min each track separately; any one completed slot counts toward the week.
             </p>
           </>
         )}

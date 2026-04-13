@@ -70,7 +70,6 @@ export default function DashboardHome() {
 
   async function onToggleSlot(slot: Slot, done: boolean) {
     if (!user) return;
-    if (planTab !== "gym" && planTab !== "home") return;
     setToggleBusy(true);
     const { error } = await supabase.from("workout_session_logs").upsert(
       {
@@ -80,25 +79,22 @@ export default function DashboardHome() {
         variant: planTab,
         completed: done,
       },
-      { onConflict: "user_id,week_number,slot" }
+      { onConflict: "user_id,week_number,slot,variant" }
     );
     setToggleBusy(false);
     if (error) {
       toast({ title: "Update failed", description: error.message, variant: "destructive" });
       return;
     }
-    if (planTab === "gym" || planTab === "home") {
-      const { data: fresh } = await supabase.from("workout_session_logs").select("*").eq("user_id", user.id);
-      if (fresh?.length && isWeekFullyCompleteUnion(fresh, progress.weekNumber)) {
-        setCheckinWeek(Math.min(12, progress.weekNumber + 1));
-      }
+    const { data: fresh } = await supabase.from("workout_session_logs").select("*").eq("user_id", user.id);
+    if (fresh?.length && isWeekFullyCompleteUnion(fresh, progress.weekNumber)) {
+      setCheckinWeek(Math.min(12, progress.weekNumber + 1));
     }
     load();
   }
 
   async function onSetWholeWeek(complete: boolean) {
     if (!user) return;
-    if (planTab !== "gym" && planTab !== "home") return;
     setToggleBusy(true);
     const slots: Slot[] = ["mon", "wed", "fri", "sat_bonus"];
     const rows = slots.map((slot) => ({
@@ -108,7 +104,9 @@ export default function DashboardHome() {
       variant: planTab,
       completed: complete,
     }));
-    const { error } = await supabase.from("workout_session_logs").upsert(rows, { onConflict: "user_id,week_number,slot" });
+    const { error } = await supabase.from("workout_session_logs").upsert(rows, {
+      onConflict: "user_id,week_number,slot,variant",
+    });
     setToggleBusy(false);
     if (error) {
       toast({ title: "Update failed", description: error.message, variant: "destructive" });

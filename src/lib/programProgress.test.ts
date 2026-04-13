@@ -96,4 +96,16 @@ describe("getProgramProgressFromSessionLogs", () => {
     expect(p.completedContiguousWeeks).toBe(1);
     expect(p.weekNumber).toBe(2);
   });
+
+  it("allows 10 min (emergency) track to complete a week", () => {
+    const logs = [
+      row(1, "mon", "emergency", true),
+      row(1, "wed", "emergency", true),
+      row(1, "fri", "emergency", true),
+      row(1, "sat_bonus", "emergency", true),
+    ];
+    const p = getProgramProgressFromSessionLogs(logs);
+    expect(p.completedContiguousWeeks).toBe(1);
+    expect(p.weekNumber).toBe(2);
+  });
 });
