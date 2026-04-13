@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { ProgramContentGate } from "@/components/ProgramContentGate";
 import { ScrollToTop } from "@/components/ScrollToTop";
+import { InstallAppPrompt } from "@/components/InstallAppPrompt";
 import PublicLayout from "@/components/PublicLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AdminLayout from "@/layouts/AdminLayout";
@@ -107,6 +108,7 @@ const App = () => (
 
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <InstallAppPrompt />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>

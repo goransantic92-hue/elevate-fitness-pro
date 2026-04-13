@@ -297,6 +297,10 @@ export const faqs = [
   { q: "What if I travel for work?", a: "Use the HOME workout version. Use the 10-minute emergency workouts when time is truly impossible. Follow the Eat Anywhere Guide. You have zero valid excuses while traveling — the program is designed for exactly this." },
   { q: "Do I need to count macros exactly?", a: "No. Use the hand method: a palm of protein, a fist of carbs, a cupped hand of vegetables, a thumb of fat per meal. That is approximately correct and 1000x more sustainable than obsessive tracking." },
   { q: "Will I lose strength if I reduce to 3 days per week from more?", a: "In the first 2 weeks, possibly a small adaptation. After that, your strength will match or exceed previous levels because recovery is optimized. Many advanced trainees are overtrained — not undertrained." },
+  {
+    q: "Can I install this on my phone like an app?",
+    a: "Yes. Install it as a Progressive Web App: on Android with Chrome, use Install app or Add to Home screen from the browser menu. On iPhone, open the site in Safari, tap Share, then Add to Home Screen. It opens full-screen like an app; keep Wi‑Fi or mobile data on. This is not a separate App Store / Play Store download — updates apply automatically when you visit the site.",
+  },
 ] as const;
 
 export const trackingGuidance = {
