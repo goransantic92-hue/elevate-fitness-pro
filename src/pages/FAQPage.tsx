@@ -7,44 +7,46 @@ import { PageMeta } from "@/components/seo/PageMeta";
 
 const FAQPage = () => {
   return (
-    <div>
+    <div className="font-sans">
       <PageMeta
-        title="FAQ — BUSY STRONG 90"
-        description="Frequently asked questions about training frequency, travel, cardio, injuries, and macros — straight from the program manual."
+        title="Before You Decide — FAQ — BUSY STRONG 90"
+        description="Every objection you have, someone else had too. Answers on quitting, travel, injuries, equipment, results, self-guided vs coaching, and how this differs from a personal trainer."
         path="/faq"
       />
-      <section className="py-28 md:py-36">
-        <div className="container mx-auto px-4 text-center">
-          <div className="text-xs text-primary font-bold tracking-widest mb-4">FAQ</div>
-          <h1 className="text-4xl md:text-6xl font-black mb-6">
-            Frequently Asked <span className="text-gradient">Questions</span>
+      <section className="pt-8 pb-12 md:pt-12 md:pb-16">
+        <div className="container mx-auto max-w-3xl px-6 text-center">
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary">Questions</p>
+          <h1 className="font-display mt-2 text-balance text-[clamp(2rem,5vw,3rem)] text-foreground">
+            Before You <span className="text-primary">Decide</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            Got questions? Coach Milos has answers. Straight talk, no BS.
+          <p className="mt-3 text-pretty text-muted-foreground">
+            Every objection you have, someone else had too. Here&apos;s the truth.
           </p>
         </div>
       </section>
 
-      <section className="pb-20 md:pb-28 px-4">
+      <section className="pb-20 md:pb-28 px-6">
         <div className="container mx-auto max-w-3xl">
-          <Accordion type="single" collapsible className="space-y-4">
+          <Accordion type="single" collapsible className="w-full">
             {faqs.map((faq, i) => (
-              <AccordionItem key={i} value={`faq-${i}`} className="glass-card px-6 border-border/50 data-[state=open]:border-primary/30">
-                <AccordionTrigger className="text-left font-semibold text-sm md:text-base py-5 hover:no-underline hover:text-primary">
+              <AccordionItem key={faq.q} value={`faq-${i}`} className="border-border">
+                <AccordionTrigger className="text-left text-base font-semibold hover:text-primary hover:no-underline">
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground text-sm leading-relaxed pb-5">{faq.a}</AccordionContent>
+                <AccordionContent className="text-sm leading-relaxed text-muted-foreground">{faq.a}</AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>
 
-          <div className="text-center mt-16">
-            <p className="text-muted-foreground mb-6">Still have questions? The full program includes everything you need to succeed.</p>
-            <Link to="/pricing">
-              <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
-                Get BUSY STRONG 90 — €39 <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-            </Link>
+          <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+            <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
+              <Link to="/coaching-apply#apply">Apply for Coaching</Link>
+            </Button>
+            <Button asChild variant="outline" className="h-12 rounded-lg border-border px-8 text-base font-semibold">
+              <Link to="/pricing">
+                Get the €39 Program <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
+            </Button>
           </div>
         </div>
       </section>

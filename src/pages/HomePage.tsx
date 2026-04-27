@@ -1,216 +1,325 @@
+import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Clock, Calendar, Timer, Users, Dumbbell, Utensils, Target, ChevronRight, Quote } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { useToast } from "@/hooks/use-toast";
+import { ArrowRight, Check, Star } from "lucide-react";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import coachHero from "@/assets/coach-hero.jpg";
 import coachAbout from "@/assets/coach-about.jpg";
 import { PageMeta } from "@/components/seo/PageMeta";
+import { faqs } from "@/data/busyStrong90";
 
-const stats = [
-  { value: "3x", label: "Per Week", icon: Calendar },
-  { value: "90", label: "Days", icon: Target },
-  { value: "30-40", label: "Min / Session", icon: Timer },
-  { value: "35+", label: "Age Group", icon: Users },
-];
+const whoCards = [
+  { icon: "💼", title: "Founders & Business Owners", text: "You're building something. Early mornings, late nights, back-to-back calls. Your body is the one thing holding everything else up — and you've been neglecting it. This program fits between meetings, not instead of them." },
+  { icon: "👨‍👧‍👦", title: "Busy Parents", text: "Your kids watch everything you do. When you train, they learn that discipline isn't something you talk about — it's something you live. 30 minutes, 3× a week, at home. While they're sleeping or playing." },
+  { icon: "🏢", title: "Corporate Professionals", text: "You've been saying \"I'll start Monday\" for months. The gym membership you never use. The energy crash at 2pm. This system requires no commute, no equipment, and no willpower — just a decision to start." },
+] as const;
 
-const testimonials = [
-  {
-    quote: "I come home differently now and my kids notice.",
-    name: "David M.",
-    detail: "Parent & project manager, 42",
-  },
-  {
-    quote: "Three sessions I can actually protect on my calendar — stronger without living in the gym.",
-    name: "Elena R.",
-    detail: "Founder, 38",
-  },
-  {
-    quote: "I stopped overthinking meals. Protein, consistency, and the plan did the rest.",
-    name: "Marcus V.",
-    detail: "Corporate lead, 45",
-  },
+const leadChecklist = [
+  "12 structured training sessions (no gym, no equipment)",
+  "Simple nutrition framework — no calorie counting",
+  "The \"Parent Fit\" daily habit checklist",
+  "Direct access to Coach Milos via email",
 ] as const;
 
 const pillars = [
-  {
-    icon: Dumbbell,
-    title: "Train Smart",
-    description: "3x per week. 30–40 minutes. Progressive overload. Compound movements first. No junk volume. Every rep has a purpose.",
-  },
-  {
-    icon: Utensils,
-    title: "Eat Simply",
-    description: "No app needed. No food scale required. One rule: protein at every meal. The rest follows naturally.",
-  },
-  {
-    icon: Target,
-    title: "Build Systems",
-    description: "Motivation is unreliable. Systems are not. You will build habits so automatic that missing a session feels wrong.",
-  },
-];
+  { num: "01", title: "Train Smart", text: "3× per week. 30–40 minutes. Progressive overload. Compound movements that build real strength. No junk volume. Every rep has a purpose — because your time has a price tag." },
+  { num: "02", title: "Eat Simply", text: "No app needed. No food scale. One rule: protein at every meal. The rest follows naturally. Built for people who eat with their family, travel for work, and don't have time to meal prep 6 containers on Sunday." },
+  { num: "03", title: "Build Systems", text: "Motivation is unreliable. Systems are not. You build habits so automatic that missing a session feels wrong — the same way forgetting to brush your teeth would. That's the real transformation." },
+] as const;
+
+const testimonials = [
+  { tag: "Lost 8kg in 90 Days", quote: "I come home differently now and my kids notice. I have energy to play with them after work instead of collapsing on the couch. My wife says I'm a different person.", initials: "DM", name: "David M.", sub: "Project Manager, 42 — Father of 3" },
+  { tag: "3 Sessions / Week — Never Missed", quote: "Three sessions I can actually protect on my calendar — stronger without living in the gym. I've tried 5 programs before this. This is the first one I actually finished.", initials: "ER", name: "Elena R.", sub: "Founder, 38 — Mother of 2" },
+  { tag: "Down 2 Waist Sizes", quote: "I stopped overthinking meals. Protein, consistency, and the plan did the rest. Dropped 2 waist sizes, sleep better, and my team says I show up sharper in meetings.", initials: "MV", name: "Marcus V.", sub: "Corporate Lead, 45 — Father of 1" },
+] as const;
 
 const HomePage = () => {
+  const { toast } = useToast();
+  const [emailLead, setEmailLead] = useState("");
+
+  const onLeadSubmit = (e: FormEvent) => {
+    e.preventDefault();
+    if (!emailLead.trim()) {
+      toast({ title: "Enter your email", variant: "destructive" });
+      return;
+    }
+    toast({ title: "You’re on the list", description: "We’ll send the Busy Strong 30 starter plan when email delivery is connected." });
+    setEmailLead("");
+  };
+
   return (
-    <div>
+    <div className="font-sans">
       <PageMeta
-        title="BUSY STRONG 90 — Get strong. Stay busy."
-        description="The complete 90-day training system for busy professionals, parents, and entrepreneurs 35+. 3× per week, 30–40 minutes, gym & home programs, nutrition framework, and habits — by Coach Milos."
+        title="BUSY STRONG 90 — By Coach Milos"
+        description="The complete training system for fathers, founders, and busy professionals over 35. 3× per week, 30–40 minutes, gym or home. No excuses."
         path="/"
       />
+
       {/* Hero */}
-      <section className="relative min-h-[90vh] flex items-center overflow-hidden">
-        <div className="absolute inset-0">
-          <img
-            src={coachHero}
-            alt="Coach Milos demonstrating fitness"
-            className="h-full w-full object-cover object-top"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-background max-md:via-background/78 max-md:to-background/20 md:via-background/85 md:to-background/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-background via-transparent max-md:to-background/15 to-background/30" />
-        </div>
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-sm font-medium mb-6">
-              <span className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-              Launch Price — Limited Time
+      <section className="relative overflow-hidden pt-8 pb-16 md:pt-10 md:pb-24">
+        <div
+          className="pointer-events-none absolute -right-[20%] -top-1/2 h-[min(90vw,800px)] w-[min(90vw,800px)] rounded-full bg-[hsl(171_47%_50%/0.12)] blur-3xl"
+          aria-hidden
+        />
+        <div className="container relative z-[1] mx-auto max-w-[1100px] px-6">
+          <div className="mb-8 flex flex-col gap-8 md:flex-row md:items-center">
+            <div className="relative min-h-[220px] w-full max-w-md shrink-0 overflow-hidden rounded-2xl border border-border/60 md:max-w-sm">
+              <img src={coachHero} alt="Coach Milos — training" className="h-56 w-full object-cover object-top md:h-72" />
             </div>
-            <h1 className="text-5xl md:text-7xl font-black tracking-tight leading-[0.9] mb-6">
-              GET <span className="text-gradient">STRONG</span><br />
-              STAY <span className="text-gradient">BUSY</span>
-            </h1>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed mb-4 max-w-lg">
-              The complete 90-day training system for busy professionals, parents, and entrepreneurs 35+.
-            </p>
-            <p className="text-sm text-muted-foreground mb-8 italic">
-              "You don't need to suffer more. You need to suffer smarter." — Coach Milos
-            </p>
-            <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
-              <Link to="/pricing" className="inline-flex w-fit max-w-full">
-                <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-sm h-10 px-4 glow-green whitespace-normal text-left sm:text-center">
-                  Start Your Transformation — €39
-                  <ArrowRight className="ml-2 h-4 w-4 shrink-0" />
+            <div className="min-w-0 max-w-2xl flex-1">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
+                Launch Price — Ends May 15th
+              </div>
+              <h1 className="font-display text-[clamp(2.5rem,7vw,4.25rem)] text-foreground">
+                <span className="mb-3 block font-sans text-lg font-normal normal-case leading-snug tracking-normal text-muted-foreground md:text-xl">
+                  You haven&apos;t trained in months. You&apos;re tired. Your kids see it.
+                </span>
+                <span className="block text-balance">
+                  GET <span className="text-primary">STRONG</span> IN 90 DAYS. NO GYM. NO EXCUSES.
+                </span>
+              </h1>
+              <p className="mt-6 max-w-[560px] text-pretty text-lg leading-relaxed text-[#ccc]">
+                The complete training system built for fathers, founders, and busy professionals over 35 who refuse to let fitness slide — but only have 30
+                minutes a day.
+              </p>
+              <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
+                <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground hover:bg-primary/90">
+                  <Link to="/coaching-apply">
+                    Apply for 1-on-1 Coaching
+                    <ArrowRight className="ml-1 h-4 w-4" />
+                  </Link>
                 </Button>
-              </Link>
-              <Link to="/program" className="inline-flex w-fit max-w-full">
-                <Button variant="outline" className="border-border text-foreground hover:bg-secondary h-10 px-4 text-sm font-medium">
-                  Explore the Program
+                <Button
+                  asChild
+                  variant="outline"
+                  className="h-12 rounded-lg border-border bg-transparent px-8 text-base font-semibold text-foreground hover:border-primary hover:bg-transparent hover:text-primary"
+                >
+                  <a href="#free">Get the Free 30-Day Starter Plan</a>
                 </Button>
-              </Link>
+              </div>
+              <div className="mt-10 flex flex-wrap gap-6 text-sm text-muted-foreground">
+                <span className="inline-flex items-center gap-1.5">
+                  <Check className="h-4 w-4 shrink-0 text-primary" />
+                  No gym required
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Check className="h-4 w-4 shrink-0 text-primary" />
+                  30–40 min sessions
+                </span>
+                <span className="inline-flex items-center gap-1.5">
+                  <Check className="h-4 w-4 shrink-0 text-primary" />
+                  Built by a competitive bodybuilder &amp; father of 2
+                </span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Stats */}
-      <section className="relative -mt-16 z-20 px-4">
-        <div className="container mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
-            {stats.map((stat) => (
-              <div key={stat.label} className="glass-card p-6 text-center glow-green">
-                <stat.icon className="h-5 w-5 text-primary mx-auto mb-2" />
-                <div className="text-3xl md:text-4xl font-black text-primary">{stat.value}</div>
-                <div className="text-xs uppercase tracking-wider text-muted-foreground mt-1">{stat.label}</div>
+      <section className="border-y border-border py-12">
+        <div className="container mx-auto max-w-[1100px] px-6">
+          <div className="grid grid-cols-2 gap-6 text-center md:grid-cols-4 md:gap-8">
+            {[
+              { v: "3×", l: "Per Week" },
+              { v: "90", l: "Day System" },
+              { v: "30-40", l: "Min / Session" },
+              { v: "35+", l: "Age Group" },
+            ].map((s) => (
+              <div key={s.l}>
+                <h3 className="font-display text-4xl text-primary md:text-5xl">{s.v}</h3>
+                <p className="mt-1 text-xs font-semibold uppercase tracking-widest text-muted-foreground">{s.l}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Who is this for */}
+      {/* Who */}
       <section className="section-padding">
-        <div className="container mx-auto max-w-4xl text-center">
-          <h2 className="text-3xl md:text-5xl font-black mb-6">
-            Built For People Who <span className="text-gradient">Don't Have Time</span>
+        <div className="container mx-auto max-w-[1100px] px-6">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">Built For You</p>
+          <h2 className="font-display text-balance text-[clamp(2rem,5vw,3rem)] text-foreground">
+            This Is For People Who <span className="text-primary">Don&apos;t Have Time</span> — And Know That&apos;s Not An Excuse
           </h2>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-            Most fitness programs are built for people with unlimited time, no responsibilities, and obsessive motivation. That is not you. You run a business, raise kids, manage a career — and you still want to look and feel strong.
+          <p className="mb-10 mt-4 max-w-[600px] text-pretty text-[1.05rem] leading-relaxed text-muted-foreground">
+            You run a company, raise kids, manage a career. You don&apos;t need another fitness influencer telling you to &quot;just be consistent.&quot; You need
+            a system that fits inside the life you already have.
           </p>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left">
-            {["Entrepreneurs & Business Owners", "Busy Parents", "Corporate Professionals"].map((who) => (
-              <div key={who} className="glass-card p-6 flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center shrink-0">
-                  <ChevronRight className="h-5 w-5 text-primary" />
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {whoCards.map((c) => (
+              <div
+                key={c.title}
+                className="group rounded-xl border border-border bg-[hsl(0_0%_6.5%)] p-8 transition-colors hover:border-primary/60"
+              >
+                <div
+                  className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg text-xl"
+                  style={{ background: "hsl(171 47% 50% / 0.12)" }}
+                >
+                  {c.icon}
                 </div>
-                <span className="font-semibold">{who}</span>
+                <h4 className="font-sans text-base font-bold text-foreground">{c.title}</h4>
+                <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{c.text}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3 Pillars */}
-      <section className="section-padding bg-card/50">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-5xl font-black mb-4">
-              Three Pillars of <span className="text-gradient">BUSY STRONG 90</span>
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">The minimum effective dose. Not the maximum you can possibly do — the minimum that produces maximum results.</p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {pillars.map((pillar, i) => (
-              <div key={pillar.title} className="glass-card p-8 group hover:border-primary/30 transition-all duration-300">
-                <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center mb-6 group-hover:bg-primary/20 transition-colors">
-                  <pillar.icon className="h-7 w-7 text-primary" />
-                </div>
-                <div className="text-xs text-primary font-bold tracking-widest mb-2">PILLAR {i + 1}</div>
-                <h3 className="text-xl font-bold mb-3">{pillar.title}</h3>
-                <p className="text-muted-foreground text-sm leading-relaxed">{pillar.description}</p>
-              </div>
-            ))}
+      {/* Lead magnet */}
+      <section id="free" className="section-padding !pt-8">
+        <div className="container mx-auto max-w-[1100px] px-6">
+          <div
+            className="flex flex-col items-stretch gap-8 rounded-2xl border border-primary/25 p-8 md:flex-row md:items-center md:gap-12 md:p-12"
+            style={{ background: "linear-gradient(135deg, hsl(171 47% 50% / 0.08) 0%, hsl(171 47% 50% / 0.02) 100%)" }}
+          >
+            <div className="min-w-0 flex-1">
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">Free Download</p>
+              <h2 className="font-display text-balance text-[clamp(1.8rem,4vw,2.5rem)] text-foreground">
+                Not Ready To Commit? Start With <span className="text-primary">30 Days Free.</span>
+              </h2>
+              <p className="mt-4 text-[#ccc] leading-relaxed">
+                Get the Busy Strong 30 — a complete 30-day starter program with training sessions, a nutrition checklist, and the daily habit system that
+                Coach Milos uses with his private clients.
+              </p>
+              <ul className="my-6 list-none space-y-2 text-[0.95rem] text-[#ccc]">
+                {leadChecklist.map((x) => (
+                  <li key={x} className="pl-0">
+                    <span className="mr-2.5 font-bold text-primary">✓</span>
+                    {x}
+                  </li>
+                ))}
+              </ul>
+              <form onSubmit={onLeadSubmit} className="flex max-w-lg flex-col gap-3 sm:flex-row">
+                <Input
+                  type="email"
+                  name="email"
+                  placeholder="Enter your email"
+                  className="h-12 min-w-[220px] flex-1 rounded-lg border-border bg-[#111] text-foreground"
+                  value={emailLead}
+                  onChange={(e) => setEmailLead(e.target.value)}
+                />
+                <Button
+                  type="submit"
+                  className="h-12 shrink-0 rounded-lg bg-primary px-6 font-bold text-primary-foreground hover:bg-primary/90"
+                >
+                  Send Me the Plan
+                  <ArrowRight className="ml-1 h-4 w-4" />
+                </Button>
+              </form>
+            </div>
+            <div className="font-display flex h-44 w-full shrink-0 flex-col items-center justify-center rounded-xl border border-border bg-[#111] p-5 text-center text-xl text-primary md:h-[280px] md:w-[220px]">
+              BUSY
+              <br />
+              STRONG
+              <br />
+              30
+              <span className="mt-2 font-sans text-[0.6rem] font-medium uppercase tracking-wide text-muted-foreground">Free starter plan</span>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Coach Section */}
+      {/* Pillars */}
       <section className="section-padding">
-        <div className="container mx-auto max-w-5xl">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-            <div className="relative">
-              <img src={coachAbout} alt="Coach Milos" className="rounded-2xl w-full object-cover aspect-[3/4] glow-green" />
-              <div className="absolute bottom-4 left-4 right-4 glass-card p-4">
-                <p className="font-bold text-sm">Coach Milos</p>
-                <p className="text-xs text-muted-foreground">@_coachmilos · Fitness Coach & Creator</p>
+        <div className="container mx-auto max-w-[1100px] px-6">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">The Method</p>
+          <h2 className="font-display mt-2 text-balance text-center text-[clamp(2rem,5vw,3rem)] text-foreground">
+            Three Pillars of <span className="text-primary">BUSY STRONG 90</span>
+          </h2>
+          <p className="mx-auto mt-3 max-w-[560px] text-center text-pretty text-[1.05rem] text-muted-foreground">
+            The minimum effective dose. Not the maximum you can possibly do — the minimum that produces maximum results.
+          </p>
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+            {pillars.map((p) => (
+              <div
+                key={p.num}
+                className="relative overflow-hidden rounded-xl border border-border bg-[#111] p-8 pt-10 text-center"
+              >
+                <div className="absolute left-0 right-0 top-0 h-0.5 bg-primary" />
+                <div className="font-display text-5xl text-primary/15 md:text-6xl">{p.num}</div>
+                <h3 className="mt-1 font-display text-2xl text-foreground md:text-3xl">{p.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{p.text}</p>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Coach */}
+      <section className="section-padding !pt-8">
+        <div className="container mx-auto max-w-[1100px] px-6">
+          <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
+            <div className="overflow-hidden rounded-2xl border border-border">
+              <img src={coachAbout} alt="Coach Milos" className="aspect-[4/5] w-full object-cover object-top" />
             </div>
             <div>
-              <div className="text-xs text-primary font-bold tracking-widest mb-3">MEET YOUR COACH</div>
-              <h2 className="text-3xl md:text-4xl font-black mb-6">
-                This Is Not a Fitness Plan.<br /><span className="text-gradient">It Is a System.</span>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">Meet Your Coach</p>
+              <h2 className="font-display text-balance text-[clamp(2rem,4.5vw,2.75rem)] text-foreground">
+                I&apos;m Milos. Father First. <span className="text-primary">Coach Second.</span>
               </h2>
-              <p className="text-muted-foreground leading-relaxed mb-4">
-                BUSY STRONG 90 operates on one core principle: the minimum effective dose. Science is clear — 3 well-structured training sessions per week is enough to build significant muscle and lose significant fat when combined with proper nutrition and recovery.
+              <p className="mt-5 text-[0.95rem] leading-8 text-[#ccc]">
+                I spent 10 years as a competitive bodybuilder. I trained 4+ hours a day, ate from containers, and lived in the gym. Then I became a father — twice. And
+                everything changed.
               </p>
-              <p className="text-muted-foreground leading-relaxed mb-6">
-                This program works if you do the work. The manual is complete. The system is proven. The only variable is you. You have 90 days. That is 12 weeks. That is 36 training sessions. Let's make every one count.
+              <p className="mt-4 text-[0.95rem] leading-8 text-[#ccc]">
+                I realized the old way was dead. I couldn&apos;t train like a 22-year-old with zero responsibilities. So I rebuilt my entire approach from scratch:
+                minimum time, maximum impact, zero compromise on results.
               </p>
-              <Link to="/program">
-                <Button className="bg-primary text-primary-foreground font-semibold">
-                  See Full Program <ArrowRight className="ml-2 h-4 w-4" />
-                </Button>
-              </Link>
+              <p className="mt-4 text-[0.95rem] leading-8 text-[#ccc]">
+                That system became Busy Strong 90. It&apos;s what I use myself. It&apos;s what I teach my clients. And it works — because it was built by someone
+                who actually lives the life you&apos;re living.
+              </p>
+              <p className="mt-4 text-[0.95rem] font-medium leading-8 text-primary">
+                Training is how I parent. My kids don&apos;t hear me talk about discipline — they see it. Every morning. That&apos;s the real reason I train. And
+                that&apos;s what I want for you.
+              </p>
+              <div className="mt-8 grid grid-cols-3 gap-4 border-t border-border pt-8">
+                {[
+                  { v: "15+", l: "Years Training" },
+                  { v: "10", l: "Years Competing" },
+                  { v: "2", l: "Kids & Counting" },
+                ].map((s) => (
+                  <div key={s.l}>
+                    <h3 className="font-display text-3xl text-primary">{s.v}</h3>
+                    <p className="mt-0.5 text-xs uppercase tracking-wide text-muted-foreground">{s.l}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="section-padding bg-card/50">
-        <div className="container mx-auto max-w-5xl">
-          <div className="text-center mb-14">
-            <h2 className="text-3xl md:text-5xl font-black mb-4">
-              Success <span className="text-gradient">Stories</span>
-            </h2>
-            <p className="text-muted-foreground max-w-xl mx-auto">
-              Busy people building strength with a system that respects real life.
-            </p>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      {/* Testimonials */}
+      <section className="section-padding border-t border-border/60 bg-card/30">
+        <div className="container mx-auto max-w-[1100px] px-6">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">Real Results</p>
+          <h2 className="font-display mt-2 text-balance text-center text-[clamp(2rem,5vw,3rem)] text-foreground">
+            They Started Where <span className="text-primary">You Are Now</span>
+          </h2>
+          <p className="mx-auto mt-2 max-w-[560px] text-center text-pretty text-muted-foreground">Busy. Skeptical. One decision away from changing everything.</p>
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
             {testimonials.map((t) => (
-              <div key={t.name} className="glass-card p-8 flex flex-col text-center">
-                <Quote className="h-8 w-8 text-primary/40 mb-4 mx-auto" />
-                <p className="text-sm text-foreground/90 leading-relaxed mb-6 flex-1">&ldquo;{t.quote}&rdquo;</p>
-                <div>
-                  <p className="font-bold text-foreground">{t.name}</p>
-                  <p className="text-xs text-muted-foreground mt-1">{t.detail}</p>
+              <div key={t.name} className="rounded-xl border border-border bg-[#111] p-8">
+                <div className="mb-3 flex text-primary">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                  ))}
+                </div>
+                <div className="mb-3 inline-block rounded-full bg-primary/10 px-3 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide text-primary">
+                  {t.tag}
+                </div>
+                <blockquote className="text-sm italic leading-relaxed text-[#ccc]">&ldquo;{t.quote}&rdquo;</blockquote>
+                <div className="mt-5 flex items-center gap-3">
+                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-card text-sm font-bold text-primary">{t.initials}</div>
+                  <div>
+                    <h5 className="font-sans text-sm font-bold text-foreground">{t.name}</h5>
+                    <p className="text-xs text-muted-foreground">{t.sub}</p>
+                  </div>
                 </div>
               </div>
             ))}
@@ -218,22 +327,133 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="section-padding">
-        <div className="container mx-auto max-w-3xl text-center">
-          <h2 className="text-3xl md:text-5xl font-black mb-4">
-            90 Days. 36 Sessions.<br /><span className="text-gradient">One Decision: Start.</span>
+      {/* Tiers */}
+      <section id="coaching" className="section-padding border-y border-border bg-[hsl(0_0%_6.5%)]">
+        <div className="container mx-auto max-w-[1100px] px-6">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">Choose Your Path</p>
+          <h2 className="font-display mt-2 text-balance text-center text-[clamp(2rem,5vw,3rem)] text-foreground">
+            The <span className="text-primary">Program</span> or The <span className="text-primary">Coach</span>
           </h2>
-          <p className="text-muted-foreground mb-8 max-w-lg mx-auto">
-            The program. The nutrition framework. The habit system. Everything you need. The only thing standing between you and the body you want is starting.
+          <p className="mx-auto mt-3 max-w-[560px] text-center text-pretty text-muted-foreground">
+            The self-guided program gets you strong. The coaching gets you there faster, with accountability and a custom plan built around your life.
           </p>
-          <div className="flex justify-center">
-            <Link to="/pricing" className="inline-flex w-fit max-w-full">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold text-sm h-10 px-5 glow-green animate-pulse-glow whitespace-normal">
-                Get Started Now — €39
-                <ArrowRight className="ml-2 h-4 w-4 shrink-0" />
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="flex flex-col rounded-2xl border border-border bg-background p-8">
+              <div className="text-xs font-semibold uppercase tracking-widest text-primary">Self-Guided</div>
+              <h3 className="font-display mt-1 text-3xl">Busy Strong 90</h3>
+              <div className="mt-2 text-muted-foreground">
+                <strong className="font-display text-4xl text-foreground">€39</strong> one-time
+              </div>
+              <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
+                {["Full 90-day program (36 sessions)", "Exercise video library", "Nutrition framework guide", "Habit-building system", "Email support"].map((x) => (
+                  <li key={x} className="flex gap-2">
+                    <span className="font-bold text-primary">✓</span>
+                    {x}
+                  </li>
+                ))}
+              </ul>
+              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:text-primary">
+                <Link to="/pricing">Get the Program</Link>
               </Button>
-            </Link>
+            </div>
+
+            <div className="relative flex flex-col rounded-2xl border-2 border-primary bg-background p-8 shadow-[0_0_40px_hsl(171_47%_50%_/_0.1)]">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-primary-foreground">
+                Most Popular
+              </div>
+              <div className="text-xs font-semibold uppercase tracking-widest text-primary">Core Coaching</div>
+              <h3 className="font-display mt-1 text-3xl">Coached Strong 90</h3>
+              <div className="mt-2 text-muted-foreground">
+                <strong className="font-display text-4xl text-foreground">€299</strong> / month
+              </div>
+              <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border/80 pt-4 text-sm text-[#ccc]">
+                {[
+                  "Everything in Self-Guided",
+                  "Custom training plan for your schedule",
+                  "Weekly check-ins with Coach Milos",
+                  "Nutrition plan adapted to your lifestyle",
+                  "WhatsApp accountability group",
+                  "Form checks via video",
+                ].map((x) => (
+                  <li key={x} className="flex gap-2">
+                    <span className="font-bold text-primary">✓</span>
+                    {x}
+                  </li>
+                ))}
+              </ul>
+              <Button asChild className="h-11 w-full bg-primary font-bold text-primary-foreground hover:bg-primary/90">
+                <Link to="/coaching-apply#apply">Apply Now</Link>
+              </Button>
+            </div>
+
+            <div className="flex flex-col rounded-2xl border border-border bg-background p-8">
+              <div className="text-xs font-semibold uppercase tracking-widest text-primary">Elite</div>
+              <h3 className="font-display mt-1 text-3xl">Private Transformation</h3>
+              <div className="mt-2 text-muted-foreground">
+                <strong className="font-display text-4xl text-foreground">€699</strong> / month
+              </div>
+              <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
+                {[
+                  "Everything in Core Coaching",
+                  "1-on-1 calls with Coach Milos (2×/month)",
+                  "Fully custom program — rebuilt monthly",
+                  "Direct WhatsApp access to Milos",
+                  "Priority response (under 4 hours)",
+                  "Quarterly progress photoshoot plan",
+                ].map((x) => (
+                  <li key={x} className="flex gap-2">
+                    <span className="font-bold text-primary">✓</span>
+                    {x}
+                  </li>
+                ))}
+              </ul>
+              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:text-primary">
+                <Link to="/coaching-apply#apply">Apply for Elite</Link>
+              </Button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ */}
+      <section className="section-padding">
+        <div className="container mx-auto max-w-[1100px] px-6">
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">Questions</p>
+          <h2 className="font-display mt-2 text-balance text-center text-[clamp(2rem,5vw,3rem)] text-foreground">
+            Before You <span className="text-primary">Decide</span>
+          </h2>
+          <p className="mx-auto mt-2 max-w-[520px] text-center text-pretty text-muted-foreground">Every objection you have, someone else had too. Here&apos;s the truth.</p>
+          <Accordion type="single" collapsible className="mx-auto mt-10 max-w-3xl w-full">
+            {faqs.map((f, i) => (
+              <AccordionItem key={f.q} value={`faq-${i}`} className="border-border">
+                <AccordionTrigger className="text-left text-base font-semibold hover:text-primary hover:no-underline">
+                  {f.q}
+                </AccordionTrigger>
+                <AccordionContent className="text-sm leading-relaxed text-muted-foreground">{f.a}</AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
+        </div>
+      </section>
+
+      {/* Final CTA */}
+      <section id="apply" className="section-padding border-t border-border/50 pb-24 text-center">
+        <div className="container mx-auto max-w-3xl px-6">
+          <h2 className="font-display text-balance text-[clamp(2.2rem,6vw,3.5rem)] text-foreground">
+            90 Days. 36 Sessions. <span className="text-primary">One Decision: Start.</span>
+          </h2>
+          <p className="mx-auto mt-4 max-w-lg text-pretty text-muted-foreground">The program. The nutrition framework. The habit system. Everything you need. The only thing standing between you and the body you want is starting.</p>
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+            <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
+              <Link to="/coaching-apply#apply">Apply for Coaching</Link>
+            </Button>
+            <Button
+              asChild
+              variant="outline"
+              className="h-12 rounded-lg border-border px-8 text-base font-semibold text-foreground hover:border-primary hover:text-primary"
+            >
+              <Link to="/pricing">Get the €39 Program</Link>
+            </Button>
           </div>
         </div>
       </section>

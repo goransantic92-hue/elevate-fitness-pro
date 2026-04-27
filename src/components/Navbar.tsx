@@ -41,9 +41,11 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-tight">
+        <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold tracking-tight">
           <Dumbbell className="h-6 w-6 text-primary" />
-          <span>BUSY<span className="text-primary">STRONG</span>90</span>
+          <span>
+            BUSY<span className="text-primary">STRONG</span>90
+          </span>
         </Link>
 
         <div className="hidden lg:flex items-center gap-1">
@@ -104,9 +106,14 @@ const Navbar = () => {
                     Log In
                   </Button>
                 </Link>
+                <Link to="/coaching-apply">
+                  <Button size="sm" variant="outline" className="font-semibold border-border hover:border-primary hover:text-primary">
+                    Apply for Coaching
+                  </Button>
+                </Link>
                 <Link to="/pricing">
-                  <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-semibold">
-                    Get Started — €39
+                  <Button size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold">
+                    €39 Program
                   </Button>
                 </Link>
               </>
@@ -177,10 +184,13 @@ const Navbar = () => {
                       Log In
                     </Button>
                   </Link>
-                  <Link to="/pricing" onClick={() => setOpen(false)}>
-                    <Button className="w-full bg-primary text-primary-foreground font-semibold">
-                      Get Started — €39
+                  <Link to="/coaching-apply" onClick={() => setOpen(false)}>
+                    <Button variant="outline" className="w-full font-semibold border-border">
+                      Apply for Coaching
                     </Button>
+                  </Link>
+                  <Link to="/pricing" onClick={() => setOpen(false)}>
+                    <Button className="w-full bg-primary text-primary-foreground font-bold">€39 Program</Button>
                   </Link>
                 </>
               )}

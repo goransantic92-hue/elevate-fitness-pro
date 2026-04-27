@@ -17,6 +17,7 @@ import NutritionPage from "@/pages/NutritionPage";
 import ResultsPage from "@/pages/ResultsPage";
 import FAQPage from "@/pages/FAQPage";
 import PricingPage from "@/pages/PricingPage";
+import CoachingApplyPage from "@/pages/CoachingApplyPage";
 import NotFound from "@/pages/NotFound";
 import LoginPage from "@/pages/auth/LoginPage";
 import SignupPage from "@/pages/auth/SignupPage";
@@ -67,6 +68,7 @@ const App = () => (
             <Route path="/results" element={<ResultsPage />} />
             <Route path="/faq" element={<FAQPage />} />
             <Route path="/pricing" element={<PricingPage />} />
+            <Route path="/coaching-apply" element={<CoachingApplyPage />} />
           </Route>
 
           <Route path="/login" element={<LoginPage />} />

@@ -288,18 +288,35 @@ export const progressExpectations = [
   { metric: "Visible Change", w1: "Subtle week 3–4", w2: "Clear changes week 6–7", w3: "Significant by week 10" },
 ] as const;
 
+/** Javni FAQ (identičan na home i /faq) */
 export const faqs = [
-  { q: "I missed a session — should I do two in one day?", a: "No. Never double up on sessions. If you miss Monday, do it Tuesday and shift the week by one day. Missing one session in 90 days will not derail your progress. Missing 20 sessions will." },
-  { q: "Can I do more than 3 sessions per week?", a: "In Phase 1 and 2 — no. Follow the plan. In Phase 3, you may add a light 30-min cardio session on Saturday if you feel strong and recovery is excellent. More is not always better. Recovery is where the growth happens." },
-  { q: "I don't see results after 2 weeks. Should I change the program?", a: "No. Two weeks is not enough time to evaluate any program. Most visible changes appear at week 4–6. Trust the process. The only thing you should evaluate at week 2 is your compliance." },
-  { q: "What if I can't do certain exercises due to injury?", a: "Always consult a physio for serious injuries. For minor issues: substitute push movements with push-ups or machine press, pull movements with lat pulldown or band rows, squat with leg press or split squat. Training around injuries intelligently is better than not training." },
-  { q: "How much cardio should I do?", a: "For fat loss: 10,000 steps per day is worth more than 30 minutes on a treadmill. Walk more. If you want dedicated cardio, add one 20-minute moderate session after a strength workout — never before." },
-  { q: "What if I travel for work?", a: "Use the HOME workout version. Use the 10-minute emergency workouts when time is truly impossible. Follow the Eat Anywhere Guide. You have zero valid excuses while traveling — the program is designed for exactly this." },
-  { q: "Do I need to count macros exactly?", a: "No. Use the hand method: a palm of protein, a fist of carbs, a cupped hand of vegetables, a thumb of fat per meal. That is approximately correct and 1000x more sustainable than obsessive tracking." },
-  { q: "Will I lose strength if I reduce to 3 days per week from more?", a: "In the first 2 weeks, possibly a small adaptation. After that, your strength will match or exceed previous levels because recovery is optimized. Many advanced trainees are overtrained — not undertrained." },
   {
-    q: "Can I install this on my phone like an app?",
-    a: "Yes. Install it as a Progressive Web App: on Android with Chrome, use Install app or Add to Home screen from the browser menu. On iPhone, open the site in Safari, tap Share, then Add to Home Screen. It opens full-screen like an app; keep Wi‑Fi or mobile data on. This is not a separate App Store / Play Store download — updates apply automatically when you visit the site.",
+    q: "I've tried programs before and always quit. Why would this be different?",
+    a: "Because this wasn't built for fitness enthusiasts — it was built for quitters. Seriously. The entire system is designed around the assumption that you're busy, tired, and inconsistent. Three sessions per week, 30-40 minutes, no gym required. The bar is set low enough to actually stick. And if you're doing coached, I'm checking in weekly — you can't ghost this one.",
+  },
+  {
+    q: "I travel a lot for work. Can I still do this?",
+    a: "Yes. Every session is designed to work with zero equipment in a hotel room, a park, or your living room. Several of my clients travel 2-3 weeks per month. The program goes where you go.",
+  },
+  {
+    q: "I'm over 40 / have old injuries. Is this safe?",
+    a: "The program uses progressive overload and compound movements — not high-impact, not CrossFit-style burnout. If you're doing coaching, I adapt everything around your specific limitations. Several of my clients are 45+ with knee and back issues. We work around them, not through them.",
+  },
+  {
+    q: "Do I need any equipment?",
+    a: "No. The base program is fully bodyweight. If you have resistance bands or dumbbells, great — there are progressions for that. But they're optional, not required.",
+  },
+  {
+    q: "What if I don't see results?",
+    a: "If you complete 80% of the sessions in the first 30 days and follow the nutrition framework, and you don't feel a noticeable difference in your energy and strength — I'll refund the program in full and coach you for free for 30 days to figure out what's off. I've never had to do this.",
+  },
+  {
+    q: "What's the difference between self-guided and coaching?",
+    a: "Self-guided gives you the system — the exact program, nutrition framework, and habit structure. Coaching gives you the system PLUS me: custom plans, weekly check-ins, form reviews, and someone who won't let you skip sessions. If you've failed at following programs alone before, coaching is the answer.",
+  },
+  {
+    q: "How is this different from hiring a personal trainer?",
+    a: "A personal trainer gives you an hour at the gym. I give you a system for your life. The training is one piece — the habits, the nutrition, the accountability, the mindset shift from \"I should work out\" to \"this is just what I do.\" That's the real product. And you don't have to drive anywhere.",
   },
 ] as const;
 

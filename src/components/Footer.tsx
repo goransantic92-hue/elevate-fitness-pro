@@ -17,9 +17,11 @@ const Footer = () => {
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 font-bold text-xl tracking-tight mb-4">
+            <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold tracking-tight mb-4">
               <Dumbbell className="h-6 w-6 text-primary" />
-              <span>BUSY<span className="text-primary">STRONG</span>90</span>
+              <span>
+                BUSY<span className="text-primary">STRONG</span>90
+              </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
               The complete 90-day training system for busy people 35+. 3x per week. 30-40 minutes. No excuses.
@@ -27,7 +29,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Program</h4>
+            <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Program</h4>
             <div className="flex flex-col gap-2">
               <Link to="/program" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Program Overview</Link>
               <Link to={nutritionTo} className="text-sm text-muted-foreground hover:text-foreground transition-colors">Nutrition Guide</Link>
@@ -36,8 +38,9 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Support</h4>
+            <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Support</h4>
             <div className="flex flex-col gap-2">
+              <Link to="/coaching-apply" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Apply for Coaching</Link>
               <Link to="/faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</Link>
               <Link to="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>
               <Link to="/login" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Member Login</Link>
@@ -45,7 +48,7 @@ const Footer = () => {
           </div>
 
           <div>
-            <h4 className="font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Connect</h4>
+            <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Connect</h4>
             <div className="flex flex-col gap-2">
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Instagram className="h-4 w-4 shrink-0" /> @_coachmilos
