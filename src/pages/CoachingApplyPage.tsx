@@ -25,18 +25,17 @@ export default function CoachingApplyPage() {
   const [age, setAge] = useState("");
   const [role, setRole] = useState("");
   const [fitness, setFitness] = useState("");
-  const [tier, setTier] = useState("");
   const [minutes, setMinutes] = useState("");
 
   const onSubmit = (e: FormEvent) => {
     e.preventDefault();
-    if (!age || !role || !fitness || !tier || !minutes) {
+    if (!age || !role || !fitness || !minutes) {
       toast({ title: "Please complete all fields", variant: "destructive" });
       return;
     }
     toast({
       title: "Application received",
-      description: "Connect this form to your backend or email hello@busystrong90.com.",
+      description: "Connect this form to your backend or email info@ptmilosilic.com.",
     });
   };
 
@@ -188,31 +187,6 @@ export default function CoachingApplyPage() {
           </div>
 
           <div className="h-px bg-border" aria-hidden />
-
-          <div className="space-y-2">
-            <Label>Which coaching tier interests you?</Label>
-            <RadioGroup value={tier} onValueChange={setTier} className="gap-2">
-              {[
-                { v: "core", t: "Core Coaching — €299/month", s: "Custom plan, weekly check-ins, group accountability" },
-                { v: "elite", t: "Elite Coaching — €699/month", s: "Full 1-on-1, direct WhatsApp access, priority everything" },
-                { v: "unsure", t: "Not sure yet — help me decide", s: "No pressure. We'll figure it out together." },
-              ].map((o) => (
-                <div
-                  key={o.v}
-                  className={cn(
-                    "flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-[#111] p-4 transition-colors hover:border-primary/40",
-                    tier === o.v && "border-primary/50"
-                  )}
-                >
-                  <RadioGroupItem value={o.v} id={`tier-${o.v}`} className="mt-1" />
-                  <label htmlFor={`tier-${o.v}`} className="cursor-pointer text-left">
-                    <span className="block text-sm text-foreground">{o.t}</span>
-                    <span className="mt-0.5 block text-xs text-muted-foreground">{o.s}</span>
-                  </label>
-                </div>
-              ))}
-            </RadioGroup>
-          </div>
 
           <div className="space-y-2">
             <Label>How many minutes per day can you realistically commit to training?</Label>

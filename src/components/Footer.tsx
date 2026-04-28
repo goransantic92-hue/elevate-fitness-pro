@@ -56,8 +56,8 @@ const Footer = () => {
               <a href={LINKTREE_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Link2 className="h-4 w-4 shrink-0" /> Linktree — all links
               </a>
-              <a href="mailto:hello@busystrong90.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                <Mail className="h-4 w-4" /> hello@busystrong90.com
+              <a href="mailto:info@ptmilosilic.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+                <Mail className="h-4 w-4" /> info@ptmilosilic.com
               </a>
             </div>
           </div>
