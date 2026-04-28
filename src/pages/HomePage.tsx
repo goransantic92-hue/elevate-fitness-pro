@@ -64,20 +64,17 @@ const HomePage = () => {
           aria-hidden
         />
         <div className="container relative z-[1] mx-auto max-w-[1100px] px-6">
-          <div className="mb-8 flex flex-col gap-8 md:flex-row md:items-center">
-            <div className="relative min-h-[220px] w-full max-w-md shrink-0 overflow-hidden rounded-2xl border border-border/60 md:max-w-sm">
-              <img src={coachHero} alt="Coach Milos — training" className="h-56 w-full object-cover object-top md:h-72" />
-            </div>
-            <div className="min-w-0 max-w-2xl flex-1">
+          <div className="mb-8 grid items-center gap-8 md:grid-cols-12 md:gap-10">
+            <div className="min-w-0 md:col-span-7 lg:col-span-7">
               <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
                 <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
                 Launch Price — Ends May 15th
               </div>
-              <h1 className="font-display text-[clamp(2.5rem,7vw,4.25rem)] text-foreground">
-                <span className="mb-3 block font-sans text-lg font-normal normal-case leading-snug tracking-normal text-muted-foreground md:text-xl">
+              <h1 className="font-display text-[clamp(2.8rem,7vw,4.5rem)] leading-[1.02] text-foreground">
+                <span className="mb-3 block font-sans text-base font-normal normal-case leading-relaxed tracking-normal text-muted-foreground md:text-lg">
                   You haven&apos;t trained in months. You&apos;re tired. Your kids see it.
                 </span>
-                <span className="block text-balance">
+                <span className="block max-w-[14ch] text-balance">
                   GET <span className="text-primary">STRONG</span> IN 90 DAYS. NO GYM. NO EXCUSES.
                 </span>
               </h1>
@@ -113,6 +110,11 @@ const HomePage = () => {
                   <Check className="h-4 w-4 shrink-0 text-primary" />
                   Built by a competitive bodybuilder &amp; father of 2
                 </span>
+              </div>
+            </div>
+            <div className="md:col-span-5 lg:col-span-5">
+              <div className="relative mx-auto w-full max-w-[430px] overflow-hidden rounded-2xl border border-border/60">
+                <img src={coachHero} alt="Coach Milos — training" className="aspect-[4/5] w-full object-cover object-top" />
               </div>
             </div>
           </div>
