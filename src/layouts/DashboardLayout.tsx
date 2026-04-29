@@ -5,7 +5,6 @@ import {
   Utensils,
   Map,
   LineChart,
-  Bell,
   User,
   LogOut,
   Shield,
@@ -20,7 +19,6 @@ const nav = [
   { to: "/dashboard/nutrition", label: "Nutrition", icon: Utensils },
   { to: "/dashboard/roadmap", label: "Roadmap", icon: Map },
   { to: "/dashboard/progress", label: "Progress", icon: LineChart },
-  { to: "/dashboard/reminders", label: "Reminders", icon: Bell },
   { to: "/dashboard/profile", label: "Profile", icon: User },
 ];
 

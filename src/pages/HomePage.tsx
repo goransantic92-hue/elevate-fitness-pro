@@ -1,8 +1,5 @@
-import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { useToast } from "@/hooks/use-toast";
 import { ArrowRight, Check, Star } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import coachHero from "@/assets/coach-hero.jpg";
@@ -14,13 +11,6 @@ const whoCards = [
   { icon: "💼", title: "Founders & Business Owners", text: "You're building something. Early mornings, late nights, back-to-back calls. Your body is the one thing holding everything else up — and you've been neglecting it. This program fits between meetings, not instead of them." },
   { icon: "👨‍👧‍👦", title: "Busy Parents", text: "Your kids watch everything you do. When you train, they learn that discipline isn't something you talk about — it's something you live. 30 minutes, 3× a week, at home. While they're sleeping or playing." },
   { icon: "🏢", title: "Corporate Professionals", text: "You've been saying \"I'll start Monday\" for months. The gym membership you never use. The energy crash at 2pm. This system requires no commute, no equipment, and no willpower — just a decision to start." },
-] as const;
-
-const leadChecklist = [
-  "12 structured training sessions (no gym, no equipment)",
-  "Simple nutrition framework — no calorie counting",
-  "The \"Parent Fit\" daily habit checklist",
-  "Direct access to Coach Milos via email",
 ] as const;
 
 const pillars = [
@@ -36,19 +26,6 @@ const testimonials = [
 ] as const;
 
 const HomePage = () => {
-  const { toast } = useToast();
-  const [emailLead, setEmailLead] = useState("");
-
-  const onLeadSubmit = (e: FormEvent) => {
-    e.preventDefault();
-    if (!emailLead.trim()) {
-      toast({ title: "Enter your email", variant: "destructive" });
-      return;
-    }
-    toast({ title: "You’re on the list", description: "We’ll send the Busy Strong 30 starter plan when email delivery is connected." });
-    setEmailLead("");
-  };
-
   return (
     <div className="font-sans">
       <PageMeta
@@ -94,7 +71,7 @@ const HomePage = () => {
                   variant="outline"
                   className="h-12 rounded-lg border-border bg-transparent px-8 text-base font-semibold text-foreground hover:border-primary hover:bg-transparent hover:text-primary"
                 >
-                  <a href="#free">Get the Free 30-Day Starter Plan</a>
+                  <a href="#coaching">See Program & Coaching Plans</a>
                 </Button>
               </div>
               <div className="mt-10 flex flex-wrap gap-6 text-sm text-muted-foreground">
@@ -171,55 +148,89 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Lead magnet */}
-      <section id="free" className="section-padding !pt-8">
+      {/* Tiers */}
+      <section id="coaching" className="section-padding !pt-8 border-y border-border bg-[hsl(0_0%_6.5%)]">
         <div className="container mx-auto max-w-[1100px] px-6">
-          <div
-            className="flex flex-col items-stretch gap-8 rounded-2xl border border-primary/25 p-8 md:flex-row md:items-center md:gap-12 md:p-12"
-            style={{ background: "linear-gradient(135deg, hsl(171 47% 50% / 0.08) 0%, hsl(171 47% 50% / 0.02) 100%)" }}
-          >
-            <div className="min-w-0 flex-1">
-              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">Free Download</p>
-              <h2 className="font-display text-balance text-[clamp(1.8rem,4vw,2.5rem)] text-foreground">
-                Not Ready To Commit? Start With <span className="text-primary">30 Days Free.</span>
-              </h2>
-              <p className="mt-4 text-[#ccc] leading-relaxed">
-                Get the Busy Strong 30 — a complete 30-day starter program with training sessions, a nutrition checklist, and the daily habit system that
-                Coach Milos uses with his private clients.
-              </p>
-              <ul className="my-6 list-none space-y-2 text-[0.95rem] text-[#ccc]">
-                {leadChecklist.map((x) => (
-                  <li key={x} className="pl-0">
-                    <span className="mr-2.5 font-bold text-primary">✓</span>
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">Choose Your Path</p>
+          <h2 className="font-display mt-2 text-balance text-center text-[clamp(2rem,5vw,3rem)] text-foreground">
+            The <span className="text-primary">Program</span> or The <span className="text-primary">Coach</span>
+          </h2>
+          <p className="mx-auto mt-3 max-w-[560px] text-center text-pretty text-muted-foreground">
+            The self-guided program gets you strong. The coaching gets you there faster, with accountability and a custom plan built around your life.
+          </p>
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="flex flex-col rounded-2xl border border-border bg-background p-8">
+              <div className="text-xs font-semibold uppercase tracking-widest text-primary">Self-Guided</div>
+              <h3 className="font-display mt-1 text-3xl">Busy Strong 90</h3>
+              <div className="mt-2 text-muted-foreground">
+                <strong className="font-display text-4xl text-foreground">€39</strong> one-time
+              </div>
+              <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
+                {["Full 90-day program (36 sessions)", "Exercise video library", "Nutrition framework guide", "Habit-building system", "Email support"].map((x) => (
+                  <li key={x} className="flex gap-2">
+                    <span className="font-bold text-primary">✓</span>
                     {x}
                   </li>
                 ))}
               </ul>
-              <form onSubmit={onLeadSubmit} className="flex max-w-lg flex-col gap-3 sm:flex-row">
-                <Input
-                  type="email"
-                  name="email"
-                  placeholder="Enter your email"
-                  className="h-12 min-w-[220px] flex-1 rounded-lg border-border bg-[#111] text-foreground"
-                  value={emailLead}
-                  onChange={(e) => setEmailLead(e.target.value)}
-                />
-                <Button
-                  type="submit"
-                  className="h-12 shrink-0 rounded-lg bg-primary px-6 font-bold text-primary-foreground hover:bg-primary/90"
-                >
-                  Send Me the Plan
-                  <ArrowRight className="ml-1 h-4 w-4" />
-                </Button>
-              </form>
+              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:text-primary">
+                <Link to="/pricing">Get the Program</Link>
+              </Button>
             </div>
-            <div className="font-display flex h-44 w-full shrink-0 flex-col items-center justify-center rounded-xl border border-border bg-[#111] p-5 text-center text-xl text-primary md:h-[280px] md:w-[220px]">
-              BUSY
-              <br />
-              STRONG
-              <br />
-              30
-              <span className="mt-2 font-sans text-[0.6rem] font-medium uppercase tracking-wide text-muted-foreground">Free starter plan</span>
+
+            <div className="relative flex flex-col rounded-2xl border-2 border-primary bg-background p-8 shadow-[0_0_40px_hsl(171_47%_50%_/_0.1)]">
+              <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-primary-foreground">
+                Most Popular
+              </div>
+              <div className="text-xs font-semibold uppercase tracking-widest text-primary">Core Coaching</div>
+              <h3 className="font-display mt-1 text-3xl">Coached Strong 90</h3>
+              <div className="mt-2 text-muted-foreground">
+                <strong className="font-display text-4xl text-foreground">€299</strong> / month
+              </div>
+              <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border/80 pt-4 text-sm text-[#ccc]">
+                {[
+                  "Everything in Self-Guided",
+                  "Custom training plan for your schedule",
+                  "Weekly check-ins with Coach Milos",
+                  "Nutrition plan adapted to your lifestyle",
+                  "WhatsApp accountability group",
+                  "Form checks via video",
+                ].map((x) => (
+                  <li key={x} className="flex gap-2">
+                    <span className="font-bold text-primary">✓</span>
+                    {x}
+                  </li>
+                ))}
+              </ul>
+              <Button asChild className="h-11 w-full bg-primary font-bold text-primary-foreground hover:bg-primary/90">
+                <Link to="/coaching-apply#apply">Apply Now</Link>
+              </Button>
+            </div>
+
+            <div className="flex flex-col rounded-2xl border border-border bg-background p-8">
+              <div className="text-xs font-semibold uppercase tracking-widest text-primary">Elite</div>
+              <h3 className="font-display mt-1 text-3xl">Private Transformation</h3>
+              <div className="mt-2 text-muted-foreground">
+                <strong className="font-display text-4xl text-foreground">€699</strong> / month
+              </div>
+              <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
+                {[
+                  "Everything in Core Coaching",
+                  "1-on-1 calls with Coach Milos (4×/month)",
+                  "Fully custom program — rebuilt monthly",
+                  "Direct WhatsApp access to Milos",
+                  "Priority response (under 1 hour)",
+                  "Quarterly progress photoshoot plan",
+                ].map((x) => (
+                  <li key={x} className="flex gap-2">
+                    <span className="font-bold text-primary">✓</span>
+                    {x}
+                  </li>
+                ))}
+              </ul>
+              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:text-primary">
+                <Link to="/coaching-apply#apply">Apply for Elite</Link>
+              </Button>
             </div>
           </div>
         </div>
@@ -329,93 +340,6 @@ const HomePage = () => {
         </div>
       </section>
 
-      {/* Tiers */}
-      <section id="coaching" className="section-padding border-y border-border bg-[hsl(0_0%_6.5%)]">
-        <div className="container mx-auto max-w-[1100px] px-6">
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">Choose Your Path</p>
-          <h2 className="font-display mt-2 text-balance text-center text-[clamp(2rem,5vw,3rem)] text-foreground">
-            The <span className="text-primary">Program</span> or The <span className="text-primary">Coach</span>
-          </h2>
-          <p className="mx-auto mt-3 max-w-[560px] text-center text-pretty text-muted-foreground">
-            The self-guided program gets you strong. The coaching gets you there faster, with accountability and a custom plan built around your life.
-          </p>
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="flex flex-col rounded-2xl border border-border bg-background p-8">
-              <div className="text-xs font-semibold uppercase tracking-widest text-primary">Self-Guided</div>
-              <h3 className="font-display mt-1 text-3xl">Busy Strong 90</h3>
-              <div className="mt-2 text-muted-foreground">
-                <strong className="font-display text-4xl text-foreground">€39</strong> one-time
-              </div>
-              <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
-                {["Full 90-day program (36 sessions)", "Exercise video library", "Nutrition framework guide", "Habit-building system", "Email support"].map((x) => (
-                  <li key={x} className="flex gap-2">
-                    <span className="font-bold text-primary">✓</span>
-                    {x}
-                  </li>
-                ))}
-              </ul>
-              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:text-primary">
-                <Link to="/pricing">Get the Program</Link>
-              </Button>
-            </div>
-
-            <div className="relative flex flex-col rounded-2xl border-2 border-primary bg-background p-8 shadow-[0_0_40px_hsl(171_47%_50%_/_0.1)]">
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-primary-foreground">
-                Most Popular
-              </div>
-              <div className="text-xs font-semibold uppercase tracking-widest text-primary">Core Coaching</div>
-              <h3 className="font-display mt-1 text-3xl">Coached Strong 90</h3>
-              <div className="mt-2 text-muted-foreground">
-                <strong className="font-display text-4xl text-foreground">€299</strong> / month
-              </div>
-              <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border/80 pt-4 text-sm text-[#ccc]">
-                {[
-                  "Everything in Self-Guided",
-                  "Custom training plan for your schedule",
-                  "Weekly check-ins with Coach Milos",
-                  "Nutrition plan adapted to your lifestyle",
-                  "WhatsApp accountability group",
-                  "Form checks via video",
-                ].map((x) => (
-                  <li key={x} className="flex gap-2">
-                    <span className="font-bold text-primary">✓</span>
-                    {x}
-                  </li>
-                ))}
-              </ul>
-              <Button asChild className="h-11 w-full bg-primary font-bold text-primary-foreground hover:bg-primary/90">
-                <Link to="/coaching-apply#apply">Apply Now</Link>
-              </Button>
-            </div>
-
-            <div className="flex flex-col rounded-2xl border border-border bg-background p-8">
-              <div className="text-xs font-semibold uppercase tracking-widest text-primary">Elite</div>
-              <h3 className="font-display mt-1 text-3xl">Private Transformation</h3>
-              <div className="mt-2 text-muted-foreground">
-                <strong className="font-display text-4xl text-foreground">€699</strong> / month
-              </div>
-              <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
-                {[
-                  "Everything in Core Coaching",
-                  "1-on-1 calls with Coach Milos (2×/month)",
-                  "Fully custom program — rebuilt monthly",
-                  "Direct WhatsApp access to Milos",
-                  "Priority response (under 4 hours)",
-                  "Quarterly progress photoshoot plan",
-                ].map((x) => (
-                  <li key={x} className="flex gap-2">
-                    <span className="font-bold text-primary">✓</span>
-                    {x}
-                  </li>
-                ))}
-              </ul>
-              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:text-primary">
-                <Link to="/coaching-apply#apply">Apply for Elite</Link>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* FAQ */}
       <section className="section-padding">

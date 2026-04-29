@@ -288,7 +288,6 @@ export default function DashboardHome() {
           <section className="grid sm:grid-cols-2 gap-4 max-w-3xl">
             {[
               { to: "/dashboard/nutrition", title: "Nutrition", sub: "Framework & habits" },
-              { to: "/dashboard/reminders", title: "Reminders", sub: "Stay consistent" },
             ].map((x) => (
               <Link
                 key={x.to}
