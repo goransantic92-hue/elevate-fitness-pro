@@ -38,10 +38,14 @@ const Navbar = () => {
     return location.pathname === to;
   };
 
+  const scrollHomeTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  };
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold tracking-tight">
+        <Link to="/" onClick={scrollHomeTop} className="flex items-center gap-2 font-display text-xl font-bold tracking-tight">
           <Dumbbell className="h-6 w-6 text-primary" />
           <span>
             BUSY<span className="text-primary">STRONG</span>90
@@ -55,6 +59,7 @@ const Navbar = () => {
               <Link
                 key={link.href}
                 to={to}
+                onClick={link.href === "/" ? scrollHomeTop : undefined}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   linkActive(link.href, to) ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 }`}
@@ -135,7 +140,10 @@ const Navbar = () => {
                 <Link
                   key={link.href}
                   to={to}
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    if (link.href === "/") scrollHomeTop();
+                    setOpen(false);
+                  }}
                   className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
                     linkActive(link.href, to) ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   }`}
