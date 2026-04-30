@@ -195,6 +195,7 @@ const HomePage = () => {
                   "Nutrition plan adapted to your lifestyle",
                   "WhatsApp accountability group",
                   "Form checks via video",
+                  "Free My-Gym shirt",
                 ].map((x) => (
                   <li key={x} className="flex gap-2">
                     <span className="font-bold text-primary">✓</span>
@@ -221,6 +222,7 @@ const HomePage = () => {
                   "Direct WhatsApp access to Milos",
                   "Priority response (under 1 hour)",
                   "Quarterly progress photoshoot plan",
+                  "Free My-Gym shirt",
                 ].map((x) => (
                   <li key={x} className="flex gap-2">
                     <span className="font-bold text-primary">✓</span>
