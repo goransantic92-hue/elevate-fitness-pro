@@ -57,7 +57,7 @@ export default function AdminOverview() {
         </Card>
       </div>
       <p className="text-sm text-muted-foreground">
-        Grant program access under Members until Stripe checkout is connected. Workout and nutrition copy is locked to the official PDF in the app code; database content is for extra resources only.
+        Purchases via Stripe unlock access automatically. You can still grant or revoke access manually under Members. Workout and nutrition copy follows the official PDF in the app code; database content is for extra resources only.
       </p>
     </div>
   );

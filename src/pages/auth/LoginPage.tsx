@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate, useLocation, useSearchParams } from "react-router-dom";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { safeInternalPath } from "@/lib/safeRedirect";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -14,8 +15,9 @@ export default function LoginPage() {
   const { signIn, configured } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [searchParams] = useSearchParams();
   const { toast } = useToast();
-  const from = (location.state as { from?: string } | null)?.from ?? "/dashboard";
+  const from = safeInternalPath(searchParams.get("redirect"), (location.state as { from?: string } | null)?.from, "/dashboard");
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -74,7 +76,7 @@ export default function LoginPage() {
           </form>
           <p className="text-sm text-muted-foreground mt-6 text-center">
             No account?{" "}
-            <Link to="/signup" className="text-primary font-semibold hover:underline">
+            <Link to={`/signup?redirect=${encodeURIComponent(from)}`} className="text-primary font-semibold hover:underline">
               Create one
             </Link>
           </p>

@@ -1,7 +1,10 @@
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Check, ArrowRight, Zap, Star } from "lucide-react";
+import { Check, ArrowRight, Zap, Star, Loader2 } from "lucide-react";
 import { PageMeta } from "@/components/seo/PageMeta";
+import { useAuth } from "@/context/AuthContext";
+import { useToast } from "@/hooks/use-toast";
 
 const features = [
   "3 Gym Training Programs (A/B/C)",
@@ -18,6 +21,61 @@ const features = [
 ];
 
 const PricingPage = () => {
+  const { session, user, hasProgramAccess, configured } = useAuth();
+  const navigate = useNavigate();
+  const { toast } = useToast();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const [checkoutBusy, setCheckoutBusy] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get("checkout") === "canceled") {
+      toast({
+        title: "Checkout canceled",
+        description: "You can complete your purchase anytime from this page.",
+      });
+      const next = new URLSearchParams(searchParams);
+      next.delete("checkout");
+      setSearchParams(next, { replace: true });
+    }
+  }, [searchParams, setSearchParams, toast]);
+
+  async function startCheckout() {
+    if (!configured) {
+      toast({ title: "Not configured", description: "Supabase environment is missing.", variant: "destructive" });
+      return;
+    }
+    if (!session?.access_token || !user) {
+      navigate(`/login?redirect=${encodeURIComponent("/pricing")}`);
+      return;
+    }
+    setCheckoutBusy(true);
+    try {
+      const r = await fetch("/api/stripe/create-checkout-session", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${session.access_token}`,
+        },
+      });
+      const data = (await r.json().catch(() => ({}))) as { url?: string; error?: string };
+      if (!r.ok) {
+        throw new Error(data.error ?? "Checkout unavailable");
+      }
+      if (data.url) {
+        window.location.href = data.url;
+        return;
+      }
+      throw new Error("No checkout URL returned");
+    } catch (e) {
+      toast({
+        title: "Checkout failed",
+        description: e instanceof Error ? e.message : "Try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setCheckoutBusy(false);
+    }
+  }
+
   return (
     <div>
       <PageMeta
@@ -63,25 +121,51 @@ const PricingPage = () => {
                 ))}
               </div>
 
-              <Button
-                className="w-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-base h-auto min-h-10 py-2.5 px-2 sm:px-3 sm:min-h-11 sm:py-3 md:h-12 md:py-0 hover:bg-primary/90 animate-pulse-glow leading-snug whitespace-normal"
-                asChild
-              >
-                <Link
-                  to="/signup"
-                  className="inline-flex w-full min-h-[2.75rem] items-center justify-center gap-1.5 text-center flex-wrap sm:flex-nowrap px-1.5 py-2 whitespace-normal"
-                >
-                  <span className="max-w-full text-pretty">Create account</span>
-                  <ArrowRight className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" aria-hidden />
-                </Link>
-              </Button>
+              <div className="flex flex-col gap-3">
+                {hasProgramAccess ? (
+                  <Button
+                    className="w-full bg-primary text-primary-foreground font-bold text-sm md:text-base h-12 hover:bg-primary/90 animate-pulse-glow"
+                    asChild
+                  >
+                    <Link to="/dashboard" className="inline-flex w-full items-center justify-center gap-2">
+                      Go to member dashboard
+                      <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+                    </Link>
+                  </Button>
+                ) : (
+                  <Button
+                    type="button"
+                    className="w-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-base h-auto min-h-12 py-3 px-2 hover:bg-primary/90 animate-pulse-glow leading-snug whitespace-normal"
+                    disabled={checkoutBusy || !configured}
+                    onClick={() => void startCheckout()}
+                  >
+                    {checkoutBusy ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin shrink-0" aria-hidden />
+                        Redirecting to checkout…
+                      </>
+                    ) : (
+                      <>
+                        <span className="max-w-full text-pretty">Buy program — €39</span>
+                        <ArrowRight className="ml-1 h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden />
+                      </>
+                    )}
+                  </Button>
+                )}
 
-              <p className="text-xs text-center text-muted-foreground mt-4">
-                Already registered?{" "}
-                <Link to="/login" className="text-primary font-semibold hover:underline">
-                  Log in
-                </Link>
-              </p>
+                {!hasProgramAccess && (
+                  <p className="text-center text-xs text-muted-foreground">
+                    Need an account first?{" "}
+                    <Link to="/signup?redirect=/pricing" className="text-primary font-semibold hover:underline">
+                      Create account
+                    </Link>{" "}
+                    or{" "}
+                    <Link to="/login?redirect=/pricing" className="text-primary font-semibold hover:underline">
+                      Log in
+                    </Link>
+                  </p>
+                )}
+              </div>
             </div>
           </div>
 

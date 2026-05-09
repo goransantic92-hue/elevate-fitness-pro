@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { safeInternalPath } from "@/lib/safeRedirect";
 
 export default function SignupPage() {
   const [fullName, setFullName] = useState("");
@@ -48,7 +49,7 @@ export default function SignupPage() {
           {done ? (
             <p className="text-sm text-muted-foreground">
               If email confirmation is enabled in Supabase, check your inbox. Then{" "}
-              <Link to="/login" className="text-primary font-semibold hover:underline">
+              <Link to={`/login?redirect=${encodeURIComponent(redirectAfterLogin)}`} className="text-primary font-semibold hover:underline">
                 sign in
               </Link>
               .
@@ -82,7 +83,7 @@ export default function SignupPage() {
           )}
           <p className="text-sm text-muted-foreground mt-6 text-center">
             Already have an account?{" "}
-            <Link to="/login" className="text-primary font-semibold hover:underline">
+            <Link to={`/login?redirect=${encodeURIComponent(redirectAfterLogin)}`} className="text-primary font-semibold hover:underline">
               Log in
             </Link>
           </p>

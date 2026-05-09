@@ -24,7 +24,7 @@ export function MemberGate({ children }: { children: React.ReactNode }) {
             <CardTitle>Program access</CardTitle>
           </div>
           <CardDescription>
-            Your account is active, but full program content unlocks after purchase. Stripe checkout is not connected yet — Coach Milos can grant access manually from the admin panel.
+            Your account is active, but full program content unlocks after purchase. Complete checkout on the pricing page, or contact Coach Milos if you need help.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col sm:flex-row gap-3">

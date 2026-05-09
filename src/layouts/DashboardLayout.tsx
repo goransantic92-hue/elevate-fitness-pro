@@ -1,4 +1,5 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { StripeCheckoutSuccess } from "@/components/StripeCheckoutSuccess";
 import {
   LayoutDashboard,
   Dumbbell,
@@ -96,6 +97,7 @@ export default function DashboardLayout() {
           </Button>
         </header>
         <main className="flex-1 p-4 md:p-8 lg:p-10 overflow-auto">
+          <StripeCheckoutSuccess />
           <Outlet />
         </main>
       </div>
