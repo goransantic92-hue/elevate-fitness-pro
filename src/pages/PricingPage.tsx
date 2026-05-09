@@ -23,7 +23,7 @@ const PricingPage = () => {
     <div>
       <PageMeta
         title="Pricing — BUSY STRONG 90"
-        description="Launch price €39 one-time for the full BUSY STRONG 90 digital program. Secure checkout via Stripe will be enabled soon."
+        description="Launch price €39 one-time for the full BUSY STRONG 90 digital program. Lifetime access to training, nutrition, and habits."
         path="/pricing"
       />
       <section className="py-28 md:py-36">
@@ -40,10 +40,6 @@ const PricingPage = () => {
 
       <section className="pb-20 md:pb-28 px-3 sm:px-4">
         <div className="container mx-auto max-w-lg min-w-0">
-          <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-3 sm:p-4 text-sm text-center text-muted-foreground mb-6">
-            <strong className="text-amber-500">Checkout update:</strong> Stripe payment is not wired yet. Create an account now; Coach Milos can grant program access from the admin dashboard until checkout goes live.
-          </div>
-
           <div className="glass-card glow-green overflow-hidden min-w-0">
             <div className="bg-gradient-to-r from-primary/20 to-primary/5 p-5 sm:p-8 text-center border-b border-border/50">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
@@ -76,7 +72,7 @@ const PricingPage = () => {
                   to="/signup"
                   className="inline-flex w-full min-h-[2.75rem] items-center justify-center gap-1.5 text-center flex-wrap sm:flex-nowrap px-1.5 py-2 whitespace-normal"
                 >
-                  <span className="max-w-full text-pretty">Create account (checkout soon)</span>
+                  <span className="max-w-full text-pretty">Create account</span>
                   <ArrowRight className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" aria-hidden />
                 </Link>
               </Button>
