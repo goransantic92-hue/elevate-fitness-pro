@@ -1,6 +1,6 @@
 import { useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ArrowRight, Check } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -13,21 +13,75 @@ import { cn } from "@/lib/utils";
 
 export default function CoachingApplyPage() {
   const { toast } = useToast();
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
+  const [whatsapp, setWhatsapp] = useState("");
+  const [location, setLocation] = useState("");
   const [age, setAge] = useState("");
   const [role, setRole] = useState("");
   const [fitness, setFitness] = useState("");
+  const [goal, setGoal] = useState("");
+  const [triedBefore, setTriedBefore] = useState("");
   const [minutes, setMinutes] = useState("");
+  const [anythingElse, setAnythingElse] = useState("");
+  const [submitting, setSubmitting] = useState(false);
 
-  const onSubmit = (e: FormEvent) => {
+  const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    if (!age || !role || !fitness || !minutes) {
+    if (!age || !role || !fitness || !minutes || !goal.trim()) {
       toast({ title: "Please complete all fields", variant: "destructive" });
       return;
     }
-    toast({
-      title: "Application received",
-      description: "Connect this form to your backend or email info@ptmilosilic.com.",
-    });
+    setSubmitting(true);
+    try {
+      const r = await fetch("/api/coaching-apply", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          firstName,
+          lastName,
+          email,
+          whatsapp,
+          location,
+          age,
+          role,
+          fitness,
+          goal,
+          triedBefore,
+          minutes,
+          anythingElse,
+        }),
+      });
+      const data = (await r.json().catch(() => ({}))) as { error?: string };
+      if (!r.ok) {
+        throw new Error(data.error || "Something went wrong");
+      }
+      toast({
+        title: "Application received",
+        description: "Check your inbox for a confirmation email with a link to book your consultation.",
+      });
+      setFirstName("");
+      setLastName("");
+      setEmail("");
+      setWhatsapp("");
+      setLocation("");
+      setAge("");
+      setRole("");
+      setFitness("");
+      setGoal("");
+      setTriedBefore("");
+      setMinutes("");
+      setAnythingElse("");
+    } catch (err) {
+      toast({
+        title: "Could not submit",
+        description: err instanceof Error ? err.message : "Please try again or email info@ptmilosilic.com.",
+        variant: "destructive",
+      });
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -61,33 +115,68 @@ export default function CoachingApplyPage() {
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>First Name</Label>
-              <Input className="h-11 border-border bg-[#111] text-foreground" placeholder="Your first name" required />
+              <Input
+                className="h-11 border-border bg-[#111] text-foreground"
+                placeholder="Your first name"
+                required
+                value={firstName}
+                onChange={(ev) => setFirstName(ev.target.value)}
+                disabled={submitting}
+              />
             </div>
             <div className="space-y-2">
               <Label>Last Name</Label>
-              <Input className="h-11 border-border bg-[#111] text-foreground" placeholder="Your last name" required />
+              <Input
+                className="h-11 border-border bg-[#111] text-foreground"
+                placeholder="Your last name"
+                required
+                value={lastName}
+                onChange={(ev) => setLastName(ev.target.value)}
+                disabled={submitting}
+              />
             </div>
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
               <Label>Email</Label>
-              <Input type="email" className="h-11 border-border bg-[#111] text-foreground" placeholder="you@email.com" required />
+              <Input
+                type="email"
+                className="h-11 border-border bg-[#111] text-foreground"
+                placeholder="you@email.com"
+                required
+                value={email}
+                onChange={(ev) => setEmail(ev.target.value)}
+                disabled={submitting}
+              />
             </div>
             <div className="space-y-2">
               <Label>WhatsApp Number</Label>
-              <Input type="tel" className="h-11 border-border bg-[#111] text-foreground" placeholder="+971 50 123 4567" />
+              <Input
+                type="tel"
+                className="h-11 border-border bg-[#111] text-foreground"
+                placeholder="+971 50 123 4567"
+                value={whatsapp}
+                onChange={(ev) => setWhatsapp(ev.target.value)}
+                disabled={submitting}
+              />
             </div>
           </div>
           <div className="space-y-2">
             <Label>Where are you based?</Label>
-            <Input className="h-11 border-border bg-[#111] text-foreground" placeholder="City, Country" />
+            <Input
+              className="h-11 border-border bg-[#111] text-foreground"
+              placeholder="City, Country"
+              value={location}
+              onChange={(ev) => setLocation(ev.target.value)}
+              disabled={submitting}
+            />
           </div>
 
           <div className="h-px bg-border" aria-hidden />
 
           <div className="space-y-2">
             <Label>How old are you?</Label>
-            <Select value={age} onValueChange={setAge}>
+            <Select value={age} onValueChange={setAge} disabled={submitting}>
               <SelectTrigger className="h-11 border-border bg-[#111] text-foreground">
                 <SelectValue placeholder="Select your age range" />
               </SelectTrigger>
@@ -103,7 +192,7 @@ export default function CoachingApplyPage() {
 
           <div className="space-y-2">
             <Label>What best describes you?</Label>
-            <Select value={role} onValueChange={setRole}>
+            <Select value={role} onValueChange={setRole} disabled={submitting}>
               <SelectTrigger className="h-11 border-border bg-[#111] text-foreground">
                 <SelectValue placeholder="Select one" />
               </SelectTrigger>
@@ -119,7 +208,7 @@ export default function CoachingApplyPage() {
 
           <div className="space-y-2">
             <Label>How would you describe your current fitness level?</Label>
-            <RadioGroup value={fitness} onValueChange={setFitness} className="gap-2">
+            <RadioGroup value={fitness} onValueChange={setFitness} className="gap-2" disabled={submitting}>
               {[
                 { v: "scratch", t: "Haven't trained in 6+ months", s: "Starting from scratch — that's okay" },
                 { v: "inconsistent", t: "Inconsistent — train sometimes but can't stick to it", s: "The most common answer. You're not alone." },
@@ -130,7 +219,8 @@ export default function CoachingApplyPage() {
                   key={o.v}
                   className={cn(
                     "flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-[#111] p-4 transition-colors hover:border-primary/40",
-                    fitness === o.v && "border-primary/50"
+                    fitness === o.v && "border-primary/50",
+                    submitting && "pointer-events-none opacity-70"
                   )}
                 >
                   <RadioGroupItem value={o.v} id={`fit-${o.v}`} className="mt-1" />
@@ -150,6 +240,9 @@ export default function CoachingApplyPage() {
               className="min-h-[100px] border-border bg-[#111] text-foreground"
               placeholder="Tell me what you want to change and why it matters to you..."
               required
+              value={goal}
+              onChange={(ev) => setGoal(ev.target.value)}
+              disabled={submitting}
             />
           </div>
 
@@ -159,6 +252,9 @@ export default function CoachingApplyPage() {
             <Textarea
               className="min-h-[100px] border-border bg-[#111] text-foreground"
               placeholder="Gym memberships, personal trainers, apps, programs, diets..."
+              value={triedBefore}
+              onChange={(ev) => setTriedBefore(ev.target.value)}
+              disabled={submitting}
             />
           </div>
 
@@ -166,7 +262,7 @@ export default function CoachingApplyPage() {
 
           <div className="space-y-2">
             <Label>How many minutes per day can you realistically commit to training?</Label>
-            <Select value={minutes} onValueChange={setMinutes}>
+            <Select value={minutes} onValueChange={setMinutes} disabled={submitting}>
               <SelectTrigger className="h-11 border-border bg-[#111] text-foreground">
                 <SelectValue placeholder="Be honest — I'll build around it" />
               </SelectTrigger>
@@ -182,19 +278,35 @@ export default function CoachingApplyPage() {
           <div className="space-y-2">
             <Label>Anything else you want me to know?</Label>
             <p className="text-xs text-muted-foreground">Injuries, medical conditions, travel schedule, dietary restrictions — anything relevant.</p>
-            <Textarea className="min-h-[100px] border-border bg-[#111] text-foreground" placeholder="Optional — but the more I know, the better I can help" />
+            <Textarea
+              className="min-h-[100px] border-border bg-[#111] text-foreground"
+              placeholder="Optional — but the more I know, the better I can help"
+              value={anythingElse}
+              onChange={(ev) => setAnythingElse(ev.target.value)}
+              disabled={submitting}
+            />
           </div>
 
           <div className="pt-2" id="apply">
             <Button
               type="submit"
               className="h-12 w-full bg-primary text-base font-bold text-primary-foreground hover:bg-primary/90 md:h-14"
+              disabled={submitting}
             >
-              Submit Application
-              <ArrowRight className="ml-1 h-4 w-4" />
+              {submitting ? (
+                <>
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  Sending…
+                </>
+              ) : (
+                <>
+                  Submit Application
+                  <ArrowRight className="ml-1 h-4 w-4" />
+                </>
+              )}
             </Button>
             <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">
-              I review every application personally and respond within 24 hours. No spam. No auto-emails. Just me.
+              I review every application personally and respond within 24 hours. You&apos;ll get a confirmation email with a link to book a quick consultation.
             </p>
           </div>
         </form>
