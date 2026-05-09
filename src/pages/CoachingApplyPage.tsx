@@ -11,15 +11,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 
-const whatYouGet = [
-  "Custom training plan",
-  "Weekly check-ins",
-  "Nutrition plan",
-  "Video form checks",
-  "WhatsApp accountability",
-  "Direct access to Milos",
-] as const;
-
 export default function CoachingApplyPage() {
   const { toast } = useToast();
   const [age, setAge] = useState("");
@@ -64,21 +55,6 @@ export default function CoachingApplyPage() {
             I work with a limited number of clients at a time so I can give each person the attention they deserve. Fill out this short application and I&apos;ll
             get back to you within 24 hours.
           </p>
-        </div>
-
-        <div
-          className="mb-10 rounded-xl border border-primary/20 p-6 md:p-8"
-          style={{ background: "hsl(171 47% 50% / 0.06)" }}
-        >
-          <h2 className="font-display text-2xl text-primary md:text-3xl">What Coaching Includes</h2>
-          <ul className="mt-4 grid list-none grid-cols-1 gap-2 sm:grid-cols-2">
-            {whatYouGet.map((x) => (
-              <li key={x} className="flex items-start gap-2 text-sm text-[#ccc]">
-                <span className="font-bold text-primary">✓</span>
-                {x}
-              </li>
-            ))}
-          </ul>
         </div>
 
         <form onSubmit={onSubmit} className="flex flex-col gap-7">
