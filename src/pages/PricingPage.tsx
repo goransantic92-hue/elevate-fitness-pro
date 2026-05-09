@@ -15,7 +15,6 @@ const features = [
   "12-Week Progress Tracking",
   "Phase-by-Phase Roadmap",
   "Coach Tips on Every Exercise",
-  "Lifetime Access + Updates",
 ];
 
 const PricingPage = () => {
