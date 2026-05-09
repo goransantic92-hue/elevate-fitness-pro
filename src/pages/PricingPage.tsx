@@ -38,43 +38,46 @@ const PricingPage = () => {
         </div>
       </section>
 
-      <section className="pb-20 md:pb-28 px-4">
-        <div className="container mx-auto max-w-lg">
-          <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-4 text-sm text-center text-muted-foreground mb-6">
+      <section className="pb-20 md:pb-28 px-3 sm:px-4">
+        <div className="container mx-auto max-w-lg min-w-0">
+          <div className="rounded-xl border border-amber-500/30 bg-amber-500/5 p-3 sm:p-4 text-sm text-center text-muted-foreground mb-6">
             <strong className="text-amber-500">Checkout update:</strong> Stripe payment is not wired yet. Create an account now; Coach Milos can grant program access from the admin dashboard until checkout goes live.
           </div>
 
-          <div className="glass-card glow-green overflow-hidden">
-            <div className="bg-gradient-to-r from-primary/20 to-primary/5 p-8 text-center border-b border-border/50">
+          <div className="glass-card glow-green overflow-hidden min-w-0">
+            <div className="bg-gradient-to-r from-primary/20 to-primary/5 p-5 sm:p-8 text-center border-b border-border/50">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
                 <Zap className="h-3 w-3" /> LAUNCH PRICE — LIMITED TIME
               </div>
               <h2 className="text-4xl md:text-5xl font-black mb-2">€39</h2>
-              <p className="text-muted-foreground text-[10px] leading-tight sm:text-xs md:text-sm whitespace-nowrap tracking-tight text-center">
+              <p className="text-muted-foreground text-[10px] leading-snug sm:text-xs md:text-sm tracking-tight text-center whitespace-normal sm:whitespace-nowrap px-1">
                 One-time payment · Lifetime access
               </p>
             </div>
 
-            <div className="p-8">
+            <div className="p-5 sm:p-8">
               <h3 className="font-bold text-sm uppercase tracking-wider text-primary mb-6">Everything Included:</h3>
               <div className="space-y-3 mb-8">
                 {features.map((feature) => (
-                  <div key={feature} className="flex items-center gap-3">
-                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                  <div key={feature} className="flex items-start gap-3 min-w-0">
+                    <div className="w-5 h-5 rounded-full bg-primary/10 flex items-center justify-center shrink-0 mt-0.5">
                       <Check className="h-3 w-3 text-primary" />
                     </div>
-                    <span className="text-sm">{feature}</span>
+                    <span className="text-sm text-left break-words">{feature}</span>
                   </div>
                 ))}
               </div>
 
               <Button
-                className="w-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-base h-auto min-h-10 py-2.5 px-3 sm:min-h-11 sm:py-3 md:h-12 md:py-0 hover:bg-primary/90 animate-pulse-glow leading-snug"
+                className="w-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-base h-auto min-h-10 py-2.5 px-2 sm:px-3 sm:min-h-11 sm:py-3 md:h-12 md:py-0 hover:bg-primary/90 animate-pulse-glow leading-snug whitespace-normal"
                 asChild
               >
-                <Link to="/signup" className="inline-flex w-full items-center justify-center gap-1.5 text-center">
-                  <span className="max-w-[calc(100%-1.5rem)]">Create account (checkout soon)</span>
-                  <ArrowRight className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" />
+                <Link
+                  to="/signup"
+                  className="inline-flex w-full min-h-[2.75rem] items-center justify-center gap-1.5 text-center flex-wrap sm:flex-nowrap px-1.5 py-2 whitespace-normal"
+                >
+                  <span className="max-w-full text-pretty">Create account (checkout soon)</span>
+                  <ArrowRight className="h-3.5 w-3.5 shrink-0 sm:h-4 sm:w-4 md:h-5 md:w-5" aria-hidden />
                 </Link>
               </Button>
 

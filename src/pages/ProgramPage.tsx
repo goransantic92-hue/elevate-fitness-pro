@@ -37,14 +37,21 @@ const ProgramPage = () => {
         <div className="container mx-auto max-w-5xl">
           <div className="space-y-8">
             {phases.map((phase, i) => (
-              <div key={phase.number} className={`glass-card p-8 md:p-10 bg-gradient-to-r ${phaseColors[i] ?? phaseColors[0]} relative overflow-hidden`}>
-                <div className="absolute top-4 right-6 text-8xl font-black text-primary/5">{phase.number}</div>
-                <div className="relative z-10">
-                  <div className="flex items-center gap-3 mb-2">
+              <div
+                key={phase.number}
+                className={`glass-card p-5 sm:p-8 md:p-10 bg-gradient-to-r ${phaseColors[i] ?? phaseColors[0]} relative rounded-2xl min-w-0`}
+              >
+                <div className="pointer-events-none absolute top-2 right-2 text-5xl leading-none font-black text-primary/5 sm:top-4 sm:right-5 sm:text-7xl md:text-8xl md:right-6">
+                  {phase.number}
+                </div>
+                <div className="relative z-10 min-w-0 pr-10 sm:pr-14 md:pr-20">
+                  <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
                     <span className="text-xs text-primary font-bold tracking-widest">PHASE {phase.number}</span>
                     <span className="text-xs text-muted-foreground">{phase.weeks}</span>
                   </div>
-                  <h2 className="text-2xl md:text-3xl font-black mb-4">{phase.name}</h2>
+                  <h2 className="text-xl font-black leading-tight tracking-tight break-words text-balance sm:text-2xl md:text-3xl mb-4">
+                    {phase.name}
+                  </h2>
                   <p className="text-muted-foreground leading-relaxed mb-6 max-w-2xl">{phase.description}</p>
                   <div className="flex flex-wrap gap-3">
                     {phase.focus.map((f) => (
