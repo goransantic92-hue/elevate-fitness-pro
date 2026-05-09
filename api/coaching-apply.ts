@@ -72,24 +72,60 @@ async function sendResend(params: {
   html: string;
   replyTo?: string;
 }): Promise<void> {
+  const payload: Record<string, unknown> = {
+    from: params.from,
+    to: params.to,
+    subject: params.subject,
+    html: params.html,
+  };
+  if (params.replyTo) {
+    payload.reply_to = params.replyTo;
+  }
   const r = await fetch("https://api.resend.com/emails", {
     method: "POST",
     headers: {
       Authorization: `Bearer ${params.apiKey}`,
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({
-      from: params.from,
-      to: params.to,
-      subject: params.subject,
-      html: params.html,
-      reply_to: params.replyTo,
-    }),
+    body: JSON.stringify(payload),
   });
   if (!r.ok) {
     const text = await r.text();
-    throw new Error(`Resend: ${r.status} ${text}`);
+    let detail = text;
+    try {
+      const j = JSON.parse(text) as { message?: string };
+      if (j.message) detail = j.message;
+    } catch {
+      /* keep raw */
+    }
+    const err = new Error(`Resend ${r.status}: ${detail}`);
+    console.error("[coaching-apply] Resend error", r.status, detail);
+    throw err;
   }
+}
+
+/** Vercel usually parses JSON; handle string/Buffer and empty bodies. */
+function parsePayload(req: VercelRequest): ApplyPayload | null {
+  const raw = req.body as unknown;
+  if (raw == null) return null;
+  if (typeof raw === "object" && !Buffer.isBuffer(raw)) {
+    return raw as ApplyPayload;
+  }
+  if (typeof raw === "string") {
+    try {
+      return JSON.parse(raw) as ApplyPayload;
+    } catch {
+      return null;
+    }
+  }
+  if (Buffer.isBuffer(raw)) {
+    try {
+      return JSON.parse(raw.toString("utf8")) as ApplyPayload;
+    } catch {
+      return null;
+    }
+  }
+  return null;
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -107,11 +143,9 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const fromEmail = process.env.COACHING_FROM_EMAIL?.trim() || DEFAULT_FROM;
   const calendlyUrl = process.env.CALENDLY_CONSULT_URL?.trim() || DEFAULT_CALENDLY;
 
-  let raw: ApplyPayload;
-  try {
-    raw = typeof req.body === "string" ? (JSON.parse(req.body) as ApplyPayload) : (req.body as ApplyPayload);
-  } catch {
-    return res.status(400).json({ error: "Invalid JSON body" });
+  const raw = parsePayload(req);
+  if (!raw) {
+    return res.status(400).json({ error: "Invalid or empty JSON body" });
   }
 
   const firstName = trimMax(raw.firstName, 120);
@@ -200,7 +234,7 @@ ${anythingElse ? row("Anything else", anythingElse) : ""}
     return res.status(200).json({ ok: true });
   } catch (e) {
     const msg = e instanceof Error ? e.message : "Failed to send email";
-    console.error("[coaching-apply]", msg);
+    console.error("[coaching-apply] send failed", msg);
     return res.status(502).json({ error: "Could not send emails. Please try again later." });
   }
 }

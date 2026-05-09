@@ -53,9 +53,20 @@ export default function CoachingApplyPage() {
           anythingElse,
         }),
       });
-      const data = (await r.json().catch(() => ({}))) as { error?: string };
-      if (!r.ok) {
-        throw new Error(data.error || "Something went wrong");
+      const ct = r.headers.get("content-type") ?? "";
+      if (!ct.includes("application/json")) {
+        throw new Error(
+          "The form could not reach the email service. Confirm the site is deployed on Vercel with the /api/coaching-apply function, or email info@ptmilosilic.com directly."
+        );
+      }
+      const data = (await r.json()) as { ok?: boolean; error?: string };
+      if (!r.ok || !data.ok) {
+        throw new Error(
+          data.error ||
+            (r.status === 503
+              ? "Email service is not configured on the server (missing RESEND_API_KEY)."
+              : "Something went wrong")
+        );
       }
       toast({
         title: "Application received",
