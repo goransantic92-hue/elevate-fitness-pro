@@ -59,7 +59,7 @@ export default function CoachingApplyPage() {
           "The form could not reach the email service. Confirm the site is deployed on Vercel with the /api/coaching-apply function, or email info@ptmilosilic.com directly."
         );
       }
-      const data = (await r.json()) as { ok?: boolean; error?: string };
+      const data = (await r.json()) as { ok?: boolean; error?: string; warning?: string };
       if (!r.ok || !data.ok) {
         throw new Error(
           data.error ||
@@ -70,7 +70,9 @@ export default function CoachingApplyPage() {
       }
       toast({
         title: "Application received",
-        description: "Check your inbox for a confirmation email with a link to book your consultation.",
+        description: data.warning
+          ? data.warning
+          : "Check your inbox for a confirmation email with a link to book your consultation.",
       });
       setFirstName("");
       setLastName("");

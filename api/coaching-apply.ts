@@ -221,7 +221,15 @@ ${anythingElse ? row("Anything else", anythingElse) : ""}
       html: coachHtml,
       replyTo: email,
     });
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error("[coaching-apply] coach notify failed", msg);
+    return res.status(502).json({
+      error: formatResendUserMessage(msg),
+    });
+  }
 
+  try {
     await sendResend({
       apiKey,
       from: fromEmail,
@@ -230,11 +238,30 @@ ${anythingElse ? row("Anything else", anythingElse) : ""}
       html: applicantHtml,
       replyTo: notifyEmail,
     });
-
     return res.status(200).json({ ok: true });
   } catch (e) {
-    const msg = e instanceof Error ? e.message : "Failed to send email";
-    console.error("[coaching-apply] send failed", msg);
-    return res.status(502).json({ error: "Could not send emails. Please try again later." });
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error("[coaching-apply] applicant confirmation failed", msg);
+    return res.status(200).json({
+      ok: true,
+      applicantEmailSent: false,
+      warning:
+        "Your application was received, but we could not send the confirmation email. You should still hear back within 24 hours.",
+    });
   }
+}
+
+/** Maps Resend errors to a short hint for the UI (full detail stays in Vercel logs). */
+function formatResendUserMessage(resendMessage: string): string {
+  const m = resendMessage.toLowerCase();
+  if (m.includes("domain") && (m.includes("verify") || m.includes("not valid"))) {
+    return "Email could not be sent: the sender domain must be verified in Resend (Dashboard → Domains). Check server logs for details.";
+  }
+  if (m.includes("testing") || m.includes("only send") || m.includes("restricted")) {
+    return "Email could not be sent: Resend may be in test mode or recipient limits apply until your domain is verified.";
+  }
+  if (m.includes("401") || m.includes("403")) {
+    return "Email could not be sent: check RESEND_API_KEY and verified sender domain in Resend.";
+  }
+  return "Could not send emails. Please try again later.";
 }
