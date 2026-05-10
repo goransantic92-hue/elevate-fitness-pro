@@ -108,8 +108,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       password,
       options: {
         data: { full_name: fullName },
-        // Must match Supabase Auth → URL Configuration → Redirect URLs
-        emailRedirectTo: site ? `${site}/` : undefined,
+        // Must be listed under Supabase → Authentication → URL Configuration → Redirect URLs
+        // Use VITE_SITE_URL on Vercel (e.g. https://busystrong90.com) so confirmation links never point at wrong host.
+        emailRedirectTo: site ? `${site}/login` : undefined,
       },
     });
     return { error: error ? new Error(error.message) : null };

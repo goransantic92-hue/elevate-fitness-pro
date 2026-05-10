@@ -16,6 +16,8 @@ export default function SignupPage() {
   const [done, setDone] = useState(false);
   const { signUp, configured } = useAuth();
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
+  const redirectAfterLogin = safeInternalPath(searchParams.get("redirect"), undefined, "/dashboard");
 
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();

@@ -1,0 +1,4 @@
+# Local Supabase (`supabase start`). Keeps email confirmation enabled (same as typical hosted default).
+
+[auth.email]
+enable_confirmations = true
