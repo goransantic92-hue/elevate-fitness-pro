@@ -3,9 +3,10 @@ import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock } from "lucide-react";
+import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
 
 export function MemberGate({ children }: { children: React.ReactNode }) {
-  const { hasProgramAccess, loading } = useAuth();
+  const { hasProgramAccess, loading, user } = useAuth();
 
   if (loading) {
     return (
@@ -24,12 +25,24 @@ export function MemberGate({ children }: { children: React.ReactNode }) {
             <CardTitle>Program access</CardTitle>
           </div>
           <CardDescription>
-            Your account is active, but full program content unlocks after purchase. Complete checkout on the pricing page, or contact Coach Milos if you need help.
+            Your account is active, but full program content unlocks after purchase. Use the button below to complete checkout on Stripe, or contact Coach Milos if you need help.
           </CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col sm:flex-row gap-3">
-          <Button asChild className="bg-primary text-primary-foreground font-semibold">
-            <Link to="/pricing">View pricing</Link>
+          <Button
+            type="button"
+            className="bg-primary text-primary-foreground font-semibold"
+            disabled={!user}
+            onClick={() => {
+              if (!user) return;
+              try {
+                window.location.href = buildProgramCheckoutUrl(user);
+              } catch {
+                window.location.href = "/pricing";
+              }
+            }}
+          >
+            Get the program
           </Button>
           <Button variant="outline" asChild>
             <Link to="/">Back to home</Link>

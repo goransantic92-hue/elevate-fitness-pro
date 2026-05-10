@@ -5,6 +5,7 @@ import { Check, ArrowRight, Zap, Star, Loader2 } from "lucide-react";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
 
 const features = [
   "3 Gym Training Programs (A/B/C)",
@@ -48,18 +49,9 @@ const PricingPage = () => {
       navigate(`/login?redirect=${encodeURIComponent("/pricing")}`);
       return;
     }
-    const paymentLink =
-      import.meta.env.VITE_STRIPE_PAYMENT_LINK?.trim() || "https://buy.stripe.com/aFa3cu1Ou1nu61mgSj3cc0b";
-
     setCheckoutBusy(true);
     try {
-      const url = new URL(paymentLink);
-      // Helps webhook reliably map payment to this Supabase account.
-      url.searchParams.set("client_reference_id", user.id);
-      if (user.email) {
-        url.searchParams.set("prefilled_email", user.email);
-      }
-      window.location.href = url.toString();
+      window.location.href = buildProgramCheckoutUrl(user);
     } catch {
       toast({
         title: "Checkout failed",
@@ -150,7 +142,7 @@ const PricingPage = () => {
                       </>
                     ) : (
                       <>
-                        <span className="max-w-full text-pretty">Get the program — €39</span>
+                        <span className="max-w-full text-pretty">Get the program</span>
                         <ArrowRight className="ml-1 h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden />
                       </>
                     )}
@@ -160,16 +152,16 @@ const PricingPage = () => {
                 {!hasProgramAccess && !loading && (
                   <p className="text-center text-xs text-muted-foreground">
                     {user ? (
-                      <>You're logged in — checkout opens on Stripe.</>
+                      <>Checkout opens on Stripe with your account.</>
                     ) : (
                       <>
-                        Login or create account first; then you'll be redirected to Stripe checkout.{" "}
+                        Already registered?{" "}
                         <Link to="/login?redirect=/pricing" className="text-primary font-semibold hover:underline">
                           Log in
                         </Link>
-                        {" / "}
+                        {" · New here? "}
                         <Link to="/signup?redirect=/pricing" className="text-primary font-semibold hover:underline">
-                          Create account
+                          Sign up
                         </Link>
                       </>
                     )}
