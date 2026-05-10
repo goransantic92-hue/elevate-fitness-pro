@@ -136,7 +136,7 @@ const PricingPage = () => {
                       <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
                     </Link>
                   </Button>
-                ) : user ? (
+                ) : (
                   <Button
                     type="button"
                     className="w-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-base h-auto min-h-12 py-3 px-2 hover:bg-primary/90 animate-pulse-glow leading-snug whitespace-normal"
@@ -150,20 +150,10 @@ const PricingPage = () => {
                       </>
                     ) : (
                       <>
-                        <span className="max-w-full text-pretty">Buy program — €39</span>
+                        <span className="max-w-full text-pretty">Get the program — €39</span>
                         <ArrowRight className="ml-1 h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden />
                       </>
                     )}
-                  </Button>
-                ) : (
-                  <Button
-                    className="w-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-base h-auto min-h-12 py-3 px-2 hover:bg-primary/90 animate-pulse-glow leading-snug whitespace-normal"
-                    asChild
-                  >
-                    <Link to="/signup?redirect=/pricing" className="inline-flex w-full items-center justify-center gap-2">
-                      Create account
-                      <ArrowRight className="ml-1 h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden />
-                    </Link>
                   </Button>
                 )}
 
@@ -173,9 +163,13 @@ const PricingPage = () => {
                       <>You're logged in — checkout opens on Stripe.</>
                     ) : (
                       <>
-                        Already have an account?{" "}
+                        Login or create account first; then you'll be redirected to Stripe checkout.{" "}
                         <Link to="/login?redirect=/pricing" className="text-primary font-semibold hover:underline">
                           Log in
+                        </Link>
+                        {" / "}
+                        <Link to="/signup?redirect=/pricing" className="text-primary font-semibold hover:underline">
+                          Create account
                         </Link>
                       </>
                     )}
