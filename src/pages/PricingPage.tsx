@@ -21,7 +21,7 @@ const features = [
 ];
 
 const PricingPage = () => {
-  const { user, hasProgramAccess, configured } = useAuth();
+  const { user, hasProgramAccess, configured, loading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -117,7 +117,16 @@ const PricingPage = () => {
               </div>
 
               <div className="flex flex-col gap-3">
-                {hasProgramAccess ? (
+                {loading ? (
+                  <Button
+                    type="button"
+                    className="w-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-base h-auto min-h-12 py-3 px-2 leading-snug whitespace-normal"
+                    disabled
+                  >
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin shrink-0" aria-hidden />
+                    Checking account…
+                  </Button>
+                ) : hasProgramAccess ? (
                   <Button
                     className="w-full bg-primary text-primary-foreground font-bold text-sm md:text-base h-12 hover:bg-primary/90 animate-pulse-glow"
                     asChild
@@ -127,7 +136,7 @@ const PricingPage = () => {
                       <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
                     </Link>
                   </Button>
-                ) : (
+                ) : user ? (
                   <Button
                     type="button"
                     className="w-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-base h-auto min-h-12 py-3 px-2 hover:bg-primary/90 animate-pulse-glow leading-snug whitespace-normal"
@@ -146,18 +155,30 @@ const PricingPage = () => {
                       </>
                     )}
                   </Button>
+                ) : (
+                  <Button
+                    className="w-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-base h-auto min-h-12 py-3 px-2 hover:bg-primary/90 animate-pulse-glow leading-snug whitespace-normal"
+                    asChild
+                  >
+                    <Link to="/signup?redirect=/pricing" className="inline-flex w-full items-center justify-center gap-2">
+                      Create account
+                      <ArrowRight className="ml-1 h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden />
+                    </Link>
+                  </Button>
                 )}
 
-                {!hasProgramAccess && (
+                {!hasProgramAccess && !loading && (
                   <p className="text-center text-xs text-muted-foreground">
-                    Need an account first?{" "}
-                    <Link to="/signup?redirect=/pricing" className="text-primary font-semibold hover:underline">
-                      Create account
-                    </Link>{" "}
-                    or{" "}
-                    <Link to="/login?redirect=/pricing" className="text-primary font-semibold hover:underline">
-                      Log in
-                    </Link>
+                    {user ? (
+                      <>You're logged in — checkout opens on Stripe.</>
+                    ) : (
+                      <>
+                        Already have an account?{" "}
+                        <Link to="/login?redirect=/pricing" className="text-primary font-semibold hover:underline">
+                          Log in
+                        </Link>
+                      </>
+                    )}
                   </p>
                 )}
               </div>
