@@ -21,7 +21,7 @@ const features = [
 ];
 
 const PricingPage = () => {
-  const { session, user, hasProgramAccess, configured } = useAuth();
+  const { user, hasProgramAccess, configured } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -44,31 +44,26 @@ const PricingPage = () => {
       toast({ title: "Not configured", description: "Supabase environment is missing.", variant: "destructive" });
       return;
     }
-    if (!session?.access_token || !user) {
+    if (!user) {
       navigate(`/login?redirect=${encodeURIComponent("/pricing")}`);
       return;
     }
+    const paymentLink =
+      import.meta.env.VITE_STRIPE_PAYMENT_LINK?.trim() || "https://buy.stripe.com/aFa3cu1Ou1nu61mgSj3cc0b";
+
     setCheckoutBusy(true);
     try {
-      const r = await fetch("/api/stripe/create-checkout-session", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${session.access_token}`,
-        },
-      });
-      const data = (await r.json().catch(() => ({}))) as { url?: string; error?: string };
-      if (!r.ok) {
-        throw new Error(data.error ?? "Checkout unavailable");
+      const url = new URL(paymentLink);
+      // Helps webhook reliably map payment to this Supabase account.
+      url.searchParams.set("client_reference_id", user.id);
+      if (user.email) {
+        url.searchParams.set("prefilled_email", user.email);
       }
-      if (data.url) {
-        window.location.href = data.url;
-        return;
-      }
-      throw new Error("No checkout URL returned");
-    } catch (e) {
+      window.location.href = url.toString();
+    } catch {
       toast({
         title: "Checkout failed",
-        description: e instanceof Error ? e.message : "Try again later.",
+        description: "Invalid Stripe payment link configuration.",
         variant: "destructive",
       });
     } finally {

@@ -62,7 +62,7 @@ export default function AdminMembersPage() {
     <div className="max-w-5xl space-y-6">
       <div>
         <h1 className="text-3xl font-black">Members</h1>
-        <p className="text-muted-foreground mt-2">Toggle full program access until payment automation ships.</p>
+        <p className="text-muted-foreground mt-2">Stripe purchases grant access automatically. You can still override access manually.</p>
       </div>
 
       <Card className="glass-card">
@@ -81,6 +81,7 @@ export default function AdminMembersPage() {
                     <th className="pb-3 pr-4">Name</th>
                     <th className="pb-3 pr-4">Role</th>
                     <th className="pb-3 pr-4">Access</th>
+                    <th className="pb-3 pr-4">Source</th>
                     <th className="pb-3">Program</th>
                   </tr>
                 </thead>
@@ -93,6 +94,7 @@ export default function AdminMembersPage() {
                         <span className={r.role === "admin" ? "text-amber-500 font-semibold" : ""}>{r.role}</span>
                       </td>
                       <td className="py-3 pr-4">{r.access?.access_type ?? "—"}</td>
+                      <td className="py-3 pr-4">{r.access?.source ?? "—"}</td>
                       <td className="py-3">
                         <div className="flex items-center gap-2">
                           <Switch

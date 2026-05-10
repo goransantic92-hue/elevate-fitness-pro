@@ -2,6 +2,33 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import getRawBody from "raw-body";
 import Stripe from "stripe";
 import { grantProgramAccess } from "../lib/grantProgramAccess";
+import { getSupabaseAdmin } from "../lib/supabaseAdmin";
+
+const DEFAULT_NOTIFY = "info@ptmilosilic.com";
+
+async function notifyAdminPurchase(email: string | null, userId: string) {
+  const apiKey = process.env.RESEND_API_KEY?.trim();
+  if (!apiKey) return;
+
+  const to = process.env.STRIPE_NOTIFY_EMAIL?.trim() || process.env.COACHING_NOTIFY_EMAIL?.trim() || DEFAULT_NOTIFY;
+  const from = process.env.COACHING_FROM_EMAIL?.trim() || "Coach Milos <info@ptmilosilic.com>";
+
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${apiKey}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from,
+      to: [to],
+      subject: "New Stripe purchase — BUSY STRONG 90",
+      html: `<p>A customer completed payment.</p><p><strong>User ID:</strong> ${userId}</p><p><strong>Email:</strong> ${
+        email ?? "unknown"
+      }</p>`,
+    }),
+  });
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
@@ -42,9 +69,30 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   try {
     if (event.type === "checkout.session.completed") {
       const session = event.data.object as Stripe.Checkout.Session;
-      const userId = session.metadata?.supabase_user_id;
-      if (userId && session.payment_status === "paid") {
+      if (session.payment_status !== "paid") {
+        return res.status(200).json({ received: true });
+      }
+
+      let userId = session.metadata?.supabase_user_id || session.client_reference_id || null;
+
+      if (!userId) {
+        const email = session.customer_details?.email?.trim().toLowerCase() || session.customer_email?.trim().toLowerCase() || null;
+        if (email) {
+          const admin = getSupabaseAdmin();
+          const { data: profile } = await admin.from("profiles").select("id").eq("email", email).maybeSingle();
+          userId = profile?.id ?? null;
+        }
+      }
+
+      if (userId) {
         await grantProgramAccess(userId, "stripe_webhook");
+        await notifyAdminPurchase(session.customer_details?.email ?? session.customer_email ?? null, userId);
+      } else {
+        console.error("[stripe/webhook] Could not map checkout session to a user", {
+          sessionId: session.id,
+          customer_email: session.customer_email,
+          client_reference_id: session.client_reference_id,
+        });
       }
     }
   } catch (err) {
