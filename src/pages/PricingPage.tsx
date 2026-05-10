@@ -29,7 +29,6 @@ const PricingPage = () => {
   const { toast } = useToast();
   const [searchParams, setSearchParams] = useSearchParams();
   const [checkoutBusy, setCheckoutBusy] = useState(false);
-  /** Mirrors localStorage session so pricing UI/checkout works even if Auth context lags one tick behind. */
   const [sessionUser, setSessionUser] = useState<User | null>(null);
 
   useEffect(() => {
