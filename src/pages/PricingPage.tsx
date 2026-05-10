@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
+import type { User } from "@supabase/supabase-js";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Zap, Star, Loader2 } from "lucide-react";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/lib/supabase";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
 
 const features = [
@@ -27,6 +29,31 @@ const PricingPage = () => {
   const { toast } = useToast();
   const [searchParams, setSearchParams] = useSearchParams();
   const [checkoutBusy, setCheckoutBusy] = useState(false);
+  /** Mirrors localStorage session so pricing UI/checkout works even if Auth context lags one tick behind. */
+  const [sessionUser, setSessionUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    if (!configured) return;
+    let cancelled = false;
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      if (!cancelled && session?.user) setSessionUser(session.user);
+    });
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSessionUser(session?.user ?? null);
+    });
+    return () => {
+      cancelled = true;
+      subscription.unsubscribe();
+    };
+  }, [configured]);
+
+  useEffect(() => {
+    if (user) setSessionUser(user);
+  }, [user]);
+
+  const checkoutUser = user ?? sessionUser;
 
   useEffect(() => {
     if (searchParams.get("checkout") === "canceled") {
@@ -45,13 +72,18 @@ const PricingPage = () => {
       toast({ title: "Not configured", description: "Supabase environment is missing.", variant: "destructive" });
       return;
     }
-    if (!user) {
+    let payer = checkoutUser;
+    if (!payer) {
+      const { data } = await supabase.auth.getSession();
+      payer = data.session?.user ?? null;
+    }
+    if (!payer) {
       navigate(`/login?redirect=${encodeURIComponent("/pricing")}`);
       return;
     }
     setCheckoutBusy(true);
     try {
-      window.location.href = buildProgramCheckoutUrl(user);
+      window.location.href = buildProgramCheckoutUrl(payer);
     } catch {
       toast({
         title: "Checkout failed",
@@ -151,7 +183,7 @@ const PricingPage = () => {
 
                 {!hasProgramAccess && !loading && (
                   <p className="text-center text-xs text-muted-foreground">
-                    {user ? (
+                    {checkoutUser ? (
                       <>Checkout opens on Stripe with your account.</>
                     ) : (
                       <>
