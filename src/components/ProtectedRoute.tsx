@@ -32,7 +32,8 @@ export function ProtectedRoute({ children, requireAdmin, requireProgramAccess }:
   }
 
   if (!user) {
-    return <Navigate to="/login" state={{ from: location.pathname }} replace />;
+    const fullPath = `${location.pathname}${location.search}`;
+    return <Navigate to={`/login?redirect=${encodeURIComponent(fullPath)}`} replace />;
   }
 
   if (requireAdmin && !isAdmin) {

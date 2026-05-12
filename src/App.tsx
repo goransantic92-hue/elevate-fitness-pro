@@ -21,6 +21,7 @@ import CoachingApplyPage from "@/pages/CoachingApplyPage";
 import NotFound from "@/pages/NotFound";
 import LoginPage from "@/pages/auth/LoginPage";
 import SignupPage from "@/pages/auth/SignupPage";
+import AuthCallbackPage from "@/pages/auth/AuthCallbackPage";
 import DashboardHome from "@/pages/dashboard/DashboardHome";
 import DashboardTrainingPage from "@/pages/dashboard/DashboardTrainingPage";
 import DashboardWorkoutDetailPage from "@/pages/dashboard/DashboardWorkoutDetailPage";
@@ -73,6 +74,7 @@ const App = () => (
 
           <Route path="/login" element={<LoginPage />} />
           <Route path="/signup" element={<SignupPage />} />
+          <Route path="/auth/callback" element={<AuthCallbackPage />} />
 
           <Route
             path="/dashboard"

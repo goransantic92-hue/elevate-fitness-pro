@@ -110,7 +110,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         data: { full_name: fullName },
         // Must be listed under Supabase → Authentication → URL Configuration → Redirect URLs
         // Use VITE_SITE_URL on Vercel (e.g. https://busystrong90.com) so confirmation links never point at wrong host.
-        emailRedirectTo: site ? `${site}/login` : undefined,
+        emailRedirectTo: site ? `${site}/auth/callback` : undefined,
       },
     });
     return { error: error ? new Error(error.message) : null };
