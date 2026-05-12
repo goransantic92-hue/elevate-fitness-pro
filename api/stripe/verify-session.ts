@@ -43,8 +43,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       return res.status(400).json({ error: "Payment not completed" });
     }
 
-    const metaUser = session.metadata?.supabase_user_id;
-    if (!metaUser || metaUser !== user.id) {
+    /** Payment Links pass user id via `client_reference_id` (see buildProgramCheckoutUrl); hosted Checkout sets metadata.supabase_user_id. */
+    const linkedUserId =
+      (typeof session.metadata?.supabase_user_id === "string" ? session.metadata.supabase_user_id : "") ||
+      (typeof session.client_reference_id === "string" ? session.client_reference_id : "") ||
+      null;
+
+    if (!linkedUserId || linkedUserId !== user.id) {
       return res.status(403).json({ error: "Session does not belong to this account" });
     }
 
