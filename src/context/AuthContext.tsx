@@ -100,16 +100,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signUp = useCallback(async (email: string, password: string, fullName: string) => {
     if (!isSupabaseConfigured) return { error: new Error("Supabase is not configured") };
-    const site =
-      (import.meta.env.VITE_SITE_URL?.trim().replace(/\/$/, "") || "") ||
-      (typeof window !== "undefined" ? window.location.origin : "");
+    const site = import.meta.env.VITE_SITE_URL?.trim().replace(/\/$/, "") || "";
     const { error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         data: { full_name: fullName },
-        // Must be listed under Supabase → Authentication → URL Configuration → Redirect URLs
-        // Use VITE_SITE_URL on Vercel (e.g. https://busystrong90.com) so confirmation links never point at wrong host.
+        // Never use window.location.origin here — dev on localhost would bake localhost into confirmation emails.
+        // If unset, Supabase uses Dashboard → Authentication → Site URL (must be production, e.g. https://busystrong90.com).
         emailRedirectTo: site ? `${site}/auth/callback` : undefined,
       },
     });
