@@ -1,10 +1,9 @@
-import { useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { MemberGate } from "@/components/MemberGate";
 import { Button } from "@/components/ui/button";
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { gymWorkouts, homeWorkouts } from "@/data/busyStrong90";
-import { ArrowLeft, PlayCircle } from "lucide-react";
+import { ArrowLeft, PlayCircle, X } from "lucide-react";
 import NotFound from "@/pages/NotFound";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +11,25 @@ export default function DashboardWorkoutDetailPage() {
   const { variant, code } = useParams<{ variant: string; code: string }>();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [demo, setDemo] = useState<{ open: boolean; src: string; title: string }>({ open: false, src: "", title: "" });
+
+  const closeDemo = useCallback(() => {
+    videoRef.current?.pause();
+    setDemo((d) => ({ ...d, open: false }));
+  }, []);
+
+  useEffect(() => {
+    if (!demo.open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") closeDemo();
+    };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [demo.open, closeDemo]);
 
   if (variant !== "gym" && variant !== "home") return <NotFound />;
   if (code !== "a" && code !== "b" && code !== "c") return <NotFound />;
@@ -92,33 +110,49 @@ export default function DashboardWorkoutDetailPage() {
           </div>
         </div>
 
-        <Dialog
-          open={demo.open}
-          onOpenChange={(open) => {
-            if (!open) videoRef.current?.pause();
-            setDemo((d) => ({ ...d, open }));
-          }}
-        >
-          <DialogContent className="max-w-lg w-[calc(100vw-1.5rem)] sm:max-w-md border-border p-0 gap-0 overflow-hidden">
-            <DialogHeader className="p-4 pb-2 border-b border-border/60 text-left">
-              <DialogTitle className="text-base pr-8">{demo.title}</DialogTitle>
-              <DialogDescription className="text-xs">Short demo clip — use sound if helpful.</DialogDescription>
-            </DialogHeader>
-            <div className="bg-black">
-              {demo.open && demo.src ? (
-                <video
-                  ref={videoRef}
-                  key={demo.src}
-                  className="w-full max-h-[min(70vh,520px)] object-contain"
-                  src={demo.src}
-                  controls
-                  playsInline
-                  preload="metadata"
-                />
-              ) : null}
+        {/* Full-screen layer without CSS transform (Radix Dialog uses transform — breaks video controls on many mobile browsers / PWA). */}
+        {demo.open && demo.src ? (
+          <div
+            className="fixed inset-0 z-[100] flex flex-col bg-background touch-manipulation"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="workout-demo-title"
+          >
+            <div className="flex items-start justify-between gap-3 border-b border-border px-4 py-3 shrink-0">
+              <div className="min-w-0">
+                <h2 id="workout-demo-title" className="text-base font-bold leading-tight pr-2">
+                  {demo.title}
+                </h2>
+                <p className="text-xs text-muted-foreground mt-1">Use the player controls — tap play on the video.</p>
+              </div>
+              <Button type="button" variant="ghost" size="icon" className="shrink-0 rounded-full" onClick={closeDemo} aria-label="Close video">
+                <X className="h-5 w-5" />
+              </Button>
             </div>
-          </DialogContent>
-        </Dialog>
+            <div className="flex min-h-0 flex-1 items-center justify-center bg-black p-2">
+              <video
+                ref={videoRef}
+                key={demo.src}
+                className="max-h-[min(78dvh,720px)] w-full max-w-full object-contain [touch-action:manipulation]"
+                src={demo.src}
+                controls
+                playsInline
+                preload="auto"
+              />
+            </div>
+            <div className="shrink-0 border-t border-border bg-background/95 px-4 py-3">
+              <a
+                href={demo.src}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-xs font-medium text-primary underline-offset-2 hover:underline"
+              >
+                Open video in browser tab
+              </a>
+              <span className="text-muted-foreground"> · if the player does not respond on your device</span>
+            </div>
+          </div>
+        ) : null}
       </div>
     </MemberGate>
   );
