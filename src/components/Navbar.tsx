@@ -89,7 +89,7 @@ const Navbar = () => {
                 <Link to="/dashboard">
                   <Button variant="ghost" size="sm" className="gap-1.5">
                     <LayoutDashboard className="h-4 w-4" />
-                    Dashboard
+                    Your Training
                   </Button>
                 </Link>
                 {isAdmin && (
@@ -170,7 +170,7 @@ const Navbar = () => {
                   <Link to="/dashboard" onClick={() => setOpen(false)}>
                     <Button variant="ghost" className="w-full justify-start gap-2">
                       <LayoutDashboard className="h-4 w-4" />
-                      Dashboard
+                      Your Training
                     </Button>
                   </Link>
                   {isAdmin && (
