@@ -36,7 +36,7 @@ export default function SignupPage() {
     <>
       <PageMeta
         title="Create account"
-        description="Create your BUSY STRONG 90 account to access the member dashboard when your program is unlocked."
+        description="Create your BUSY STRONG 90 account to open your training when your program is unlocked."
         path="/signup"
       />
       <div className="min-h-screen flex items-center justify-center px-4 py-16 bg-background">

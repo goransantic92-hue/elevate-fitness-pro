@@ -35,13 +35,13 @@ export default function LoginPage() {
     <>
       <PageMeta
         title="Member login"
-        description="Sign in to your BUSY STRONG 90 member dashboard — training, nutrition, and progress in one place."
+        description="Sign in to BUSY STRONG 90 — your training plan, nutrition, and progress in one place."
         path="/login"
       />
       <div className="min-h-screen flex items-center justify-center px-4 py-16 bg-background">
         <div className="w-full max-w-md glass-card p-8 border-border/60">
           <h1 className="text-2xl font-black mb-1">Welcome back</h1>
-          <p className="text-sm text-muted-foreground mb-6">Log in to your member dashboard.</p>
+          <p className="text-sm text-muted-foreground mb-6">Log in to open your training.</p>
           {!configured && (
             <p className="text-xs text-amber-500 mb-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
               Supabase env vars are missing. Add them to use real authentication.

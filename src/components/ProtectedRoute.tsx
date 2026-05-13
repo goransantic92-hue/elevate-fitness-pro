@@ -16,8 +16,7 @@ export function ProtectedRoute({ children, requireAdmin, requireProgramAccess }:
       <div className="min-h-[60vh] flex items-center justify-center px-4">
         <p className="text-center text-muted-foreground max-w-md">
           Add <code className="text-primary">VITE_SUPABASE_URL</code> and{" "}
-          <code className="text-primary">VITE_SUPABASE_ANON_KEY</code> to your environment to enable accounts and the
-          dashboard.
+          <code className="text-primary">VITE_SUPABASE_ANON_KEY</code> to your environment to enable accounts and the member training app.
         </p>
       </div>
     );

@@ -8,6 +8,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
+import { MEMBER_APP_OPEN_CTA } from "@/lib/memberAppLabels";
 
 const features = [
   "3 Gym Training Programs (A/B/C)",
@@ -155,7 +156,7 @@ const PricingPage = () => {
                     asChild
                   >
                     <Link to="/dashboard" className="inline-flex w-full items-center justify-center gap-2">
-                      Go to member dashboard
+                      {MEMBER_APP_OPEN_CTA}
                       <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
                     </Link>
                   </Button>

@@ -104,7 +104,7 @@ const TrainingPage = () => {
             No gym? No problem. Home workouts require zero equipment — or minimal household items. They match the gym versions in structure and intensity. Use these on travel weeks, busy mornings, or whenever the gym isn&apos;t accessible.
           </p>
           <div className="glass-card p-8 text-center">
-            <p className="text-muted-foreground mb-4">Full home A/B/C breakdowns live in the member dashboard after your program is unlocked.</p>
+            <p className="text-muted-foreground mb-4">Full home A/B/C breakdowns live in your training app after your program is unlocked.</p>
             <div className="flex flex-col sm:flex-row gap-3 justify-center">
               <Link to="/signup">
                 <Button variant="outline" className="font-semibold">

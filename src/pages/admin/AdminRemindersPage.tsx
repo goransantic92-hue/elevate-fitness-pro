@@ -26,7 +26,7 @@ export default function AdminRemindersPage() {
       <div>
         <h1 className="text-3xl font-black">Reminders queue</h1>
         <p className="text-muted-foreground mt-2">
-          Rows are ready for a scheduled worker (Supabase Edge Function + cron). Members can opt in under Dashboard → Reminders.
+          Rows are ready for a scheduled worker (Supabase Edge Function + cron). Members can opt in under Your Training → Reminders.
         </p>
       </div>
       <Card className="glass-card">

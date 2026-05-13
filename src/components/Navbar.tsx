@@ -4,6 +4,7 @@ import { Menu, X, Dumbbell, Instagram, LayoutDashboard, Link2, Shield } from "lu
 import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { programPublicPath } from "@/lib/programNav";
+import { MEMBER_APP_LINK_LABEL } from "@/lib/memberAppLabels";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -86,10 +87,10 @@ const Navbar = () => {
           <div className="flex items-center gap-2">
             {user ? (
               <>
-                <Link to="/dashboard">
+                <Link to="/dashboard" aria-label={MEMBER_APP_LINK_LABEL}>
                   <Button variant="ghost" size="sm" className="gap-1.5">
                     <LayoutDashboard className="h-4 w-4" />
-                    Your Training
+                    {MEMBER_APP_LINK_LABEL}
                   </Button>
                 </Link>
                 {isAdmin && (
@@ -167,10 +168,10 @@ const Navbar = () => {
             <div className="flex flex-col gap-2 mt-4 pt-4 border-t border-border">
               {user ? (
                 <>
-                  <Link to="/dashboard" onClick={() => setOpen(false)}>
+                  <Link to="/dashboard" aria-label={MEMBER_APP_LINK_LABEL} onClick={() => setOpen(false)}>
                     <Button variant="ghost" className="w-full justify-start gap-2">
                       <LayoutDashboard className="h-4 w-4" />
-                      Your Training
+                      {MEMBER_APP_LINK_LABEL}
                     </Button>
                   </Link>
                   {isAdmin && (
