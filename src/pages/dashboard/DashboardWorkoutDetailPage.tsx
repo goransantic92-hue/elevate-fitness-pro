@@ -47,9 +47,9 @@ export default function DashboardWorkoutDetailPage() {
                       <span className="text-xs text-muted-foreground">— {ex.target}</span>
                     </div>
                     {hasDemo && (
-                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/35 bg-primary/10 px-2.5 py-1 text-[10px] font-bold uppercase tracking-wide text-primary">
-                        <PlayCircle className="h-3.5 w-3.5" aria-hidden />
-                        Demo
+                      <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/35 bg-primary/10 px-2.5 py-1 text-xs font-semibold tracking-tight text-primary">
+                        <PlayCircle className="h-3.5 w-3.5 shrink-0" aria-hidden />
+                        Play video
                       </span>
                     )}
                   </div>
