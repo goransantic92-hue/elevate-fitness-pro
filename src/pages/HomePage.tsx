@@ -204,7 +204,7 @@ const HomePage = () => {
                 ))}
               </ul>
               <Button asChild className="h-11 w-full bg-primary font-bold text-primary-foreground hover:bg-primary/90">
-                <Link to="/coaching-apply#apply">Apply Now</Link>
+                <Link to="/coaching-apply?plan=coached-strong-90#apply">Apply Now</Link>
               </Button>
             </div>
 
@@ -230,7 +230,7 @@ const HomePage = () => {
                 ))}
               </ul>
               <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:text-primary">
-                <Link to="/coaching-apply#apply">Apply for Elite</Link>
+                <Link to="/coaching-apply?plan=private-transformation#apply">Apply for Elite</Link>
               </Button>
             </div>
           </div>

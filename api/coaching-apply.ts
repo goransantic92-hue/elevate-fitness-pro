@@ -18,7 +18,19 @@ type ApplyPayload = {
   triedBefore?: string;
   minutes?: string;
   anythingElse?: string;
+  /** `coached-strong-90` | `private-transformation` from apply page query string */
+  coachingPlan?: string;
 };
+
+const COACHING_PLAN_LABEL: Record<string, string> = {
+  "coached-strong-90": "Coached Strong 90 — Core Coaching (€299/mo)",
+  "private-transformation": "Private Transformation — Elite (€699/mo)",
+};
+
+function coachingPlanHuman(slug: string): string {
+  const s = slug.trim().toLowerCase();
+  return COACHING_PLAN_LABEL[s] ?? "Not specified (applicant did not use a plan-specific link)";
+}
 
 const AGE_LABEL: Record<string, string> = {
   "25-34": "25–34",
@@ -160,6 +172,8 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const triedBefore = trimMax(raw.triedBefore, 8000);
   const minutes = trimMax(raw.minutes, 80);
   const anythingElse = trimMax(raw.anythingElse, 8000);
+  const coachingPlanSlug = trimMax(raw.coachingPlan, 80);
+  const planHuman = coachingPlanHuman(coachingPlanSlug);
 
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
@@ -182,6 +196,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 <p><strong>New coaching application</strong></p>
 <table style="border-collapse:collapse;width:100%;max-width:640px;">
 <tbody>
+${row("Coaching plan", planHuman)}
 ${row("Name", `${firstName} ${lastName}`)}
 ${row("Email", email)}
 ${whatsapp ? row("WhatsApp", whatsapp) : ""}
@@ -201,6 +216,7 @@ ${anythingElse ? row("Anything else", anythingElse) : ""}
   const applicantHtml = `
 <!DOCTYPE html><html><body style="font-family:system-ui,sans-serif;line-height:1.6;color:#111;max-width:560px;">
 <p>Hi ${first},</p>
+<p><strong>Program:</strong> ${escapeHtml(planHuman)}</p>
 <p>Thank you for submitting your coaching application — I really appreciate you taking the time to share your goals with me.</p>
 <p><strong>Welcome.</strong> I read every application personally, and I&apos;ll follow up within 24 hours if we look like a good fit.</p>
 <p><strong>Next step:</strong> book a quick consultation so we can connect and see how I can help you move forward.</p>
@@ -217,7 +233,7 @@ ${anythingElse ? row("Anything else", anythingElse) : ""}
       apiKey,
       from: fromEmail,
       to: [notifyEmail],
-      subject: `New coaching application: ${firstName} ${lastName}`,
+      subject: `New coaching application (${planHuman}): ${firstName} ${lastName}`,
       html: coachHtml,
       replyTo: email,
     });

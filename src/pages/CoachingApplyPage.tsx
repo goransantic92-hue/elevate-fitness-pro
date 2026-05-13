@@ -1,5 +1,5 @@
-import { useState, type FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { useMemo, useState, type FormEvent } from "react";
+import { Link, useSearchParams } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -10,9 +10,13 @@ import { PageMeta } from "@/components/seo/PageMeta";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
+import { COACHING_PLAN_LABEL, parseCoachingPlanParam } from "@/lib/coachingPlan";
 
 export default function CoachingApplyPage() {
   const { toast } = useToast();
+  const [searchParams] = useSearchParams();
+  const coachingPlanSlug = useMemo(() => parseCoachingPlanParam(searchParams.get("plan")), [searchParams]);
+  const coachingPlanLabel = coachingPlanSlug ? COACHING_PLAN_LABEL[coachingPlanSlug] : null;
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -51,6 +55,7 @@ export default function CoachingApplyPage() {
           triedBefore,
           minutes,
           anythingElse,
+          coachingPlan: coachingPlanSlug ?? "",
         }),
       });
       const ct = r.headers.get("content-type") ?? "";
@@ -122,6 +127,20 @@ export default function CoachingApplyPage() {
             I work with a limited number of clients at a time so I can give each person the attention they deserve. Fill out this short application and I&apos;ll
             get back to you within 24 hours.
           </p>
+          {coachingPlanLabel ? (
+            <div
+              className={cn(
+                "mt-5 max-w-lg rounded-xl border border-primary/35 bg-primary/10 px-4 py-3 text-sm font-semibold text-primary"
+              )}
+            >
+              Program you&apos;re applying for: {coachingPlanLabel}
+            </div>
+          ) : (
+            <p className="mt-5 max-w-lg text-xs text-muted-foreground">
+              Tip: open this form from the <Link to="/#coaching" className="text-primary font-semibold hover:underline">pricing cards</Link> on the home page so
+              your application is tagged with <strong className="text-foreground">Coached Strong 90</strong> or <strong className="text-foreground">Private Transformation</strong>.
+            </p>
+          )}
         </div>
 
         <form onSubmit={onSubmit} className="flex flex-col gap-7">
