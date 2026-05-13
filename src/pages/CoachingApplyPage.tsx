@@ -72,7 +72,7 @@ export default function CoachingApplyPage() {
         title: "Application received",
         description: data.warning
           ? data.warning
-          : "Check your inbox for a confirmation email with a link to book your consultation.",
+          : "Check your inbox for a confirmation email with a link to book your consultation. If you don't see it, check Spam or Promotions and add the sender to your contacts.",
       });
       setFirstName("");
       setLastName("");
@@ -320,6 +320,11 @@ export default function CoachingApplyPage() {
             </Button>
             <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">
               I review every application personally and respond within 24 hours. You&apos;ll get a confirmation email with a link to book a quick consultation.
+              {" "}
+              <span className="text-muted-foreground/95">
+                After submitting, please check your inbox within a few minutes — if nothing appears, look in <strong className="font-semibold text-foreground/90">Spam</strong> or{" "}
+                <strong className="font-semibold text-foreground/90">Promotions</strong> (Gmail), move the message to your primary inbox, and add the sender to your contacts so follow-ups are easier to find.
+              </span>
             </p>
           </div>
         </form>
