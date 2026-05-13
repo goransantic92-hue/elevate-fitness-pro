@@ -221,7 +221,6 @@ const HomePage = () => {
                   "Fully custom program — rebuilt monthly",
                   "Direct WhatsApp access to Milos",
                   "Priority response (under 1 hour)",
-                  "Quarterly progress photoshoot plan",
                   "Free My-Gym shirt",
                 ].map((x) => (
                   <li key={x} className="flex gap-2">
