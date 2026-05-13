@@ -367,7 +367,7 @@ export default function CoachingApplyPage() {
               {" "}
               <span className="text-muted-foreground/95">
                 After submitting, please check your inbox within a few minutes — if nothing appears, look in <strong className="font-semibold text-foreground/90">Spam</strong> or{" "}
-                <strong className="font-semibold text-foreground/90">Promotions</strong> (Gmail).
+                <strong className="font-semibold text-foreground/90">Promotions</strong>.
               </span>
             </p>
           </div>
