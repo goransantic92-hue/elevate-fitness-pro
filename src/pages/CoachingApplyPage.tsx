@@ -10,13 +10,13 @@ import { PageMeta } from "@/components/seo/PageMeta";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-import { COACHING_PLAN_LABEL, parseCoachingPlanParam } from "@/lib/coachingPlan";
+import { COACHING_PLAN_DISPLAY, parseCoachingPlanParam } from "@/lib/coachingPlan";
 
 export default function CoachingApplyPage() {
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
   const coachingPlanSlug = useMemo(() => parseCoachingPlanParam(searchParams.get("plan")), [searchParams]);
-  const coachingPlanLabel = coachingPlanSlug ? COACHING_PLAN_LABEL[coachingPlanSlug] : null;
+  const coachingPlanDisplay = coachingPlanSlug ? COACHING_PLAN_DISPLAY[coachingPlanSlug] : null;
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -111,11 +111,11 @@ export default function CoachingApplyPage() {
       />
       <div className="mx-auto max-w-[680px] px-6 py-12 md:py-16">
         <Link
-          to="/"
+          to="/#coaching"
           className="mb-10 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
         >
           <ArrowLeft className="h-4 w-4" />
-          Back to Busy Strong 90
+          {coachingPlanDisplay ? `Back to ${coachingPlanDisplay.name}` : "Back to coaching"}
         </Link>
 
         <div className="mb-10">
@@ -127,19 +127,44 @@ export default function CoachingApplyPage() {
             I work with a limited number of clients at a time so I can give each person the attention they deserve. Fill out this short application and I&apos;ll
             get back to you within 24 hours.
           </p>
-          {coachingPlanLabel ? (
+          {coachingPlanDisplay ? (
             <div
               className={cn(
-                "mt-5 max-w-lg rounded-xl border border-primary/35 bg-primary/10 px-4 py-3 text-sm font-semibold text-primary"
+                "mt-8 max-w-lg rounded-2xl border border-primary/40 bg-gradient-to-br from-primary/[0.12] to-primary/[0.03] p-6 shadow-[0_0_0_1px_hsl(var(--primary)/0.08)]"
               )}
             >
-              Program you&apos;re applying for: {coachingPlanLabel}
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">You&apos;re applying for</p>
+              <p className="mt-3 font-display text-balance text-2xl font-black tracking-tight text-foreground md:text-3xl">
+                {coachingPlanDisplay.name}
+              </p>
+              <p className="mt-1 text-sm font-semibold text-primary">{coachingPlanDisplay.tier}</p>
+              <p className="mt-5 font-display text-4xl font-black tracking-tight text-foreground md:text-5xl">{coachingPlanDisplay.price}</p>
+              <p className="mt-2 text-xs text-muted-foreground">Monthly billing · limited spots.</p>
             </div>
           ) : (
-            <p className="mt-5 max-w-lg text-xs text-muted-foreground">
-              Tip: open this form from the <Link to="/#coaching" className="text-primary font-semibold hover:underline">pricing cards</Link> on the home page so
-              your application is tagged with <strong className="text-foreground">Coached Strong 90</strong> or <strong className="text-foreground">Private Transformation</strong>.
-            </p>
+            <div className="mt-8 max-w-lg space-y-4 rounded-2xl border border-border bg-[#0d0d0d] p-5">
+              <p className="text-sm text-muted-foreground">
+                Pick a program so your application is tagged with the right plan and price. You can also open this page from the{" "}
+                <Link to="/#coaching" className="font-semibold text-primary hover:underline">
+                  pricing cards
+                </Link>{" "}
+                on the home page.
+              </p>
+              <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
+                <Button asChild variant="outline" className="h-auto justify-start border-primary/40 py-3 text-left">
+                  <Link to="/coaching-apply?plan=coached-strong-90#apply" className="flex flex-col gap-0.5">
+                    <span className="font-display text-base font-bold text-foreground">Coached Strong 90</span>
+                    <span className="text-xs font-normal text-muted-foreground">Core Coaching · €299 / month</span>
+                  </Link>
+                </Button>
+                <Button asChild variant="outline" className="h-auto justify-start border-primary/40 py-3 text-left">
+                  <Link to="/coaching-apply?plan=private-transformation#apply" className="flex flex-col gap-0.5">
+                    <span className="font-display text-base font-bold text-foreground">Private Transformation</span>
+                    <span className="text-xs font-normal text-muted-foreground">Elite · €699 / month</span>
+                  </Link>
+                </Button>
+              </div>
+            </div>
           )}
         </div>
 
