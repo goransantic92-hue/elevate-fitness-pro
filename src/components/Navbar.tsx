@@ -113,11 +113,7 @@ const Navbar = () => {
                   </Button>
                 </Link>
                 <Link to="/coaching-apply">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="font-semibold border-border text-foreground hover:border-primary hover:bg-primary/10 hover:text-primary"
-                  >
+                  <Button size="sm" variant="outline" className="font-semibold border-border">
                     Apply for Coaching
                   </Button>
                 </Link>
@@ -198,10 +194,7 @@ const Navbar = () => {
                     </Button>
                   </Link>
                   <Link to="/coaching-apply" onClick={() => setOpen(false)}>
-                    <Button
-                      variant="outline"
-                      className="w-full font-semibold border-border text-foreground hover:border-primary hover:bg-primary/10 hover:text-primary"
-                    >
+                    <Button variant="outline" className="w-full font-semibold border-border">
                       Apply for Coaching
                     </Button>
                   </Link>

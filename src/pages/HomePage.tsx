@@ -69,7 +69,7 @@ const HomePage = () => {
                 <Button
                   asChild
                   variant="outline"
-                  className="h-12 rounded-lg border-border bg-transparent px-8 text-base font-semibold text-foreground hover:border-primary hover:bg-transparent hover:text-primary"
+                  className="h-12 rounded-lg border-border bg-transparent px-8 text-base font-semibold hover:bg-transparent"
                 >
                   <a href="#coaching">See Program & Coaching Plans</a>
                 </Button>
@@ -173,7 +173,7 @@ const HomePage = () => {
                   </li>
                 ))}
               </ul>
-              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:bg-primary/10 hover:text-primary">
+              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold">
                 <Link to="/pricing">Get the Program</Link>
               </Button>
             </div>
@@ -229,7 +229,7 @@ const HomePage = () => {
                   </li>
                 ))}
               </ul>
-              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:bg-primary/10 hover:text-primary">
+              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold">
                 <Link to="/coaching-apply?plan=private-transformation#apply">Apply for Elite</Link>
               </Button>
             </div>
@@ -377,7 +377,7 @@ const HomePage = () => {
             <Button
               asChild
               variant="outline"
-              className="h-12 rounded-lg border-border px-8 text-base font-semibold text-foreground hover:border-primary hover:text-primary"
+              className="h-12 rounded-lg border-border px-8 text-base font-semibold"
             >
               <Link to="/pricing">Get the €39 Program</Link>
             </Button>
