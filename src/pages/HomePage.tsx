@@ -173,7 +173,7 @@ const HomePage = () => {
                   </li>
                 ))}
               </ul>
-              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:text-primary">
+              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:bg-primary/10 hover:text-primary">
                 <Link to="/pricing">Get the Program</Link>
               </Button>
             </div>
@@ -229,7 +229,7 @@ const HomePage = () => {
                   </li>
                 ))}
               </ul>
-              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:text-primary">
+              <Button asChild variant="outline" className="h-11 w-full border-border font-semibold text-foreground hover:border-primary hover:bg-primary/10 hover:text-primary">
                 <Link to="/coaching-apply?plan=private-transformation#apply">Apply for Elite</Link>
               </Button>
             </div>
