@@ -3,9 +3,10 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Star } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import coachAbout from "@/assets/coach-about.webp";
-
-const HERO_IMAGE_SRC = "/hero-lcp.webp";
 import { PageMeta } from "@/components/seo/PageMeta";
+
+const HERO_IMAGE_SRC = "/hero-lcp-860.webp";
+const HERO_IMAGE_SRCSET = "/hero-lcp-480.webp 480w, /hero-lcp-860.webp 860w";
 import { faqs } from "@/data/busyStrong90";
 
 const whoCards = [
@@ -94,6 +95,7 @@ const HomePage = () => {
               <div className="relative mx-auto aspect-[4/5] w-full max-w-[430px] overflow-hidden rounded-2xl border border-border/60 bg-secondary/20">
                 <img
                   src={HERO_IMAGE_SRC}
+                  srcSet={HERO_IMAGE_SRCSET}
                   alt="Coach Milos — cable training in the gym"
                   width={430}
                   height={538}
