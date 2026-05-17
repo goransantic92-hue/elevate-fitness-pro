@@ -90,7 +90,7 @@ const HomePage = () => {
               </div>
             </div>
             <div className="md:col-span-5 lg:col-span-5">
-              <div className="relative mx-auto w-full max-w-[430px] overflow-hidden rounded-2xl border border-border/60">
+              <div className="relative mx-auto aspect-[4/5] w-full max-w-[430px] overflow-hidden rounded-2xl border border-border/60 bg-secondary/20">
                 <img
                   src={privateTrainerFitness}
                   alt="Coach Milos — cable training in the gym"
@@ -98,7 +98,7 @@ const HomePage = () => {
                   height={538}
                   decoding="async"
                   fetchPriority="high"
-                  className="aspect-[4/5] w-full object-cover object-center"
+                  className="absolute inset-0 h-full w-full object-cover object-center"
                 />
               </div>
             </div>
@@ -275,7 +275,7 @@ const HomePage = () => {
       <section className="section-padding !pt-8">
         <div className="container mx-auto max-w-[1100px] px-6">
           <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
-            <div className="overflow-hidden rounded-2xl border border-border">
+            <div className="aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-secondary/20">
               <img
                 src={coachAbout}
                 alt="Coach Milos"
@@ -283,7 +283,7 @@ const HomePage = () => {
                 height={538}
                 loading="lazy"
                 decoding="async"
-                className="aspect-[4/5] w-full object-cover object-top"
+                className="h-full w-full object-cover object-top"
               />
             </div>
             <div>

@@ -12,8 +12,8 @@ import { RoutePageFallback } from "@/components/RoutePageFallback";
 import PublicLayout from "@/components/PublicLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AdminLayout from "@/layouts/AdminLayout";
+import HomePage from "@/pages/HomePage";
 
-const HomePage = lazy(() => import("@/pages/HomePage"));
 const ProgramPage = lazy(() => import("@/pages/ProgramPage"));
 const TrainingPage = lazy(() => import("@/pages/TrainingPage"));
 const NutritionPage = lazy(() => import("@/pages/NutritionPage"));
@@ -55,14 +55,7 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route element={<PublicLayout />}>
-            <Route
-              path="/"
-              element={
-                <Lazy>
-                  <HomePage />
-                </Lazy>
-              }
-            />
+            <Route path="/" element={<HomePage />} />
             <Route
               path="/program"
               element={

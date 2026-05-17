@@ -41,7 +41,8 @@ export default defineConfig(({ mode }) => ({
         skipWaiting: true,
         clientsClaim: true,
         // Avoid precaching large bundled images; they still load normally when visited.
-        globPatterns: ["**/*.{js,css,html,ico,png,svg,webp,woff2}"],
+        // Precache app shell only — lazy route chunks load on demand (faster first paint, less SW bandwidth).
+        globPatterns: ["**/*.{html,ico,png,svg,webp,woff2}", "**/index-*.js", "**/index-*.css", "registerSW.js", "manifest.webmanifest", "robots.txt"],
         navigateFallbackDenylist: [/^\/api\//],
         runtimeCaching: [
           {
