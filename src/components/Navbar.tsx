@@ -73,14 +73,24 @@ const Navbar = () => {
 
         <div className="hidden lg:flex items-center gap-3">
           <div className="flex items-center gap-1">
-            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Coach Milos on Instagram">
-              <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-foreground">
-                <Instagram className="h-4 w-4" />
+            <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-9 w-9 text-muted-foreground hover:text-foreground"
+                aria-label="Coach Milos on Instagram"
+              >
+                <Instagram className="h-4 w-4" aria-hidden />
               </Button>
             </a>
-            <a href={LINKTREE_URL} target="_blank" rel="noopener noreferrer" aria-label="Coach Milos on Linktree">
-              <Button variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-foreground">
-                <Link2 className="h-4 w-4" />
+            <a href={LINKTREE_URL} target="_blank" rel="noopener noreferrer">
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-9 w-9 text-muted-foreground hover:text-foreground"
+                aria-label="Coach Milos on Linktree"
+              >
+                <Link2 className="h-4 w-4" aria-hidden />
               </Button>
             </a>
           </div>
@@ -127,8 +137,14 @@ const Navbar = () => {
           </div>
         </div>
 
-        <button className="lg:hidden text-foreground" onClick={() => setOpen(!open)}>
-          {open ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+        <button
+          type="button"
+          className="lg:hidden text-foreground"
+          onClick={() => setOpen(!open)}
+          aria-expanded={open}
+          aria-label={open ? "Close menu" : "Open menu"}
+        >
+          {open ? <X className="h-6 w-6" aria-hidden /> : <Menu className="h-6 w-6" aria-hidden />}
         </button>
       </div>
 
@@ -154,14 +170,14 @@ const Navbar = () => {
               );
             })}
             <div className="flex items-center justify-center gap-2 py-3 border-t border-border">
-              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" aria-label="Instagram">
-                <Button variant="outline" size="icon" className="h-10 w-10">
-                  <Instagram className="h-4 w-4" />
+              <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="icon" className="h-10 w-10" aria-label="Coach Milos on Instagram">
+                  <Instagram className="h-4 w-4" aria-hidden />
                 </Button>
               </a>
-              <a href={LINKTREE_URL} target="_blank" rel="noopener noreferrer" aria-label="Linktree">
-                <Button variant="outline" size="icon" className="h-10 w-10">
-                  <Link2 className="h-4 w-4" />
+              <a href={LINKTREE_URL} target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="icon" className="h-10 w-10" aria-label="Coach Milos on Linktree">
+                  <Link2 className="h-4 w-4" aria-hidden />
                 </Button>
               </a>
             </div>
