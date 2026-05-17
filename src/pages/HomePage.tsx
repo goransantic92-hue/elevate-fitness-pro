@@ -91,7 +91,15 @@ const HomePage = () => {
             </div>
             <div className="md:col-span-5 lg:col-span-5">
               <div className="relative mx-auto w-full max-w-[430px] overflow-hidden rounded-2xl border border-border/60">
-                <img src={privateTrainerFitness} alt="Coach Milos — cable training in the gym" className="aspect-[4/5] w-full object-cover object-center" />
+                <img
+                  src={privateTrainerFitness}
+                  alt="Coach Milos — cable training in the gym"
+                  width={430}
+                  height={538}
+                  decoding="async"
+                  fetchPriority="high"
+                  className="aspect-[4/5] w-full object-cover object-center"
+                />
               </div>
             </div>
           </div>
@@ -268,7 +276,15 @@ const HomePage = () => {
         <div className="container mx-auto max-w-[1100px] px-6">
           <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
             <div className="overflow-hidden rounded-2xl border border-border">
-              <img src={coachAbout} alt="Coach Milos" className="aspect-[4/5] w-full object-cover object-top" />
+              <img
+                src={coachAbout}
+                alt="Coach Milos"
+                width={430}
+                height={538}
+                loading="lazy"
+                decoding="async"
+                className="aspect-[4/5] w-full object-cover object-top"
+              />
             </div>
             <div>
               <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">Meet Your Coach</p>

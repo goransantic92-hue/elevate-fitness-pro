@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Dumbbell, Home, Zap } from "lucide-react";
-import coachTraining from "@/assets/coach-training.jpg";
+import coachTraining from "@/assets/coach-training.webp";
 import { gymWorkouts, emergencyWorkouts } from "@/data/busyStrong90";
 import type { WorkoutPlan } from "@/data/busyStrong90";
 import { PageMeta } from "@/components/seo/PageMeta";
@@ -52,7 +52,13 @@ const TrainingPage = () => {
       />
       <section className="relative py-28 md:py-36 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={coachTraining} alt="Coach Milos training with barbell" className="w-full h-full object-cover opacity-25" />
+          <img
+            src={coachTraining}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover opacity-25"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">

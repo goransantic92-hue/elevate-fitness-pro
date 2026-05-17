@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp, Scale, Dumbbell, Battery, Eye } from "lucide-react";
-import coachFront from "@/assets/coach-front.jpg";
+import coachFront from "@/assets/coach-front.webp";
 import { progressExpectations, habits, trackingGuidance } from "@/data/busyStrong90";
 import { PageMeta } from "@/components/seo/PageMeta";
 
@@ -26,7 +26,13 @@ const ResultsPage = () => {
       {/* Hero */}
       <section className="relative py-28 md:py-36 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={coachFront} alt="Coach Milos physique result" className="w-full h-full object-cover object-top opacity-20" />
+          <img
+            src={coachFront}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover object-top opacity-20"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">

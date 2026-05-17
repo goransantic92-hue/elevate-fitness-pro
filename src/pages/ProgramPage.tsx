@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
-import coachHanging from "@/assets/coach-hanging.jpg";
+import coachHanging from "@/assets/coach-hanging.webp";
 import { phases, weeklySchedule } from "@/data/busyStrong90";
 import { PageMeta } from "@/components/seo/PageMeta";
 
@@ -18,7 +18,13 @@ const ProgramPage = () => {
       {/* Hero */}
       <section className="relative py-28 md:py-36 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={coachHanging} alt="Coach Milos training" className="w-full h-full object-cover object-top opacity-30" />
+          <img
+            src={coachHanging}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover object-top opacity-30"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">

@@ -1,3 +1,4 @@
+import { lazy, Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -7,37 +8,43 @@ import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { ProgramContentGate } from "@/components/ProgramContentGate";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { InstallAppPrompt } from "@/components/InstallAppPrompt";
+import { RoutePageFallback } from "@/components/RoutePageFallback";
 import PublicLayout from "@/components/PublicLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AdminLayout from "@/layouts/AdminLayout";
-import HomePage from "@/pages/HomePage";
-import ProgramPage from "@/pages/ProgramPage";
-import TrainingPage from "@/pages/TrainingPage";
-import NutritionPage from "@/pages/NutritionPage";
-import ResultsPage from "@/pages/ResultsPage";
-import FAQPage from "@/pages/FAQPage";
-import PricingPage from "@/pages/PricingPage";
-import CoachingApplyPage from "@/pages/CoachingApplyPage";
-import NotFound from "@/pages/NotFound";
-import LoginPage from "@/pages/auth/LoginPage";
-import SignupPage from "@/pages/auth/SignupPage";
-import AuthCallbackPage from "@/pages/auth/AuthCallbackPage";
-import DashboardHome from "@/pages/dashboard/DashboardHome";
-import DashboardTrainingPage from "@/pages/dashboard/DashboardTrainingPage";
-import DashboardWorkoutDetailPage from "@/pages/dashboard/DashboardWorkoutDetailPage";
-import DashboardEmergencyWorkoutPage from "@/pages/dashboard/DashboardEmergencyWorkoutPage";
-import DashboardNutritionPage from "@/pages/dashboard/DashboardNutritionPage";
-import DashboardRoadmapPage from "@/pages/dashboard/DashboardRoadmapPage";
-import DashboardProgressPage from "@/pages/dashboard/DashboardProgressPage";
-import DashboardNotificationsPage from "@/pages/dashboard/DashboardNotificationsPage";
-import DashboardProfilePage from "@/pages/dashboard/DashboardProfilePage";
-import AdminOverview from "@/pages/admin/AdminOverview";
-import AdminMembersPage from "@/pages/admin/AdminMembersPage";
-import AdminContentPage from "@/pages/admin/AdminContentPage";
-import AdminRemindersPage from "@/pages/admin/AdminRemindersPage";
-import AdminWorkoutsPage from "@/pages/admin/AdminWorkoutsPage";
+
+const HomePage = lazy(() => import("@/pages/HomePage"));
+const ProgramPage = lazy(() => import("@/pages/ProgramPage"));
+const TrainingPage = lazy(() => import("@/pages/TrainingPage"));
+const NutritionPage = lazy(() => import("@/pages/NutritionPage"));
+const ResultsPage = lazy(() => import("@/pages/ResultsPage"));
+const FAQPage = lazy(() => import("@/pages/FAQPage"));
+const PricingPage = lazy(() => import("@/pages/PricingPage"));
+const CoachingApplyPage = lazy(() => import("@/pages/CoachingApplyPage"));
+const NotFound = lazy(() => import("@/pages/NotFound"));
+const LoginPage = lazy(() => import("@/pages/auth/LoginPage"));
+const SignupPage = lazy(() => import("@/pages/auth/SignupPage"));
+const AuthCallbackPage = lazy(() => import("@/pages/auth/AuthCallbackPage"));
+const DashboardHome = lazy(() => import("@/pages/dashboard/DashboardHome"));
+const DashboardTrainingPage = lazy(() => import("@/pages/dashboard/DashboardTrainingPage"));
+const DashboardWorkoutDetailPage = lazy(() => import("@/pages/dashboard/DashboardWorkoutDetailPage"));
+const DashboardEmergencyWorkoutPage = lazy(() => import("@/pages/dashboard/DashboardEmergencyWorkoutPage"));
+const DashboardNutritionPage = lazy(() => import("@/pages/dashboard/DashboardNutritionPage"));
+const DashboardRoadmapPage = lazy(() => import("@/pages/dashboard/DashboardRoadmapPage"));
+const DashboardProgressPage = lazy(() => import("@/pages/dashboard/DashboardProgressPage"));
+const DashboardNotificationsPage = lazy(() => import("@/pages/dashboard/DashboardNotificationsPage"));
+const DashboardProfilePage = lazy(() => import("@/pages/dashboard/DashboardProfilePage"));
+const AdminOverview = lazy(() => import("@/pages/admin/AdminOverview"));
+const AdminMembersPage = lazy(() => import("@/pages/admin/AdminMembersPage"));
+const AdminContentPage = lazy(() => import("@/pages/admin/AdminContentPage"));
+const AdminRemindersPage = lazy(() => import("@/pages/admin/AdminRemindersPage"));
+const AdminWorkoutsPage = lazy(() => import("@/pages/admin/AdminWorkoutsPage"));
 
 const queryClient = new QueryClient();
+
+function Lazy({ children }: { children: React.ReactNode }) {
+  return <Suspense fallback={<RoutePageFallback />}>{children}</Suspense>;
+}
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
@@ -48,33 +55,100 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route element={<PublicLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/program" element={<ProgramPage />} />
+            <Route
+              path="/"
+              element={
+                <Lazy>
+                  <HomePage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="/program"
+              element={
+                <Lazy>
+                  <ProgramPage />
+                </Lazy>
+              }
+            />
             <Route
               path="/training"
               element={
-                <ProgramContentGate>
-                  <TrainingPage />
-                </ProgramContentGate>
+                <Lazy>
+                  <ProgramContentGate>
+                    <TrainingPage />
+                  </ProgramContentGate>
+                </Lazy>
               }
             />
             <Route
               path="/nutrition"
               element={
-                <ProgramContentGate>
-                  <NutritionPage />
-                </ProgramContentGate>
+                <Lazy>
+                  <ProgramContentGate>
+                    <NutritionPage />
+                  </ProgramContentGate>
+                </Lazy>
               }
             />
-            <Route path="/results" element={<ResultsPage />} />
-            <Route path="/faq" element={<FAQPage />} />
-            <Route path="/pricing" element={<PricingPage />} />
-            <Route path="/coaching-apply" element={<CoachingApplyPage />} />
+            <Route
+              path="/results"
+              element={
+                <Lazy>
+                  <ResultsPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="/faq"
+              element={
+                <Lazy>
+                  <FAQPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="/pricing"
+              element={
+                <Lazy>
+                  <PricingPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="/coaching-apply"
+              element={
+                <Lazy>
+                  <CoachingApplyPage />
+                </Lazy>
+              }
+            />
           </Route>
 
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<SignupPage />} />
-          <Route path="/auth/callback" element={<AuthCallbackPage />} />
+          <Route
+            path="/login"
+            element={
+              <Lazy>
+                <LoginPage />
+              </Lazy>
+            }
+          />
+          <Route
+            path="/signup"
+            element={
+              <Lazy>
+                <SignupPage />
+              </Lazy>
+            }
+          />
+          <Route
+            path="/auth/callback"
+            element={
+              <Lazy>
+                <AuthCallbackPage />
+              </Lazy>
+            }
+          />
 
           <Route
             path="/dashboard"
@@ -84,15 +158,78 @@ const App = () => (
               </ProtectedRoute>
             }
           >
-            <Route index element={<DashboardHome />} />
-            <Route path="training" element={<DashboardTrainingPage />} />
-            <Route path="training/emergency/:id" element={<DashboardEmergencyWorkoutPage />} />
-            <Route path="training/:variant/:code" element={<DashboardWorkoutDetailPage />} />
-            <Route path="nutrition" element={<DashboardNutritionPage />} />
-            <Route path="roadmap" element={<DashboardRoadmapPage />} />
-            <Route path="progress" element={<DashboardProgressPage />} />
-            <Route path="reminders" element={<DashboardNotificationsPage />} />
-            <Route path="profile" element={<DashboardProfilePage />} />
+            <Route
+              index
+              element={
+                <Lazy>
+                  <DashboardHome />
+                </Lazy>
+              }
+            />
+            <Route
+              path="training"
+              element={
+                <Lazy>
+                  <DashboardTrainingPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="training/emergency/:id"
+              element={
+                <Lazy>
+                  <DashboardEmergencyWorkoutPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="training/:variant/:code"
+              element={
+                <Lazy>
+                  <DashboardWorkoutDetailPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="nutrition"
+              element={
+                <Lazy>
+                  <DashboardNutritionPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="roadmap"
+              element={
+                <Lazy>
+                  <DashboardRoadmapPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="progress"
+              element={
+                <Lazy>
+                  <DashboardProgressPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="reminders"
+              element={
+                <Lazy>
+                  <DashboardNotificationsPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="profile"
+              element={
+                <Lazy>
+                  <DashboardProfilePage />
+                </Lazy>
+              }
+            />
           </Route>
 
           <Route
@@ -103,14 +240,56 @@ const App = () => (
               </ProtectedRoute>
             }
           >
-            <Route index element={<AdminOverview />} />
-            <Route path="members" element={<AdminMembersPage />} />
-            <Route path="content" element={<AdminContentPage />} />
-            <Route path="reminders" element={<AdminRemindersPage />} />
-            <Route path="workouts" element={<AdminWorkoutsPage />} />
+            <Route
+              index
+              element={
+                <Lazy>
+                  <AdminOverview />
+                </Lazy>
+              }
+            />
+            <Route
+              path="members"
+              element={
+                <Lazy>
+                  <AdminMembersPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="content"
+              element={
+                <Lazy>
+                  <AdminContentPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="reminders"
+              element={
+                <Lazy>
+                  <AdminRemindersPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="workouts"
+              element={
+                <Lazy>
+                  <AdminWorkoutsPage />
+                </Lazy>
+              }
+            />
           </Route>
 
-          <Route path="*" element={<NotFound />} />
+          <Route
+            path="*"
+            element={
+              <Lazy>
+                <NotFound />
+              </Lazy>
+            }
+          />
         </Routes>
         <InstallAppPrompt />
       </BrowserRouter>

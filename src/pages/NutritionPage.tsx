@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Utensils, MapPin, Pill, Apple, Beef, Egg } from "lucide-react";
-import coachWorkout from "@/assets/coach-workout.jpg";
+import coachWorkout from "@/assets/coach-workout.webp";
 import {
   nutritionRules,
   sampleMealPlan,
@@ -25,7 +25,13 @@ const NutritionPage = () => {
       {/* Hero */}
       <section className="relative py-28 md:py-36 overflow-hidden">
         <div className="absolute inset-0">
-          <img src={coachWorkout} alt="Coach Milos with dumbbell" className="w-full h-full object-cover opacity-20" />
+          <img
+            src={coachWorkout}
+            alt=""
+            loading="lazy"
+            decoding="async"
+            className="w-full h-full object-cover opacity-20"
+          />
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">
