@@ -2,11 +2,9 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check, Star } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import privateTrainerFitness from "@/assets/private-trainer-fitness.webp";
 import coachAbout from "@/assets/coach-about.webp";
 import { PageMeta } from "@/components/seo/PageMeta";
-
-const HERO_IMAGE_SRC = "/hero-860.webp";
-const HERO_IMAGE_SRCSET = "/hero-430.webp 430w, /hero-860.webp 860w, /hero-lcp.webp 1024w";
 import { faqs } from "@/data/busyStrong90";
 
 const whoCards = [
@@ -94,14 +92,12 @@ const HomePage = () => {
             <div className="md:col-span-5 lg:col-span-5">
               <div className="relative mx-auto aspect-[4/5] w-full max-w-[430px] overflow-hidden rounded-2xl border border-border/60 bg-secondary/20">
                 <img
-                  src={HERO_IMAGE_SRC}
-                  srcSet={HERO_IMAGE_SRCSET}
+                  src={privateTrainerFitness}
                   alt="Coach Milos — cable training in the gym"
                   width={430}
                   height={538}
                   decoding="async"
                   fetchPriority="high"
-                  sizes="(max-width: 768px) 100vw, 430px"
                   className="absolute inset-0 h-full w-full object-cover object-center"
                 />
               </div>
