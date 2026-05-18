@@ -5,8 +5,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import coachAbout from "@/assets/coach-about.webp";
 import { PageMeta } from "@/components/seo/PageMeta";
 
-const HERO_IMAGE_SRC = "/hero-lcp-860.webp";
-const HERO_IMAGE_SRCSET = "/hero-lcp-480.webp 480w, /hero-lcp-860.webp 860w";
+const HERO_IMAGE_SRC = "/hero-860.webp";
+const HERO_IMAGE_SRCSET = "/hero-430.webp 430w, /hero-860.webp 860w, /hero-lcp.webp 1024w";
 import { faqs } from "@/data/busyStrong90";
 
 const whoCards = [
