@@ -5,7 +5,7 @@ import { programPublicPath } from "@/lib/programNav";
 
 const INSTAGRAM_URL = "https://www.instagram.com/_coachmilos/";
 const LINKTREE_URL =
-  "https://linktr.ee/pt_dubai_milos35?utm_source=ig&utm_medium=social&utm_content=link_in_bio";
+  "https://linktr.ee/_coachmilos?utm_source=linktree_profile_share&ltsid=fe5925df-65e8-4bb1-a976-f26dd53ef32d";
 
 const Footer = () => {
   const { configured, hasProgramAccess, loading, user } = useAuth();
