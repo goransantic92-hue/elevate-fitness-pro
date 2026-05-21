@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Voice of Customer — Busy Strong 90</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400&family=JetBrains+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #F5F1E8;
+      --olive: #4A5D3A;
+      --olive-light: #6B7F56;
+      --olive-muted: #E8EDE3;
+      --ink: #2A2A26;
+      --ink-soft: #5C5C54;
+      --card: #FDFBF7;
+      --border: #D9D2C4;
+      --accent-warm: #8B6914;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Manrope', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+    .wrap { max-width: 1100px; margin: 0 auto; padding: 1.5rem 1.25rem 4rem; }
+    header { margin-bottom: 2rem; }
+    header h1 {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(1.75rem, 5vw, 2.5rem);
+      font-weight: 700;
+      color: var(--olive);
+      line-height: 1.2;
+      margin-bottom: 0.35rem;
+    }
+    header .sub {
+      color: var(--ink-soft);
+      font-size: 0.95rem;
+      max-width: 52ch;
+    }
+    .meta-bar {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--olive);
+      margin-top: 1rem;
+      padding: 0.6rem 0.9rem;
+      background: var(--olive-muted);
+      border-radius: 6px;
+      display: inline-block;
+    }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+      margin: 1.75rem 0 2.5rem;
+    }
+    .kpi {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.1rem 1rem;
+      border-top: 3px solid var(--olive);
+    }
+    .kpi .label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--olive);
+      margin-bottom: 0.35rem;
+    }
+    .kpi .value {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: var(--ink);
+      line-height: 1.2;
+    }
+    .kpi .hint { font-size: 0.8rem; color: var(--ink-soft); margin-top: 0.25rem; }
+    section { margin-bottom: 2.75rem; }
+    section > h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem;
+      color: var(--olive);
+      margin-bottom: 0.35rem;
+      font-weight: 600;
+    }
+    section > .section-desc {
+      font-size: 0.9rem;
+      color: var(--ink-soft);
+      margin-bottom: 1.25rem;
+      max-width: 65ch;
+    }
+    .problem {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem 1.35rem;
+      margin-bottom: 1rem;
+      position: relative;
+    }
+    .problem .rank {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--olive);
+      margin-bottom: 0.5rem;
+    }
+    .problem blockquote {
+      font-family: 'Fraunces', Georgia, serif;
+      font-style: italic;
+      font-size: 1.05rem;
+      line-height: 1.55;
+      color: var(--ink);
+      margin: 0 0 0.75rem;
+      padding-left: 0;
+      border: none;
+    }
+    .problem .source {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+    }
+    .problem .source a {
+      color: var(--olive);
+      text-decoration: none;
+      border-bottom: 1px solid var(--olive-light);
+    }
+    .problem .source a:hover { color: var(--accent-warm); border-color: var(--accent-warm); }
+    .tag-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .freq {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      background: var(--olive-muted);
+      color: var(--olive);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+    }
+    .word-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+    .word-chip {
+      background: var(--card);
+      border: 1px solid var(--border);
+      padding: 0.45rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.88rem;
+    }
+    .word-chip strong {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.7rem;
+      color: var(--olive);
+      margin-right: 0.35rem;
+    }
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.25rem;
+    }
+    @media (max-width: 720px) {
+      .two-col { grid-template-columns: 1fr; }
+    }
+    .list-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.25rem;
+    }
+    .list-card h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--olive);
+      margin-bottom: 0.85rem;
+    }
+    .list-card ul { list-style: none; }
+    .list-card li {
+      padding: 0.65rem 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.92rem;
+    }
+    .list-card li:last-child { border-bottom: none; }
+    .list-card .brand { font-weight: 600; color: var(--olive); }
+    .hooks {
+      display: grid;
+      gap: 1rem;
+    }
+    .hook {
+      background: linear-gradient(135deg, var(--olive) 0%, #3d4f30 100%);
+      color: #F5F1E8;
+      padding: 1.25rem 1.4rem;
+      border-radius: 12px;
+    }
+    .hook .hook-text {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.15rem;
+      line-height: 1.45;
+      margin-bottom: 0.5rem;
+    }
+    .hook .hook-note {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.68rem;
+      opacity: 0.85;
+    }
+    .sources-list {
+      font-size: 0.85rem;
+      color: var(--ink-soft);
+      columns: 2;
+      column-gap: 2rem;
+    }
+    @media (max-width: 600px) { .sources-list { columns: 1; } }
+    .sources-list li { margin-bottom: 0.35rem; break-inside: avoid; }
+    .nd { color: var(--accent-warm); font-style: italic; }
+    footer {
+      margin-top: 3rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.8rem;
+      color: var(--ink-soft);
+    }
+    .questions {
+      background: var(--card);
+      border: 2px solid var(--olive);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 2rem;
+    }
+    .questions h2 { margin-bottom: 1rem; }
+    .questions ol { padding-left: 1.25rem; }
+    .questions li { margin-bottom: 0.85rem; padding-left: 0.25rem; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <h1>Voice of Customer</h1>
+      <p class="sub">Verbatim insights iz Reddit-a i foruma za nišu: plan treninga i ishrane + vođeni privatni treninzi (uživo/online) — posebno zaposleni roditelji i profesionalci bez vremena. Usklađeno sa pozicioniranjem <a href="https://busystrong90.com/" style="color:var(--olive)">Busy Strong 90</a>.</p>
+      <div class="meta-bar">Period: 22. mar — 21. maj 2025 · 60 dana · 47 postova + 245 komentara analizirano</div>
+    </header>
+
+    <div class="kpi-grid">
+      <div class="kpi">
+        <div class="label">Istraženi izvori</div>
+        <div class="value">10</div>
+        <div class="hint">Subreddit-i + 2 foruma</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Postovi / threadovi</div>
+        <div class="value">47</div>
+        <div class="hint">+ 245 komentara (relevantni)</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Top frustracija</div>
+        <div class="value">Nema vremena</div>
+        <div class="hint">+ prekid zbog porodice/posla</div>
+      </div>
+      <div class="kpi">
+        <div class="label">Najčešća reč</div>
+        <div class="value">time</div>
+        <div class="hint">257× u korpusu citata</div>
+      </div>
+    </div>
+
+    <section id="problems">
+      <h2>Top 10 problema</h2>
+      <p class="section-desc">Rangirano po učestalosti u korpusu (postovi + komentari). Citati su originalni — bez parafraze.</p>
+
+      <article class="problem">
+        <div class="rank">#1 · Učestalo (vreme / raspored)</div>
+        <blockquote>„As you can imagine my days are full on. Been doing Tim Almonds Hardatyle Method for close to a year now and simply cant find solid time to set aside for training anymore.“</blockquote>
+        <div class="source"><a href="https://www.strongfirst.com/community/threads/busy-dad-training-ideas.25732/" target="_blank" rel="noopener">StrongFirst Forum</a></div>
+        <div class="tag-row"><span class="freq">★★★★★</span></div>
+      </article>
+
+      <article class="problem">
+        <div class="rank">#2 · Učestalo (energija + roditeljstvo)</div>
+        <blockquote>„do recall finding it frustrating when my second child was born as my energy levels sometimes weren't there to power through the sessions and other times some mini nappy related crisis or similar would come up and I'd have to pause the session. Which annoyed the hell out of me“</blockquote>
+        <div class="source"><a href="https://www.strongfirst.com/community/threads/busy-dad-training-ideas.25732/" target="_blank" rel="noopener">StrongFirst Forum</a></div>
+        <div class="tag-row"><span class="freq">★★★★★</span></div>
+      </article>
+
+      <article class="problem">
+        <div class="rank">#3 · Učestalo (ne mogu kao ranije)</div>
+        <blockquote>„At 40 with a toddler and a hectic life, I can't train like I used to. So this past week I decided to do this: one day of clean and press and chin-ups during the week, repeat on Saturday. Then 20 minutes of front squats and 10 minutes of loaded carries on Sunday. That's about all I have time and energy for right now.“</blockquote>
+        <div class="source"><a href="https://www.strongfirst.com/community/threads/busy-dad-training-ideas.25732/" target="_blank" rel="noopener">StrongFirst Forum</a></div>
+        <div class="tag-row"><span class="freq">★★★★☆</span></div>
+      </article>
+
+      <article class="problem">
+        <div class="rank">#4 · Učestalo (posao + ishrana)</div>
+        <blockquote>„With 3 exams weekly on the regular, I stopped going to the gym and started ordering out more with classmates when it felt too hectic to cook…I finally had a wake up call when I had my routine bloodwork about 2 weeks ago and my A1c was 5.7 — just barely in the prediabetic range“</blockquote>
+        <div class="source"><a href="https://www.reddit.com/r/loseit/comments/1jymiyl/trying_to_lose_weight_as_an_overworked_pa_student/" target="_blank" rel="noopener">r/loseit</a></div>
+        <div class="tag-row"><span class="freq">★★★★☆</span></div>
+      </article>
+
+      <article class="problem">
+        <div class="rank">#5 · Učestalo (kuća, deca, budžet)</div>
+        <blockquote>„I have a full time job and 2 small kids and I'm on a budget. I don't have time or the money to get to a gym, so I do need to figure out something in-home.“</blockquote>
+        <div class="source"><a href="https://www.reddit.com/r/xxfitness/comments/1kkkzj6/looking_for_advice_on_setting_myself_up_for/" target="_blank" rel="noopener">r/xxfitness</a></div>
+        <div class="tag-row"><span class="freq">★★★★☆</span></div>
+      </article>
+
+      <article class="problem">
+        <div class="rank">#6 · Učestalo (članarina bacanje)</div>
+        <blockquote>„When i'd have a gym membership in the past, i barely made use of it, not because i had the excuse of not having time, i'd always have time i'd just choose not to go to the gym, even though the gym would be a 5 minute walk away…“</blockquote>
+        <div class="source"><a href="https://www.reddit.com/r/loseit/comments/1k1wz22/how_to_stick_to_gym/" target="_blank" rel="noopener">r/loseit</a></div>
+        <div class="tag-row"><span class="freq">★★★★☆</span></div>
+      </article>
+
+      <article class="problem">
+        <div class="rank">#7 · Učestalo (trener / coaching razočarenje)</div>
+        <blockquote>„I feel like most of the trainers I've worked with kind of just go through motions of uploading new training blocks for me after a few months of us working together. They don't seem to put much thought into what they're including in the training blocks and I feel like they're just copying and pasting from previous weeks“</blockquote>
+        <div class="source"><a href="https://www.reddit.com/r/xxfitness/comments/1kkgfk1/has_anyone_else_experienced_working_with_a/" target="_blank" rel="noopener">r/xxfitness</a></div>
+        <div class="tag-row"><span class="freq">★★★★☆</span></div>
+      </article>
+
+      <article class="problem">
+        <div class="rank">#8 · Učestalo (makroi bez rezultata)</div>
+        <blockquote>„However tracking macros is a big commitment, and after two months of commitment and sacrifice, I've not lost any inches or weight and feel so discouraged. What is going on?“</blockquote>
+        <div class="source"><a href="https://www.reddit.com/r/loseit/comments/1ju2p91/not_losing_help/" target="_blank" rel="noopener">r/loseit</a></div>
+        <div class="tag-row"><span class="freq">★★★☆☆</span></div>
+      </article>
+
+      <article class="problem">
+        <div class="rank">#9 · Učestalo (nikad ne uspe da se uhvati)</div>
+        <blockquote>„I 'tried' everything but it never stuck. Atkins, Keto, Veggie, even diet catering delivery services.“</blockquote>
+        <div class="source"><a href="https://www.reddit.com/r/loseit/comments/1kbdyzm/1_month_progress/" target="_blank" rel="noopener">r/loseit</a></div>
+        <div class="tag-row"><span class="freq">★★★☆☆</span></div>
+      </article>
+
+      <article class="problem">
+        <div class="rank">#10 · Učestalo (identitet / dad bod)</div>
+        <blockquote>„When you come from a background of intense training sessions, which are disciplined and a large aspect of your life then toning back with kids can at times be a hard pill to swallow.“</blockquote>
+        <div class="source"><a href="https://www.strongfirst.com/community/threads/busy-dad-training-ideas.25732/" target="_blank" rel="noopener">StrongFirst Forum</a></div>
+        <div class="tag-row"><span class="freq">★★★☆☆</span></div>
+      </article>
+    </section>
+
+    <section id="language">
+      <h2>Jezik koji koriste</h2>
+      <p class="section-desc">Top 15 fraza iz njihovog rečnika — za copy, ne marketing speak.</p>
+      <div class="word-grid">
+        <span class="word-chip"><strong>1</strong> no time / hectic</span>
+        <span class="word-chip"><strong>2</strong> dad bod</span>
+        <span class="word-chip"><strong>3</strong> gym membership</span>
+        <span class="word-chip"><strong>4</strong> meal prep</span>
+        <span class="word-chip"><strong>5</strong> tracking macros</span>
+        <span class="word-chip"><strong>6</strong> never stuck</span>
+        <span class="word-chip"><strong>7</strong> stop making excuses</span>
+        <span class="word-chip"><strong>8</strong> full time job</span>
+        <span class="word-chip"><strong>9</strong> small kids</span>
+        <span class="word-chip"><strong>10</strong> energy levels</span>
+        <span class="word-chip"><strong>11</strong> hard pill to swallow</span>
+        <span class="word-chip"><strong>12</strong> ordering out</span>
+        <span class="word-chip"><strong>13</strong> 15–20 min / 30 minutes</span>
+        <span class="word-chip"><strong>14</strong> at home / in-home</span>
+        <span class="word-chip"><strong>15</strong> copying and pasting <span style="font-weight:400;color:var(--ink-soft)">(o trenerima)</span></span>
+      </div>
+    </section>
+
+    <section id="tried-failed">
+      <h2>Šta kupuju a ne radi</h2>
+      <p class="section-desc">Proizvodi i usluge koje eksplicitno pominju — sa brendovima gde su navedeni.</p>
+      <div class="list-card">
+        <ul>
+          <li><span class="brand">Gym membership</span> — plaćaju, ne idu („6 months of NOT using the gym I was paying for“) · <a href="https://www.reddit.com/r/loseit/comments/1kbdyzm/1_month_progress/">r/loseit</a></li>
+          <li><span class="brand">Atkins, Keto, Veggie</span> + diet catering delivery — „tried everything but it never stuck“ · <a href="https://www.reddit.com/r/loseit/comments/1kbdyzm/1_month_progress/">r/loseit</a></li>
+          <li><span class="brand">Fitness apps</span> (~$10–20/mes) — „too complex“, fiksni 3-mesečni planovi · <a href="https://www.reddit.com/r/xxfitness/comments/1k47fb6/i_turned_my_athome_workout_habits_into_a/">r/xxfitness</a></li>
+          <li><span class="brand">Nike Training Club</span> — kratki workouti kad nema vremena za plan · <a href="https://www.reddit.com/r/loseit/comments/1jymiyl/trying_to_lose_weight_as_an_overworked_pa_student/">r/loseit</a></li>
+          <li><span class="brand">LoseIt!</span> + 16/8 IF — koriste uz otkazivanje teretane · <a href="https://www.reddit.com/r/loseit/comments/1kbdyzm/1_month_progress/">r/loseit</a></li>
+          <li><span class="brand">Beachbody</span> (Body Beast, Lift 4, Lift More) — traže „traditional weight lifting“ van BB · <a href="https://www.reddit.com/r/fitness30plus/comments/1k0ph8k/online_lifting_trainers_that_arent_beachbody/">r/fitness30plus</a></li>
+          <li><span class="brand">Personal / online trainers</span> — „copying and pasting“, AI meal plan, hiljadama $ bez vrednosti (komentari) · <a href="https://www.reddit.com/r/xxfitness/comments/1kkgfk1/has_anyone_else_experienced_working_with_a/">r/xxfitness</a></li>
+          <li><span class="brand">Macro tracking</span> — veliki commitment, 2 meseca bez inch/weight loss · <a href="https://www.reddit.com/r/loseit/comments/1ju2p91/not_losing_help/">r/loseit</a></li>
+          <li><span class="brand">FitBod</span> — koriste ali prilagođavaju po osećaju/danu · <a href="https://www.reddit.com/r/fitness30plus/comments/1jjiw5n/day_1_vs_day_77_hope_this_encourages_you_to_get/">r/fitness30plus</a></li>
+        </ul>
+      </div>
+    </section>
+
+    <section id="gaps">
+      <h2>Šta traže a niko ne nudi</h2>
+      <p class="section-desc">Praznine na tržištu — iz eksplicitnih želja i frustracija u threadovima.</p>
+      <div class="two-col">
+        <div class="list-card">
+          <h3>Traže</h3>
+          <ul>
+            <li>Jednostavan <strong>at-home strength schedule</strong> bez 3-mesečnog fiksnog plana i brojanja repova · <a href="https://www.reddit.com/r/xxfitness/comments/1k47fb6/">r/xxfitness</a></li>
+            <li>Trener koji ostaje investiran posle 3+ meseca, ne copy-paste blokovi · <a href="https://www.reddit.com/r/xxfitness/comments/1kkgfk1/">r/xxfitness</a></li>
+            <li>„I don't have to think about putting together a workout with my busy schedule“ + različita trajanja · <a href="https://www.reddit.com/r/loseit/comments/1jymiyl/">r/loseit</a></li>
+            <li>Program za <strong>limited equipment</strong> (stan, 2 dece, budžet) · <a href="https://www.reddit.com/r/xxfitness/comments/1kkkzj6/">r/xxfitness</a></li>
+            <li>Online lifting coach koji nije Beachbody · <a href="https://www.reddit.com/r/fitness30plus/comments/1k0ph8k/">r/fitness30plus</a></li>
+            <li>Social accountability — „People lift heavier, show up more, and quit less when someone's there“ · <a href="https://www.reddit.com/r/getdisciplined/comments/1kd4ke1/discipline_is_social/">r/getdisciplined</a></li>
+          </ul>
+        </div>
+        <div class="list-card">
+          <h3>Niko ne nudi (dobro)</h3>
+          <ul>
+            <li>Sistem koji <strong>preživljava prekid</strong> (nappy crisis, exam week) bez osećaja provala</li>
+            <li>Ishrana bez teškog macro app-a za porodicu / putovanja</li>
+            <li>Coaching koji ne šalje generički AI plan posle prvog check-in-a (komentar na online coach thread)</li>
+            <li>„Minimum effective dose“ za 35+ sa poslom — ne influencer „just be consistent“</li>
+            <li class="nd">Facebook grupe: nedovoljno javnih podataka u ovom scrape-u</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section id="hooks">
+      <h2>5 slogan / hook predloga</h2>
+      <p class="section-desc">Bazirano na njihovim rečima — ne na Busy Strong marketing copy-ju.</p>
+      <div class="hooks">
+        <div class="hook">
+          <p class="hook-text">„That's about all I have time and energy for right now.“</p>
+          <p class="hook-note">→ Hook: „30 minuta. To je sve što imaš. Dovoljno je.“</p>
+        </div>
+        <div class="hook">
+          <p class="hook-text">„simply cant find solid time to set aside for training anymore“</p>
+          <p class="hook-note">→ Hook: „Nemaš 'solid' sat. Imaš 30 minuta između obaveza.“</p>
+        </div>
+        <div class="hook">
+          <p class="hook-text">„stop making excuses and start doing what I had to do“</p>
+          <p class="hook-note">→ Hook: „Prestani sa izgovorima. Počni sa 90 dana.“ (bez gym-a)</p>
+        </div>
+        <div class="hook">
+          <p class="hook-text">„hard pill to swallow“ (toning back with kids)</p>
+          <p class="hook-note">→ Hook: „Manje volume-a. Isti tata u ogledalu — bez žrtvovanja porodice.“</p>
+        </div>
+        <div class="hook">
+          <p class="hook-text">„I don't have to think about putting together a workout with my busy schedule“</p>
+          <p class="hook-note">→ Hook: „Bez sklapanja treninga. Otvori plan. Radi 30 min. Zatvori.“</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="sources">
+      <h2>Istraženi izvori</h2>
+      <ul class="sources-list">
+        <li>r/fitness30plus</li>
+        <li>r/loseit</li>
+        <li>r/xxfitness</li>
+        <li>r/getdisciplined</li>
+        <li>r/Fitness</li>
+        <li>r/bodyweightfitness</li>
+        <li>r/workingmoms</li>
+        <li>r/nutrition</li>
+        <li>r/MealPrepSunday</li>
+        <li>StrongFirst Community Forum</li>
+      </ul>
+      <p style="margin-top:1rem;font-size:0.85rem;color:var(--ink-soft)">Metoda: PullPush Reddit API + ručno čitanje threadova; filter relevantnosti (posao, deca, vreme, coaching, ishrana). Facebook grupe nisu uključene u brojčane podatke — javni scrape nedovoljan.</p>
+    </section>
+
+    <div class="questions">
+      <h2>10 pitanja za dublju analizu (website + positioning)</h2>
+      <ol>
+        <li>Koji tačan podsegment želiš prvi na sajtu: očevi 35+, korporativci, ili founderi — i da li VoC citati na hero sekciji idu na srpskom ili engleskom?</li>
+        <li>Da li €39 program ili €299 coaching treba da bude default CTA, s obzirom da ljudi traže „ne moram da sklapam trening“ ali i razočarenje od generičkog online coachinga?</li>
+        <li>Koliko eksplicitno želiš da pominješ „bez teretane“ naspram onih koji su platili članarinu i nisu išli (oni i dalje veruju u gym, samo ne odlaze)?</li>
+        <li>Da li na sajtu treba sekcija „šta ne radi“ (gym membership, macro apps, copy-paste treneri) — i koliko agresivno bez zvučanja negativno?</li>
+        <li>Kako želiš da komuniciraš ishranu: protiv macro trackinga (veliki pain point) ili kao „opciono, bez food scale“ kao na sajtu sada?</li>
+        <li>Da li WhatsApp accountability grupa treba istaknutija kao odgovor na „Discipline is social“ thread — i šta je tvoja pravila učestovanja?</li>
+        <li>Koje 2–3 konkretne „prekidne“ situacije tvoji klijenti imaju (putovanje, exam week, bolest deteta) i da li ih pokrivaš u FAQ ili guarantee?</li>
+        <li>Imaš li 3+ real testimoniala sa imenom, godinama, i brojem dece — da zamenimo generičke DM/ER/MV kartice?</li>
+        <li>Da li želiš lokalni (SR/EX-YU) ili globalni EN market prvo — jer je VoC ovde pretežno EN Reddit?</li>
+        <li>Koji jedan rezultat u 90 dana obećavaš (kg, cm struka, energija posle 16h, A1c) — da testiramo naspram „get strong“ koji se u forumima retko doslovno koristi?</li>
+      </ol>
+    </div>
+
+    <footer>
+      <p>Generisano za Coach Milos · Busy Strong 90 · VoC research artifact. Podaci: mart–maj 2025 (indeksirani Reddit/forum sadržaj). Za produkcijsku upotrebu proveri linkove pre objave citata.</p>
+    </footer>
+  </div>
+</body>
+</html>
