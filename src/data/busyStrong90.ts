@@ -88,7 +88,6 @@ export const gymWorkouts: Record<WorkoutPlan["id"], WorkoutPlan> = {
         reps: "6–8",
         rest: "90s",
         tip: "Keep shoulder blades retracted. Control the descent for 2 sec.",
-        demoVideoSrc: "/videos/gym-a-bench-press-demo.mp4",
       },
       { order: 2, name: "Overhead Press (DB or BB)", target: "Shoulders, Triceps", sets: "3", reps: "8–10", rest: "75s", tip: "Brace your core. Don't lean back — keep ribs down." },
       { order: 3, name: "Incline Dumbbell Press", target: "Upper Chest", sets: "3", reps: "10–12", rest: "60s", tip: "Set bench to 30–45°. Full stretch at bottom, squeeze at top." },
