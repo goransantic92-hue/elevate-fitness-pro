@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
@@ -9,36 +9,37 @@ import { ProgramContentGate } from "@/components/ProgramContentGate";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { InstallAppPrompt } from "@/components/InstallAppPrompt";
 import { RoutePageFallback } from "@/components/RoutePageFallback";
+import { lazyRoute } from "@/lib/lazyRoute";
 import PublicLayout from "@/components/PublicLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AdminLayout from "@/layouts/AdminLayout";
+import HomePage from "@/pages/HomePage";
 
-const HomePage = lazy(() => import("@/pages/HomePage"));
-const ProgramPage = lazy(() => import("@/pages/ProgramPage"));
-const TrainingPage = lazy(() => import("@/pages/TrainingPage"));
-const NutritionPage = lazy(() => import("@/pages/NutritionPage"));
-const ResultsPage = lazy(() => import("@/pages/ResultsPage"));
-const FAQPage = lazy(() => import("@/pages/FAQPage"));
-const PricingPage = lazy(() => import("@/pages/PricingPage"));
-const CoachingApplyPage = lazy(() => import("@/pages/CoachingApplyPage"));
-const NotFound = lazy(() => import("@/pages/NotFound"));
-const LoginPage = lazy(() => import("@/pages/auth/LoginPage"));
-const SignupPage = lazy(() => import("@/pages/auth/SignupPage"));
-const AuthCallbackPage = lazy(() => import("@/pages/auth/AuthCallbackPage"));
-const DashboardHome = lazy(() => import("@/pages/dashboard/DashboardHome"));
-const DashboardTrainingPage = lazy(() => import("@/pages/dashboard/DashboardTrainingPage"));
-const DashboardWorkoutDetailPage = lazy(() => import("@/pages/dashboard/DashboardWorkoutDetailPage"));
-const DashboardEmergencyWorkoutPage = lazy(() => import("@/pages/dashboard/DashboardEmergencyWorkoutPage"));
-const DashboardNutritionPage = lazy(() => import("@/pages/dashboard/DashboardNutritionPage"));
-const DashboardRoadmapPage = lazy(() => import("@/pages/dashboard/DashboardRoadmapPage"));
-const DashboardProgressPage = lazy(() => import("@/pages/dashboard/DashboardProgressPage"));
-const DashboardNotificationsPage = lazy(() => import("@/pages/dashboard/DashboardNotificationsPage"));
-const DashboardProfilePage = lazy(() => import("@/pages/dashboard/DashboardProfilePage"));
-const AdminOverview = lazy(() => import("@/pages/admin/AdminOverview"));
-const AdminMembersPage = lazy(() => import("@/pages/admin/AdminMembersPage"));
-const AdminContentPage = lazy(() => import("@/pages/admin/AdminContentPage"));
-const AdminRemindersPage = lazy(() => import("@/pages/admin/AdminRemindersPage"));
-const AdminWorkoutsPage = lazy(() => import("@/pages/admin/AdminWorkoutsPage"));
+const ProgramPage = lazyRoute(() => import("@/pages/ProgramPage"));
+const TrainingPage = lazyRoute(() => import("@/pages/TrainingPage"));
+const NutritionPage = lazyRoute(() => import("@/pages/NutritionPage"));
+const ResultsPage = lazyRoute(() => import("@/pages/ResultsPage"));
+const FAQPage = lazyRoute(() => import("@/pages/FAQPage"));
+const PricingPage = lazyRoute(() => import("@/pages/PricingPage"));
+const CoachingApplyPage = lazyRoute(() => import("@/pages/CoachingApplyPage"));
+const NotFound = lazyRoute(() => import("@/pages/NotFound"));
+const LoginPage = lazyRoute(() => import("@/pages/auth/LoginPage"));
+const SignupPage = lazyRoute(() => import("@/pages/auth/SignupPage"));
+const AuthCallbackPage = lazyRoute(() => import("@/pages/auth/AuthCallbackPage"));
+const DashboardHome = lazyRoute(() => import("@/pages/dashboard/DashboardHome"));
+const DashboardTrainingPage = lazyRoute(() => import("@/pages/dashboard/DashboardTrainingPage"));
+const DashboardWorkoutDetailPage = lazyRoute(() => import("@/pages/dashboard/DashboardWorkoutDetailPage"));
+const DashboardEmergencyWorkoutPage = lazyRoute(() => import("@/pages/dashboard/DashboardEmergencyWorkoutPage"));
+const DashboardNutritionPage = lazyRoute(() => import("@/pages/dashboard/DashboardNutritionPage"));
+const DashboardRoadmapPage = lazyRoute(() => import("@/pages/dashboard/DashboardRoadmapPage"));
+const DashboardProgressPage = lazyRoute(() => import("@/pages/dashboard/DashboardProgressPage"));
+const DashboardNotificationsPage = lazyRoute(() => import("@/pages/dashboard/DashboardNotificationsPage"));
+const DashboardProfilePage = lazyRoute(() => import("@/pages/dashboard/DashboardProfilePage"));
+const AdminOverview = lazyRoute(() => import("@/pages/admin/AdminOverview"));
+const AdminMembersPage = lazyRoute(() => import("@/pages/admin/AdminMembersPage"));
+const AdminContentPage = lazyRoute(() => import("@/pages/admin/AdminContentPage"));
+const AdminRemindersPage = lazyRoute(() => import("@/pages/admin/AdminRemindersPage"));
+const AdminWorkoutsPage = lazyRoute(() => import("@/pages/admin/AdminWorkoutsPage"));
 
 const queryClient = new QueryClient();
 
@@ -55,14 +56,7 @@ const App = () => (
         <ScrollToTop />
         <Routes>
           <Route element={<PublicLayout />}>
-            <Route
-              path="/"
-              element={
-                <Lazy>
-                  <HomePage />
-                </Lazy>
-              }
-            />
+            <Route path="/" element={<HomePage />} />
             <Route
               path="/program"
               element={

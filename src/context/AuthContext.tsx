@@ -75,14 +75,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, s) => {
+    } = supabase.auth.onAuthStateChange((event, s) => {
       setSession(s);
       if (s?.user) {
+        // getSession() above already loaded profile on first paint — avoid a second loading flash.
+        if (event === "INITIAL_SESSION") return;
         setLoading(true);
         loadUserData(s.user.id).finally(() => setLoading(false));
       } else {
         setProfile(null);
         setMemberAccess(null);
+        if (event !== "INITIAL_SESSION") setLoading(false);
       }
     });
 

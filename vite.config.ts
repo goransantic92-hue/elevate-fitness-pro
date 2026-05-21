@@ -38,13 +38,32 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        skipWaiting: true,
+        // Wait for tabs to close before activating — avoids blank first paint after deploy.
+        skipWaiting: false,
         clientsClaim: true,
-        // Avoid precaching large bundled images; they still load normally when visited.
-        // Precache app shell only — lazy route chunks load on demand (faster first paint, less SW bandwidth).
-        globPatterns: ["**/*.{html,ico,png,svg,webp,woff2}", "**/index-*.js", "**/index-*.css", "registerSW.js", "manifest.webmanifest", "robots.txt"],
+        navigateFallback: "/index.html",
         navigateFallbackDenylist: [/^\/api\//],
+        globPatterns: ["**/*.{html,ico,png,svg,webp,woff2}", "**/index-*.js", "**/index-*.css", "registerSW.js", "manifest.webmanifest", "robots.txt"],
         runtimeCaching: [
+          {
+            urlPattern: ({ request }) => request.mode === "navigate",
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "pages",
+              networkTimeoutSeconds: 5,
+              expiration: { maxEntries: 16, maxAgeSeconds: 60 * 60 * 24 },
+            },
+          },
+          {
+            urlPattern: ({ url, request }) =>
+              request.destination === "script" || (url.pathname.startsWith("/assets/") && /\.(js|css)$/.test(url.pathname)),
+            handler: "NetworkFirst",
+            options: {
+              cacheName: "vite-assets",
+              networkTimeoutSeconds: 5,
+              expiration: { maxEntries: 96, maxAgeSeconds: 60 * 60 * 24 * 7 },
+            },
+          },
           {
             urlPattern: /^https:\/\/.*\.supabase\.co\/(rest|auth|realtime)\/.*/i,
             handler: "NetworkFirst",
