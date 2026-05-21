@@ -10,7 +10,7 @@ const FAQPage = () => {
     <div className="font-sans">
       <PageMeta
         title="Before You Decide — FAQ — BUSY STRONG 90"
-        description="Every objection you have, someone else had too. Answers on quitting, travel, injuries, equipment, results, self-guided vs coaching, and how this differs from a personal trainer."
+        description="FAQ for busy fathers, founders & professionals 35+: quitting past programs, travel, hectic weeks, low energy, no food scale, kg + energy results, coaching vs self-guided."
         path="/faq"
       />
       <section className="pt-8 pb-12 md:pt-12 md:pb-16">
@@ -40,7 +40,7 @@ const FAQPage = () => {
 
           <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
-              <Link to="/coaching-apply#apply">Apply for Coaching</Link>
+              <Link to="/coaching-apply?plan=coached-strong-90#apply">Apply for Coached Strong 90</Link>
             </Button>
             <Button asChild variant="outline" className="h-12 rounded-lg border-border px-8 text-base font-semibold">
               <Link to="/pricing">

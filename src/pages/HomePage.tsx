@@ -8,9 +8,9 @@ import { PageMeta } from "@/components/seo/PageMeta";
 import { faqs } from "@/data/busyStrong90";
 
 const whoCards = [
-  { icon: "💼", title: "Founders & Business Owners", text: "You're building something. Early mornings, late nights, back-to-back calls. Your body is the one thing holding everything else up — and you've been neglecting it. This program fits between meetings, not instead of them." },
-  { icon: "👨‍👧‍👦", title: "Busy Parents", text: "Your kids watch everything you do. When you train, they learn that discipline isn't something you talk about — it's something you live. 30 minutes, 3× a week, at home. While they're sleeping or playing." },
-  { icon: "🏢", title: "Corporate Professionals", text: "You've been saying \"I'll start Monday\" for months. The gym membership you never use. The energy crash at 2pm. This system requires no commute, no equipment, and no willpower — just a decision to start." },
+  { icon: "💼", title: "Founders & Business Owners", text: "Early mornings, late nights, back-to-back calls. You need your weight down and your energy up — not another hour in the gym. 30 minutes, 3× a week, train at home between meetings." },
+  { icon: "👨‍👧‍👦", title: "Busy Fathers & Parents", text: "Your kids watch everything you do. When you have energy after work, you show up for them — instead of crashing on the couch. 30 minutes, 3× a week, at home while they're sleeping or playing." },
+  { icon: "🏢", title: "Corporate Professionals", text: "The 2pm energy crash. The calendar that never stops. This system fits your schedule: train at home (no commute), track kg and daily energy, and stop restarting every Monday." },
 ] as const;
 
 const pillars = [
@@ -29,8 +29,8 @@ const HomePage = () => {
   return (
     <div className="font-sans">
       <PageMeta
-        title="BUSY STRONG 90 — By Coach Milos"
-        description="The complete training system for fathers, founders, and busy professionals over 35. 3× per week, 30–40 minutes, gym or home. No excuses."
+        title="Busy Strong 90 — 90-Day Fitness for Busy Men 35+ | Coach Milos"
+        description="90-day training & nutrition for busy fathers, founders & professionals 35+. 30-min home workouts, no food scale. Lose weight, restore energy. Coached Strong 90 from €299/mo."
         path="/"
       />
 
@@ -43,22 +43,22 @@ const HomePage = () => {
         <div className="container relative z-[1] mx-auto max-w-[1100px] px-6">
           <div className="mb-8 grid items-center gap-8 md:grid-cols-12 md:gap-10">
             <div className="min-w-0 md:col-span-7 lg:col-span-7">
-              <h1 className="font-display text-[clamp(2.8rem,7vw,4.5rem)] leading-[1.02] text-foreground">
+              <h1 className="font-display text-[clamp(2.4rem,6vw,4rem)] leading-[1.08] text-foreground">
                 <span className="mb-3 block font-sans text-base font-normal normal-case leading-relaxed tracking-normal text-muted-foreground md:text-lg">
                   You haven&apos;t trained in months. You&apos;re tired. Your kids see it.
                 </span>
-                <span className="block max-w-[14ch] text-balance">
-                  GET <span className="text-primary">STRONG</span> IN 90 DAYS. NO GYM. NO EXCUSES.
+                <span className="block max-w-[20ch] text-balance">
+                  Stronger body. More <span className="text-primary">energy</span>. Still busy.
                 </span>
               </h1>
-              <p className="mt-6 max-w-[560px] text-pretty text-lg leading-relaxed text-[#ccc]">
-                The complete training system built for fathers, founders, and busy professionals over 35 who refuse to let fitness slide — but only have 30
-                minutes a day.
+              <p className="mt-6 max-w-[600px] text-pretty text-lg leading-relaxed text-[#ccc]">
+                The 90-day system built for men who don&apos;t have time — 30 minutes, 3× per week, train at home (no commute). No food scale. Coached plans from
+                €299/month.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground hover:bg-primary/90">
-                  <Link to="/coaching-apply">
-                    Apply for 1-on-1 Coaching
+                  <Link to="/coaching-apply?plan=coached-strong-90#apply">
+                    Apply for Coached Strong 90
                     <ArrowRight className="ml-1 h-4 w-4" />
                   </Link>
                 </Button>
@@ -67,21 +67,26 @@ const HomePage = () => {
                   variant="outline"
                   className="h-12 rounded-lg border-border bg-transparent px-8 text-base font-semibold hover:bg-transparent"
                 >
-                  <a href="#coaching">See Program & Coaching Plans</a>
+                  <a href="#coaching">See how it works</a>
                 </Button>
               </div>
-              <div className="mt-10 flex flex-wrap gap-6 text-sm text-muted-foreground">
+              <p className="mt-4 text-sm text-muted-foreground">
+                <Link to="/pricing" className="underline decoration-border underline-offset-4 hover:text-primary">
+                  Or start self-guided for €39
+                </Link>
+              </p>
+              <div className="mt-8 flex flex-wrap gap-6 text-sm text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
                   <Check className="h-4 w-4 shrink-0 text-primary" />
-                  No gym required
+                  Train at home — no commute
                 </span>
                 <span className="inline-flex items-center gap-1.5">
                   <Check className="h-4 w-4 shrink-0 text-primary" />
-                  30–40 min sessions
+                  30–40 min · track kg + energy
                 </span>
                 <span className="inline-flex items-center gap-1.5">
                   <Check className="h-4 w-4 shrink-0 text-primary" />
-                  Built by a competitive bodybuilder &amp; father of 2
+                  Fathers, founders &amp; professionals 35+
                 </span>
               </div>
             </div>
@@ -126,11 +131,11 @@ const HomePage = () => {
         <div className="container mx-auto max-w-[1100px] px-6">
           <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">Built For You</p>
           <h2 className="font-display text-balance text-[clamp(2rem,5vw,3rem)] text-foreground">
-            This Is For People Who <span className="text-primary">Don&apos;t Have Time</span> — And Know That&apos;s Not An Excuse
+            For busy <span className="text-primary">fathers, founders &amp; professionals</span> 35+ — who don&apos;t have time
           </h2>
           <p className="mb-10 mt-4 max-w-[600px] text-pretty text-[1.05rem] leading-relaxed text-muted-foreground">
-            You run a company, raise kids, manage a career. You don&apos;t need another fitness influencer telling you to &quot;just be consistent.&quot; You need
-            a system that fits inside the life you already have.
+            You don&apos;t need another influencer telling you to &quot;just be consistent.&quot; You need 30–40 minutes, three times a week, and a plan that still
+            works when travel, deadlines, or family blows up the week.
           </p>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {whoCards.map((c) => (
@@ -160,7 +165,8 @@ const HomePage = () => {
             The <span className="text-primary">Program</span> or The <span className="text-primary">Coach</span>
           </h2>
           <p className="mx-auto mt-3 max-w-[560px] text-center text-pretty text-muted-foreground">
-            The self-guided program gets you strong. The coaching gets you there faster, with accountability and a custom plan built around your life.
+            The self-guided program gives you the system. Coaching gets you there faster — custom schedule, weekly check-ins, and tracking weight (kg) and energy
+            week to week.
           </p>
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
             <div className="flex flex-col rounded-2xl border border-border bg-background p-8">
@@ -195,10 +201,10 @@ const HomePage = () => {
                 {[
                   "Everything in Self-Guided",
                   "Custom training plan for your schedule",
-                  "Weekly check-ins with Coach Milos",
-                  "Nutrition plan adapted to your lifestyle",
-                  "WhatsApp accountability group",
+                  "Weekly check-ins — kg + energy focus",
+                  "Nutrition plan adapted to your lifestyle (no food scale)",
                   "Form checks via video",
+                  "WhatsApp accountability group",
                   "Free My-Gym shirt",
                 ].map((x) => (
                   <li key={x} className="flex gap-2">
@@ -327,7 +333,9 @@ const HomePage = () => {
           <h2 className="font-display mt-2 text-balance text-center text-[clamp(2rem,5vw,3rem)] text-foreground">
             They Started Where <span className="text-primary">You Are Now</span>
           </h2>
-          <p className="mx-auto mt-2 max-w-[560px] text-center text-pretty text-muted-foreground">Busy. Skeptical. One decision away from changing everything.</p>
+          <p className="mx-auto mt-2 max-w-[560px] text-center text-pretty text-muted-foreground">
+            Busy. Skeptical. One decision away from changing everything. Video stories coming soon.
+          </p>
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
             {testimonials.map((t) => (
               <div key={t.name} className="rounded-xl border border-border bg-[#111] p-8">
@@ -379,12 +387,14 @@ const HomePage = () => {
       <section id="apply" className="section-padding border-t border-border/50 pb-24 text-center">
         <div className="container mx-auto max-w-3xl px-6">
           <h2 className="font-display text-balance text-[clamp(2.2rem,6vw,3.5rem)] text-foreground">
-            90 Days. 36 Sessions. <span className="text-primary">One Decision: Start.</span>
+            90 days. <span className="text-primary">Weight down. Energy back.</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-pretty text-muted-foreground">The program. The nutrition framework. The habit system. Everything you need. The only thing standing between you and the body you want is starting.</p>
+          <p className="mx-auto mt-4 max-w-lg text-pretty text-muted-foreground">
+            The training system, simple nutrition, and habits — built for fathers, founders, and professionals who don&apos;t have time to waste.
+          </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
-              <Link to="/coaching-apply#apply">Apply for Coaching</Link>
+              <Link to="/coaching-apply?plan=coached-strong-90#apply">Apply for Coached Strong 90</Link>
             </Button>
             <Button
               asChild

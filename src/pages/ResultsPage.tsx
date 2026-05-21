@@ -143,13 +143,22 @@ const ResultsPage = () => {
       {/* CTA */}
       <section className="section-padding bg-card/50 text-center">
         <div className="container mx-auto max-w-2xl">
-          <h2 className="text-3xl font-black mb-4">Start Your <span className="text-gradient">Transformation</span></h2>
-          <p className="text-muted-foreground mb-8">36 sessions. 6 habits. 3 rules. That's all you need.</p>
-          <Link to="/pricing">
-            <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
-              Get Started — €39 <ArrowRight className="ml-2 h-5 w-5" />
-            </Button>
-          </Link>
+          <h2 className="text-3xl font-black mb-4">
+            90 days. <span className="text-gradient">Weight down. Energy back.</span>
+          </h2>
+          <p className="text-muted-foreground mb-8">36 sessions. 6 habits. Built for busy fathers, founders, and professionals.</p>
+          <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Link to="/coaching-apply?plan=coached-strong-90#apply">
+              <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
+                Apply for Coached Strong 90 <ArrowRight className="ml-2 h-5 w-5" />
+              </Button>
+            </Link>
+            <Link to="/pricing">
+              <Button size="lg" variant="outline" className="h-14 px-8 font-semibold border-border">
+                Self-guided — €39
+              </Button>
+            </Link>
+          </div>
         </div>
       </section>
     </div>

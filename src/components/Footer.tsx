@@ -24,7 +24,7 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              The complete 90-day training system for busy people 35+. 3x per week. 30-40 minutes. No excuses.
+              90-day training for busy fathers, founders & professionals 35+. 30 min, 3x/week. Weight down. Energy back.
             </p>
           </div>
 
