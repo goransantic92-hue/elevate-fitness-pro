@@ -38,31 +38,25 @@ export default defineConfig(({ mode }) => ({
         ],
       },
       workbox: {
-        // Wait for tabs to close before activating — avoids blank first paint after deploy.
-        skipWaiting: false,
+        skipWaiting: true,
         clientsClaim: true,
+        cleanupOutdatedCaches: true,
         navigateFallback: "/index.html",
         navigateFallbackDenylist: [/^\/api\//],
-        globPatterns: ["**/*.{html,ico,png,svg,webp,woff2}", "**/index-*.js", "**/index-*.css", "registerSW.js", "manifest.webmanifest", "robots.txt"],
+        // Precache icons/static only — hashed JS/CSS must always come from network to avoid blank screen after deploy.
+        globPatterns: ["**/*.{ico,png,svg,webp,woff2}", "manifest.webmanifest", "robots.txt"],
+        globIgnores: ["**/index.html", "**/assets/**"],
         runtimeCaching: [
           {
             urlPattern: ({ request }) => request.mode === "navigate",
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "pages",
-              networkTimeoutSeconds: 5,
-              expiration: { maxEntries: 16, maxAgeSeconds: 60 * 60 * 24 },
-            },
+            handler: "NetworkOnly",
           },
           {
             urlPattern: ({ url, request }) =>
-              request.destination === "script" || (url.pathname.startsWith("/assets/") && /\.(js|css)$/.test(url.pathname)),
-            handler: "NetworkFirst",
-            options: {
-              cacheName: "vite-assets",
-              networkTimeoutSeconds: 5,
-              expiration: { maxEntries: 96, maxAgeSeconds: 60 * 60 * 24 * 7 },
-            },
+              request.destination === "script" ||
+              request.destination === "style" ||
+              (url.pathname.startsWith("/assets/") && /\.(js|css)$/.test(url.pathname)),
+            handler: "NetworkOnly",
           },
           {
             urlPattern: /^https:\/\/.*\.supabase\.co\/(rest|auth|realtime)\/.*/i,

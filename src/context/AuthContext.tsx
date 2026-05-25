@@ -85,12 +85,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } else {
         setProfile(null);
         setMemberAccess(null);
-        if (event !== "INITIAL_SESSION") setLoading(false);
+        setLoading(false);
       }
     });
 
+    const loadingTimeout = window.setTimeout(() => {
+      if (!cancelled) setLoading(false);
+    }, 8000);
+
     return () => {
       cancelled = true;
+      window.clearTimeout(loadingTimeout);
       subscription.unsubscribe();
     };
   }, [loadUserData]);

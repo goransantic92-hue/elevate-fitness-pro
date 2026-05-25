@@ -36,6 +36,27 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      (function () {
+        var key = "bs90-chunk-retry";
+        window.addEventListener(
+          "error",
+          function (e) {
+            var t = e.target;
+            if (!t || t.tagName !== "SCRIPT" || !t.src || sessionStorage.getItem(key)) return;
+            sessionStorage.setItem(key, "1");
+            if ("caches" in window) {
+              caches.keys().then(function (keys) {
+                return Promise.all(keys.map(function (k) { return caches.delete(k); }));
+              }).finally(function () { location.reload(); });
+            } else {
+              location.reload();
+            }
+          },
+          true
+        );
+      })();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
