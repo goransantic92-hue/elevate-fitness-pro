@@ -22,6 +22,8 @@ const ResultsPage = lazyRoute(() => import("@/pages/ResultsPage"));
 const FAQPage = lazyRoute(() => import("@/pages/FAQPage"));
 const PricingPage = lazyRoute(() => import("@/pages/PricingPage"));
 const CoachingApplyPage = lazyRoute(() => import("@/pages/CoachingApplyPage"));
+const BlogIndexPage = lazyRoute(() => import("@/pages/BlogIndexPage"));
+const BlogPostPage = lazyRoute(() => import("@/pages/BlogPostPage"));
 const NotFound = lazyRoute(() => import("@/pages/NotFound"));
 const LoginPage = lazyRoute(() => import("@/pages/auth/LoginPage"));
 const SignupPage = lazyRoute(() => import("@/pages/auth/SignupPage"));
@@ -114,6 +116,22 @@ const App = () => (
               element={
                 <Lazy>
                   <CoachingApplyPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="/blog"
+              element={
+                <Lazy>
+                  <BlogIndexPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="/blog/:slug"
+              element={
+                <Lazy>
+                  <BlogPostPage />
                 </Lazy>
               }
             />

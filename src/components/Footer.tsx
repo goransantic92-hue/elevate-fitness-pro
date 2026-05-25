@@ -40,6 +40,7 @@ const Footer = () => {
           <div>
             <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Support</h4>
             <div className="flex flex-col gap-2">
+              <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
               <Link to="/coaching-apply" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Apply for Coaching</Link>
               <Link to="/faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</Link>
               <Link to="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>

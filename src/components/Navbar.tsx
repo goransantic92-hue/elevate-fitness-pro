@@ -13,6 +13,7 @@ const navLinks = [
   { href: "/nutrition", label: "Nutrition" },
   { href: "/results", label: "Results" },
   { href: "/faq", label: "FAQ" },
+  { href: "/blog", label: "Blog" },
   { href: "/pricing", label: "Pricing" },
 ] as const;
 

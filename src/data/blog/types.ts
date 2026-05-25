@@ -1,0 +1,29 @@
+export type BlogBlock =
+  | { type: "p"; text: string }
+  | { type: "h2"; text: string }
+  | { type: "h3"; text: string }
+  | { type: "ul"; items: string[] }
+  | { type: "ol"; items: string[] }
+  | { type: "table"; headers: string[]; rows: string[][] }
+  | { type: "blockquote"; text: string }
+  | {
+      type: "cta";
+      title?: string;
+      bullets?: string[];
+      primaryHref: string;
+      primaryLabel: string;
+      secondaryHref?: string;
+      secondaryLabel?: string;
+    };
+
+export type BlogPost = {
+  slug: string;
+  title: string;
+  excerpt: string;
+  metaTitle: string;
+  metaDescription: string;
+  keywords: string[];
+  publishedAt: string;
+  readingTimeMinutes: number;
+  blocks: BlogBlock[];
+};
