@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, Check, Star } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import { TestimonialVideoCard } from "@/components/TestimonialVideoCard";
+import { testimonialVideos } from "@/data/testimonials";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import privateTrainerFitness from "@/assets/private-trainer-fitness.webp";
 import coachAbout from "@/assets/coach-about.webp";
@@ -17,12 +19,6 @@ const pillars = [
   { num: "01", title: "Train Smart", text: "3× per week. 30–40 minutes. Progressive overload. Compound movements that build real strength. No junk volume. Every rep has a purpose — because your time has a price tag." },
   { num: "02", title: "Eat Simply", text: "No app needed. No food scale. One rule: protein at every meal. The rest follows naturally. Built for people who eat with their family, travel for work, and don't have time to meal prep 6 containers on Sunday." },
   { num: "03", title: "Build Systems", text: "Motivation is unreliable. Systems are not. You build habits so automatic that missing a session feels wrong — the same way forgetting to brush your teeth would. That's the real transformation." },
-] as const;
-
-const testimonials = [
-  { tag: "Lost 8kg in 90 Days", quote: "I come home differently now and my kids notice. I have energy to play with them after work instead of collapsing on the couch. My wife says I'm a different person.", initials: "DM", name: "David M.", sub: "Project Manager, 42 — Father of 3" },
-  { tag: "3 Sessions / Week — Never Missed", quote: "Three sessions I can actually protect on my calendar — stronger without living in the gym. I've tried 5 programs before this. This is the first one I actually finished.", initials: "ER", name: "Elena R.", sub: "Founder, 38 — Mother of 2" },
-  { tag: "Down 2 Waist Sizes", quote: "I stopped overthinking meals. Protein, consistency, and the plan did the rest. Dropped 2 waist sizes, sleep better, and my team says I show up sharper in meetings.", initials: "MV", name: "Marcus V.", sub: "Corporate Lead, 45 — Father of 1" },
 ] as const;
 
 const HomePage = () => {
@@ -334,28 +330,11 @@ const HomePage = () => {
             They Started Where <span className="text-primary">You Are Now</span>
           </h2>
           <p className="mx-auto mt-2 max-w-[560px] text-center text-pretty text-muted-foreground">
-            Busy. Skeptical. One decision away from changing everything. Video stories coming soon.
+            Busy. Skeptical. One decision away from changing everything.
           </p>
-          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {testimonials.map((t) => (
-              <div key={t.name} className="rounded-xl border border-border bg-[#111] p-8">
-                <div className="mb-3 flex text-primary">
-                  {Array.from({ length: 5 }).map((_, i) => (
-                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
-                  ))}
-                </div>
-                <div className="mb-3 inline-block rounded-full bg-primary/10 px-3 py-0.5 text-[0.7rem] font-bold uppercase tracking-wide text-primary">
-                  {t.tag}
-                </div>
-                <blockquote className="text-sm italic leading-relaxed text-[#ccc]">&ldquo;{t.quote}&rdquo;</blockquote>
-                <div className="mt-5 flex items-center gap-3">
-                  <div className="flex h-11 w-11 items-center justify-center rounded-full bg-card text-sm font-bold text-primary">{t.initials}</div>
-                  <div>
-                    <h5 className="font-sans text-sm font-bold text-foreground">{t.name}</h5>
-                    <p className="text-xs text-muted-foreground">{t.sub}</p>
-                  </div>
-                </div>
-              </div>
+          <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
+            {testimonialVideos.map((t) => (
+              <TestimonialVideoCard key={t.id} testimonial={t} />
             ))}
           </div>
         </div>
