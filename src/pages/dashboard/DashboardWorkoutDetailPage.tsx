@@ -33,18 +33,21 @@ export default function DashboardWorkoutDetailPage() {
     setDemo({ open: true, src: "", title: ex.name, loading: true, error: null });
 
     if (ex.demoVideoPath) {
-      const signed = await getWorkoutDemoSignedUrl(ex.demoVideoPath);
-      if (signed) {
+      try {
+        const signed = await getWorkoutDemoSignedUrl(ex.demoVideoPath);
         setDemo({ open: true, src: signed, title: ex.name, loading: false, error: null });
         return;
+      } catch (err) {
+        const message = err instanceof Error ? err.message : "Could not load video.";
+        setDemo({
+          open: true,
+          src: "",
+          title: ex.name,
+          loading: false,
+          error: message.slice(0, 180),
+        });
+        return;
       }
-      setDemo({
-        open: true,
-        src: "",
-        title: ex.name,
-        loading: false,
-        error: "Could not load video. Check your program access or try again.",
-      });
       return;
     }
 
