@@ -10,8 +10,10 @@ export type Exercise = {
   reps: string;
   rest: string;
   tip: string;
-  /** Public URL under `/public` (e.g. `/videos/foo.mp4`). */
+  /** Legacy public URL under `/public`. Prefer `demoVideoPath` for Supabase Storage. */
   demoVideoSrc?: string;
+  /** Path in Supabase `workout-demos` bucket (members with program access only). */
+  demoVideoPath?: string;
 };
 
 export type WorkoutPlan = {
@@ -88,11 +90,48 @@ export const gymWorkouts: Record<WorkoutPlan["id"], WorkoutPlan> = {
         reps: "6–8",
         rest: "90s",
         tip: "Keep shoulder blades retracted. Control the descent for 2 sec.",
+        demoVideoPath: "gym/a/01-bench-press.mp4",
       },
-      { order: 2, name: "Overhead Press (DB or BB)", target: "Shoulders, Triceps", sets: "3", reps: "8–10", rest: "75s", tip: "Brace your core. Don't lean back — keep ribs down." },
-      { order: 3, name: "Incline Dumbbell Press", target: "Upper Chest", sets: "3", reps: "10–12", rest: "60s", tip: "Set bench to 30–45°. Full stretch at bottom, squeeze at top." },
-      { order: 4, name: "Lateral Raises", target: "Side Delts", sets: "3", reps: "12–15", rest: "45s", tip: "Lead with elbows, not wrists. Slight forward lean is fine." },
-      { order: 5, name: "Cable / Band Tricep Pushdown", target: "Triceps", sets: "3", reps: "12–15", rest: "45s", tip: "Keep elbows tucked. Squeeze hard at full extension." },
+      {
+        order: 2,
+        name: "Overhead Press (DB or BB)",
+        target: "Shoulders, Triceps",
+        sets: "3",
+        reps: "8–10",
+        rest: "75s",
+        tip: "Brace your core. Don't lean back — keep ribs down.",
+        demoVideoPath: "gym/a/02-overhead-press.mp4",
+      },
+      {
+        order: 3,
+        name: "Incline Dumbbell Press",
+        target: "Upper Chest",
+        sets: "3",
+        reps: "10–12",
+        rest: "60s",
+        tip: "Set bench to 30–45°. Full stretch at bottom, squeeze at top.",
+        demoVideoPath: "gym/a/03-incline-dumbbell-press.mp4",
+      },
+      {
+        order: 4,
+        name: "Lateral Raises",
+        target: "Side Delts",
+        sets: "3",
+        reps: "12–15",
+        rest: "45s",
+        tip: "Lead with elbows, not wrists. Slight forward lean is fine.",
+        demoVideoPath: "gym/a/04-lateral-raises.mp4",
+      },
+      {
+        order: 5,
+        name: "Cable / Band Tricep Pushdown",
+        target: "Triceps",
+        sets: "3",
+        reps: "12–15",
+        rest: "45s",
+        tip: "Keep elbows tucked. Squeeze hard at full extension.",
+        demoVideoPath: "gym/a/05-tricep-pushdown.mp4",
+      },
     ],
     finisher: "2 min: Max push-ups (bodyweight). Rest 60s. Done.",
   },

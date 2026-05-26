@@ -15,6 +15,9 @@ dist-ssr
 # Large testimonial source videos (hosted on Supabase Storage in production)
 public/testimonials/videos/*.mp4
 
+# Workout demo sources (uploaded to Supabase Storage)
+public/Trening A/*.mp4
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

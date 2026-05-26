@@ -4,19 +4,57 @@ import { MemberGate } from "@/components/MemberGate";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { gymWorkouts, homeWorkouts } from "@/data/busyStrong90";
-import { ArrowLeft, PlayCircle } from "lucide-react";
+import { getWorkoutDemoSignedUrl } from "@/lib/workoutDemoMedia";
+import { ArrowLeft, Loader2, PlayCircle } from "lucide-react";
 import NotFound from "@/pages/NotFound";
 import { cn } from "@/lib/utils";
+
+function exerciseHasDemo(ex: { demoVideoPath?: string; demoVideoSrc?: string }) {
+  return Boolean(ex.demoVideoPath || ex.demoVideoSrc);
+}
 
 export default function DashboardWorkoutDetailPage() {
   const { variant, code } = useParams<{ variant: string; code: string }>();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [demo, setDemo] = useState<{ open: boolean; src: string; title: string }>({ open: false, src: "", title: "" });
+  const [demo, setDemo] = useState<{
+    open: boolean;
+    src: string;
+    title: string;
+    loading: boolean;
+    error: string | null;
+  }>({ open: false, src: "", title: "", loading: false, error: null });
 
   if (variant !== "gym" && variant !== "home") return <NotFound />;
   if (code !== "a" && code !== "b" && code !== "c") return <NotFound />;
 
   const w = variant === "gym" ? gymWorkouts[code] : homeWorkouts[code];
+
+  const openDemo = async (ex: { name: string; demoVideoPath?: string; demoVideoSrc?: string }) => {
+    setDemo({ open: true, src: "", title: ex.name, loading: true, error: null });
+
+    if (ex.demoVideoPath) {
+      const signed = await getWorkoutDemoSignedUrl(ex.demoVideoPath);
+      if (signed) {
+        setDemo({ open: true, src: signed, title: ex.name, loading: false, error: null });
+        return;
+      }
+      setDemo({
+        open: true,
+        src: "",
+        title: ex.name,
+        loading: false,
+        error: "Could not load video. Check your program access or try again.",
+      });
+      return;
+    }
+
+    if (ex.demoVideoSrc) {
+      setDemo({ open: true, src: ex.demoVideoSrc, title: ex.name, loading: false, error: null });
+      return;
+    }
+
+    setDemo({ open: true, src: "", title: ex.name, loading: false, error: "No demo available." });
+  };
 
   return (
     <MemberGate>
@@ -37,7 +75,7 @@ export default function DashboardWorkoutDetailPage() {
           </div>
           <div className="divide-y divide-border/50">
             {w.exercises.map((ex) => {
-              const hasDemo = Boolean(ex.demoVideoSrc);
+              const hasDemo = exerciseHasDemo(ex);
               const inner = (
                 <>
                   <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
@@ -72,9 +110,9 @@ export default function DashboardWorkoutDetailPage() {
                       type="button"
                       className={cn(
                         "w-full text-left rounded-xl -m-2 p-2 transition-colors",
-                        "hover:bg-primary/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50"
+                        "hover:bg-primary/8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/50",
                       )}
-                      onClick={() => setDemo({ open: true, src: ex.demoVideoSrc!, title: ex.name })}
+                      onClick={() => void openDemo(ex)}
                     >
                       {inner}
                     </button>
@@ -97,7 +135,7 @@ export default function DashboardWorkoutDetailPage() {
           open={demo.open}
           onOpenChange={(open) => {
             if (!open) videoRef.current?.pause();
-            setDemo((d) => ({ ...d, open }));
+            setDemo((d) => ({ ...d, open, src: open ? d.src : "", loading: false, error: null }));
           }}
         >
           <DialogContent
@@ -108,8 +146,12 @@ export default function DashboardWorkoutDetailPage() {
               <DialogTitle className="text-base pr-8">{demo.title}</DialogTitle>
               <DialogDescription className="text-xs">Short demo — use the player controls.</DialogDescription>
             </DialogHeader>
-            <div className="bg-black px-1 pb-2">
-              {demo.open && demo.src ? (
+            <div className="bg-black px-1 pb-2 min-h-[12rem] flex items-center justify-center">
+              {demo.loading ? (
+                <Loader2 className="h-8 w-8 animate-spin text-primary" aria-label="Loading video" />
+              ) : demo.error ? (
+                <p className="text-sm text-muted-foreground text-center px-4 py-8">{demo.error}</p>
+              ) : demo.src ? (
                 <video
                   ref={videoRef}
                   key={demo.src}
