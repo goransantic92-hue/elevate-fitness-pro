@@ -1,4 +1,4 @@
-# Workout demo videos (GYM Training A)
+# Workout demo videos (GYM Training A & B)
 
 ## One-time: run SQL in Supabase
 
@@ -14,10 +14,13 @@ Dashboard → **SQL Editor** → New query → paste contents of:
 npm run upload:workout-demos
 ```
 
-Videos are read from `public/Trening A/*.mp4` and uploaded to bucket `workout-demos`.
+Videos are read from:
+
+- `public/Trening A/*.mp4` → `workout-demos/gym/a/…`
+- `public/Trening B/*.mp4` → `workout-demos/gym/b/…`
 
 ## Member app
 
-Dashboard → Training → **GYM** → **Training A** → tap an exercise → **Play video**.
+Dashboard → Training → **GYM** → **Training A** or **Training B** → tap an exercise → **Play video**.
 
 Only users with `member_access.has_access = true` (or admins) can load signed URLs.

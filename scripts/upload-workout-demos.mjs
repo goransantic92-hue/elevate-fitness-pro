@@ -1,5 +1,5 @@
 /**
- * Upload GYM Training A demo videos to Supabase Storage (workout-demos bucket).
+ * Upload GYM Training A & B demo videos to Supabase Storage (workout-demos bucket).
  *
  * Prerequisites:
  * 1. Run supabase/migrations/20260526120000_workout_demos_storage.sql in Supabase SQL editor.
@@ -32,8 +32,6 @@ const root = join(__dirname, "..");
 loadEnvFile(join(root, ".env"));
 loadEnvFile(join(root, ".env.local"));
 
-const videosDir = join(root, "public", "Trening A");
-
 const url = (process.env.SUPABASE_URL ?? process.env.VITE_SUPABASE_URL)?.trim();
 const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY?.trim();
 
@@ -47,13 +45,28 @@ const supabase = createClient(url, serviceKey, {
 });
 
 /** local filename → storage path under workout-demos bucket */
-const gymA = [
-  { local: "Barbell Dumbbell Bench Press.mp4", storagePath: "gym/a/01-bench-press.mp4" },
-  { local: "Overhead Press (DB or BB).mp4", storagePath: "gym/a/02-overhead-press.mp4" },
-  { local: "Incline Dumbbell Press.mp4", storagePath: "gym/a/03-incline-dumbbell-press.mp4" },
-  { local: "Lateral Raises.mp4", storagePath: "gym/a/04-lateral-raises.mp4" },
-  { local: "Cable Band Tricep Pushdown.mp4", storagePath: "gym/a/05-tricep-pushdown.mp4" },
-];
+const gymA = {
+  dir: join(root, "public", "Trening A"),
+  items: [
+    { local: "Barbell Dumbbell Bench Press.mp4", storagePath: "gym/a/01-bench-press.mp4" },
+    { local: "Overhead Press (DB or BB).mp4", storagePath: "gym/a/02-overhead-press.mp4" },
+    { local: "Incline Dumbbell Press.mp4", storagePath: "gym/a/03-incline-dumbbell-press.mp4" },
+    { local: "Lateral Raises.mp4", storagePath: "gym/a/04-lateral-raises.mp4" },
+    { local: "Cable Band Tricep Pushdown.mp4", storagePath: "gym/a/05-tricep-pushdown.mp4" },
+  ],
+};
+
+const gymB = {
+  dir: join(root, "public", "Trening B"),
+  items: [
+    { local: "Barbell Squat Goblet Squat.mp4", storagePath: "gym/b/01-barbell-squat-goblet-squat.mp4" },
+    { local: "Romanian Deadlift (RDL).mp4", storagePath: "gym/b/02-romanian-deadlift.mp4" },
+    { local: "Leg Press or Bulgarian Split Squat.mp4", storagePath: "gym/b/03-leg-press-bulgarian-split-squat.mp4" },
+    { local: "Leg Curl (Machine or Band).mp4", storagePath: "gym/b/04-leg-curl.mp4" },
+    { local: "Standing Calf raises.mp4", storagePath: "gym/b/05-standing-calf-raises.mp4" },
+    { local: "Plank Hold.mp4", storagePath: "gym/b/06-plank-hold.mp4" },
+  ],
+};
 
 /** Always compress for web demos (720p, under Supabase 50MB limit). */
 const ALWAYS_COMPRESS = true;
@@ -107,7 +120,7 @@ function prepareUploadBody(filePath) {
   return { body: compressed, tempPath };
 }
 
-async function uploadOne({ local, storagePath }) {
+async function uploadOne(videosDir, { local, storagePath }) {
   const filePath = join(videosDir, local);
   if (!existsSync(filePath)) {
     throw new Error(`File not found: ${filePath}`);
@@ -125,8 +138,14 @@ async function uploadOne({ local, storagePath }) {
   }
 }
 
-await ensureBucket();
-for (const item of gymA) {
-  await uploadOne(item);
+async function uploadSet(label, { dir, items }) {
+  console.log(`\n--- ${label} (${dir}) ---`);
+  for (const item of items) {
+    await uploadOne(dir, item);
+  }
 }
-console.log("\nDone. GYM Training A demos uploaded to workout-demos bucket.");
+
+await ensureBucket();
+await uploadSet("GYM Training A", gymA);
+await uploadSet("GYM Training B", gymB);
+console.log("\nDone. GYM Training A & B demos uploaded to workout-demos bucket.");
