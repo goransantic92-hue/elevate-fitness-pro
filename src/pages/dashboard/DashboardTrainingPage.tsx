@@ -77,11 +77,6 @@ export default function DashboardTrainingPage() {
                     </div>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                    <Button asChild size="sm" variant="secondary" className="w-full justify-between">
-                      <Link to={`/dashboard/training/emergency/${w.id}`}>
-                        Open workout <ArrowRight className="h-4 w-4" />
-                      </Link>
-                    </Button>
                     <table className="w-full text-xs text-muted-foreground">
                       <thead>
                         <tr className="text-left border-b border-border/50">
