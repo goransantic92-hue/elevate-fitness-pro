@@ -114,6 +114,18 @@ const homeB = {
   ],
 };
 
+const homeC = {
+  dir: join(root, "public", "Home C"),
+  items: [
+    { local: "Door Bar Pull-Ups or Inverted Rows.mp4", storagePath: "home/c/01-door-bar-pull-ups-inverted-rows.mp4" },
+    { local: "Resistance Band Row or Towel Row.mp4", storagePath: "home/c/02-resistance-band-row-towel-row.mp4" },
+    { local: "Superman Hold.mp4", storagePath: "home/c/03-superman-hold.mp4" },
+    { local: "Bicep Curl (Resistance Band Bottles).mp4", storagePath: "home/c/04-bicep-curl-resistance-band.mp4" },
+    { local: "Renegade Row (Push-Up Position).mp4", storagePath: "home/c/05-renegade-row.mp4" },
+    { local: "Dead Bug Hold.mp4", storagePath: "home/c/06-dead-bug-hold.mp4" },
+  ],
+};
+
 const only = process.argv[2]?.toLowerCase();
 const allSets = [
   ["a", "GYM Training A", gymA],
@@ -121,10 +133,11 @@ const allSets = [
   ["c", "GYM Training C", gymC],
   ["home-a", "HOME A", homeA],
   ["home-b", "HOME B", homeB],
+  ["home-c", "HOME C", homeC],
 ];
 const setsToRun = only ? allSets.filter(([key]) => key === only) : allSets;
 if (only && setsToRun.length === 0) {
-  console.error(`Unknown filter "${only}". Use a, b, c, home-a, or home-b.`);
+  console.error(`Unknown filter "${only}". Use a, b, c, home-a, home-b, or home-c.`);
   process.exit(1);
 }
 
