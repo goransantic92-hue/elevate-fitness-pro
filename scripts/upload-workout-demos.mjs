@@ -1,5 +1,5 @@
 /**
- * Upload GYM Training A, B & C demo videos to Supabase Storage (workout-demos bucket).
+ * Upload GYM Training A, B, C and HOME A demo videos to Supabase Storage (workout-demos bucket).
  *
  * Prerequisites:
  * 1. Run supabase/migrations/20260526120000_workout_demos_storage.sql in Supabase SQL editor.
@@ -7,7 +7,8 @@
  *
  * Usage:
  *   npm run upload:workout-demos
- *   node scripts/upload-workout-demos.mjs c    # only Training C
+ *   node scripts/upload-workout-demos.mjs c           # only GYM Training C
+ *   node scripts/upload-workout-demos.mjs home-a      # only HOME A
  */
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync, statSync, unlinkSync } from "fs";
@@ -87,15 +88,27 @@ const gymC = {
   ],
 };
 
+const homeA = {
+  dir: join(root, "public", "Home A"),
+  items: [
+    { local: "Push-Ups (Standard).mp4", storagePath: "home/a/01-push-ups-standard.mp4" },
+    { local: "Pike Push-Ups.mp4", storagePath: "home/a/02-pike-push-ups.mp4" },
+    { local: "Decline Push-Ups.mp4", storagePath: "home/a/03-decline-push-ups.mp4" },
+    { local: "Diamond Push-Ups.mp4", storagePath: "home/a/04-diamond-push-ups.mp4" },
+    { local: "Lateral Shoulder Raise (Water Bottles).mp4", storagePath: "home/a/05-lateral-shoulder-raise.mp4" },
+  ],
+};
+
 const only = process.argv[2]?.toLowerCase();
 const allSets = [
   ["a", "GYM Training A", gymA],
   ["b", "GYM Training B", gymB],
   ["c", "GYM Training C", gymC],
+  ["home-a", "HOME A", homeA],
 ];
 const setsToRun = only ? allSets.filter(([key]) => key === only) : allSets;
 if (only && setsToRun.length === 0) {
-  console.error(`Unknown filter "${only}". Use a, b, or c.`);
+  console.error(`Unknown filter "${only}". Use a, b, c, or home-a.`);
   process.exit(1);
 }
 
