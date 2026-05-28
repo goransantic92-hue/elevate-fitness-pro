@@ -1,11 +1,13 @@
 /**
- * Upload GYM Training A & B demo videos to Supabase Storage (workout-demos bucket).
+ * Upload GYM Training A, B & C demo videos to Supabase Storage (workout-demos bucket).
  *
  * Prerequisites:
  * 1. Run supabase/migrations/20260526120000_workout_demos_storage.sql in Supabase SQL editor.
  * 2. .env.local with VITE_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY
  *
- * Usage: npm run upload:workout-demos
+ * Usage:
+ *   npm run upload:workout-demos
+ *   node scripts/upload-workout-demos.mjs c    # only Training C
  */
 import { createClient } from "@supabase/supabase-js";
 import { readFileSync, existsSync, statSync, unlinkSync } from "fs";
@@ -67,6 +69,35 @@ const gymB = {
     { local: "Plank Hold.mp4", storagePath: "gym/b/06-plank-hold.mp4" },
   ],
 };
+
+const gymC = {
+  dir: join(root, "public", "Trening C"),
+  items: [
+    { local: "Pull-Ups Lat Pulldown V1.mp4", storagePath: "gym/c/01-pull-ups-lat-pulldown-v1.mp4" },
+    { local: "Pull-Ups Lat Pulldown V2.mp4", storagePath: "gym/c/01-pull-ups-lat-pulldown-v2.mp4" },
+    { local: "Barbell or Dumbbell Row V1.mp4", storagePath: "gym/c/02-barbell-dumbbell-row-v1.mp4" },
+    { local: "Barbell or Dumbbell Row V2 (2).mp4", storagePath: "gym/c/02-barbell-dumbbell-row-v2.mp4" },
+    { local: "Seated Cable Row  Band Row V1.mp4", storagePath: "gym/c/03-seated-cable-row-band-row-v1.mp4" },
+    { local: "Seated Cable Row  Band Row V2.mp4", storagePath: "gym/c/03-seated-cable-row-band-row-v2.mp4" },
+    { local: "Face Pulls or Rear Delt Fly V1.mp4", storagePath: "gym/c/04-face-pulls-rear-delt-fly-v1.mp4" },
+    { local: "Face Pulls or Rear Delt Fly V2.mp4", storagePath: "gym/c/04-face-pulls-rear-delt-fly-v2.mp4" },
+    { local: "Barbell  Dumbbell Bicep Curl V1.mp4", storagePath: "gym/c/05-barbell-dumbbell-bicep-curl-v1.mp4" },
+    { local: "Barbell  Dumbbell Bicep Curl V2.mp4", storagePath: "gym/c/05-barbell-dumbbell-bicep-curl-v2.mp4" },
+    { local: "Hammer Curl.mp4", storagePath: "gym/c/06-hammer-curl.mp4" },
+  ],
+};
+
+const only = process.argv[2]?.toLowerCase();
+const allSets = [
+  ["a", "GYM Training A", gymA],
+  ["b", "GYM Training B", gymB],
+  ["c", "GYM Training C", gymC],
+];
+const setsToRun = only ? allSets.filter(([key]) => key === only) : allSets;
+if (only && setsToRun.length === 0) {
+  console.error(`Unknown filter "${only}". Use a, b, or c.`);
+  process.exit(1);
+}
 
 /** Always compress for web demos (720p, under Supabase 50MB limit). */
 const ALWAYS_COMPRESS = true;
@@ -146,6 +177,7 @@ async function uploadSet(label, { dir, items }) {
 }
 
 await ensureBucket();
-await uploadSet("GYM Training A", gymA);
-await uploadSet("GYM Training B", gymB);
-console.log("\nDone. GYM Training A & B demos uploaded to workout-demos bucket.");
+for (const [, label, set] of setsToRun) {
+  await uploadSet(label, set);
+}
+console.log(`\nDone. Uploaded: ${setsToRun.map(([, label]) => label).join(", ")}.`);

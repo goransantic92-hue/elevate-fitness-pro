@@ -14,7 +14,24 @@ export type Exercise = {
   demoVideoSrc?: string;
   /** Path in Supabase `workout-demos` bucket (members with program access only). */
   demoVideoPath?: string;
+  /** Multiple demo clips (e.g. equipment variations V1 / V2). */
+  demoVideoPaths?: WorkoutDemoClip[];
 };
+
+export type WorkoutDemoClip = {
+  label: string;
+  path: string;
+};
+
+export function getExerciseDemoClips(ex: Exercise): WorkoutDemoClip[] {
+  if (ex.demoVideoPaths?.length) return ex.demoVideoPaths;
+  if (ex.demoVideoPath) return [{ label: "Demo", path: ex.demoVideoPath }];
+  return [];
+}
+
+export function exerciseHasDemo(ex: Exercise): boolean {
+  return getExerciseDemoClips(ex).length > 0 || Boolean(ex.demoVideoSrc);
+}
 
 export type WorkoutPlan = {
   id: "a" | "b" | "c";
@@ -212,12 +229,81 @@ export const gymWorkouts: Record<WorkoutPlan["id"], WorkoutPlan> = {
     focus: "Back · Biceps · Rear Delts",
     warmup: "5 min: Cat-cow, band pull-aparts, dead hang 20s",
     exercises: [
-      { order: 1, name: "Pull-Ups / Lat Pulldown", target: "Lats, Biceps, Rear Delts", sets: "4", reps: "6–8", rest: "90s", tip: "Initiate with shoulder blades, then pull elbows to hips." },
-      { order: 2, name: "Barbell or Dumbbell Row", target: "Mid Back, Lats, Rhomboids", sets: "4", reps: "8–10", rest: "75s", tip: "Row to lower chest, not upper. Control — don't swing." },
-      { order: 3, name: "Seated Cable Row / Band Row", target: "Mid Back, Traps", sets: "3", reps: "10–12", rest: "60s", tip: "Chest proud, pull elbows back as far as possible." },
-      { order: 4, name: "Face Pulls or Rear Delt Fly", target: "Rear Delts, Rotator Cuff", sets: "3", reps: "15–20", rest: "45s", tip: "Light weight, full range. Elbows high. Crucial for posture." },
-      { order: 5, name: "Barbell / Dumbbell Bicep Curl", target: "Biceps", sets: "3", reps: "10–12", rest: "60s", tip: "No swinging. Control top and bottom. Supinate at top." },
-      { order: 6, name: "Hammer Curl", target: "Brachialis, Forearms", sets: "2", reps: "12–15", rest: "45s", tip: "Alternate arms. Keep wrists neutral throughout." },
+      {
+        order: 1,
+        name: "Pull-Ups / Lat Pulldown",
+        target: "Lats, Biceps, Rear Delts",
+        sets: "4",
+        reps: "6–8",
+        rest: "90s",
+        tip: "Initiate with shoulder blades, then pull elbows to hips.",
+        demoVideoPaths: [
+          { label: "V1", path: "gym/c/01-pull-ups-lat-pulldown-v1.mp4" },
+          { label: "V2", path: "gym/c/01-pull-ups-lat-pulldown-v2.mp4" },
+        ],
+      },
+      {
+        order: 2,
+        name: "Barbell or Dumbbell Row",
+        target: "Mid Back, Lats, Rhomboids",
+        sets: "4",
+        reps: "8–10",
+        rest: "75s",
+        tip: "Row to lower chest, not upper. Control — don't swing.",
+        demoVideoPaths: [
+          { label: "V1", path: "gym/c/02-barbell-dumbbell-row-v1.mp4" },
+          { label: "V2", path: "gym/c/02-barbell-dumbbell-row-v2.mp4" },
+        ],
+      },
+      {
+        order: 3,
+        name: "Seated Cable Row / Band Row",
+        target: "Mid Back, Traps",
+        sets: "3",
+        reps: "10–12",
+        rest: "60s",
+        tip: "Chest proud, pull elbows back as far as possible.",
+        demoVideoPaths: [
+          { label: "V1", path: "gym/c/03-seated-cable-row-band-row-v1.mp4" },
+          { label: "V2", path: "gym/c/03-seated-cable-row-band-row-v2.mp4" },
+        ],
+      },
+      {
+        order: 4,
+        name: "Face Pulls or Rear Delt Fly",
+        target: "Rear Delts, Rotator Cuff",
+        sets: "3",
+        reps: "15–20",
+        rest: "45s",
+        tip: "Light weight, full range. Elbows high. Crucial for posture.",
+        demoVideoPaths: [
+          { label: "V1", path: "gym/c/04-face-pulls-rear-delt-fly-v1.mp4" },
+          { label: "V2", path: "gym/c/04-face-pulls-rear-delt-fly-v2.mp4" },
+        ],
+      },
+      {
+        order: 5,
+        name: "Barbell / Dumbbell Bicep Curl",
+        target: "Biceps",
+        sets: "3",
+        reps: "10–12",
+        rest: "60s",
+        tip: "No swinging. Control top and bottom. Supinate at top.",
+        demoVideoPaths: [
+          { label: "V1", path: "gym/c/05-barbell-dumbbell-bicep-curl-v1.mp4" },
+          { label: "V2", path: "gym/c/05-barbell-dumbbell-bicep-curl-v2.mp4" },
+        ],
+      },
+      {
+        order: 6,
+        name: "Hammer Curl",
+        target: "Brachialis, Forearms",
+        sets: "2",
+        reps: "12–15",
+        rest: "45s",
+        tip: "Alternate arms. Keep wrists neutral throughout.",
+        demoVideoPath: "gym/c/06-hammer-curl.mp4",
+      },
     ],
     finisher: "2 sets: 10 pull-ups or 15 lat pulldown reps at 70%. Slow and controlled.",
   },

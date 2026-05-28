@@ -3,60 +3,86 @@ import { Link, useParams } from "react-router-dom";
 import { MemberGate } from "@/components/MemberGate";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { gymWorkouts, homeWorkouts } from "@/data/busyStrong90";
+import {
+  type Exercise,
+  type WorkoutDemoClip,
+  exerciseHasDemo,
+  getExerciseDemoClips,
+  gymWorkouts,
+  homeWorkouts,
+} from "@/data/busyStrong90";
 import { getWorkoutDemoSignedUrl } from "@/lib/workoutDemoMedia";
 import { ArrowLeft, Loader2, PlayCircle } from "lucide-react";
 import NotFound from "@/pages/NotFound";
 import { cn } from "@/lib/utils";
 
-function exerciseHasDemo(ex: { demoVideoPath?: string; demoVideoSrc?: string }) {
-  return Boolean(ex.demoVideoPath || ex.demoVideoSrc);
-}
+type DemoState = {
+  open: boolean;
+  title: string;
+  clips: WorkoutDemoClip[];
+  activeIndex: number;
+  src: string;
+  loading: boolean;
+  error: string | null;
+};
+
+const emptyDemo: DemoState = {
+  open: false,
+  title: "",
+  clips: [],
+  activeIndex: 0,
+  src: "",
+  loading: false,
+  error: null,
+};
 
 export default function DashboardWorkoutDetailPage() {
   const { variant, code } = useParams<{ variant: string; code: string }>();
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [demo, setDemo] = useState<{
-    open: boolean;
-    src: string;
-    title: string;
-    loading: boolean;
-    error: string | null;
-  }>({ open: false, src: "", title: "", loading: false, error: null });
+  const [demo, setDemo] = useState<DemoState>(emptyDemo);
 
   if (variant !== "gym" && variant !== "home") return <NotFound />;
   if (code !== "a" && code !== "b" && code !== "c") return <NotFound />;
 
   const w = variant === "gym" ? gymWorkouts[code] : homeWorkouts[code];
 
-  const openDemo = async (ex: { name: string; demoVideoPath?: string; demoVideoSrc?: string }) => {
-    setDemo({ open: true, src: "", title: ex.name, loading: true, error: null });
+  const loadClip = async (clips: WorkoutDemoClip[], index: number) => {
+    setDemo((d) => ({ ...d, activeIndex: index, loading: true, error: null, src: "" }));
+    try {
+      const signed = await getWorkoutDemoSignedUrl(clips[index].path);
+      setDemo((d) => ({ ...d, src: signed, loading: false, error: null }));
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Could not load video.";
+      setDemo((d) => ({ ...d, loading: false, error: message.slice(0, 180) }));
+    }
+  };
 
-    if (ex.demoVideoPath) {
-      try {
-        const signed = await getWorkoutDemoSignedUrl(ex.demoVideoPath);
-        setDemo({ open: true, src: signed, title: ex.name, loading: false, error: null });
-        return;
-      } catch (err) {
-        const message = err instanceof Error ? err.message : "Could not load video.";
-        setDemo({
-          open: true,
-          src: "",
-          title: ex.name,
-          loading: false,
-          error: message.slice(0, 180),
-        });
-        return;
-      }
+  const openDemo = async (ex: Exercise) => {
+    const clips = getExerciseDemoClips(ex);
+    if (clips.length > 0) {
+      setDemo({ ...emptyDemo, open: true, title: ex.name, clips, activeIndex: 0, loading: true });
+      await loadClip(clips, 0);
       return;
     }
 
     if (ex.demoVideoSrc) {
-      setDemo({ open: true, src: ex.demoVideoSrc, title: ex.name, loading: false, error: null });
+      setDemo({
+        ...emptyDemo,
+        open: true,
+        title: ex.name,
+        src: ex.demoVideoSrc,
+        loading: false,
+      });
       return;
     }
 
-    setDemo({ open: true, src: "", title: ex.name, loading: false, error: "No demo available." });
+    setDemo({ ...emptyDemo, open: true, title: ex.name, error: "No demo available." });
+  };
+
+  const switchClip = async (index: number) => {
+    if (index === demo.activeIndex || demo.clips.length === 0) return;
+    videoRef.current?.pause();
+    await loadClip(demo.clips, index);
   };
 
   return (
@@ -78,6 +104,7 @@ export default function DashboardWorkoutDetailPage() {
           </div>
           <div className="divide-y divide-border/50">
             {w.exercises.map((ex) => {
+              const clips = getExerciseDemoClips(ex);
               const hasDemo = exerciseHasDemo(ex);
               const inner = (
                 <>
@@ -90,7 +117,7 @@ export default function DashboardWorkoutDetailPage() {
                     {hasDemo && (
                       <span className="inline-flex shrink-0 items-center gap-1 rounded-full border border-primary/35 bg-primary/10 px-2.5 py-1 text-xs font-semibold tracking-tight text-primary">
                         <PlayCircle className="h-3.5 w-3.5 shrink-0" aria-hidden />
-                        Play video
+                        Play video{clips.length > 1 ? ` (${clips.length})` : ""}
                       </span>
                     )}
                   </div>
@@ -101,7 +128,11 @@ export default function DashboardWorkoutDetailPage() {
                   </div>
                   <p className="text-xs text-muted-foreground italic">Coach tip: {ex.tip}</p>
                   {hasDemo && (
-                    <p className="text-[11px] text-primary/90 mt-2 font-medium">Tap this block to watch a short form demo.</p>
+                    <p className="text-[11px] text-primary/90 mt-2 font-medium">
+                      {clips.length > 1
+                        ? "Tap to watch form demos — switch between variations in the player."
+                        : "Tap this block to watch a short form demo."}
+                    </p>
                   )}
                 </>
               );
@@ -138,7 +169,7 @@ export default function DashboardWorkoutDetailPage() {
           open={demo.open}
           onOpenChange={(open) => {
             if (!open) videoRef.current?.pause();
-            setDemo((d) => ({ ...d, open, src: open ? d.src : "", loading: false, error: null }));
+            setDemo(open ? demo : emptyDemo);
           }}
         >
           <DialogContent
@@ -147,8 +178,27 @@ export default function DashboardWorkoutDetailPage() {
           >
             <DialogHeader className="p-4 pb-2 border-b border-border/60 text-left">
               <DialogTitle className="text-base pr-8">{demo.title}</DialogTitle>
-              <DialogDescription className="text-xs">Short demo — use the player controls.</DialogDescription>
+              <DialogDescription className="text-xs">
+                {demo.clips.length > 1 ? "Choose a variation, then use the player controls." : "Short demo — use the player controls."}
+              </DialogDescription>
             </DialogHeader>
+            {demo.clips.length > 1 && (
+              <div className="flex flex-wrap gap-2 px-4 py-2 border-b border-border/60">
+                {demo.clips.map((clip, index) => (
+                  <Button
+                    key={clip.path}
+                    type="button"
+                    size="sm"
+                    variant={demo.activeIndex === index ? "default" : "outline"}
+                    className="h-8 text-xs"
+                    disabled={demo.loading}
+                    onClick={() => void switchClip(index)}
+                  >
+                    {clip.label}
+                  </Button>
+                ))}
+              </div>
+            )}
             <div className="bg-black px-1 pb-2 min-h-[12rem] flex items-center justify-center">
               {demo.loading ? (
                 <Loader2 className="h-8 w-8 animate-spin text-primary" aria-label="Loading video" />
