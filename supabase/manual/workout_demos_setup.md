@@ -27,10 +27,11 @@ Videos are read from:
 - `public/Trening B/*.mp4` → `workout-demos/gym/b/…`
 - `public/Trening C/*.mp4` → `workout-demos/gym/c/…` (some exercises have V1 + V2)
 - `public/Home A/*.mp4`    → `workout-demos/home/a/…`
+- `public/Home B/*.mp4`    → `workout-demos/home/b/…` (some exercises have V1 + V2)
 
 ## Member app
 
-Dashboard → Training → **GYM** → **Training A / B / C** or **HOME** → **HOME A** → tap an exercise → **Play video**.
+Dashboard → Training → **GYM** → **Training A / B / C** or **HOME** → **HOME A / B** → tap an exercise → **Play video**.
 
 Exercises with two variations show **V1** / **V2** buttons in the player.
 

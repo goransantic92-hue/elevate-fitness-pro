@@ -99,16 +99,32 @@ const homeA = {
   ],
 };
 
+const homeB = {
+  dir: join(root, "public", "Home B"),
+  items: [
+    { local: "Bodyweight Squat  Jump Squat V1.mp4", storagePath: "home/b/01-bodyweight-squat-jump-squat-v1.mp4" },
+    { local: "Bodyweight Squat  Jump Squat V2.mp4", storagePath: "home/b/01-bodyweight-squat-jump-squat-v2.mp4" },
+    { local: "Bulgarian Split Squat (Chair).mp4", storagePath: "home/b/02-bulgarian-split-squat.mp4" },
+    { local: "Glute Bridge  Hip Thrust V1.mp4", storagePath: "home/b/03-glute-bridge-hip-thrust-v1.mp4" },
+    { local: "Glute Bridge  Hip Thrust V2.mp4", storagePath: "home/b/03-glute-bridge-hip-thrust-v2.mp4" },
+    { local: "Single-Leg Romanian Deadlift.mp4", storagePath: "home/b/04-single-leg-romanian-deadlift.mp4" },
+    { local: "Calf Raises (Step Edge).mp4", storagePath: "home/b/05-calf-raises.mp4" },
+    { local: "Plank + Hollow Hold Circuit V1.mp4", storagePath: "home/b/06-plank-hollow-hold-circuit-v1.mp4" },
+    { local: "Plank + Hollow Hold Circuit V2.mp4", storagePath: "home/b/06-plank-hollow-hold-circuit-v2.mp4" },
+  ],
+};
+
 const only = process.argv[2]?.toLowerCase();
 const allSets = [
   ["a", "GYM Training A", gymA],
   ["b", "GYM Training B", gymB],
   ["c", "GYM Training C", gymC],
   ["home-a", "HOME A", homeA],
+  ["home-b", "HOME B", homeB],
 ];
 const setsToRun = only ? allSets.filter(([key]) => key === only) : allSets;
 if (only && setsToRun.length === 0) {
-  console.error(`Unknown filter "${only}". Use a, b, c, or home-a.`);
+  console.error(`Unknown filter "${only}". Use a, b, c, home-a, or home-b.`);
   process.exit(1);
 }
 
