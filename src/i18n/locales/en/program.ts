@@ -1,4 +1,5 @@
 export default {
+  phaseLabel: "PHASE {{number}}",
   meta: {
     title: "Program overview — 90-day roadmap",
     description:
@@ -50,6 +51,15 @@ export default {
       { day: "Saturday", session: "10-Min Bonus", duration: "10 min", focus: "Full Body", note: "Optional — use emergency workout" },
       { day: "Sunday", session: "Full Rest", duration: "—", focus: "Recovery", note: "Meal prep + plan next week" },
     ],
+    items: [
+      { day: "Monday", session: "Training A", duration: "35 min", focus: "Upper Body Push", note: "Priority session — never skip" },
+      { day: "Tuesday", session: "Rest / Walk", duration: "20 min", focus: "Active Recovery", note: "15–20 min walk. Move." },
+      { day: "Wednesday", session: "Training B", duration: "40 min", focus: "Lower Body", note: "Heaviest session of the week" },
+      { day: "Thursday", session: "Rest / Walk", duration: "20 min", focus: "Active Recovery", note: "Mobility work optional" },
+      { day: "Friday", session: "Training C", duration: "35 min", focus: "Upper Body Pull", note: "End the week strong" },
+      { day: "Saturday", session: "10-Min Bonus", duration: "10 min", focus: "Full Body", note: "Optional — use emergency workout" },
+      { day: "Sunday", session: "Full Rest", duration: "—", focus: "Recovery", note: "Meal prep + plan next week" },
+    ],
   },
   included: {
     title: "Everything",
@@ -66,6 +76,7 @@ export default {
       "12-Week Progress Tracking Log",
       "Realistic Progress Timeline",
     ],
+    cta: "Get Full Access — {{price}}",
   },
   cta: {
     getFullAccess: "Get Full Access — {{price}}",
