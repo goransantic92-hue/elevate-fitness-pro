@@ -55,7 +55,7 @@ const gymA = {
     { local: "Overhead Press (DB or BB).mp4", storagePath: "gym/a/02-overhead-press.mp4" },
     { local: "Incline Dumbbell Press.mp4", storagePath: "gym/a/03-incline-dumbbell-press.mp4" },
     { local: "Lateral Raises.mp4", storagePath: "gym/a/04-lateral-raises.mp4" },
-    { local: "Cable Band Tricep Pushdown.mp4", storagePath: "gym/a/05-tricep-pushdown.mp4" },
+    { local: "Cable Band Tricep Pushdown.mp4", storagePath: "gym/a/05-tricep-pushdown.mp4", trimStartSec: 2 },
   ],
 };
 
@@ -160,19 +160,24 @@ async function ensureBucket() {
   if (error) throw error;
 }
 
-function prepareUploadBody(filePath) {
+function prepareUploadBody(filePath, { trimStartSec = 0 } = {}) {
   const size = statSync(filePath).size;
-  if (!ALWAYS_COMPRESS && size <= 8 * 1024 * 1024) {
+  if (!ALWAYS_COMPRESS && size <= 8 * 1024 * 1024 && trimStartSec <= 0) {
     return { body: readFileSync(filePath), tempPath: null };
   }
   const tempPath = join(tmpdir(), `workout-demo-${Date.now()}.mp4`);
-  console.log(`Compressing ${(size / 1024 / 1024).toFixed(1)} MB → 720p web…`);
+  const label =
+    trimStartSec > 0
+      ? `Compressing ${(size / 1024 / 1024).toFixed(1)} MB (skip first ${trimStartSec}s) → 720p…`
+      : `Compressing ${(size / 1024 / 1024).toFixed(1)} MB → 720p web…`;
+  console.log(label);
+  const inputArgs =
+    trimStartSec > 0 ? ["-ss", String(trimStartSec), "-i", filePath] : ["-i", filePath];
   execFileSync(
     "ffmpeg",
     [
       "-y",
-      "-i",
-      filePath,
+      ...inputArgs,
       "-c:v",
       "libx264",
       "-crf",
@@ -193,12 +198,12 @@ function prepareUploadBody(filePath) {
   return { body: compressed, tempPath };
 }
 
-async function uploadOne(videosDir, { local, storagePath }) {
+async function uploadOne(videosDir, { local, storagePath, trimStartSec = 0 }) {
   const filePath = join(videosDir, local);
   if (!existsSync(filePath)) {
     throw new Error(`File not found: ${filePath}`);
   }
-  const { body, tempPath } = prepareUploadBody(filePath);
+  const { body, tempPath } = prepareUploadBody(filePath, { trimStartSec });
   try {
     const { error } = await supabase.storage.from("workout-demos").upload(storagePath, body, {
       contentType: "video/mp4",

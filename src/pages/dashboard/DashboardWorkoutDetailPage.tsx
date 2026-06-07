@@ -23,6 +23,7 @@ type DemoState = {
   clips: WorkoutDemoClip[];
   activeIndex: number;
   src: string;
+  startSec: number;
   loading: boolean;
   error: string | null;
 };
@@ -33,6 +34,7 @@ const emptyDemo: DemoState = {
   clips: [],
   activeIndex: 0,
   src: "",
+  startSec: 0,
   loading: false,
   error: null,
 };
@@ -49,7 +51,8 @@ export default function DashboardWorkoutDetailPage() {
   const w = variant === "gym" ? gymWorkouts[code] : homeWorkouts[code];
 
   const loadClip = async (clips: WorkoutDemoClip[], index: number) => {
-    setDemo((d) => ({ ...d, activeIndex: index, loading: true, error: null, src: "" }));
+    const startSec = clips[index].startSec ?? 0;
+    setDemo((d) => ({ ...d, activeIndex: index, startSec, loading: true, error: null, src: "" }));
     try {
       const signed = await getWorkoutDemoSignedUrl(clips[index].path);
       setDemo((d) => ({ ...d, src: signed, loading: false, error: null }));
@@ -217,6 +220,11 @@ export default function DashboardWorkoutDetailPage() {
                   controls
                   playsInline
                   preload="metadata"
+                  onLoadedMetadata={(e) => {
+                    if (demo.startSec > 0) {
+                      e.currentTarget.currentTime = demo.startSec;
+                    }
+                  }}
                 />
               ) : null}
             </div>

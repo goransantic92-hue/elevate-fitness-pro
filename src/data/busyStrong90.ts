@@ -16,16 +16,22 @@ export type Exercise = {
   demoVideoPath?: string;
   /** Multiple demo clips (e.g. equipment variations V1 / V2). */
   demoVideoPaths?: WorkoutDemoClip[];
+  /** Skip dead air at the start of a single demo clip (seconds). */
+  demoVideoStartSec?: number;
 };
 
 export type WorkoutDemoClip = {
   label: string;
   path: string;
+  /** Skip dead air at the start of this clip (seconds). */
+  startSec?: number;
 };
 
 export function getExerciseDemoClips(ex: Exercise): WorkoutDemoClip[] {
   if (ex.demoVideoPaths?.length) return ex.demoVideoPaths;
-  if (ex.demoVideoPath) return [{ label: "Demo", path: ex.demoVideoPath }];
+  if (ex.demoVideoPath) {
+    return [{ label: "Demo", path: ex.demoVideoPath, startSec: ex.demoVideoStartSec }];
+  }
   return [];
 }
 
@@ -148,6 +154,8 @@ export const gymWorkouts: Record<WorkoutPlan["id"], WorkoutPlan> = {
         rest: "45s",
         tip: "Keep elbows tucked. Squeeze hard at full extension.",
         demoVideoPath: "gym/a/05-tricep-pushdown.mp4",
+        /** Remove after running: npm run retrim:tricep-pushdown */
+        demoVideoStartSec: 2,
       },
     ],
     finisher: "2 min: Max push-ups (bodyweight). Rest 60s. Done.",

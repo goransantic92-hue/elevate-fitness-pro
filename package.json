@@ -12,7 +12,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "upload:testimonials": "node scripts/upload-testimonials.mjs",
-    "upload:workout-demos": "node scripts/upload-workout-demos.mjs"
+    "upload:workout-demos": "node scripts/upload-workout-demos.mjs",
+    "retrim:tricep-pushdown": "node scripts/retrim-workout-demo.mjs gym/a/05-tricep-pushdown.mp4 2"
   },
   "dependencies": {
     "@fontsource-variable/dm-sans": "^5.2.8",
