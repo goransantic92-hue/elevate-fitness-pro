@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import type { User } from "@supabase/supabase-js";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Check, ArrowRight, Zap, Star, Loader2 } from "lucide-react";
 import { PageMeta } from "@/components/seo/PageMeta";
@@ -8,29 +9,23 @@ import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
-import { MEMBER_APP_OPEN_CTA } from "@/lib/memberAppLabels";
+import { usePricing } from "@/hooks/usePricing";
 
-const features = [
-  "3 Gym Training Programs (A/B/C)",
-  "3 Home Training Programs (A/B/C)",
-  "4 Emergency 10-Minute Workouts",
-  "Complete Nutrition Framework",
-  "Sample Daily Meal Plan",
-  "Eat Anywhere guide",
-  "Evidence-Based Supplement Guide",
-  "6-Habit System for Consistency",
-  "12-Week Progress Tracking",
-  "Phase-by-Phase Roadmap",
-  "Coach Tips on Every Exercise",
-];
+type PricingTestimonial = { quote: string; name: string; sub: string };
 
 const PricingPage = () => {
+  const { t } = useTranslation("pricing");
+  const { t: tDashboard } = useTranslation("dashboard");
+  const pricing = usePricing();
   const { user, hasProgramAccess, configured, loading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
   const [searchParams, setSearchParams] = useSearchParams();
   const [checkoutBusy, setCheckoutBusy] = useState(false);
   const [sessionUser, setSessionUser] = useState<User | null>(null);
+
+  const features = t("features", { returnObjects: true }) as string[];
+  const testimonials = t("testimonials", { returnObjects: true }) as PricingTestimonial[];
 
   useEffect(() => {
     if (!configured) return;
@@ -58,18 +53,22 @@ const PricingPage = () => {
   useEffect(() => {
     if (searchParams.get("checkout") === "canceled") {
       toast({
-        title: "Checkout canceled",
-        description: "You can complete your purchase anytime from this page.",
+        title: t("checkout.canceledTitle"),
+        description: t("checkout.canceledDescription"),
       });
       const next = new URLSearchParams(searchParams);
       next.delete("checkout");
       setSearchParams(next, { replace: true });
     }
-  }, [searchParams, setSearchParams, toast]);
+  }, [searchParams, setSearchParams, toast, t]);
 
   async function startCheckout() {
     if (!configured) {
-      toast({ title: "Not configured", description: "Supabase environment is missing.", variant: "destructive" });
+      toast({
+        title: t("checkout.notConfiguredTitle"),
+        description: t("checkout.notConfiguredDescription"),
+        variant: "destructive",
+      });
       return;
     }
     let payer = checkoutUser;
@@ -86,8 +85,8 @@ const PricingPage = () => {
       window.location.href = buildProgramCheckoutUrl(payer);
     } catch {
       toast({
-        title: "Checkout failed",
-        description: "Invalid Stripe payment link configuration.",
+        title: t("checkout.failedTitle"),
+        description: t("checkout.failedDescription"),
         variant: "destructive",
       });
     } finally {
@@ -98,19 +97,17 @@ const PricingPage = () => {
   return (
     <div>
       <PageMeta
-        title="Pricing — BUSY STRONG 90"
-        description="Launch price €39 one-time for the full BUSY STRONG 90 digital program. Lifetime access to training, nutrition, and habits."
+        title={t("meta.title")}
+        description={t("meta.description", { priceOneTime: pricing.selfGuided.labelOneTime })}
         path="/pricing"
       />
       <section className="py-28 md:py-36">
         <div className="container mx-auto px-4 text-center">
-          <div className="text-xs text-primary font-bold tracking-widest mb-4">PRICING</div>
+          <div className="text-xs text-primary font-bold tracking-widest mb-4">{t("hero.eyebrow")}</div>
           <h1 className="text-4xl md:text-6xl font-black mb-6">
-            One Program. <span className="text-gradient">One Price.</span>
+            {t("hero.headline")} <span className="text-gradient">{t("hero.headlineHighlight")}</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">
-            No subscriptions. No hidden fees. One payment, lifetime access — aligned with your manual.
-          </p>
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto">{t("hero.subhead")}</p>
         </div>
       </section>
 
@@ -119,16 +116,16 @@ const PricingPage = () => {
           <div className="glass-card glow-green overflow-hidden min-w-0">
             <div className="bg-gradient-to-r from-primary/20 to-primary/5 p-5 sm:p-8 text-center border-b border-border/50">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
-                <Zap className="h-3 w-3" /> LAUNCH PRICE — LIMITED TIME
+                <Zap className="h-3 w-3" /> {t("launchBadge")}
               </div>
-              <h2 className="text-4xl md:text-5xl font-black mb-2">€39</h2>
+              <h2 className="text-4xl md:text-5xl font-black mb-2">{pricing.selfGuided.label}</h2>
               <p className="text-muted-foreground text-[10px] leading-snug sm:text-xs md:text-sm tracking-tight text-center whitespace-normal sm:whitespace-nowrap px-1">
-                One-time payment · Lifetime access
+                {t("oneTimeLifetime")}
               </p>
             </div>
 
             <div className="p-5 sm:p-8">
-              <h3 className="font-bold text-sm uppercase tracking-wider text-primary mb-6">Everything Included:</h3>
+              <h3 className="font-bold text-sm uppercase tracking-wider text-primary mb-6">{t("everythingIncluded")}</h3>
               <div className="space-y-3 mb-8">
                 {features.map((feature) => (
                   <div key={feature} className="flex items-start gap-3 min-w-0">
@@ -147,8 +144,8 @@ const PricingPage = () => {
                     className="w-full bg-primary text-primary-foreground font-bold text-xs sm:text-sm md:text-base h-auto min-h-12 py-3 px-2 leading-snug whitespace-normal"
                     disabled
                   >
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin shrink-0" aria-hidden />
-                    Checking account…
+                    <Loader2 className="me-2 h-4 w-4 animate-spin shrink-0" aria-hidden />
+                    {t("checkout.checkingAccount")}
                   </Button>
                 ) : hasProgramAccess ? (
                   <Button
@@ -156,8 +153,8 @@ const PricingPage = () => {
                     asChild
                   >
                     <Link to="/dashboard" className="inline-flex w-full items-center justify-center gap-2">
-                      {MEMBER_APP_OPEN_CTA}
-                      <ArrowRight className="h-4 w-4 shrink-0" aria-hidden />
+                      {tDashboard("openYourTraining")}
+                      <ArrowRight className="icon-directional h-4 w-4 shrink-0" aria-hidden />
                     </Link>
                   </Button>
                 ) : (
@@ -169,13 +166,13 @@ const PricingPage = () => {
                   >
                     {checkoutBusy ? (
                       <>
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin shrink-0" aria-hidden />
-                        Redirecting to checkout…
+                        <Loader2 className="me-2 h-4 w-4 animate-spin shrink-0" aria-hidden />
+                        {t("checkout.redirecting")}
                       </>
                     ) : (
                       <>
-                        <span className="max-w-full text-pretty">Get the program</span>
-                        <ArrowRight className="ml-1 h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden />
+                        <span className="max-w-full text-pretty">{t("checkout.getProgram")}</span>
+                        <ArrowRight className="icon-directional ms-1 h-4 w-4 shrink-0 sm:h-5 sm:w-5" aria-hidden />
                       </>
                     )}
                   </Button>
@@ -184,16 +181,17 @@ const PricingPage = () => {
                 {!hasProgramAccess && !loading && (
                   <p className="text-center text-xs text-muted-foreground">
                     {checkoutUser ? (
-                      <>Checkout opens on Stripe with your account.</>
+                      <>{t("checkout.checkoutOpensStripe")}</>
                     ) : (
                       <>
-                        Already registered?{" "}
+                        {t("checkout.alreadyRegistered")}{" "}
                         <Link to="/login?redirect=/pricing" className="text-primary font-semibold hover:underline">
-                          Log in
+                          {t("checkout.logIn")}
                         </Link>
-                        {" · New here? "}
+                        {" · "}
+                        {t("checkout.newHere")}{" "}
                         <Link to="/signup?redirect=/pricing" className="text-primary font-semibold hover:underline">
-                          Sign up
+                          {t("checkout.signUp")}
                         </Link>
                       </>
                     )}
@@ -203,17 +201,29 @@ const PricingPage = () => {
             </div>
           </div>
 
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 max-w-3xl mx-auto">
+            {testimonials.map((item) => (
+              <div key={item.name} className="rounded-xl border border-border bg-card/50 p-6 text-left">
+                <div className="flex gap-1 mb-3">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                  ))}
+                </div>
+                <blockquote className="text-sm italic leading-relaxed text-muted-foreground">&ldquo;{item.quote}&rdquo;</blockquote>
+                <p className="mt-4 text-sm font-bold text-foreground">{item.name}</p>
+                <p className="text-xs text-muted-foreground">{item.sub}</p>
+              </div>
+            ))}
+          </div>
+
           <div className="mt-12 text-center">
             <div className="flex justify-center gap-1 mb-3">
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star key={i} className="h-5 w-5 fill-primary text-primary" />
               ))}
             </div>
-            <p className="text-sm text-muted-foreground italic max-w-md mx-auto">
-              &ldquo;I built this program to genuinely change lives — not just sell a PDF. If you have questions, reach out. I read every
-              message.&rdquo;
-            </p>
-            <p className="text-sm font-bold mt-2">— Coach Milos</p>
+            <p className="text-sm text-muted-foreground italic max-w-md mx-auto">&ldquo;{t("coachQuote.text")}&rdquo;</p>
+            <p className="text-sm font-bold mt-2">{t("coachQuote.attribution")}</p>
           </div>
         </div>
       </section>

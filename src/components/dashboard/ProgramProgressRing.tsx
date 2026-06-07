@@ -1,3 +1,5 @@
+import { useTranslation } from "react-i18next";
+
 type Props = {
   percent: number;
   currentDay: number;
@@ -7,6 +9,7 @@ type Props = {
 };
 
 export function ProgramProgressRing({ percent, currentDay, daysRemaining, weekNumber, isComplete }: Props) {
+  const { t } = useTranslation("dashboard");
   const r = 52;
   const c = 2 * Math.PI * r;
   const offset = c - (percent / 100) * c;
@@ -32,23 +35,23 @@ export function ProgramProgressRing({ percent, currentDay, daysRemaining, weekNu
           {isComplete ? (
             <>
               <span className="text-3xl md:text-4xl font-black text-gradient">90</span>
-              <span className="text-[10px] uppercase tracking-widest text-primary font-bold mt-1">Days done</span>
+              <span className="text-[10px] uppercase tracking-widest text-primary font-bold mt-1">{t("progressRing.daysDone")}</span>
             </>
           ) : (
             <>
               <span className="text-3xl md:text-4xl font-black tabular-nums">{currentDay}</span>
-              <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold mt-0.5">of 90 days</span>
-              <span className="text-xs text-primary font-bold mt-2">Week {weekNumber}</span>
+              <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-semibold mt-0.5">{t("progressRing.of90Days")}</span>
+              <span className="text-xs text-primary font-bold mt-2">{t("progressRing.week", { n: weekNumber })}</span>
             </>
           )}
         </div>
       </div>
       {!isComplete && (
         <p className="text-sm text-muted-foreground mt-2">
-          <span className="text-foreground font-semibold">{daysRemaining}</span> days left in the block
+          <span className="text-foreground font-semibold">{daysRemaining}</span> {t("progressRing.daysLeftInBlock")}
         </p>
       )}
-      {isComplete && <p className="text-sm text-primary font-medium mt-2">Program block complete — keep the habits.</p>}
+      {isComplete && <p className="text-sm text-primary font-medium mt-2">{t("progressRing.blockComplete")}</p>}
     </div>
   );
 }

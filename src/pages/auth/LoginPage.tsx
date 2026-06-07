@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate, useLocation, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { PageMeta } from "@/components/seo/PageMeta";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { safeInternalPath } from "@/lib/safeRedirect";
 
 export default function LoginPage() {
+  const { t } = useTranslation("auth");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [busy, setBusy] = useState(false);
@@ -25,7 +28,7 @@ export default function LoginPage() {
     const { error } = await signIn(email, password);
     setBusy(false);
     if (error) {
-      toast({ title: "Sign in failed", description: error.message, variant: "destructive" });
+      toast({ title: t("login.toastFailed"), description: error.message, variant: "destructive" });
       return;
     }
     navigate(from, { replace: true });
@@ -33,23 +36,22 @@ export default function LoginPage() {
 
   return (
     <>
-      <PageMeta
-        title="Member login"
-        description="Sign in to BUSY STRONG 90 — your training plan, nutrition, and progress in one place."
-        path="/login"
-      />
-      <div className="min-h-screen flex items-center justify-center px-4 py-16 bg-background">
+      <PageMeta title={t("login.meta.title")} description={t("login.meta.description")} path="/login" />
+      <div className="min-h-screen flex items-center justify-center px-4 py-16 bg-background relative">
+        <div className="absolute top-4 end-4">
+          <LanguageSwitcher />
+        </div>
         <div className="w-full max-w-md glass-card p-8 border-border/60">
-          <h1 className="text-2xl font-black mb-1">Welcome back</h1>
-          <p className="text-sm text-muted-foreground mb-6">Log in to open your training.</p>
+          <h1 className="text-2xl font-black mb-1">{t("login.title")}</h1>
+          <p className="text-sm text-muted-foreground mb-6">{t("login.subhead")}</p>
           {!configured && (
             <p className="text-xs text-amber-500 mb-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
-              Supabase env vars are missing. Add them to use real authentication.
+              {t("login.supabaseWarning")}
             </p>
           )}
           <form onSubmit={onSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="email">Email</Label>
+              <Label htmlFor="email">{t("login.email")}</Label>
               <Input
                 id="email"
                 type="email"
@@ -60,7 +62,7 @@ export default function LoginPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t("login.password")}</Label>
               <Input
                 id="password"
                 type="password"
@@ -71,18 +73,18 @@ export default function LoginPage() {
               />
             </div>
             <Button type="submit" className="w-full bg-primary text-primary-foreground font-bold" disabled={busy || !configured}>
-              {busy ? "Signing in…" : "Sign in"}
+              {busy ? t("login.signingIn") : t("login.signIn")}
             </Button>
           </form>
           <p className="text-sm text-muted-foreground mt-6 text-center">
-            No account?{" "}
+            {t("login.noAccount")}{" "}
             <Link to={`/signup?redirect=${encodeURIComponent(from)}`} className="text-primary font-semibold hover:underline">
-              Create one
+              {t("login.createOne")}
             </Link>
           </p>
           <p className="text-center mt-4">
             <Link to="/" className="text-xs text-muted-foreground hover:text-foreground">
-              ← Back to website
+              {t("login.backToSite")}
             </Link>
           </p>
         </div>

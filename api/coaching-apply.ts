@@ -20,14 +20,18 @@ type ApplyPayload = {
   anythingElse?: string;
   /** `coached-strong-90` | `private-transformation` from apply page query string */
   coachingPlan?: string;
+  /** Localized plan label from client (EUR or AED display) */
+  coachingPlanLabel?: string;
 };
 
 const COACHING_PLAN_LABEL: Record<string, string> = {
-  "coached-strong-90": "Coached Strong 90 — Core Coaching (€299/mo)",
-  "private-transformation": "Private Transformation — Elite (€699/mo)",
+  "coached-strong-90": "Coached Strong 90 — Core Coaching (1,299 AED/mo)",
+  "private-transformation": "Private Transformation — Elite (2,999 AED/mo)",
 };
 
-function coachingPlanHuman(slug: string): string {
+function coachingPlanHuman(slug: string, labelOverride?: string): string {
+  const override = trimMax(labelOverride, 120);
+  if (override) return override;
   const s = slug.trim().toLowerCase();
   return COACHING_PLAN_LABEL[s] ?? "Not specified (applicant did not use a plan-specific link)";
 }
@@ -173,7 +177,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   const minutes = trimMax(raw.minutes, 80);
   const anythingElse = trimMax(raw.anythingElse, 8000);
   const coachingPlanSlug = trimMax(raw.coachingPlan, 80);
-  const planHuman = coachingPlanHuman(coachingPlanSlug);
+  const planHuman = coachingPlanHuman(coachingPlanSlug, raw.coachingPlanLabel);
 
   const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 

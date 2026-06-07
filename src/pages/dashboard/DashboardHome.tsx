@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { MemberGate } from "@/components/MemberGate";
@@ -8,7 +9,7 @@ import { ProgramProgressRing } from "@/components/dashboard/ProgramProgressRing"
 import { WeightLineChart } from "@/components/dashboard/WeightLineChart";
 import { WeekWorkoutChecklist } from "@/components/dashboard/WeekWorkoutChecklist";
 import { DashboardWeeklyCheckinCard } from "@/components/dashboard/DashboardWeeklyCheckinCard";
-import { programMeta, weeklySchedule } from "@/data/busyStrong90";
+import { programMeta } from "@/data/busyStrong90";
 import { getProgramProgressFromSessionLogs } from "@/lib/programProgress";
 import type { PlanTab } from "@/lib/dashboardSessionLinks";
 import { supabase } from "@/lib/supabase";
@@ -19,8 +20,11 @@ import { isWeekFullyCompleteUnion } from "@/lib/weekCompletionStats";
 type Checkin = Database["public"]["Tables"]["progress_checkins"]["Row"];
 type WLog = Database["public"]["Tables"]["workout_session_logs"]["Row"];
 type Slot = WLog["slot"];
+type ScheduleDay = { day: string; session: string; duration: string; focus: string; note: string };
 
 export default function DashboardHome() {
+  const { t } = useTranslation("dashboard");
+  const { t: tProgram } = useTranslation("program");
   const { hasProgramAccess, profile, user } = useAuth();
   const { toast } = useToast();
   const [checkins, setCheckins] = useState<Checkin[]>([]);
@@ -31,6 +35,7 @@ export default function DashboardHome() {
   const [planTab, setPlanTab] = useState<PlanTab>("gym");
   const [checkinWeek, setCheckinWeek] = useState<number | null>(null);
 
+  const weeklySchedule = tProgram("schedule.items", { returnObjects: true }) as ScheduleDay[];
   const progress = useMemo(() => getProgramProgressFromSessionLogs(logs), [logs]);
 
   const load = useCallback(async () => {
@@ -40,12 +45,12 @@ export default function DashboardHome() {
       supabase.from("progress_checkins").select("*").eq("user_id", user.id).order("week_number"),
       supabase.from("workout_session_logs").select("*").eq("user_id", user.id),
     ]);
-    if (c.error) toast({ title: "Could not load check-ins", description: c.error.message, variant: "destructive" });
+    if (c.error) toast({ title: t("home.toastLoadCheckins"), description: c.error.message, variant: "destructive" });
     else setCheckins(c.data ?? []);
-    if (w.error) toast({ title: "Could not load workouts", description: w.error.message, variant: "destructive" });
+    if (w.error) toast({ title: t("home.toastLoadWorkouts"), description: w.error.message, variant: "destructive" });
     else setLogs(w.data ?? []);
     setLoading(false);
-  }, [user, toast]);
+  }, [user, toast, t]);
 
   useEffect(() => {
     if (hasProgramAccess && user) load();
@@ -83,7 +88,7 @@ export default function DashboardHome() {
     );
     setToggleBusy(false);
     if (error) {
-      toast({ title: "Update failed", description: error.message, variant: "destructive" });
+      toast({ title: t("home.toastUpdateFailed"), description: error.message, variant: "destructive" });
       return;
     }
     const { data: fresh } = await supabase.from("workout_session_logs").select("*").eq("user_id", user.id);
@@ -109,7 +114,7 @@ export default function DashboardHome() {
     });
     setToggleBusy(false);
     if (error) {
-      toast({ title: "Update failed", description: error.message, variant: "destructive" });
+      toast({ title: t("home.toastUpdateFailed"), description: error.message, variant: "destructive" });
       return;
     }
     if (complete) {
@@ -130,27 +135,30 @@ export default function DashboardHome() {
     const { error } = await supabase.from("progress_checkins").upsert(upsertPayload, { onConflict: "user_id,week_number" });
     setSavingCheckin(false);
     if (error) {
-      toast({ title: "Save failed", description: error.message, variant: "destructive" });
+      toast({ title: t("home.toastSaveFailed"), description: error.message, variant: "destructive" });
       return;
     }
-    toast({ title: "Saved", description: `Week ${payload.week} check-in updated.` });
+    toast({ title: t("home.toastSaved"), description: t("home.toastSavedDesc", { week: payload.week }) });
     load();
   }
+
+  const firstName = profile?.full_name?.split(" ")[0];
 
   return (
     <div className="max-w-5xl mx-auto space-y-10 md:space-y-12">
       <div>
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 border border-primary/20 text-primary text-xs font-bold tracking-wider mb-4">
           <Sparkles className="h-3.5 w-3.5" />
-          Member hub
+          {t("home.memberHub")}
         </div>
         <h1 className="text-3xl md:text-5xl font-black tracking-tight leading-tight">
-          Hey{profile?.full_name ? `, ${profile.full_name.split(" ")[0]}` : ""}
+          {t("home.greeting")}
+          {firstName ? `, ${firstName}` : ""}
           <br />
-          <span className="text-gradient">Stay on the system.</span>
+          <span className="text-gradient">{t("home.headline")}</span>
         </h1>
         <p className="text-muted-foreground mt-3 md:text-lg max-w-2xl leading-relaxed">
-          {programMeta.name} — same energy as the main site: train smart, log light, let consistency do the work.
+          {t("home.subhead", { programName: programMeta.name })}
         </p>
       </div>
 
@@ -165,46 +173,46 @@ export default function DashboardHome() {
             <div className="grid md:grid-cols-2 gap-8 md:gap-10 p-6 md:p-10 items-center">
               <div className="space-y-6">
                 <div>
-                  <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">90-day block</p>
+                  <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">{t("home.blockLabel")}</p>
                   <p className="text-2xl md:text-3xl font-black leading-tight">
-                    {progress.isComplete ? "You closed the 90." : `Day ${progress.currentDay} of ${90}`}
+                    {progress.isComplete ? t("home.closed90") : t("home.dayOf", { day: progress.currentDay, total: 90 })}
                   </p>
                   <p className="text-sm text-muted-foreground mt-2">
                     {progress.isComplete
-                      ? "Keep logging if you want — habits outlive the countdown."
-                      : `Training week ${progress.weekNumber} of 12 · ${progress.percentComplete}% of the 90-day arc (from your checkboxes).`}
+                      ? t("home.completeSub")
+                      : t("home.weekProgress", { week: progress.weekNumber, percent: progress.percentComplete })}
                   </p>
                   <p className="text-xs text-primary/90 mt-2 font-medium">
-                    {progress.completedContiguousWeeks} of 12 weeks fully done in order (Mon · Wed · Fri · Sat — gym or home).{" "}
+                    {t("home.weeksDone", { done: progress.completedContiguousWeeks })}{" "}
                     {trainingWeeksRemaining > 0
-                      ? `${trainingWeeksRemaining} more week blocks to finish in sequence.`
-                      : "All 12 weeks checked off."}
+                      ? t("home.weeksRemaining", { count: trainingWeeksRemaining })
+                      : t("home.allWeeksDone")}
                   </p>
                 </div>
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
                   <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
                     <p className="text-2xl font-black text-primary tabular-nums">{progress.percentComplete}%</p>
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Days arc</p>
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">{t("home.daysArc")}</p>
                   </div>
                   <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
                     <p className="text-2xl font-black tabular-nums">{progress.isComplete ? 0 : progress.daysRemaining}</p>
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Days left</p>
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">{t("home.daysLeft")}</p>
                   </div>
                   <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
                     <p className="text-2xl font-black tabular-nums">{progress.weekNumber}</p>
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Train wk</p>
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">{t("home.trainWk")}</p>
                   </div>
                   <div className="rounded-xl bg-background/50 border border-border/60 p-3 text-center">
                     <p className="text-2xl font-black text-primary tabular-nums">
                       {progress.completedContiguousWeeks}
                       <span className="text-muted-foreground text-lg font-bold">/12</span>
                     </p>
-                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">Weeks logged</p>
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold mt-1">{t("home.weeksLogged")}</p>
                   </div>
                 </div>
                 <Button asChild variant="secondary" className="font-semibold">
                   <Link to="/dashboard/progress">
-                    Full progress &amp; check-ins <ArrowRight className="ml-2 h-4 w-4" />
+                    {t("home.fullProgress")} <ArrowRight className="icon-directional ms-2 h-4 w-4" />
                   </Link>
                 </Button>
               </div>
@@ -225,20 +233,20 @@ export default function DashboardHome() {
             <section className="glass-card p-6 md:p-8 border-border/60">
               <div className="flex items-start justify-between gap-4 mb-4">
                 <div>
-                  <h2 className="text-lg md:text-xl font-black">Weight trend</h2>
-                  <p className="text-sm text-muted-foreground mt-1">From your Monday check-ins (kg by week).</p>
+                  <h2 className="text-lg md:text-xl font-black">{t("home.weightTrend")}</h2>
+                  <p className="text-sm text-muted-foreground mt-1">{t("home.weightTrendSub")}</p>
                 </div>
               </div>
               {loading ? (
-                <div className="h-[220px] flex items-center justify-center text-sm text-muted-foreground">Loading chart…</div>
+                <div className="h-[220px] flex items-center justify-center text-sm text-muted-foreground">{t("home.loadingChart")}</div>
               ) : (
                 <WeightLineChart data={weightChartData} />
               )}
             </section>
 
             <section className="glass-card p-6 md:p-8 border-border/60">
-              <h2 className="text-lg md:text-xl font-black mb-1">Weekly rhythm</h2>
-              <p className="text-sm text-muted-foreground mb-4">Same structure all 12 weeks — protect these slots.</p>
+              <h2 className="text-lg md:text-xl font-black mb-1">{t("home.weeklyRhythm")}</h2>
+              <p className="text-sm text-muted-foreground mb-4">{t("home.weeklyRhythmSub")}</p>
               <ul className="space-y-2">
                 {weeklySchedule.slice(0, 5).map((d) => {
                   const isTraining = d.session.startsWith("Training") || d.session === "10-Min Bonus";
@@ -255,7 +263,7 @@ export default function DashboardHome() {
               </ul>
               <Button variant="link" className="px-0 text-primary mt-2 h-auto font-semibold" asChild>
                 <Link to="/dashboard/roadmap">
-                  Open roadmap <ArrowRight className="h-4 w-4 ml-1" />
+                  {t("home.openRoadmap")} <ArrowRight className="icon-directional h-4 w-4 ms-1" />
                 </Link>
               </Button>
             </section>
@@ -287,7 +295,7 @@ export default function DashboardHome() {
 
           <section className="grid sm:grid-cols-2 gap-4 max-w-3xl">
             {[
-              { to: "/dashboard/nutrition", title: "Nutrition", sub: "Framework & habits" },
+              { to: "/dashboard/nutrition", title: t("home.nutritionCard"), sub: t("home.nutritionCardSub") },
             ].map((x) => (
               <Link
                 key={x.to}
@@ -297,14 +305,14 @@ export default function DashboardHome() {
                 <span className="font-black text-lg">{x.title}</span>
                 <span className="text-xs text-muted-foreground mt-1">{x.sub}</span>
                 <span className="text-primary text-sm font-semibold mt-3 inline-flex items-center gap-1 group-hover:gap-2 transition-all">
-                  Open <ArrowRight className="h-4 w-4" />
+                  {t("home.open")} <ArrowRight className="icon-directional h-4 w-4" />
                 </span>
               </Link>
             ))}
           </section>
 
           <section className="glass-card p-6 md:p-8 border-border/60">
-            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">Mindset</p>
+            <p className="text-xs font-bold uppercase tracking-widest text-primary mb-2">{t("home.mindset")}</p>
             <p className="text-sm md:text-base text-muted-foreground italic leading-relaxed">
               &ldquo;{programMeta.quote}&rdquo; — {programMeta.coach.name}
             </p>

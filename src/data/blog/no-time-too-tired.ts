@@ -203,9 +203,9 @@ export const noTimeTooTiredPost: BlogPost = {
         "Train at home. No commute. No food scale.",
       ],
       primaryHref: "/coaching-apply?plan=coached-strong-90#apply",
-      primaryLabel: "Apply for Coached Strong 90",
+      primaryLabel: "Start Coaching",
       secondaryHref: "/pricing",
-      secondaryLabel: "Start self-guided for €39",
+      secondaryLabel: "Start self-guided for {{price}}",
     },
     {
       type: "p",

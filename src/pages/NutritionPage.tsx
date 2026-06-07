@@ -1,27 +1,33 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Utensils, MapPin, Pill, Apple, Beef, Egg } from "lucide-react";
 import coachWorkout from "@/assets/coach-workout.webp";
-import {
-  nutritionRules,
-  sampleMealPlan,
-  eatAnywhere,
-  supplementEssential,
-  supplementOptional,
-  supplementWaste,
-} from "@/data/busyStrong90";
 import { PageMeta } from "@/components/seo/PageMeta";
+import { usePricing } from "@/hooks/usePricing";
 
 const ruleIcons = [Beef, Apple, Egg];
 
+type NutritionRule = { number: string; title: string; body: string };
+type Meal = { time: string; name: string; meal: string; macros: string; tip: string };
+type EatAnywherePlace = { place: string; tips: string[] };
+type Supplement = { name: string; dose: string; note: string };
+type SupplementWaste = { name: string; reason: string };
+
 const NutritionPage = () => {
+  const { t } = useTranslation("nutrition");
+  const pricing = usePricing();
+
+  const nutritionRules = t("rules.items", { returnObjects: true }) as NutritionRule[];
+  const sampleMealPlan = t("meals.items", { returnObjects: true }) as Meal[];
+  const eatAnywhere = t("eatAnywhere.items", { returnObjects: true }) as EatAnywherePlace[];
+  const supplementEssential = t("supplements.essential", { returnObjects: true }) as Supplement[];
+  const supplementOptional = t("supplements.optional", { returnObjects: true }) as Supplement[];
+  const supplementWaste = t("supplements.waste", { returnObjects: true }) as SupplementWaste[];
+
   return (
     <div>
-      <PageMeta
-        title="Nutrition framework — rules, meals, eat anywhere"
-        description="Three nutrition rules, sample meal plan, Eat Anywhere guide, and supplement guidance from the BUSY STRONG 90 manual."
-        path="/nutrition"
-      />
+      <PageMeta title={t("meta.title")} description={t("meta.description")} path="/nutrition" />
       {/* Hero */}
       <section className="relative py-28 md:py-36 overflow-hidden">
         <div className="absolute inset-0">
@@ -35,13 +41,11 @@ const NutritionPage = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <div className="text-xs text-primary font-bold tracking-widest mb-4">NUTRITION SYSTEM</div>
+          <div className="text-xs text-primary font-bold tracking-widest mb-4">{t("hero.eyebrow")}</div>
           <h1 className="text-4xl md:text-6xl font-black mb-6">
-            Eat Simply. <span className="text-gradient">Stay Strong.</span>
+            {t("hero.headline")} <span className="text-gradient">{t("hero.headlineHighlight")}</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            The fitness industry overcomplicates nutrition to sell you products. The truth is simple. Master three rules and outperform 90% of people who follow complicated diets.
-          </p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("hero.subhead")}</p>
         </div>
       </section>
 
@@ -49,7 +53,7 @@ const NutritionPage = () => {
       <section className="section-padding">
         <div className="container mx-auto max-w-5xl">
           <h2 className="text-3xl md:text-4xl font-black text-center mb-12">
-            The Only <span className="text-gradient">3 Rules</span> You Need
+            {t("rules.title")} <span className="text-gradient">{t("rules.titleHighlight")}</span> {t("rules.titleSuffix")}
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {nutritionRules.map((rule, i) => {
@@ -59,7 +63,9 @@ const NutritionPage = () => {
                   <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center mb-6">
                     <Icon className="h-6 w-6 text-primary" />
                   </div>
-                  <div className="text-xs text-primary font-bold tracking-widest mb-2">RULE {rule.number}</div>
+                  <div className="text-xs text-primary font-bold tracking-widest mb-2">
+                    {t("rules.ruleLabel", { number: rule.number })}
+                  </div>
                   <h3 className="text-lg font-bold mb-3">{rule.title}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{rule.body}</p>
                 </div>
@@ -74,9 +80,9 @@ const NutritionPage = () => {
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-black mb-4">
-              Sample <span className="text-gradient">Daily Meal Plan</span>
+              {t("meals.title")} <span className="text-gradient">{t("meals.titleHighlight")}</span>
             </h2>
-            <p className="text-muted-foreground">80kg male template — adjust to your weight. Swap proteins and carbs freely. The structure matters, not the exact foods.</p>
+            <p className="text-muted-foreground">{t("meals.subhead")}</p>
           </div>
           <div className="space-y-4">
             {sampleMealPlan.map((meal, i) => (
@@ -104,11 +110,11 @@ const NutritionPage = () => {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-4">
               <MapPin className="h-5 w-5 text-primary" />
-              <h2 className="text-3xl md:text-4xl font-black">The 'Eat Anywhere' <span className="text-gradient">Guide</span></h2>
+              <h2 className="text-3xl md:text-4xl font-black">
+                {t("eatAnywhere.title")} <span className="text-gradient">{t("eatAnywhere.titleHighlight")}</span>
+              </h2>
             </div>
-            <p className="text-muted-foreground">
-              You will eat in restaurants. You will travel. The Eat Anywhere guide ensures you always have a strategy — no excuses, no guilt, no derailment.
-            </p>
+            <p className="text-muted-foreground">{t("eatAnywhere.subhead")}</p>
           </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {eatAnywhere.map((place) => (
@@ -125,11 +131,9 @@ const NutritionPage = () => {
             ))}
           </div>
           <div className="glass-card p-8 mt-8 text-center bg-gradient-to-r from-primary/10 to-transparent">
-            <h3 className="text-xl font-bold mb-2">The 90/10 Rule</h3>
-            <p className="text-muted-foreground text-sm max-w-xl mx-auto">
-              Be compliant 90% of the time. That means 54 out of 60 meals in a two-week period are on plan. The other 6? Enjoy them. Life is not a diet competition.
-            </p>
-            <p className="text-sm mt-4 italic text-muted-foreground">"Perfection is the enemy of progress. Aim for compliance, not perfection." — Coach Milos</p>
+            <h3 className="text-xl font-bold mb-2">{t("eatAnywhere.rule9010.title")}</h3>
+            <p className="text-muted-foreground text-sm max-w-xl mx-auto">{t("eatAnywhere.rule9010.body")}</p>
+            <p className="text-sm mt-4 italic text-muted-foreground">{t("eatAnywhere.rule9010.quote")}</p>
           </div>
         </div>
       </section>
@@ -140,13 +144,15 @@ const NutritionPage = () => {
           <div className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Pill className="h-5 w-5 text-primary" />
-              <h2 className="text-3xl md:text-4xl font-black">Supplement <span className="text-gradient">Guide</span></h2>
+              <h2 className="text-3xl md:text-4xl font-black">
+                {t("supplements.title")} <span className="text-gradient">{t("supplements.titleHighlight")}</span>
+              </h2>
             </div>
-            <p className="text-muted-foreground">Supplements are 5% of your results. Food is 80%. Training is the remaining 15%. The right 5% still matters.</p>
+            <p className="text-muted-foreground">{t("supplements.subhead")}</p>
           </div>
 
           <div className="mb-8">
-            <h3 className="text-lg font-bold text-primary mb-4">✅ Essential — Do Buy</h3>
+            <h3 className="text-lg font-bold text-primary mb-4">{t("supplements.essentialTitle")}</h3>
             <div className="space-y-3">
               {supplementEssential.map((s) => (
                 <div key={s.name} className="glass-card p-5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
@@ -159,7 +165,7 @@ const NutritionPage = () => {
           </div>
 
           <div className="mb-8">
-            <h3 className="text-lg font-bold text-muted-foreground mb-4">Optional — situational</h3>
+            <h3 className="text-lg font-bold text-muted-foreground mb-4">{t("supplements.optionalTitle")}</h3>
             <div className="space-y-3">
               {supplementOptional.map((s) => (
                 <div key={s.name} className="glass-card p-5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6">
@@ -172,7 +178,7 @@ const NutritionPage = () => {
           </div>
 
           <div>
-            <h3 className="text-lg font-bold text-destructive mb-4">❌ Waste of Money — Don&apos;t Buy</h3>
+            <h3 className="text-lg font-bold text-destructive mb-4">{t("supplements.wasteTitle")}</h3>
             <div className="space-y-3">
               {supplementWaste.map((s) => (
                 <div key={s.name} className="glass-card p-5 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 opacity-60">
@@ -188,11 +194,14 @@ const NutritionPage = () => {
       {/* CTA */}
       <section className="section-padding text-center">
         <div className="container mx-auto max-w-2xl">
-          <h2 className="text-3xl font-black mb-4">Ready to <span className="text-gradient">Transform</span>?</h2>
-          <p className="text-muted-foreground mb-8">Get the complete nutrition framework, meal plans, and guides inside BUSY STRONG 90.</p>
+          <h2 className="text-3xl font-black mb-4">
+            {t("cta.title")} <span className="text-gradient">{t("cta.titleHighlight")}</span>?
+          </h2>
+          <p className="text-muted-foreground mb-8">{t("cta.subhead")}</p>
           <Link to="/pricing">
             <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
-              Get Full Access — €39 <ArrowRight className="ml-2 h-5 w-5" />
+              {t("cta.button", { price: pricing.selfGuided.label })}{" "}
+              <ArrowRight className="icon-directional ms-2 h-5 w-5" />
             </Button>
           </Link>
         </div>

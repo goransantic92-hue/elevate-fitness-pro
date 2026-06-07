@@ -1,36 +1,42 @@
+import { useTranslation } from "react-i18next";
 import { MemberGate } from "@/components/MemberGate";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  eatAnywhere,
-  nutritionRules,
-  sampleMealPlan,
-  supplementEssential,
-  supplementOptional,
-  supplementWaste,
-} from "@/data/busyStrong90";
 import { Ban, Beef, Pill, Utensils } from "lucide-react";
 
+type NutritionRule = { number: string; title: string; body: string };
+type Meal = { time: string; name: string; meal: string; macros: string; tip: string };
+type EatAnywherePlace = { place: string; tips: string[] };
+type Supplement = { name: string; dose: string; note: string };
+type SupplementWaste = { name: string; reason: string };
+
 export default function DashboardNutritionPage() {
+  const { t } = useTranslation("nutrition");
+
+  const nutritionRules = t("rules.items", { returnObjects: true }) as NutritionRule[];
+  const sampleMealPlan = t("meals.items", { returnObjects: true }) as Meal[];
+  const eatAnywhere = t("eatAnywhere.items", { returnObjects: true }) as EatAnywherePlace[];
+  const supplementEssential = t("supplements.essential", { returnObjects: true }) as Supplement[];
+  const supplementOptional = t("supplements.optional", { returnObjects: true }) as Supplement[];
+  const supplementWaste = t("supplements.waste", { returnObjects: true }) as SupplementWaste[];
+
   return (
     <MemberGate>
       <div className="max-w-4xl mx-auto space-y-10">
         <div>
-          <h1 className="text-3xl font-black">Nutrition system</h1>
-          <p className="text-muted-foreground mt-2">
-            From your manual — three rules, a sample day structure, eating anywhere, and what to buy (or skip) for supplements.
-          </p>
+          <h1 className="text-3xl font-black">{t("member.title")}</h1>
+          <p className="text-muted-foreground mt-2">{t("member.subhead")}</p>
         </div>
 
         <section>
           <h2 className="text-xl font-black mb-4 flex items-center gap-2">
             <Utensils className="h-5 w-5 text-primary" />
-            The only rules you need
+            {t("member.rulesTitle")}
           </h2>
           <div className="grid md:grid-cols-3 gap-4">
             {nutritionRules.map((r) => (
               <Card key={r.number} className="glass-card">
                 <CardHeader className="pb-2">
-                  <p className="text-xs font-bold text-primary">RULE {r.number}</p>
+                  <p className="text-xs font-bold text-primary">{t("member.ruleLabel", { number: r.number })}</p>
                   <CardTitle className="text-base leading-snug">{r.title}</CardTitle>
                 </CardHeader>
                 <CardContent className="text-sm text-muted-foreground leading-relaxed">{r.body}</CardContent>
@@ -40,8 +46,8 @@ export default function DashboardNutritionPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-black mb-4">Sample daily meal plan</h2>
-          <p className="text-sm text-muted-foreground mb-4">80kg male template — adjust to your weight. Structure matters more than exact foods.</p>
+          <h2 className="text-xl font-black mb-4">{t("member.mealPlanTitle")}</h2>
+          <p className="text-sm text-muted-foreground mb-4">{t("member.mealPlanSubhead")}</p>
           <div className="space-y-3">
             {sampleMealPlan.map((m) => (
               <Card key={m.name} className="glass-card">
@@ -53,7 +59,7 @@ export default function DashboardNutritionPage() {
                   <div className="flex-1 min-w-0">
                     <p className="text-sm font-medium">{m.meal}</p>
                     <p className="text-xs text-muted-foreground mt-1">{m.macros}</p>
-                    <p className="text-xs text-muted-foreground mt-2 italic">Coach tip: {m.tip}</p>
+                    <p className="text-xs text-muted-foreground mt-2 italic">{t("member.coachTip", { tip: m.tip })}</p>
                   </div>
                 </CardContent>
               </Card>
@@ -64,7 +70,7 @@ export default function DashboardNutritionPage() {
         <section>
           <h2 className="text-xl font-black mb-4 flex items-center gap-2">
             <Beef className="h-5 w-5 text-primary" />
-            Eat anywhere
+            {t("member.eatAnywhereTitle")}
           </h2>
           <div className="grid sm:grid-cols-2 gap-4">
             {eatAnywhere.map((block) => (
@@ -74,10 +80,10 @@ export default function DashboardNutritionPage() {
                 </CardHeader>
                 <CardContent>
                   <ul className="text-sm text-muted-foreground space-y-2">
-                    {block.tips.map((t) => (
-                      <li key={t} className="flex gap-2">
+                    {block.tips.map((tip) => (
+                      <li key={tip} className="flex gap-2">
                         <span className="text-primary">→</span>
-                        {t}
+                        {tip}
                       </li>
                     ))}
                   </ul>
@@ -87,10 +93,8 @@ export default function DashboardNutritionPage() {
           </div>
           <Card className="glass-card mt-4 bg-gradient-to-r from-primary/10 to-transparent border-primary/20">
             <CardContent className="p-6">
-              <h3 className="font-bold mb-2">The 90/10 rule</h3>
-              <p className="text-sm text-muted-foreground">
-                Be compliant 90% of the time — 54 of 60 meals in two weeks on plan. The other 6? Enjoy them. Aim for compliance, not perfection.
-              </p>
+              <h3 className="font-bold mb-2">{t("eatAnywhere.rule9010.title")}</h3>
+              <p className="text-sm text-muted-foreground">{t("eatAnywhere.rule9010.body")}</p>
             </CardContent>
           </Card>
         </section>
@@ -98,10 +102,10 @@ export default function DashboardNutritionPage() {
         <section>
           <h2 className="text-xl font-black mb-4 flex items-center gap-2">
             <Pill className="h-5 w-5 text-primary" />
-            Supplements
+            {t("member.supplementsTitle")}
           </h2>
-          <p className="text-sm text-muted-foreground mb-4">Supplements are ~5% of results. Food is ~80%. Training ~15%.</p>
-          <h3 className="text-sm font-bold text-primary mb-3">Essential — do buy</h3>
+          <p className="text-sm text-muted-foreground mb-4">{t("member.supplementsSubhead")}</p>
+          <h3 className="text-sm font-bold text-primary mb-3">{t("member.essentialTitle")}</h3>
           <div className="space-y-2 mb-8">
             {supplementEssential.map((s) => (
               <Card key={s.name} className="glass-card">
@@ -113,7 +117,7 @@ export default function DashboardNutritionPage() {
               </Card>
             ))}
           </div>
-          <h3 className="text-sm font-bold text-muted-foreground mb-3">Optional — situational</h3>
+          <h3 className="text-sm font-bold text-muted-foreground mb-3">{t("member.optionalTitle")}</h3>
           <div className="space-y-2 mb-8">
             {supplementOptional.map((s) => (
               <Card key={s.name} className="glass-card">
@@ -127,7 +131,7 @@ export default function DashboardNutritionPage() {
           </div>
           <h3 className="text-sm font-bold text-destructive mb-3 flex items-center gap-2">
             <Ban className="h-4 w-4" />
-            Waste of money — don&apos;t buy
+            {t("member.wasteTitle")}
           </h3>
           <div className="space-y-2">
             {supplementWaste.map((s) => (

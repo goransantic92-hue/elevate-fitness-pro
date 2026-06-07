@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,6 +20,7 @@ type Props = {
 };
 
 export function DashboardWeeklyCheckinCard({ checkins, week, onWeekChange, saving, onSave }: Props) {
+  const { t } = useTranslation("dashboard");
   const [weight, setWeight] = useState("");
   const [notes, setNotes] = useState("");
 
@@ -34,8 +36,8 @@ export function DashboardWeeklyCheckinCard({ checkins, week, onWeekChange, savin
 
   return (
     <section className="glass-card p-6 md:p-8 border-border/60">
-      <h2 className="text-lg font-black">Weekly check-in</h2>
-      <p className="text-sm text-muted-foreground mt-1 mb-6">Monday weight + short note (optional).</p>
+      <h2 className="text-lg font-black">{t("checkinCard.title")}</h2>
+      <p className="text-sm text-muted-foreground mt-1 mb-6">{t("checkinCard.subhead")}</p>
 
       <div className="grid md:grid-cols-2 gap-8 lg:gap-10 items-start">
         <form
@@ -46,7 +48,7 @@ export function DashboardWeeklyCheckinCard({ checkins, week, onWeekChange, savin
           }}
         >
           <div className="space-y-2">
-            <Label>Week (1–12)</Label>
+            <Label>{t("checkinCard.weekLabel")}</Label>
             <Select value={String(week)} onValueChange={(v) => onWeekChange(Number(v))}>
               <SelectTrigger>
                 <SelectValue />
@@ -54,44 +56,42 @@ export function DashboardWeeklyCheckinCard({ checkins, week, onWeekChange, savin
               <SelectContent>
                 {Array.from({ length: 12 }, (_, i) => i + 1).map((n) => (
                   <SelectItem key={n} value={String(n)}>
-                    Week {n}
+                    {t("checkinCard.weekOption", { n })}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="dash-weight">Weight (kg)</Label>
+            <Label htmlFor="dash-weight">{t("checkinCard.weightKg")}</Label>
             <Input
               id="dash-weight"
               type="number"
               step="0.1"
               value={weight}
               onChange={(e) => setWeight(e.target.value)}
-              placeholder="e.g. 82.4"
+              placeholder={t("checkinCard.weightPlaceholder")}
             />
           </div>
           <div className="space-y-2">
-            <Label htmlFor="dash-notes">Notes</Label>
+            <Label htmlFor="dash-notes">{t("checkinCard.notes")}</Label>
             <Textarea
               id="dash-notes"
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
               rows={3}
-              placeholder="Sleep, stress, lifts felt heavy…"
+              placeholder={t("checkinCard.notesPlaceholder")}
             />
           </div>
           <Button type="submit" disabled={saving} className="bg-primary text-primary-foreground font-bold">
-            {saving ? "Saving…" : "Save check-in"}
+            {saving ? t("checkinCard.saving") : t("checkinCard.saveCheckin")}
           </Button>
         </form>
 
         <div className="min-h-[200px] md:border-l md:border-border/50 md:pl-8 pt-2 md:pt-0">
-          <h3 className="text-xs font-bold uppercase tracking-widest text-primary mb-3">Check-in history</h3>
+          <h3 className="text-xs font-bold uppercase tracking-widest text-primary mb-3">{t("checkinCard.historyTitle")}</h3>
           {historySorted.length === 0 ? (
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              After you save a check-in, it appears here by week. Tap a row to load that week in the form.
-            </p>
+            <p className="text-sm text-muted-foreground leading-relaxed">{t("checkinCard.historyEmpty")}</p>
           ) : (
             <ScrollArea className="h-[min(360px,50vh)] pr-3">
               <ul className="space-y-2">
@@ -110,7 +110,7 @@ export function DashboardWeeklyCheckinCard({ checkins, week, onWeekChange, savin
                         )}
                       >
                         <div className="flex items-center justify-between gap-2">
-                          <span className="text-sm font-bold">Week {c.week_number}</span>
+                          <span className="text-sm font-bold">{t("checkinCard.weekRow", { n: c.week_number })}</span>
                           <span className="text-sm font-semibold text-primary tabular-nums">
                             {c.weight_kg != null ? `${c.weight_kg} kg` : "—"}
                           </span>
@@ -118,7 +118,7 @@ export function DashboardWeeklyCheckinCard({ checkins, week, onWeekChange, savin
                         {c.notes?.trim() ? (
                           <p className="text-xs text-muted-foreground mt-1 line-clamp-3 leading-snug">{c.notes}</p>
                         ) : (
-                          <p className="text-xs text-muted-foreground/70 mt-1 italic">No notes</p>
+                          <p className="text-xs text-muted-foreground/70 mt-1 italic">{t("checkinCard.noNotes")}</p>
                         )}
                       </button>
                     </li>
