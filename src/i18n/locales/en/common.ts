@@ -45,4 +45,9 @@ export default {
     perMonth: "/ month",
     watchStory: "Watch story",
   },
+  notFound: {
+    title: "404",
+    message: "Oops! Page not found",
+    returnHome: "Return to Home",
+  },
 } as const;

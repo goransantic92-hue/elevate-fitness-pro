@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -6,6 +7,7 @@ import { Lock } from "lucide-react";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
 
 export function MemberGate({ children }: { children: React.ReactNode }) {
+  const { t } = useTranslation("dashboard");
   const { hasProgramAccess, loading, user } = useAuth();
 
   if (loading) {
@@ -22,11 +24,9 @@ export function MemberGate({ children }: { children: React.ReactNode }) {
         <CardHeader>
           <div className="flex items-center gap-2 text-primary">
             <Lock className="h-5 w-5" />
-            <CardTitle>Program access</CardTitle>
+            <CardTitle>{t("gate.title")}</CardTitle>
           </div>
-          <CardDescription>
-            Your account is active, but full program content unlocks after purchase. Use the button below to complete checkout on Stripe, or contact Coach Milos if you need help.
-          </CardDescription>
+          <CardDescription>{t("gate.description")}</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col sm:flex-row gap-3">
           <Button
@@ -42,10 +42,10 @@ export function MemberGate({ children }: { children: React.ReactNode }) {
               }
             }}
           >
-            Get the program
+            {t("gate.getProgram")}
           </Button>
           <Button variant="outline" asChild>
-            <Link to="/">Back to home</Link>
+            <Link to="/">{t("gate.backHome")}</Link>
           </Button>
         </CardContent>
       </Card>

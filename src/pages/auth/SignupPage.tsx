@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { PageMeta } from "@/components/seo/PageMeta";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -9,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import { safeInternalPath } from "@/lib/safeRedirect";
 
 export default function SignupPage() {
+  const { t } = useTranslation("auth");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,49 +28,48 @@ export default function SignupPage() {
     const { error } = await signUp(email, password, fullName);
     setBusy(false);
     if (error) {
-      toast({ title: "Sign up failed", description: error.message, variant: "destructive" });
+      toast({ title: t("signup.toastFailed"), description: error.message, variant: "destructive" });
       return;
     }
     setDone(true);
-    toast({ title: "Check your email", description: "Confirm your address if required by your Supabase project settings." });
+    toast({ title: t("signup.toastCheckEmail"), description: t("signup.toastCheckEmailDesc") });
   }
 
   return (
     <>
-      <PageMeta
-        title="Create account"
-        description="Create your BUSY STRONG 90 account to open your training when your program is unlocked."
-        path="/signup"
-      />
-      <div className="min-h-screen flex items-center justify-center px-4 py-16 bg-background">
+      <PageMeta title={t("signup.meta.title")} description={t("signup.meta.description")} path="/signup" />
+      <div className="min-h-screen flex items-center justify-center px-4 py-16 bg-background relative">
+        <div className="absolute top-4 end-4">
+          <LanguageSwitcher />
+        </div>
         <div className="w-full max-w-md glass-card p-8 border-border/60">
-          <h1 className="text-2xl font-black mb-1">Create account</h1>
-          <p className="text-sm text-muted-foreground mb-6">One account for the full digital program experience.</p>
+          <h1 className="text-2xl font-black mb-1">{t("signup.title")}</h1>
+          <p className="text-sm text-muted-foreground mb-6">{t("signup.subhead")}</p>
           {!configured && (
             <p className="text-xs text-amber-500 mb-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
-              Supabase env vars are missing. Add them before signing up.
+              {t("signup.supabaseWarning")}
             </p>
           )}
           {done ? (
             <p className="text-sm text-muted-foreground">
-              If email confirmation is enabled in Supabase, check your inbox. Then{" "}
+              {t("signup.doneMessage")}{" "}
               <Link to={`/login?redirect=${encodeURIComponent(redirectAfterLogin)}`} className="text-primary font-semibold hover:underline">
-                sign in
+                {t("signup.signInLink")}
               </Link>
               .
             </p>
           ) : (
             <form onSubmit={onSubmit} className="space-y-4">
               <div className="space-y-2">
-                <Label htmlFor="name">Full name</Label>
+                <Label htmlFor="name">{t("signup.fullName")}</Label>
                 <Input id="name" value={fullName} onChange={(e) => setFullName(e.target.value)} required autoComplete="name" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("signup.email")}</Label>
                 <Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required autoComplete="email" />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("signup.password")}</Label>
                 <Input
                   id="password"
                   type="password"
@@ -79,14 +81,14 @@ export default function SignupPage() {
                 />
               </div>
               <Button type="submit" className="w-full bg-primary text-primary-foreground font-bold" disabled={busy || !configured}>
-                {busy ? "Creating…" : "Create account"}
+                {busy ? t("signup.creating") : t("signup.createAccount")}
               </Button>
             </form>
           )}
           <p className="text-sm text-muted-foreground mt-6 text-center">
-            Already have an account?{" "}
+            {t("signup.hasAccount")}{" "}
             <Link to={`/login?redirect=${encodeURIComponent(redirectAfterLogin)}`} className="text-primary font-semibold hover:underline">
-              Log in
+              {t("signup.logIn")}
             </Link>
           </p>
         </div>

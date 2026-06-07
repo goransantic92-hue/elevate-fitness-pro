@@ -9,13 +9,13 @@ import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
-import { MEMBER_APP_OPEN_CTA } from "@/lib/memberAppLabels";
 import { PRICING } from "@/lib/pricing";
 
 type PricingTestimonial = { quote: string; name: string; sub: string };
 
 const PricingPage = () => {
   const { t } = useTranslation("pricing");
+  const { t: tDashboard } = useTranslation("dashboard");
   const { user, hasProgramAccess, configured, loading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -152,7 +152,7 @@ const PricingPage = () => {
                     asChild
                   >
                     <Link to="/dashboard" className="inline-flex w-full items-center justify-center gap-2">
-                      {MEMBER_APP_OPEN_CTA}
+                      {tDashboard("openYourTraining")}
                       <ArrowRight className="icon-directional h-4 w-4 shrink-0" aria-hidden />
                     </Link>
                   </Button>

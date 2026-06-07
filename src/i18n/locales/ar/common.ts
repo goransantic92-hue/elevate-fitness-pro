@@ -45,4 +45,9 @@ export default {
     perMonth: "/ شهر",
     watchStory: "شاهد القصة",
   },
+  notFound: {
+    title: "404",
+    message: "عذراً! الصفحة غير موجودة",
+    returnHome: "العودة للرئيسية",
+  },
 } as const;

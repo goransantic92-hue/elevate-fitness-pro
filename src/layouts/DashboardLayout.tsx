@@ -1,5 +1,7 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { StripeCheckoutSuccess } from "@/components/StripeCheckoutSuccess";
+import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import {
   LayoutDashboard,
   Dumbbell,
@@ -14,36 +16,40 @@ import { useAuth } from "@/context/AuthContext";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-const nav = [
-  { to: "/dashboard", label: "Overview", icon: LayoutDashboard, end: true },
-  { to: "/dashboard/training", label: "Training", icon: Dumbbell },
-  { to: "/dashboard/nutrition", label: "Nutrition", icon: Utensils },
-  { to: "/dashboard/roadmap", label: "Roadmap", icon: Map },
-  { to: "/dashboard/progress", label: "Progress", icon: LineChart },
-  { to: "/dashboard/profile", label: "Profile", icon: User },
-];
+const navKeys = [
+  { to: "/dashboard", key: "overview", icon: LayoutDashboard, end: true },
+  { to: "/dashboard/training", key: "training", icon: Dumbbell },
+  { to: "/dashboard/nutrition", key: "nutrition", icon: Utensils },
+  { to: "/dashboard/roadmap", key: "roadmap", icon: Map },
+  { to: "/dashboard/progress", key: "progress", icon: LineChart },
+  { to: "/dashboard/profile", key: "profile", icon: User },
+] as const;
 
 export default function DashboardLayout() {
   const location = useLocation();
   const { signOut, isAdmin, user } = useAuth();
+  const { t } = useTranslation("dashboard");
 
   return (
     <div className="relative min-h-screen bg-background flex">
       <div className="dashboard-bg" aria-hidden />
       <aside className="relative z-10 hidden md:flex w-64 shrink-0 flex-col border-r border-border/60 bg-card/50 backdrop-blur-xl">
         <div className="p-6 border-b border-border/60">
-          <Link to="/dashboard" className="font-black text-lg tracking-tight inline-flex items-center gap-2">
-            <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 border border-primary/25">
-              <Dumbbell className="h-5 w-5 text-primary" />
-            </span>
-            <span>
-              BUSY<span className="text-gradient">STRONG</span>90
-            </span>
-          </Link>
+          <div className="flex items-start justify-between gap-2">
+            <Link to="/dashboard" className="font-black text-lg tracking-tight inline-flex items-center gap-2 min-w-0">
+              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/15 border border-primary/25 shrink-0">
+                <Dumbbell className="h-5 w-5 text-primary" />
+              </span>
+              <span>
+                BUSY<span className="text-gradient">STRONG</span>90
+              </span>
+            </Link>
+            <LanguageSwitcher size="icon" />
+          </div>
           <p className="text-xs text-muted-foreground mt-2 truncate">{user?.email}</p>
         </div>
         <nav className="flex-1 p-3 space-y-1">
-          {nav.map((item) => {
+          {navKeys.map((item) => {
             const isActive = item.end
               ? location.pathname === item.to
               : location.pathname === item.to || location.pathname.startsWith(`${item.to}/`);
@@ -59,7 +65,7 @@ export default function DashboardLayout() {
                 )}
               >
                 <item.icon className="h-4 w-4 shrink-0" />
-                {item.label}
+                {t(`nav.${item.key}`)}
               </Link>
             );
           })}
@@ -72,17 +78,17 @@ export default function DashboardLayout() {
               )}
             >
               <Shield className="h-4 w-4 shrink-0" />
-              Coach / Admin
+              {t("nav.coachAdmin")}
             </Link>
           )}
         </nav>
         <div className="p-3 border-t border-border/60 space-y-1">
           <Link to="/" className="block px-3 py-2 text-xs text-muted-foreground hover:text-foreground rounded-lg hover:bg-secondary/60 transition-colors">
-            ← Public site
+            {t("nav.publicSite")}
           </Link>
           <Button variant="ghost" className="w-full justify-start gap-2 text-muted-foreground hover:text-foreground" onClick={() => signOut()}>
             <LogOut className="h-4 w-4" />
-            Sign out
+            {t("nav.signOut")}
           </Button>
         </div>
       </aside>
@@ -92,9 +98,12 @@ export default function DashboardLayout() {
           <Link to="/dashboard" className="font-black text-sm tracking-tight">
             BUSY<span className="text-primary">STRONG</span>90
           </Link>
-          <Button variant="outline" size="sm" onClick={() => signOut()}>
-            Sign out
-          </Button>
+          <div className="flex items-center gap-2">
+            <LanguageSwitcher size="icon" />
+            <Button variant="outline" size="sm" onClick={() => signOut()}>
+              {t("nav.signOut")}
+            </Button>
+          </div>
         </header>
         <main className="flex-1 p-4 md:p-8 lg:p-10 overflow-auto">
           <StripeCheckoutSuccess />

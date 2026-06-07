@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useAuth } from "@/context/AuthContext";
 import { programPublicPath } from "@/lib/programNav";
-import { MEMBER_APP_LINK_LABEL } from "@/lib/memberAppLabels";
 import { CALENDLY_FREE_CALL_URL, PRICING } from "@/lib/pricing";
 
 const navHrefs = [
@@ -27,6 +26,7 @@ const Navbar = () => {
   const [open, setOpen] = useState(false);
   const location = useLocation();
   const { t } = useTranslation();
+  const { t: tDashboard } = useTranslation("dashboard");
   const { user, isAdmin, signOut, configured, hasProgramAccess, loading } = useAuth();
 
   const navOpts = { configured, hasProgramAccess, loading, user };
@@ -95,7 +95,7 @@ const Navbar = () => {
                 <Button asChild variant="ghost" size="sm" className="gap-1.5">
                   <Link to="/dashboard">
                     <LayoutDashboard className="h-4 w-4" aria-hidden />
-                    {MEMBER_APP_LINK_LABEL}
+                    {tDashboard("yourTraining")}
                   </Link>
                 </Button>
                 {isAdmin && (
@@ -182,7 +182,7 @@ const Navbar = () => {
                   <Button asChild variant="ghost" className="w-full justify-start gap-2">
                     <Link to="/dashboard" onClick={() => setOpen(false)}>
                       <LayoutDashboard className="h-4 w-4" aria-hidden />
-                      {MEMBER_APP_LINK_LABEL}
+                      {tDashboard("yourTraining")}
                     </Link>
                   </Button>
                   {isAdmin && (

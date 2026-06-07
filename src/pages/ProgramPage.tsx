@@ -1,21 +1,26 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
 import coachHanging from "@/assets/coach-hanging.webp";
-import { phases, weeklySchedule } from "@/data/busyStrong90";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { PRICING } from "@/lib/pricing";
 
 const phaseColors = ["from-primary/20 to-primary/5", "from-primary/30 to-primary/10", "from-primary/40 to-primary/15"];
 
+type Phase = { number: string; name: string; weeks: string; description: string; focus: string[] };
+type ScheduleDay = { day: string; session: string; duration: string; focus: string; note: string };
+
 const ProgramPage = () => {
+  const { t } = useTranslation("program");
+
+  const phases = t("phases", { returnObjects: true }) as Phase[];
+  const weeklySchedule = t("schedule.items", { returnObjects: true }) as ScheduleDay[];
+  const includedItems = t("included.items", { returnObjects: true }) as string[];
+
   return (
     <div>
-      <PageMeta
-        title="Program overview — 90-day roadmap"
-        description="Three 4-week phases, weekly training schedule, and everything included in BUSY STRONG 90 for busy people 35+."
-        path="/program"
-      />
+      <PageMeta title={t("meta.title")} description={t("meta.description")} path="/program" />
       {/* Hero */}
       <section className="relative py-28 md:py-36 overflow-hidden">
         <div className="absolute inset-0">
@@ -29,13 +34,11 @@ const ProgramPage = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <div className="text-xs text-primary font-bold tracking-widest mb-4">THE PROGRAM</div>
+          <div className="text-xs text-primary font-bold tracking-widest mb-4">{t("hero.eyebrow")}</div>
           <h1 className="text-4xl md:text-6xl font-black mb-6">
-            Your 90-Day <span className="text-gradient">Road Map</span>
+            {t("hero.headline")} <span className="text-gradient">{t("hero.headlineHighlight")}</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-            90 days divided into three distinct 4-week phases, each building on the last. You do not jump phases. You do not skip weeks. Trust the process.
-          </p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("hero.subhead")}</p>
         </div>
       </section>
 
@@ -53,7 +56,9 @@ const ProgramPage = () => {
                 </div>
                 <div className="relative z-10 min-w-0 pr-10 sm:pr-14 md:pr-20">
                   <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
-                    <span className="text-xs text-primary font-bold tracking-widest">PHASE {phase.number}</span>
+                    <span className="text-xs text-primary font-bold tracking-widest">
+                      {t("phaseLabel", { number: phase.number })}
+                    </span>
                     <span className="text-xs text-muted-foreground">{phase.weeks}</span>
                   </div>
                   <h2 className="text-xl font-black leading-tight tracking-tight break-words text-balance sm:text-2xl md:text-3xl mb-4">
@@ -79,9 +84,9 @@ const ProgramPage = () => {
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-black mb-4">
-              Your Weekly <span className="text-gradient">Schedule</span>
+              {t("schedule.title")} <span className="text-gradient">{t("schedule.titleHighlight")}</span>
             </h2>
-            <p className="text-muted-foreground">Same structure for all 12 weeks. Consistency is king.</p>
+            <p className="text-muted-foreground">{t("schedule.subhead")}</p>
           </div>
           <div className="space-y-3">
             {weeklySchedule.map((day) => {
@@ -93,7 +98,7 @@ const ProgramPage = () => {
                   </div>
                   <div className="flex-1">
                     <span className="font-semibold text-sm">{day.session}</span>
-                    <span className="text-muted-foreground text-sm ml-2">— {day.focus}</span>
+                    <span className="text-muted-foreground text-sm ms-2">— {day.focus}</span>
                   </div>
                   <div className="text-xs text-muted-foreground">{day.duration}</div>
                   <div className="text-xs text-muted-foreground italic hidden md:block max-w-[200px]">{day.note}</div>
@@ -108,21 +113,10 @@ const ProgramPage = () => {
       <section className="section-padding">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl md:text-4xl font-black mb-10">
-            Everything <span className="text-gradient">Included</span>
+            {t("included.title")} <span className="text-gradient">{t("included.titleHighlight")}</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left max-w-2xl mx-auto">
-            {[
-              "3 Gym Training Programs (A/B/C)",
-              "3 Home Training Programs (A/B/C)",
-              "4 Emergency 10-Min Workouts",
-              "Complete Nutrition Framework",
-              "Sample Meal Plans",
-              "'Eat Anywhere' Restaurant Guide",
-              "Supplement Guide (What to buy & skip)",
-              "6-Habit System for Consistency",
-              "12-Week Progress Tracking Log",
-              "Realistic Progress Timeline",
-            ].map((item) => (
+            {includedItems.map((item) => (
               <div key={item} className="flex items-center gap-3 py-2">
                 <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
                   <Check className="h-3.5 w-3.5 text-primary" />
@@ -134,7 +128,8 @@ const ProgramPage = () => {
           <div className="mt-12">
             <Link to="/pricing">
               <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
-                Get Full Access — {PRICING.selfGuided.label} <ArrowRight className="ml-2 h-5 w-5" />
+                {t("included.cta", { price: PRICING.selfGuided.label })}{" "}
+                <ArrowRight className="icon-directional ms-2 h-5 w-5" />
               </Button>
             </Link>
           </div>
