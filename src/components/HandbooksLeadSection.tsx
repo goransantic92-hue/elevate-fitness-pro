@@ -1,4 +1,4 @@
-import { useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, BookOpen, CheckCircle2, Dumbbell, Pill, Utensils, Zap } from "lucide-react";
@@ -26,6 +26,12 @@ export function HandbooksLeadSection() {
   const [email, setEmail] = useState("");
   const [submitting, setSubmitting] = useState(false);
   const [sentCount, setSentCount] = useState<number | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (sentCount === null) return;
+    sectionRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
+  }, [sentCount]);
 
   function toggle(id: HandbookId, checked: boolean) {
     setSelected((prev) => {
@@ -83,9 +89,13 @@ export function HandbooksLeadSection() {
     }
   }
 
-  if (sentCount !== null) {
-    return (
-      <section id="free-handbooks" className="section-padding border-y border-border bg-[hsl(0_0%_6.5%)]">
+  return (
+    <section
+      ref={sectionRef}
+      id="free-handbooks"
+      className="section-padding scroll-mt-24 border-y border-border bg-[hsl(0_0%_6.5%)]"
+    >
+      {sentCount !== null ? (
         <div className="container mx-auto max-w-[640px] px-6 text-center">
           <CheckCircle2 className="mx-auto h-14 w-14 text-primary" aria-hidden />
           <h2 className="font-display mt-6 text-3xl text-foreground md:text-4xl">{t("success.title")}</h2>
@@ -100,13 +110,8 @@ export function HandbooksLeadSection() {
             </Link>
           </Button>
         </div>
-      </section>
-    );
-  }
-
-  return (
-    <section id="free-handbooks" className="section-padding border-y border-border bg-[hsl(0_0%_6.5%)]">
-      <div className="container mx-auto max-w-[1100px] px-6">
+      ) : (
+        <div className="container mx-auto max-w-[1100px] px-6">
         <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{t("eyebrow")}</p>
         <h2 className="font-display mt-2 text-balance text-center text-[clamp(1.75rem,4vw,2.75rem)] text-foreground">
           {t("title")}
@@ -210,7 +215,8 @@ export function HandbooksLeadSection() {
             </Button>
           </div>
         </form>
-      </div>
+        </div>
+      )}
     </section>
   );
 }
