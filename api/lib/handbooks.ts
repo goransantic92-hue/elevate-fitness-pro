@@ -1,5 +1,3 @@
-import { getSiteUrl } from "./siteUrl";
-
 export const HANDBOOK_IDS = ["eat-nutrition", "fuel-supplements", "muscle-handbook", "busy-strong-7day"] as const;
 
 export type HandbookId = (typeof HANDBOOK_IDS)[number];
@@ -55,7 +53,7 @@ export function handbookMeta(id: HandbookId): HandbookMeta {
 /** Load handbook PDF from static `/handbooks/` on this deployment (no fs). */
 export async function readHandbookPdf(id: HandbookId): Promise<Buffer> {
   const meta = handbookMeta(id);
-  const origin = getSiteOrigin();
+  const origin = process.env.SITE_URL?.trim().replace(/\/$/, "") || "https://busystrong90.com";
   const url = `${origin}/handbooks/${encodeURIComponent(meta.filename)}`;
   const r = await fetch(url);
   if (!r.ok) {

@@ -43,12 +43,9 @@ function isHandbookId(value: string): value is HandbookId {
   return (HANDBOOK_IDS as readonly string[]).includes(value);
 }
 
-function getSiteUrl(): string {
+function getHandbookPdfBaseUrl(): string {
   const explicit = process.env.SITE_URL?.trim().replace(/\/$/, "");
-  if (explicit) return explicit;
-  const vercel = process.env.VERCEL_URL?.trim();
-  if (vercel) return vercel.startsWith("http") ? vercel.replace(/\/$/, "") : `https://${vercel.replace(/\/$/, "")}`;
-  return SITE_URL;
+  return explicit || SITE_URL;
 }
 
 function trimMax(s: string | undefined, max: number): string {
@@ -88,7 +85,7 @@ function parsePayload(req: VercelRequest): Payload | null {
 
 async function readHandbookPdf(id: HandbookId): Promise<Buffer> {
   const meta = HANDBOOKS[id];
-  const url = `${getSiteUrl()}/handbooks/${encodeURIComponent(meta.filename)}`;
+  const url = `${getHandbookPdfBaseUrl()}/handbooks/${encodeURIComponent(meta.filename)}`;
   const r = await fetch(url);
   if (!r.ok) {
     throw new Error(`Handbook file missing: ${meta.filename} (${r.status})`);
