@@ -145,14 +145,16 @@ async function handleHandbookLead(req: VercelRequest, res: VercelResponse) {
 
   let attachments: { filename: string; content: string }[];
   try {
-    attachments = selected.map((id) => {
-      const meta = handbookMeta(id);
-      const buf = readHandbookPdf(id);
-      return {
-        filename: meta.attachmentName,
-        content: buf.toString("base64"),
-      };
-    });
+    attachments = await Promise.all(
+      selected.map(async (id) => {
+        const meta = handbookMeta(id);
+        const buf = await readHandbookPdf(id);
+        return {
+          filename: meta.attachmentName,
+          content: buf.toString("base64"),
+        };
+      }),
+    );
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);
     console.error("[handbook-lead] PDF read failed", msg);

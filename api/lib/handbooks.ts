@@ -1,5 +1,4 @@
-import fs from "fs";
-import path from "path";
+import { getSiteUrl } from "./siteUrl";
 
 export const HANDBOOK_IDS = ["eat-nutrition", "fuel-supplements", "muscle-handbook", "busy-strong-7day"] as const;
 
@@ -7,7 +6,7 @@ export type HandbookId = (typeof HANDBOOK_IDS)[number];
 
 type HandbookMeta = {
   id: HandbookId;
-  /** Filename inside repo `handbooks/` directory */
+  /** Filename inside `public/handbooks/` */
   filename: string;
   /** Attachment filename in email */
   attachmentName: string;
@@ -47,29 +46,20 @@ export function isHandbookId(value: string): value is HandbookId {
   return byId.has(value as HandbookId);
 }
 
-export function handbooksDir(): string {
-  const candidates = [
-    path.join(process.cwd(), "api", "handbooks"),
-    path.join(process.cwd(), "handbooks"),
-  ];
-  for (const dir of candidates) {
-    if (fs.existsSync(dir)) return dir;
-  }
-  return path.join(process.cwd(), "handbooks");
-}
-
-export function readHandbookPdf(id: HandbookId): Buffer {
-  const meta = byId.get(id);
-  if (!meta) throw new Error(`Unknown handbook: ${id}`);
-  const filePath = path.join(handbooksDir(), meta.filename);
-  if (!fs.existsSync(filePath)) {
-    throw new Error(`Handbook file missing on server: ${meta.filename}`);
-  }
-  return fs.readFileSync(filePath);
-}
-
 export function handbookMeta(id: HandbookId): HandbookMeta {
   const meta = byId.get(id);
   if (!meta) throw new Error(`Unknown handbook: ${id}`);
   return meta;
+}
+
+/** Load handbook PDF from static `/handbooks/` on this deployment (no fs). */
+export async function readHandbookPdf(id: HandbookId): Promise<Buffer> {
+  const meta = handbookMeta(id);
+  const origin = getSiteOrigin();
+  const url = `${origin}/handbooks/${encodeURIComponent(meta.filename)}`;
+  const r = await fetch(url);
+  if (!r.ok) {
+    throw new Error(`Handbook file missing on server: ${meta.filename} (${r.status})`);
+  }
+  return Buffer.from(await r.arrayBuffer());
 }
