@@ -8,6 +8,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import privateTrainerFitness from "@/assets/private-trainer-fitness.webp";
 import coachAbout from "@/assets/coach-about.webp";
 import { PageMeta } from "@/components/seo/PageMeta";
+import { HandbooksLeadSection } from "@/components/HandbooksLeadSection";
 import { CALENDLY_FREE_CALL_URL } from "@/lib/pricing";
 import { usePricing } from "@/hooks/usePricing";
 
@@ -244,6 +245,8 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      <HandbooksLeadSection />
 
       {/* Pillars */}
       <section className="section-padding">

@@ -14,6 +14,7 @@ import enResults from "./locales/en/results";
 import enAuth from "./locales/en/auth";
 import enBlog from "./locales/en/blog";
 import enDashboard from "./locales/en/dashboard";
+import enHandbooks from "./locales/en/handbooks";
 import arCommon from "./locales/ar/common";
 import arHome from "./locales/ar/home";
 import arPricing from "./locales/ar/pricing";
@@ -26,6 +27,7 @@ import arResults from "./locales/ar/results";
 import arAuth from "./locales/ar/auth";
 import arBlog from "./locales/ar/blog";
 import arDashboard from "./locales/ar/dashboard";
+import arHandbooks from "./locales/ar/handbooks";
 
 void i18n
   .use(LanguageDetector)
@@ -45,6 +47,7 @@ void i18n
         auth: enAuth,
         blog: enBlog,
         dashboard: enDashboard,
+        handbooks: enHandbooks,
       },
       ar: {
         common: arCommon,
@@ -59,6 +62,7 @@ void i18n
         auth: arAuth,
         blog: arBlog,
         dashboard: arDashboard,
+        handbooks: arHandbooks,
       },
     },
     fallbackLng: DEFAULT_LANGUAGE,
@@ -76,6 +80,7 @@ void i18n
       "auth",
       "blog",
       "dashboard",
+      "handbooks",
     ],
     defaultNS: "common",
     interpolation: { escapeValue: false },
