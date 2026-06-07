@@ -68,7 +68,7 @@ export default {
       options: {
         founder: "صاحب عمل / مؤسس",
         corporate: "محترف في شركة",
-        parent: "والد (في المنزل أو بدوام جزئي)",
+        parent: "أب (موظف أو يعمل من المنزل)",
         freelance: "مستقل / يعمل لحسابه",
         other: "أخرى",
       },
