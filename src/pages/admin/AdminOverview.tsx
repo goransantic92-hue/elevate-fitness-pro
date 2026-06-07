@@ -1,22 +1,26 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, LineChart, Bell } from "lucide-react";
+import { Users, LineChart, Bell, BookOpen } from "lucide-react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/button";
 
 export default function AdminOverview() {
-  const [counts, setCounts] = useState({ members: 0, checkins: 0, reminders: 0 });
+  const [counts, setCounts] = useState({ members: 0, checkins: 0, reminders: 0, handbookLeads: 0 });
 
   useEffect(() => {
     (async () => {
-      const [p, c, r] = await Promise.all([
+      const [p, c, r, h] = await Promise.all([
         supabase.from("profiles").select("id", { count: "exact", head: true }),
         supabase.from("progress_checkins").select("id", { count: "exact", head: true }),
         supabase.from("reminder_jobs").select("id", { count: "exact", head: true }),
+        supabase.from("handbook_leads").select("id", { count: "exact", head: true }),
       ]);
       setCounts({
         members: p.count ?? 0,
         checkins: c.count ?? 0,
         reminders: r.count ?? 0,
+        handbookLeads: h.count ?? 0,
       });
     })();
   }, []);
@@ -27,7 +31,7 @@ export default function AdminOverview() {
         <h1 className="text-3xl font-black">Coach dashboard</h1>
         <p className="text-muted-foreground mt-2">High-level view of members, progress data, and reminder queue.</p>
       </div>
-      <div className="grid sm:grid-cols-3 gap-4">
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         <Card className="glass-card border-amber-500/20">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
             <CardTitle className="text-sm font-medium text-muted-foreground">Profiles</CardTitle>
@@ -53,6 +57,18 @@ export default function AdminOverview() {
           </CardHeader>
           <CardContent>
             <p className="text-3xl font-black">{counts.reminders}</p>
+          </CardContent>
+        </Card>
+        <Card className="glass-card border-amber-500/20">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium text-muted-foreground">Handbook leads</CardTitle>
+            <BookOpen className="h-4 w-4 text-amber-500" />
+          </CardHeader>
+          <CardContent>
+            <p className="text-3xl font-black">{counts.handbookLeads}</p>
+            <Button variant="link" className="mt-2 h-auto p-0 text-amber-500" asChild>
+              <Link to="/admin/leads">View & export emails</Link>
+            </Button>
           </CardContent>
         </Card>
       </div>

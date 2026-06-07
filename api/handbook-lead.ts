@@ -6,6 +6,7 @@ import {
   readHandbookPdf,
   type HandbookId,
 } from "./lib/handbooks";
+import { saveHandbookLead, markHandbookLeadSent } from "./lib/saveHandbookLead";
 
 const DEFAULT_NOTIFY = "info@ptmilosilic.com";
 const DEFAULT_FROM = "Coach Milos <info@ptmilosilic.com>";
@@ -125,6 +126,13 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     return res.status(400).json({ error: "Please select at least one handbook." });
   }
 
+  const leadId = await saveHandbookLead({
+    name,
+    email,
+    handbookIds: selected,
+    source: "homepage",
+  });
+
   let attachments: { filename: string; content: string }[];
   try {
     attachments = selected.map((id) => {
@@ -199,6 +207,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
       replyTo: notifyEmail,
       attachments,
     });
+
+    if (leadId) {
+      await markHandbookLeadSent(leadId);
+    }
+
     return res.status(200).json({ ok: true, count: selected.length });
   } catch (e) {
     const msg = e instanceof Error ? e.message : String(e);

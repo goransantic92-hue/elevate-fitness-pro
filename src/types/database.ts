@@ -288,6 +288,35 @@ export type Database = {
           created_at?: string;
         };
       };
+      handbook_leads: {
+        Row: {
+          id: string;
+          name: string;
+          email: string;
+          handbook_ids: string[];
+          source: string;
+          emails_sent: boolean;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          name: string;
+          email: string;
+          handbook_ids: string[];
+          source?: string;
+          emails_sent?: boolean;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          name?: string;
+          email?: string;
+          handbook_ids?: string[];
+          source?: string;
+          emails_sent?: boolean;
+          created_at?: string;
+        };
+      };
     };
     Views: Record<string, never>;
     Functions: {
