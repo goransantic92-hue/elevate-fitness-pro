@@ -4,7 +4,8 @@
       "maxDuration": 30
     },
     "api/handbook-lead.ts": {
-      "maxDuration": 30
+      "maxDuration": 30,
+      "includeFiles": "api/handbooks/**"
     },
     "api/stripe/create-checkout-session.ts": {
       "maxDuration": 30

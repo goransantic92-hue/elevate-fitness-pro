@@ -94,6 +94,16 @@ async function sendResend(params: {
 }
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
+  try {
+    return await handleHandbookLead(req, res);
+  } catch (e) {
+    const msg = e instanceof Error ? e.message : String(e);
+    console.error("[handbook-lead] unhandled error", msg);
+    return res.status(500).json({ error: "Server error while sending handbook. Please try again later." });
+  }
+}
+
+async function handleHandbookLead(req: VercelRequest, res: VercelResponse) {
   if (req.method !== "POST") {
     res.setHeader("Allow", "POST");
     return res.status(405).json({ error: "Method not allowed" });

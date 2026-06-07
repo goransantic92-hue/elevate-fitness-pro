@@ -48,6 +48,13 @@ export function isHandbookId(value: string): value is HandbookId {
 }
 
 export function handbooksDir(): string {
+  const candidates = [
+    path.join(process.cwd(), "api", "handbooks"),
+    path.join(process.cwd(), "handbooks"),
+  ];
+  for (const dir of candidates) {
+    if (fs.existsSync(dir)) return dir;
+  }
   return path.join(process.cwd(), "handbooks");
 }
 

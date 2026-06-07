@@ -64,7 +64,8 @@ export function HandbooksLeadSection() {
       });
       const ct = r.headers.get("content-type") ?? "";
       if (!ct.includes("application/json")) {
-        throw new Error(t("toast.errorFallback"));
+        const text = await r.text().catch(() => "");
+        throw new Error(text.slice(0, 200) || t("toast.errorFallback"));
       }
       const data = (await r.json()) as { ok?: boolean; error?: string; count?: number };
       if (!r.ok || !data.ok) {
