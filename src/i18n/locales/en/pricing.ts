@@ -1,0 +1,63 @@
+export default {
+  meta: {
+    title: "Pricing — BUSY STRONG 90",
+    description:
+      "Launch price {{priceOneTime}} for the full BUSY STRONG 90 digital program. Lifetime access to training, nutrition, and habits.",
+  },
+  hero: {
+    eyebrow: "PRICING",
+    headline: "One Program.",
+    headlineHighlight: "One Price.",
+    subhead: "No subscriptions. No hidden fees. One payment, lifetime access — aligned with your manual.",
+  },
+  launchBadge: "LAUNCH PRICE — LIMITED TIME",
+  oneTimeLifetime: "One-time payment · Lifetime access",
+  everythingIncluded: "Everything Included:",
+  features: [
+    "3 Gym Training Programs (A/B/C)",
+    "3 Home Training Programs (A/B/C)",
+    "4 Emergency 10-Minute Workouts",
+    "Complete Nutrition Framework",
+    "Sample Daily Meal Plan",
+    "Eat Anywhere guide",
+    "Evidence-Based Supplement Guide",
+    "6-Habit System for Consistency",
+    "12-Week Progress Tracking",
+    "Phase-by-Phase Roadmap",
+    "Coach Tips on Every Exercise",
+  ],
+  checkout: {
+    checkingAccount: "Checking account…",
+    redirecting: "Redirecting to checkout…",
+    getProgram: "Get the program",
+    checkoutOpensStripe: "Checkout opens on Stripe with your account.",
+    alreadyRegistered: "Already registered?",
+    logIn: "Log in",
+    newHere: "New here?",
+    signUp: "Sign up",
+    canceledTitle: "Checkout canceled",
+    canceledDescription: "You can complete your purchase anytime from this page.",
+    notConfiguredTitle: "Not configured",
+    notConfiguredDescription: "Supabase environment is missing.",
+    failedTitle: "Checkout failed",
+    failedDescription: "Invalid Stripe payment link configuration.",
+  },
+  testimonials: [
+    {
+      quote:
+        "I come home differently now and my kids notice. I have energy to play with them after work instead of collapsing on the couch.",
+      name: "David M.",
+      sub: "Project Manager, 42 — Father of 3 · Dubai",
+    },
+    {
+      quote:
+        "Three sessions I can actually protect on my calendar — stronger without living in the gym. This is the first program I actually finished.",
+      name: "Marcus V.",
+      sub: "Corporate Lead, 45 — Father of 1 · Dubai",
+    },
+  ],
+  coachQuote: {
+    text: "I built this program to genuinely change lives — not just sell a PDF. If you have questions, reach out. I read every message.",
+    attribution: "— Coach Milos",
+  },
+} as const;

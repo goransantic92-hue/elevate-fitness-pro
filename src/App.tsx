@@ -10,6 +10,7 @@ import { ScrollToTop } from "@/components/ScrollToTop";
 import { InstallAppPrompt } from "@/components/InstallAppPrompt";
 import { RoutePageFallback } from "@/components/RoutePageFallback";
 import { lazyRoute } from "@/lib/lazyRoute";
+import { I18nDirectionSync } from "@/components/I18nDirectionSync";
 import PublicLayout from "@/components/PublicLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AdminLayout from "@/layouts/AdminLayout";
@@ -55,6 +56,7 @@ const App = () => (
       <Toaster />
       <Sonner />
       <BrowserRouter>
+        <I18nDirectionSync />
         <ScrollToTop />
         <Routes>
           <Route element={<PublicLayout />}>

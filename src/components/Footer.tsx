@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { Dumbbell, Instagram, Link2, Mail } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { programPublicPath } from "@/lib/programNav";
@@ -8,6 +9,7 @@ const LINKTREE_URL =
   "https://linktr.ee/_coachmilos?utm_source=linktree_profile_share&ltsid=fe5925df-65e8-4bb1-a976-f26dd53ef32d";
 
 const Footer = () => {
+  const { t } = useTranslation();
   const { configured, hasProgramAccess, loading, user } = useAuth();
   const navOpts = { configured, hasProgramAccess, loading, user };
   const nutritionTo = programPublicPath("/nutrition", navOpts);
@@ -23,39 +25,36 @@ const Footer = () => {
                 BUSY<span className="text-primary">STRONG</span>90
               </span>
             </Link>
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              90-day training for busy fathers in Dubai. 30–40 min, 3x/week. Weight down. Energy back.
-            </p>
+            <p className="text-muted-foreground text-sm leading-relaxed">{t("footer.tagline")}</p>
           </div>
 
           <div>
-            <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Program</h4>
+            <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">{t("footer.program")}</h4>
             <div className="flex flex-col gap-2">
-              <Link to="/program" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Program Overview</Link>
-              <Link to={nutritionTo} className="text-sm text-muted-foreground hover:text-foreground transition-colors">Nutrition Guide</Link>
-              <Link to="/results" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Results</Link>
+              <Link to="/program" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("footer.programOverview")}</Link>
+              <Link to={nutritionTo} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("footer.nutritionGuide")}</Link>
+              <Link to="/results" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.results")}</Link>
             </div>
           </div>
 
           <div>
-            <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Support</h4>
+            <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">{t("footer.support")}</h4>
             <div className="flex flex-col gap-2">
-              <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
-              <Link to="/coaching-apply" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Coaching</Link>
-              <Link to="/faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</Link>
-              <Link to="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>
-              <Link to="/login" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Member Login</Link>
+              <Link to="/coaching-apply" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.coaching")}</Link>
+              <Link to="/faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.faq")}</Link>
+              <Link to="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.pricing")}</Link>
+              <Link to="/login" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.memberLogin")}</Link>
             </div>
           </div>
 
           <div>
-            <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Connect</h4>
+            <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">{t("footer.connect")}</h4>
             <div className="flex flex-col gap-2">
               <a href={INSTAGRAM_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Instagram className="h-4 w-4 shrink-0" /> @_coachmilos
               </a>
               <a href={LINKTREE_URL} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
-                <Link2 className="h-4 w-4 shrink-0" /> Linktree — all links
+                <Link2 className="h-4 w-4 shrink-0" /> {t("footer.linktree")}
               </a>
               <a href="mailto:info@ptmilosilic.com" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Mail className="h-4 w-4" /> info@ptmilosilic.com
@@ -65,8 +64,8 @@ const Footer = () => {
         </div>
 
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-xs text-muted-foreground">© {new Date().getFullYear()} BUSY STRONG 90 by Coach Milos. All rights reserved.</p>
-          <p className="text-xs text-muted-foreground">90 Days. 3x/Week. No Excuses.</p>
+          <p className="text-xs text-muted-foreground">{t("footer.copyright", { year: new Date().getFullYear() })}</p>
+          <p className="text-xs text-muted-foreground">{t("footer.motto")}</p>
         </div>
       </div>
     </footer>
