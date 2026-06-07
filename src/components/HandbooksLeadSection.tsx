@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { HANDBOOK_IDS, type HandbookId } from "@/lib/handbooks";
+import { HANDBOOK_IMAGES } from "@/lib/handbookImages";
 import { cn } from "@/lib/utils";
 
 const ICONS: Record<HandbookId, typeof Utensils> = {
@@ -111,7 +112,7 @@ export function HandbooksLeadSection() {
         </h2>
         <p className="mx-auto mt-3 max-w-[640px] text-center text-pretty text-muted-foreground">{t("subhead")}</p>
 
-        <div className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2">
+        <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
           {HANDBOOK_IDS.map((id) => {
             const Icon = ICONS[id];
             const checked = selected.has(id);
@@ -121,17 +122,36 @@ export function HandbooksLeadSection() {
                 key={id}
                 htmlFor={cardId}
                 className={cn(
-                  "flex cursor-pointer gap-4 rounded-xl border p-5 transition-colors",
-                  checked ? "border-primary/50 bg-primary/5" : "border-border bg-[#111] hover:border-primary/30",
+                  "group flex cursor-pointer flex-col overflow-hidden rounded-xl border transition-all",
+                  checked
+                    ? "border-primary/60 bg-primary/5 ring-1 ring-primary/30"
+                    : "border-border bg-[#111] hover:border-primary/30",
                 )}
               >
-                <Checkbox
-                  id={cardId}
-                  checked={checked}
-                  className="mt-1 shrink-0"
-                  onCheckedChange={(v) => toggle(id, v === true)}
-                />
-                <span className="min-w-0">
+                <div className="relative aspect-[16/10] overflow-hidden">
+                  <img
+                    src={HANDBOOK_IMAGES[id]}
+                    alt={t(`items.${id}.imageAlt`)}
+                    className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#111] via-[#111]/50 to-black/10" aria-hidden />
+                  <Checkbox
+                    id={cardId}
+                    checked={checked}
+                    className={cn(
+                      "absolute start-3 top-3 z-10 h-5 w-5 border-white/70 bg-black/50 data-[state=checked]:border-primary data-[state=checked]:bg-primary",
+                    )}
+                    onCheckedChange={(v) => toggle(id, v === true)}
+                  />
+                  {checked ? (
+                    <span className="absolute end-3 top-3 z-10 rounded-full bg-primary px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wide text-primary-foreground">
+                      {t("selected")}
+                    </span>
+                  ) : null}
+                </div>
+                <span className="flex flex-1 flex-col p-5">
                   <span className="flex items-center gap-2">
                     <Icon className="h-4 w-4 shrink-0 text-primary" aria-hidden />
                     <span className="font-display text-lg text-foreground">{t(`items.${id}.title`)}</span>
@@ -144,6 +164,7 @@ export function HandbooksLeadSection() {
             );
           })}
         </div>
+        <p className="mt-4 text-center text-xs text-muted-foreground/70">{t("photoCredit")}</p>
 
         <form
           onSubmit={(e) => void onSubmit(e)}
