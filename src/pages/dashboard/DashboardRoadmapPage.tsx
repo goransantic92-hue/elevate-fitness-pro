@@ -1,16 +1,23 @@
+import { useTranslation } from "react-i18next";
 import { MemberGate } from "@/components/MemberGate";
 import { Check } from "lucide-react";
-import { phases, weeklySchedule } from "@/data/busyStrong90";
+
+type Phase = { number: string; name: string; weeks: string; description: string; focus: string[] };
+type ScheduleDay = { day: string; session: string; duration: string; focus: string; note: string };
 
 export default function DashboardRoadmapPage() {
+  const { t } = useTranslation("dashboard");
+  const { t: tProgram } = useTranslation("program");
+
+  const phases = tProgram("phases", { returnObjects: true }) as Phase[];
+  const weeklySchedule = tProgram("schedule.items", { returnObjects: true }) as ScheduleDay[];
+
   return (
     <MemberGate>
       <div className="max-w-4xl mx-auto space-y-12">
         <div>
-          <h1 className="text-3xl font-black">90-day roadmap</h1>
-          <p className="text-muted-foreground mt-2">
-            Three 4-week phases. You do not jump phases. You do not skip weeks. Trust the process.
-          </p>
+          <h1 className="text-3xl font-black">{t("roadmap.title")}</h1>
+          <p className="text-muted-foreground mt-2">{t("roadmap.subhead")}</p>
         </div>
 
         <div className="space-y-6">
@@ -24,7 +31,9 @@ export default function DashboardRoadmapPage() {
               </div>
               <div className="relative z-10 min-w-0 pr-10 sm:pr-14 md:pr-20">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 mb-2">
-                  <span className="text-xs text-primary font-bold tracking-widest">PHASE {phase.number}</span>
+                  <span className="text-xs text-primary font-bold tracking-widest">
+                    {tProgram("phaseLabel", { number: phase.number })}
+                  </span>
                   <span className="text-xs text-muted-foreground">{phase.weeks}</span>
                 </div>
                 <h2 className="text-xl font-black leading-tight tracking-tight break-words text-balance sm:text-2xl mb-3">{phase.name}</h2>
@@ -45,11 +54,11 @@ export default function DashboardRoadmapPage() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-black mb-2">Weekly schedule</h2>
-          <p className="text-sm text-muted-foreground mb-6">Same structure for all 12 weeks.</p>
+          <h2 className="text-2xl font-black mb-2">{t("roadmap.scheduleTitle")}</h2>
+          <p className="text-sm text-muted-foreground mb-6">{t("roadmap.scheduleSubhead")}</p>
           <div className="space-y-2">
-            {weeklySchedule.map((d) => {
-              const isTraining = d.session.startsWith("Training") || d.session === "10-Min Bonus";
+            {weeklySchedule.map((d, i) => {
+              const isTraining = [0, 2, 4, 5].includes(i);
               return (
                 <div
                   key={d.day}

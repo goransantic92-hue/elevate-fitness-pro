@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ChevronRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -12,13 +13,6 @@ type Slot = Database["public"]["Tables"]["workout_session_logs"]["Row"]["slot"];
 type LogVariant = Database["public"]["Tables"]["workout_session_logs"]["Row"]["variant"];
 
 const SLOTS: SessionSlot[] = ["mon", "wed", "fri", "sat_bonus"];
-
-const SLOT_SHORT: Record<SessionSlot, string> = {
-  mon: "Mon · A",
-  wed: "Wed · B",
-  fri: "Fri · C",
-  sat_bonus: "Sat · Bonus",
-};
 
 type Props = {
   weekNumber: number;
@@ -49,6 +43,7 @@ export function WeekWorkoutChecklist({
   daysRemaining,
   programArcComplete,
 }: Props) {
+  const { t } = useTranslation("dashboard");
   const v = variantForTab(planTab);
 
   const doneMap = useMemo(() => {
@@ -63,16 +58,17 @@ export function WeekWorkoutChecklist({
   const doneCount = SLOTS.filter((s) => doneMap[s]).length;
   const weekAllDone = SLOTS.every((s) => doneMap[s]);
 
+  const variantLabel =
+    planTab === "emergency" ? t("training.tabs.emergency") : planTab === "gym" ? t("training.tabs.gym") : t("training.tabs.home");
+
   return (
     <div className="space-y-4">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
-          <p className="text-xs font-bold uppercase tracking-widest text-primary">This week&apos;s sessions</p>
+          <p className="text-xs font-bold uppercase tracking-widest text-primary">{t("checklist.thisWeekSessions")}</p>
           <p className="text-sm text-muted-foreground mt-0.5">
-            Week {weekNumber} · {doneCount}/{SLOTS.length} checked
-            {planTab === "emergency" && (
-              <span className="text-primary/90"> · 10 min track</span>
-            )}
+            {t("checklist.weekChecked", { week: weekNumber, done: doneCount, total: SLOTS.length })}
+            {planTab === "emergency" && <span className="text-primary/90">{t("checklist.minTrack")}</span>}
           </p>
         </div>
         <div className="flex rounded-xl border border-border/60 p-0.5 bg-background/50">
@@ -88,7 +84,7 @@ export function WeekWorkoutChecklist({
               )}
               onClick={() => onPlanTabChange(tab)}
             >
-              {tab === "emergency" ? "10 min" : tab}
+              {tab === "emergency" ? t("training.tabs.emergency") : tab === "gym" ? t("training.tabs.gym") : t("training.tabs.home")}
             </Button>
           ))}
         </div>
@@ -120,7 +116,7 @@ export function WeekWorkoutChecklist({
               >
                 <span className="flex-1 min-w-0">
                   <span className="flex flex-wrap items-center gap-2">
-                    <span className="font-semibold text-sm md:text-base">{SLOT_SHORT[slot]}</span>
+                    <span className="font-semibold text-sm md:text-base">{t(`checklist.slots.${slot}`)}</span>
                     {meta.badge && (
                       <span className="text-[10px] font-bold uppercase tracking-wide text-primary bg-primary/10 px-2 py-0.5 rounded-md">
                         {meta.badge}
@@ -130,7 +126,7 @@ export function WeekWorkoutChecklist({
                   <span className="block text-xs text-muted-foreground mt-1 leading-snug line-clamp-3">{meta.description}</span>
                   <span className="sr-only">{meta.title}</span>
                 </span>
-                <ChevronRight className="h-5 w-5 shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
+                <ChevronRight className="icon-directional h-5 w-5 shrink-0 text-muted-foreground group-hover:text-primary transition-colors" />
               </Link>
             </li>
           );
@@ -146,30 +142,33 @@ export function WeekWorkoutChecklist({
           onCheckedChange={(checked) => onSetWholeWeek(checked === true)}
         />
         <label htmlFor={`whole-week-${weekNumber}-${planTab}`} className="text-sm leading-snug cursor-pointer select-none">
-          <span className="font-semibold text-foreground">Mark whole week complete</span>
+          <span className="font-semibold text-foreground">{t("checklist.markWholeWeek")}</span>
           <span className="block text-xs text-muted-foreground mt-1">
-            Checks all four {planTab === "emergency" ? "10 min" : planTab} sessions for week {weekNumber}. When this week is fully done, your{" "}
-            <span className="text-foreground font-medium">{PROGRAM_TOTAL_DAYS}-day</span> arc advances — same numbers as the overview ring.
+            {t("checklist.markWholeWeekDesc", {
+              variant: variantLabel,
+              week: weekNumber,
+              days: PROGRAM_TOTAL_DAYS,
+            })}
           </span>
         </label>
       </div>
 
       <div className="rounded-xl border border-primary/25 bg-primary/5 px-4 py-3 space-y-1.5">
-        <p className="text-[10px] font-bold uppercase tracking-widest text-primary">90-day program</p>
+        <p className="text-[10px] font-bold uppercase tracking-widest text-primary">{t("checklist.programArc")}</p>
         {programArcComplete ? (
-          <p className="text-sm font-semibold text-primary">Arc complete — all 12 weeks checked off in order. Keep training if you want.</p>
+          <p className="text-sm font-semibold text-primary">{t("checklist.arcComplete")}</p>
         ) : (
           <>
             <p className="text-sm text-foreground">
               <span className="font-black tabular-nums text-2xl text-primary">{daysRemaining}</span>
-              <span className="text-muted-foreground font-medium"> days left</span>
+              <span className="text-muted-foreground font-medium"> {t("checklist.daysLeft")}</span>
               <span className="text-muted-foreground"> · </span>
               <span className="text-sm text-muted-foreground">
-                Day <span className="font-bold text-foreground tabular-nums">{currentDay}</span> of {PROGRAM_TOTAL_DAYS}
+                {t("checklist.dayOf", { current: currentDay, total: PROGRAM_TOTAL_DAYS })}
               </span>
             </p>
             <p className="text-xs text-muted-foreground leading-snug">
-              Finish all four slots for week {weekNumber} on this tab (or use “Mark whole week complete”) to move the countdown. Gym, Home, and 10 min each track separately; any one completed slot counts toward the week.
+              {t("checklist.finishSlotsDesc", { week: weekNumber })}
             </p>
           </>
         )}

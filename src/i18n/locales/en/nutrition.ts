@@ -15,7 +15,8 @@ export default {
     title: "The Only",
     titleHighlight: "3 Rules",
     titleSuffix: "You Need",
-    nutritionRules: [
+    ruleLabel: "RULE {{number}}",
+    items: [
       {
         number: "01",
         title: "PROTEIN AT EVERY MEAL",
@@ -36,12 +37,12 @@ export default {
       },
     ],
   },
-  mealPlan: {
+  meals: {
     title: "Sample",
     titleHighlight: "Daily Meal Plan",
-    intro:
+    subhead:
       "80kg male template — adjust to your weight. Swap proteins and carbs freely. The structure matters, not the exact foods.",
-    sampleMealPlan: [
+    items: [
       { time: "6–8 AM", name: "Breakfast", meal: "4 whole eggs scrambled + 2 slices wholegrain toast + 1 banana", macros: "~550 kcal · 35g protein · 55g carbs · 18g fat", tip: "Prep in 8 min. High protein start fuels the morning and prevents overeating." },
       { time: "10–11 AM", name: "Mid-Morning Snack", meal: "Greek yoghurt (200g) + handful mixed nuts + 1 piece of fruit", macros: "~350 kcal · 22g protein · 25g carbs · 14g fat", tip: "Keep nuts pre-portioned in a bag. Never skip — prevents blood sugar crash." },
       { time: "1–2 PM", name: "Lunch", meal: "Large chicken breast (200g) + rice (100g dry) + steamed broccoli or salad", macros: "~580 kcal · 52g protein · 65g carbs · 8g fat", tip: "Batch cook chicken and rice Sunday night. This is your anchor meal." },
@@ -53,15 +54,15 @@ export default {
   eatAnywhere: {
     title: "The 'Eat Anywhere'",
     titleHighlight: "Guide",
-    intro:
+    subhead:
       "You will eat in restaurants. You will travel. The Eat Anywhere guide ensures you always have a strategy — no excuses, no guilt, no derailment.",
-    eatAnywhere: [
+    items: [
       { place: "Fast Food", tips: ["Grilled chicken > fried. Always.", "Remove the bun, double the salad side.", "Skip sauces (200 kcal hidden there).", "Water or black coffee. Never soda."] },
       { place: "Restaurant", tips: ["Ask: grilled or baked protein + vegetables.", "Sauce on the side. Control portion yourself.", "Start with a protein-heavy appetizer.", "Share dessert or skip. One bite won't kill you."] },
       { place: "Airport / Travel", tips: ["Pack: protein bar, nuts, rice cakes in carry-on.", "Sushi or poke bowls: great airport protein options.", "Avoid: croissants, muffins, airport sandwiches.", "Hydrate heavily — flying dehydrates muscle function."] },
       { place: "Office / Busy Days", tips: ["Meal prep containers in the fridge at work.", "Almonds and Greek yoghurt as desk snacks.", "Protein shake is always an acceptable meal.", "Black coffee before meetings > energy drink."] },
     ],
-    ninetyTen: {
+    rule9010: {
       title: "The 90/10 Rule",
       body:
         "Be compliant 90% of the time. That means 54 out of 60 meals in a two-week period are on plan. The other 6? Enjoy them. Life is not a diet competition.",
@@ -72,7 +73,7 @@ export default {
   supplements: {
     title: "Supplement",
     titleHighlight: "Guide",
-    intro:
+    subhead:
       "Supplements are 5% of your results. Food is 80%. Training is the remaining 15%. The right 5% still matters.",
     essentialTitle: "✅ Essential — Do Buy",
     optionalTitle: "Optional — situational",
@@ -98,8 +99,23 @@ export default {
   cta: {
     title: "Ready to",
     titleHighlight: "Transform",
-    titleSuffix: "?",
-    body: "Get the complete nutrition framework, meal plans, and guides inside BUSY STRONG 90.",
-    getFullAccess: "Get Full Access — {{price}}",
+    subhead: "Get the complete nutrition framework, meal plans, and guides inside BUSY STRONG 90.",
+    button: "Get Full Access — {{price}}",
+  },
+  member: {
+    title: "Nutrition system",
+    subhead:
+      "From your manual — three rules, a sample day structure, eating anywhere, and what to buy (or skip) for supplements.",
+    rulesTitle: "The only rules you need",
+    ruleLabel: "RULE {{number}}",
+    mealPlanTitle: "Sample daily meal plan",
+    mealPlanSubhead: "80kg male template — adjust to your weight. Structure matters more than exact foods.",
+    eatAnywhereTitle: "Eat anywhere",
+    coachTip: "Coach tip: {{tip}}",
+    supplementsTitle: "Supplements",
+    supplementsSubhead: "Supplements are ~5% of results. Food is ~80%. Training ~15%.",
+    essentialTitle: "Essential — do buy",
+    optionalTitle: "Optional — situational",
+    wasteTitle: "Waste of money — don't buy",
   },
 } as const;

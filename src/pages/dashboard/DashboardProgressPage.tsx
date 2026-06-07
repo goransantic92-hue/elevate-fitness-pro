@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { MemberGate } from "@/components/MemberGate";
 import { useAuth } from "@/context/AuthContext";
 import { supabase } from "@/lib/supabase";
-import { trackingGuidance, progressExpectations } from "@/data/busyStrong90";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -16,16 +16,14 @@ import type { Database } from "@/types/database";
 type Checkin = Database["public"]["Tables"]["progress_checkins"]["Row"];
 type WLog = Database["public"]["Tables"]["workout_session_logs"]["Row"];
 
-const slots: { key: WLog["slot"]; label: string }[] = [
-  { key: "mon", label: "Mon — Training A" },
-  { key: "wed", label: "Wed — Training B" },
-  { key: "fri", label: "Fri — Training C" },
-  { key: "sat_bonus", label: "Sat — 10 min bonus" },
-];
+type ExpectationRow = { metric: string; w1: string; w2: string; w3: string };
+
+const SLOT_KEYS = ["mon", "wed", "fri", "sat_bonus"] as const;
 
 export default function DashboardProgressPage() {
   const { user } = useAuth();
   const { toast } = useToast();
+  const { t } = useTranslation("dashboard");
   const [week, setWeek] = useState(1);
   const [checkins, setCheckins] = useState<Checkin[]>([]);
   const [logs, setLogs] = useState<WLog[]>([]);
@@ -38,6 +36,8 @@ export default function DashboardProgressPage() {
   const [variant, setVariant] = useState<WLog["variant"]>("gym");
   const [slotStates, setSlotStates] = useState<Record<string, boolean>>({});
 
+  const progressExpectations = t("progress.expectations", { returnObjects: true }) as ExpectationRow[];
+
   const load = useCallback(async () => {
     if (!user) return;
     setLoading(true);
@@ -45,12 +45,12 @@ export default function DashboardProgressPage() {
       supabase.from("progress_checkins").select("*").eq("user_id", user.id).order("week_number"),
       supabase.from("workout_session_logs").select("*").eq("user_id", user.id),
     ]);
-    if (c.error) toast({ title: "Could not load check-ins", description: c.error.message, variant: "destructive" });
+    if (c.error) toast({ title: t("home.toastLoadCheckins"), description: c.error.message, variant: "destructive" });
     else setCheckins(c.data ?? []);
-    if (w.error) toast({ title: "Could not load session log", description: w.error.message, variant: "destructive" });
+    if (w.error) toast({ title: t("progress.toastLoadSessionLog"), description: w.error.message, variant: "destructive" });
     else setLogs(w.data ?? []);
     setLoading(false);
-  }, [user, toast]);
+  }, [user, toast, t]);
 
   useEffect(() => {
     load();
@@ -58,9 +58,9 @@ export default function DashboardProgressPage() {
 
   useEffect(() => {
     const next: Record<string, boolean> = {};
-    for (const s of slots) {
-      const row = logs.find((l) => l.week_number === logWeek && l.slot === s.key && l.variant === variant);
-      next[s.key] = row?.completed ?? false;
+    for (const s of SLOT_KEYS) {
+      const row = logs.find((l) => l.week_number === logWeek && l.slot === s && l.variant === variant);
+      next[s] = row?.completed ?? false;
     }
     setSlotStates(next);
   }, [logs, logWeek, variant]);
@@ -78,10 +78,10 @@ export default function DashboardProgressPage() {
     const { error } = await supabase.from("progress_checkins").upsert(payload, { onConflict: "user_id,week_number" });
     setSaving(false);
     if (error) {
-      toast({ title: "Save failed", description: error.message, variant: "destructive" });
+      toast({ title: t("home.toastSaveFailed"), description: error.message, variant: "destructive" });
       return;
     }
-    toast({ title: "Saved", description: `Week ${week} check-in updated.` });
+    toast({ title: t("home.toastSaved"), description: t("home.toastSavedDesc", { week }) });
     setNotes("");
     load();
   }
@@ -99,7 +99,7 @@ export default function DashboardProgressPage() {
       { onConflict: "user_id,week_number,slot,variant" }
     );
     if (error) {
-      toast({ title: "Update failed", description: error.message, variant: "destructive" });
+      toast({ title: t("home.toastUpdateFailed"), description: error.message, variant: "destructive" });
       return;
     }
     setSlotStates((prev) => ({ ...prev, [slot]: done }));
@@ -110,24 +110,24 @@ export default function DashboardProgressPage() {
     <MemberGate>
       <div className="max-w-4xl mx-auto space-y-10">
         <div>
-          <h1 className="text-3xl font-black">Progress tracking</h1>
-          <p className="text-muted-foreground mt-2">{trackingGuidance.headline}</p>
-          <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{trackingGuidance.body}</p>
+          <h1 className="text-3xl font-black">{t("progress.title")}</h1>
+          <p className="text-muted-foreground mt-2">{t("progress.headline")}</p>
+          <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{t("progress.body")}</p>
         </div>
 
         <Card className="glass-card">
           <CardHeader>
-            <CardTitle className="text-lg">Realistic rate of progress</CardTitle>
-            <CardDescription>From your manual — use as a reference, not a guarantee.</CardDescription>
+            <CardTitle className="text-lg">{t("progress.expectationsTitle")}</CardTitle>
+            <CardDescription>{t("progress.expectationsSubhead")}</CardDescription>
           </CardHeader>
           <CardContent className="overflow-x-auto">
             <table className="w-full text-xs md:text-sm">
               <thead>
                 <tr className="text-left border-b border-border">
-                  <th className="pb-2 pr-4">Metric</th>
-                  <th className="pb-2 pr-4">Weeks 1–4</th>
-                  <th className="pb-2 pr-4">Weeks 5–8</th>
-                  <th className="pb-2">Weeks 9–12</th>
+                  <th className="pb-2 pr-4">{t("progress.table.metric")}</th>
+                  <th className="pb-2 pr-4">{t("progress.table.weeks1to4")}</th>
+                  <th className="pb-2 pr-4">{t("progress.table.weeks5to8")}</th>
+                  <th className="pb-2">{t("progress.table.weeks9to12")}</th>
                 </tr>
               </thead>
               <tbody>
@@ -147,16 +147,16 @@ export default function DashboardProgressPage() {
         <div className="grid md:grid-cols-2 gap-6">
           <Card className="glass-card">
             <CardHeader>
-              <CardTitle className="text-lg">Weekly check-in</CardTitle>
-              <CardDescription>Monday weight + short note (optional).</CardDescription>
+              <CardTitle className="text-lg">{t("progress.weeklyCheckin")}</CardTitle>
+              <CardDescription>{t("progress.weeklyCheckinSub")}</CardDescription>
             </CardHeader>
             <CardContent>
               {loading ? (
-                <p className="text-sm text-muted-foreground">Loading…</p>
+                <p className="text-sm text-muted-foreground">{t("progress.loading")}</p>
               ) : (
                 <form onSubmit={saveCheckin} className="space-y-4">
                   <div className="space-y-2">
-                    <Label>Week (1–12)</Label>
+                    <Label>{t("progress.weekLabel")}</Label>
                     <Select value={String(week)} onValueChange={(v) => setWeek(Number(v))}>
                       <SelectTrigger>
                         <SelectValue />
@@ -164,22 +164,22 @@ export default function DashboardProgressPage() {
                       <SelectContent>
                         {Array.from({ length: 12 }, (_, i) => i + 1).map((n) => (
                           <SelectItem key={n} value={String(n)}>
-                            Week {n}
+                            {t("progress.weekOption", { n })}
                           </SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="weight">Weight (kg)</Label>
-                    <Input id="weight" type="number" step="0.1" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder="e.g. 82.4" />
+                    <Label htmlFor="weight">{t("progress.weightKg")}</Label>
+                    <Input id="weight" type="number" step="0.1" value={weight} onChange={(e) => setWeight(e.target.value)} placeholder={t("progress.weightPlaceholder")} />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="wnotes">Notes</Label>
-                    <Textarea id="wnotes" value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} placeholder="Sleep, stress, lifts felt heavy…" />
+                    <Label htmlFor="wnotes">{t("progress.notes")}</Label>
+                    <Textarea id="wnotes" value={notes} onChange={(e) => setNotes(e.target.value)} rows={3} placeholder={t("progress.notesPlaceholder")} />
                   </div>
                   <Button type="submit" disabled={saving} className="bg-primary text-primary-foreground font-semibold">
-                    {saving ? "Saving…" : "Save check-in"}
+                    {saving ? t("progress.saving") : t("progress.saveCheckin")}
                   </Button>
                 </form>
               )}
@@ -188,13 +188,13 @@ export default function DashboardProgressPage() {
 
           <Card className="glass-card">
             <CardHeader>
-              <CardTitle className="text-lg">Session completion</CardTitle>
-              <CardDescription>Mark Mon / Wed / Fri / Sat bonus for each week.</CardDescription>
+              <CardTitle className="text-lg">{t("progress.sessionCompletion")}</CardTitle>
+              <CardDescription>{t("progress.sessionCompletionSub")}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="flex gap-4 flex-wrap">
                 <div className="space-y-2">
-                  <Label>Week</Label>
+                  <Label>{t("progress.week")}</Label>
                   <Select value={String(logWeek)} onValueChange={(v) => setLogWeek(Number(v))}>
                     <SelectTrigger className="w-[120px]">
                       <SelectValue />
@@ -209,24 +209,24 @@ export default function DashboardProgressPage() {
                   </Select>
                 </div>
                 <div className="space-y-2">
-                  <Label>Version</Label>
+                  <Label>{t("progress.version")}</Label>
                   <Select value={variant} onValueChange={(v) => setVariant(v as WLog["variant"])}>
                     <SelectTrigger className="w-[140px]">
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="gym">Gym</SelectItem>
-                      <SelectItem value="home">Home</SelectItem>
-                      <SelectItem value="emergency">10 min</SelectItem>
+                      <SelectItem value="gym">{t("training.tabs.gym")}</SelectItem>
+                      <SelectItem value="home">{t("training.tabs.home")}</SelectItem>
+                      <SelectItem value="emergency">{t("training.tabs.emergency")}</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
               </div>
               <div className="space-y-3">
-                {slots.map((s) => (
-                  <div key={s.key} className="flex items-center justify-between gap-4 py-2 border-b border-border/40">
-                    <span className="text-sm">{s.label}</span>
-                    <Switch checked={slotStates[s.key] ?? false} onCheckedChange={(v) => toggleSlot(s.key, v)} />
+                {SLOT_KEYS.map((s) => (
+                  <div key={s} className="flex items-center justify-between gap-4 py-2 border-b border-border/40">
+                    <span className="text-sm">{t(`progress.slots.${s}`)}</span>
+                    <Switch checked={slotStates[s] ?? false} onCheckedChange={(v) => toggleSlot(s, v)} />
                   </div>
                 ))}
               </div>
@@ -237,12 +237,12 @@ export default function DashboardProgressPage() {
         {checkins.length > 0 && (
           <Card className="glass-card">
             <CardHeader>
-              <CardTitle className="text-lg">History</CardTitle>
+              <CardTitle className="text-lg">{t("progress.history")}</CardTitle>
             </CardHeader>
             <CardContent className="text-sm space-y-2">
               {checkins.map((c) => (
                 <div key={c.id} className="flex flex-wrap gap-4 border-b border-border/30 py-2">
-                  <span className="font-medium">Week {c.week_number}</span>
+                  <span className="font-medium">{t("progress.weekOption", { n: c.week_number })}</span>
                   {c.weight_kg != null && <span className="text-muted-foreground">{c.weight_kg} kg</span>}
                   {c.notes && <span className="text-muted-foreground">{c.notes}</span>}
                 </div>
