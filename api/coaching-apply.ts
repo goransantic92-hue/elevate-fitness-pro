@@ -23,8 +23,8 @@ type ApplyPayload = {
 };
 
 const COACHING_PLAN_LABEL: Record<string, string> = {
-  "coached-strong-90": "Coached Strong 90 — Core Coaching (€299/mo)",
-  "private-transformation": "Private Transformation — Elite (€699/mo)",
+  "coached-strong-90": "Coached Strong 90 — Core Coaching (1,299 AED/mo)",
+  "private-transformation": "Private Transformation — Elite (2,999 AED/mo)",
 };
 
 function coachingPlanHuman(slug: string): string {

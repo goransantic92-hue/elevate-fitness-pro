@@ -1,4 +1,5 @@
 import type { BlogPost } from "./types";
+import { PRICING } from "@/lib/pricing";
 
 export const dadBodPost: BlogPost = {
   slug: "dad-bod-out-of-shape-after-kids-fitness",
@@ -227,9 +228,9 @@ export const dadBodPost: BlogPost = {
       type: "cta",
       title: "Get Back on Track — For Real This Time",
       primaryHref: "/coaching-apply?plan=coached-strong-90#apply",
-      primaryLabel: "Apply for Coached Strong 90",
+      primaryLabel: "Start Coaching",
       secondaryHref: "/pricing",
-      secondaryLabel: "Start the self-guided program for €39",
+      secondaryLabel: `Start the self-guided program for ${PRICING.selfGuided.label}`,
     },
     { type: "p", text: "Your kids are watching. Show them what consistency looks like." },
     { type: "p", text: "*Stronger body. More energy. Still busy.*" },

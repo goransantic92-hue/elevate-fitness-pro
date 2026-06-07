@@ -5,6 +5,7 @@ import coachTraining from "@/assets/coach-training.webp";
 import { gymWorkouts, emergencyWorkouts } from "@/data/busyStrong90";
 import type { WorkoutPlan } from "@/data/busyStrong90";
 import { PageMeta } from "@/components/seo/PageMeta";
+import { PRICING } from "@/lib/pricing";
 
 const WorkoutCard = ({ workout }: { workout: WorkoutPlan }) => (
   <div className="glass-card overflow-hidden">
@@ -119,7 +120,7 @@ const TrainingPage = () => {
               </Link>
               <Link to="/pricing">
                 <Button className="bg-primary text-primary-foreground font-semibold">
-                  View access — €39 <ArrowRight className="ml-2 h-4 w-4" />
+                  View access — {PRICING.selfGuided.label} <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </Link>
             </div>

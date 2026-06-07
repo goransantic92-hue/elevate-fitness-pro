@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { PageMeta } from "@/components/seo/PageMeta";
+import { PRICING } from "@/lib/pricing";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
@@ -154,13 +155,13 @@ export default function CoachingApplyPage() {
                 <Button asChild variant="outline" className="h-auto justify-start border-primary/40 py-3 text-left">
                   <Link to="/coaching-apply?plan=coached-strong-90#apply" className="flex flex-col gap-0.5">
                     <span className="font-display text-base font-bold text-foreground">Coached Strong 90</span>
-                    <span className="text-xs font-normal text-muted-foreground">Core Coaching · €299 / month</span>
+                    <span className="text-xs font-normal text-muted-foreground">Core Coaching · {PRICING.coachedStrong90.labelMonthly}</span>
                   </Link>
                 </Button>
                 <Button asChild variant="outline" className="h-auto justify-start border-primary/40 py-3 text-left">
                   <Link to="/coaching-apply?plan=private-transformation#apply" className="flex flex-col gap-0.5">
                     <span className="font-display text-base font-bold text-foreground">Private Transformation</span>
-                    <span className="text-xs font-normal text-muted-foreground">Elite · €699 / month</span>
+                    <span className="text-xs font-normal text-muted-foreground">Elite · {PRICING.privateTransformation.labelMonthly}</span>
                   </Link>
                 </Button>
               </div>

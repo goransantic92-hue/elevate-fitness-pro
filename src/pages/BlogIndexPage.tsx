@@ -8,7 +8,7 @@ const BlogIndexPage = () => {
     <div className="font-sans">
       <PageMeta
         title="Fitness Blog for Busy Men 35+ — BUSY STRONG 90"
-        description="Practical fitness advice for busy fathers, founders & professionals: no time, low energy, fallen off the wagon, dad bod — and systems that actually work."
+        description="Practical fitness advice for busy fathers in Dubai: no time, low energy, fallen off the wagon, dad bod — and systems that actually work."
         path="/blog"
         keywords={[
           "fitness blog busy men",

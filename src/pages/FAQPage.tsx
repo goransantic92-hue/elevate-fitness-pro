@@ -4,13 +4,14 @@ import { ArrowRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { faqs } from "@/data/busyStrong90";
 import { PageMeta } from "@/components/seo/PageMeta";
+import { PRICING } from "@/lib/pricing";
 
 const FAQPage = () => {
   return (
     <div className="font-sans">
       <PageMeta
         title="Before You Decide — FAQ — BUSY STRONG 90"
-        description="FAQ for busy fathers, founders & professionals 35+: quitting past programs, travel, hectic weeks, low energy, no food scale, kg + energy results, coaching vs self-guided."
+        description="FAQ for busy fathers 35+ in Dubai: quitting past programs, travel, hectic weeks, low energy, no food scale, kg + energy results, coaching vs self-guided."
         path="/faq"
       />
       <section className="pt-8 pb-12 md:pt-12 md:pb-16">
@@ -40,11 +41,11 @@ const FAQPage = () => {
 
           <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
-              <Link to="/coaching-apply?plan=coached-strong-90#apply">Apply for Coached Strong 90</Link>
+              <Link to="/pricing">Get the Program — {PRICING.selfGuided.label}</Link>
             </Button>
             <Button asChild variant="outline" className="h-12 rounded-lg border-border px-8 text-base font-semibold">
-              <Link to="/pricing">
-                Get the €39 Program <ArrowRight className="ml-1 h-4 w-4" />
+              <Link to="/coaching-apply?plan=coached-strong-90#apply">
+                Start Coaching <ArrowRight className="ml-1 h-4 w-4" />
               </Link>
             </Button>
           </div>

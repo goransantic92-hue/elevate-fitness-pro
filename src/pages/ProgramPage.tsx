@@ -4,6 +4,7 @@ import { ArrowRight, Check } from "lucide-react";
 import coachHanging from "@/assets/coach-hanging.webp";
 import { phases, weeklySchedule } from "@/data/busyStrong90";
 import { PageMeta } from "@/components/seo/PageMeta";
+import { PRICING } from "@/lib/pricing";
 
 const phaseColors = ["from-primary/20 to-primary/5", "from-primary/30 to-primary/10", "from-primary/40 to-primary/15"];
 
@@ -133,7 +134,7 @@ const ProgramPage = () => {
           <div className="mt-12">
             <Link to="/pricing">
               <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
-                Get Full Access — €39 <ArrowRight className="ml-2 h-5 w-5" />
+                Get Full Access — {PRICING.selfGuided.label} <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
           </div>

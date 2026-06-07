@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { useAuth } from "@/context/AuthContext";
 import { programPublicPath } from "@/lib/programNav";
 import { MEMBER_APP_LINK_LABEL } from "@/lib/memberAppLabels";
+import { CALENDLY_FREE_CALL_URL, PRICING } from "@/lib/pricing";
 
 const navLinks = [
   { href: "/", label: "Home" },
@@ -111,11 +112,13 @@ const Navbar = () => {
                 <Button asChild variant="ghost" size="sm">
                   <Link to="/login">Log In</Link>
                 </Button>
-                <Button asChild size="sm" variant="outline" className="font-semibold border-border">
-                  <Link to="/coaching-apply">Apply for Coaching</Link>
+                <Button asChild variant="ghost" size="sm">
+                  <a href={CALENDLY_FREE_CALL_URL} target="_blank" rel="noopener noreferrer">
+                    Book a Free Call
+                  </a>
                 </Button>
                 <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold">
-                  <Link to="/pricing">€39 Program</Link>
+                  <Link to="/pricing">{PRICING.selfGuided.label} Program</Link>
                 </Button>
               </>
             )}
@@ -193,11 +196,13 @@ const Navbar = () => {
                   <Button asChild variant="ghost" className="w-full">
                     <Link to="/login" onClick={() => setOpen(false)}>Log In</Link>
                   </Button>
-                  <Button asChild variant="outline" className="w-full font-semibold border-border">
-                    <Link to="/coaching-apply" onClick={() => setOpen(false)}>Apply for Coaching</Link>
+                  <Button asChild variant="ghost" className="w-full">
+                    <a href={CALENDLY_FREE_CALL_URL} target="_blank" rel="noopener noreferrer" onClick={() => setOpen(false)}>
+                      Book a Free Call
+                    </a>
                   </Button>
                   <Button asChild className="w-full bg-primary text-primary-foreground font-bold">
-                    <Link to="/pricing" onClick={() => setOpen(false)}>€39 Program</Link>
+                    <Link to="/pricing" onClick={() => setOpen(false)}>{PRICING.selfGuided.label} Program</Link>
                   </Button>
                 </>
               )}

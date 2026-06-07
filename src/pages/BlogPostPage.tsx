@@ -5,6 +5,7 @@ import { BlogArticleBody } from "@/components/blog/BlogArticleBody";
 import { BlogPostingSchema } from "@/components/seo/BlogPostingSchema";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { blogPosts, formatBlogDate, getBlogPostBySlug } from "@/data/blog";
+import { PRICING } from "@/lib/pricing";
 import NotFound from "@/pages/NotFound";
 
 const BlogPostPage = () => {
@@ -95,12 +96,12 @@ const BlogPostPage = () => {
           </p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
-              <Link to="/coaching-apply?plan=coached-strong-90#apply">Apply for Coached Strong 90</Link>
+              <Link to="/pricing">
+                Get the Program — {PRICING.selfGuided.label} <ArrowRight className="ml-1 h-4 w-4" />
+              </Link>
             </Button>
             <Button asChild variant="outline" className="h-12 rounded-lg border-border px-8 text-base font-semibold">
-              <Link to="/pricing">
-                Get the €39 Program <ArrowRight className="ml-1 h-4 w-4" />
-              </Link>
+              <Link to="/coaching-apply?plan=coached-strong-90#apply">Start Coaching</Link>
             </Button>
           </div>
         </div>

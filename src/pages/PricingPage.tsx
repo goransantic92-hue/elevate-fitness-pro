@@ -9,6 +9,22 @@ import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
 import { MEMBER_APP_OPEN_CTA } from "@/lib/memberAppLabels";
+import { PRICING } from "@/lib/pricing";
+
+const pricingTestimonials = [
+  {
+    quote:
+      "I come home differently now and my kids notice. I have energy to play with them after work instead of collapsing on the couch.",
+    name: "David M.",
+    sub: "Project Manager, 42 — Father of 3 · Dubai",
+  },
+  {
+    quote:
+      "Three sessions I can actually protect on my calendar — stronger without living in the gym. This is the first program I actually finished.",
+    name: "Marcus V.",
+    sub: "Corporate Lead, 45 — Father of 1 · Dubai",
+  },
+] as const;
 
 const features = [
   "3 Gym Training Programs (A/B/C)",
@@ -99,7 +115,7 @@ const PricingPage = () => {
     <div>
       <PageMeta
         title="Pricing — BUSY STRONG 90"
-        description="Launch price €39 one-time for the full BUSY STRONG 90 digital program. Lifetime access to training, nutrition, and habits."
+        description={`Launch price ${PRICING.selfGuided.labelOneTime} for the full BUSY STRONG 90 digital program. Lifetime access to training, nutrition, and habits.`}
         path="/pricing"
       />
       <section className="py-28 md:py-36">
@@ -121,7 +137,7 @@ const PricingPage = () => {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
                 <Zap className="h-3 w-3" /> LAUNCH PRICE — LIMITED TIME
               </div>
-              <h2 className="text-4xl md:text-5xl font-black mb-2">€39</h2>
+              <h2 className="text-4xl md:text-5xl font-black mb-2">{PRICING.selfGuided.label}</h2>
               <p className="text-muted-foreground text-[10px] leading-snug sm:text-xs md:text-sm tracking-tight text-center whitespace-normal sm:whitespace-nowrap px-1">
                 One-time payment · Lifetime access
               </p>
@@ -201,6 +217,21 @@ const PricingPage = () => {
                 )}
               </div>
             </div>
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2 max-w-3xl mx-auto">
+            {pricingTestimonials.map((t) => (
+              <div key={t.name} className="rounded-xl border border-border bg-card/50 p-6 text-left">
+                <div className="flex gap-1 mb-3">
+                  {Array.from({ length: 5 }).map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-primary text-primary" />
+                  ))}
+                </div>
+                <blockquote className="text-sm italic leading-relaxed text-muted-foreground">&ldquo;{t.quote}&rdquo;</blockquote>
+                <p className="mt-4 text-sm font-bold text-foreground">{t.name}</p>
+                <p className="text-xs text-muted-foreground">{t.sub}</p>
+              </div>
+            ))}
           </div>
 
           <div className="mt-12 text-center">

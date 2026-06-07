@@ -1,3 +1,5 @@
+import { PRICING } from "@/lib/pricing";
+
 /** Query value `?plan=` on /coaching-apply — must match Home pricing CTAs. */
 export const COACHING_PLAN_SLUGS = ["coached-strong-90", "private-transformation"] as const;
 export type CoachingPlanSlug = (typeof COACHING_PLAN_SLUGS)[number];
@@ -10,14 +12,14 @@ export const COACHING_PLAN_DISPLAY: Record<
   "coached-strong-90": {
     name: "Coached Strong 90",
     tier: "Core Coaching",
-    price: "€299 / month",
-    emailLabel: "Coached Strong 90 — Core Coaching (€299/mo)",
+    price: `${PRICING.coachedStrong90.labelMonthly}`,
+    emailLabel: `Coached Strong 90 — Core Coaching (${PRICING.coachedStrong90.labelMonthly})`,
   },
   "private-transformation": {
     name: "Private Transformation",
     tier: "Elite",
-    price: "€699 / month",
-    emailLabel: "Private Transformation — Elite (€699/mo)",
+    price: `${PRICING.privateTransformation.labelMonthly}`,
+    emailLabel: `Private Transformation — Elite (${PRICING.privateTransformation.labelMonthly})`,
   },
 };
 

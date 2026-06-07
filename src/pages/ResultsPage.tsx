@@ -4,6 +4,7 @@ import { ArrowRight, TrendingUp, Scale, Dumbbell, Battery, Eye } from "lucide-re
 import coachFront from "@/assets/coach-front.webp";
 import { progressExpectations, habits, trackingGuidance } from "@/data/busyStrong90";
 import { PageMeta } from "@/components/seo/PageMeta";
+import { PRICING } from "@/lib/pricing";
 
 const progressIcons = [Scale, Dumbbell, TrendingUp, Battery, Eye];
 
@@ -146,16 +147,16 @@ const ResultsPage = () => {
           <h2 className="text-3xl font-black mb-4">
             90 days. <span className="text-gradient">Weight down. Energy back.</span>
           </h2>
-          <p className="text-muted-foreground mb-8">36 sessions. 6 habits. Built for busy fathers, founders, and professionals.</p>
+          <p className="text-muted-foreground mb-8">36 sessions. 6 habits. Built for busy fathers in Dubai.</p>
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
-            <Link to="/coaching-apply?plan=coached-strong-90#apply">
+            <Link to="/pricing">
               <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
-                Apply for Coached Strong 90 <ArrowRight className="ml-2 h-5 w-5" />
+                Get the Program — {PRICING.selfGuided.label} <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
-            <Link to="/pricing">
+            <Link to="/coaching-apply?plan=coached-strong-90#apply">
               <Button size="lg" variant="outline" className="h-14 px-8 font-semibold border-border">
-                Self-guided — €39
+                Start Coaching
               </Button>
             </Link>
           </div>

@@ -1,4 +1,5 @@
 import type { BlogPost } from "./types";
+import { PRICING } from "@/lib/pricing";
 
 export const fallenOffWagonPost: BlogPost = {
   slug: "fallen-off-wagon-fitness-consistency-busy-men",
@@ -189,9 +190,9 @@ export const fallenOffWagonPost: BlogPost = {
       type: "cta",
       title: "Stop Giving Up. Start Building.",
       primaryHref: "/coaching-apply?plan=coached-strong-90#apply",
-      primaryLabel: "Apply for Coached Strong 90",
+      primaryLabel: "Start Coaching",
       secondaryHref: "/pricing",
-      secondaryLabel: "Get the self-guided program for €39",
+      secondaryLabel: `Get the self-guided program for ${PRICING.selfGuided.label}`,
     },
     { type: "p", text: "*You don't need to suffer more. You need to suffer smarter.*" },
   ],

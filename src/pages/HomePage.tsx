@@ -8,10 +8,11 @@ import privateTrainerFitness from "@/assets/private-trainer-fitness.webp";
 import coachAbout from "@/assets/coach-about.webp";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { faqs } from "@/data/busyStrong90";
+import { CALENDLY_FREE_CALL_URL, PRICING } from "@/lib/pricing";
 
 const whoCards = [
-  { icon: "💼", title: "Founders & Business Owners", text: "Early mornings, late nights, back-to-back calls. You need your weight down and your energy up — not another hour in the gym. 30 minutes, 3× a week, train at home between meetings." },
-  { icon: "👨‍👧‍👦", title: "Busy Fathers & Parents", text: "Your kids watch everything you do. When you have energy after work, you show up for them — instead of crashing on the couch. 30 minutes, 3× a week, at home while they're sleeping or playing." },
+  { icon: "👨‍👧‍👦", title: "Busy Fathers & Parents", text: "Your kids watch everything you do. When you have energy after work, you show up for them — instead of crashing on the couch. 30–40 minutes, 3× a week, at home while they're sleeping or playing.", featured: true },
+  { icon: "💼", title: "Founders & Business Owners", text: "Early mornings, late nights, back-to-back calls. You need your weight down and your energy up — not another hour in the gym. 30–40 minutes, 3× a week, train at home between meetings." },
   { icon: "🏢", title: "Corporate Professionals", text: "The 2pm energy crash. The calendar that never stops. This system fits your schedule: train at home (no commute), track kg and daily energy, and stop restarting every Monday." },
 ] as const;
 
@@ -25,8 +26,8 @@ const HomePage = () => {
   return (
     <div className="font-sans">
       <PageMeta
-        title="Busy Strong 90 — 90-Day Fitness for Busy Men 35+ | Coach Milos"
-        description="90-day training & nutrition for busy fathers, founders & professionals 35+. 30-min home workouts, no food scale. Lose weight, restore energy. Coached Strong 90 from €299/mo."
+        title="Busy Strong 90 — 90-Day Fitness for Busy Fathers in Dubai | Coach Milos"
+        description="90-day training & nutrition for busy fathers 35+ in Dubai. 30–40 min home workouts, no food scale. Lose weight, restore energy. Coached Strong 90 from 1,299 AED/mo."
         path="/"
       />
 
@@ -43,18 +44,18 @@ const HomePage = () => {
                 <span className="mb-3 block font-sans text-base font-normal normal-case leading-relaxed tracking-normal text-muted-foreground md:text-lg">
                   You haven&apos;t trained in months. You&apos;re tired. Your kids see it.
                 </span>
-                <span className="block max-w-[20ch] text-balance">
-                  Stronger body. More <span className="text-primary">energy</span>. Still busy.
+                <span className="block max-w-[22ch] text-balance">
+                  For busy fathers in Dubai who want their <span className="text-primary">energy</span> back.
                 </span>
               </h1>
               <p className="mt-6 max-w-[600px] text-pretty text-lg leading-relaxed text-[#ccc]">
-                The 90-day system built for men who don&apos;t have time — 30 minutes, 3× per week, train at home (no commute). No food scale. Coached plans from
-                €299/month.
+                The 90-day system built for men who don&apos;t have time — 30–40 minutes, 3× per week, train at home (no commute). No food scale. Coached plans from{" "}
+                {PRICING.coachedStrong90.labelMonthly}.
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground hover:bg-primary/90">
-                  <Link to="/coaching-apply?plan=coached-strong-90#apply">
-                    Apply for Coached Strong 90
+                  <Link to="/pricing">
+                    Get the Program — {PRICING.selfGuided.label}
                     <ArrowRight className="ml-1 h-4 w-4" />
                   </Link>
                 </Button>
@@ -63,15 +64,27 @@ const HomePage = () => {
                   variant="outline"
                   className="h-12 rounded-lg border-border bg-transparent px-8 text-base font-semibold hover:bg-transparent"
                 >
-                  <a href="#coaching">See how it works</a>
+                  <a href={CALENDLY_FREE_CALL_URL} target="_blank" rel="noopener noreferrer">
+                    Book a Free Call
+                  </a>
                 </Button>
               </div>
               <p className="mt-4 text-sm text-muted-foreground">
-                <Link to="/pricing" className="underline decoration-border underline-offset-4 hover:text-primary">
-                  Or start self-guided for €39
-                </Link>
+                <a href="#coaching" className="underline decoration-border underline-offset-4 hover:text-primary">
+                  Or see how coaching works
+                </a>
               </p>
-              <div className="mt-8 flex flex-wrap gap-6 text-sm text-muted-foreground">
+              <div className="mt-6 flex flex-wrap gap-2">
+                {["30–40 min", "No food scale", "Train at home", "Dubai, UAE"].map((pill) => (
+                  <span
+                    key={pill}
+                    className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold tracking-tight text-primary"
+                  >
+                    {pill}
+                  </span>
+                ))}
+              </div>
+              <div className="mt-6 flex flex-wrap gap-6 text-sm text-muted-foreground">
                 <span className="inline-flex items-center gap-1.5">
                   <Check className="h-4 w-4 shrink-0 text-primary" />
                   Train at home — no commute
@@ -82,7 +95,7 @@ const HomePage = () => {
                 </span>
                 <span className="inline-flex items-center gap-1.5">
                   <Check className="h-4 w-4 shrink-0 text-primary" />
-                  Fathers, founders &amp; professionals 35+
+                  Built for fathers 35+
                 </span>
               </div>
             </div>
@@ -127,7 +140,7 @@ const HomePage = () => {
         <div className="container mx-auto max-w-[1100px] px-6">
           <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">Built For You</p>
           <h2 className="font-display text-balance text-[clamp(2rem,5vw,3rem)] text-foreground">
-            For busy <span className="text-primary">fathers, founders &amp; professionals</span> 35+ — who don&apos;t have time
+            Built for busy <span className="text-primary">fathers in Dubai</span> — founders &amp; professionals welcome too
           </h2>
           <p className="mb-10 mt-4 max-w-[600px] text-pretty text-[1.05rem] leading-relaxed text-muted-foreground">
             You don&apos;t need another influencer telling you to &quot;just be consistent.&quot; You need 30–40 minutes, three times a week, and a plan that still
@@ -137,8 +150,17 @@ const HomePage = () => {
             {whoCards.map((c) => (
               <div
                 key={c.title}
-                className="group rounded-xl border border-border bg-[hsl(0_0%_6.5%)] p-8 transition-colors hover:border-primary/60"
+                className={`group rounded-xl border bg-[hsl(0_0%_6.5%)] p-8 transition-colors ${
+                  "featured" in c && c.featured
+                    ? "border-2 border-primary shadow-[0_0_32px_hsl(171_47%_50%_/_0.12)]"
+                    : "border-border hover:border-primary/60"
+                }`}
               >
+                {"featured" in c && c.featured && (
+                  <div className="mb-4 inline-block rounded-full bg-primary/10 px-3 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-primary">
+                    Most common
+                  </div>
+                )}
                 <div
                   className="mb-5 flex h-12 w-12 items-center justify-center rounded-lg text-xl"
                   style={{ background: "hsl(171 47% 50% / 0.12)" }}
@@ -169,10 +191,16 @@ const HomePage = () => {
               <div className="text-xs font-semibold uppercase tracking-widest text-primary">Self-Guided</div>
               <h3 className="font-display mt-1 text-3xl">Busy Strong 90</h3>
               <div className="mt-2 text-muted-foreground">
-                <strong className="font-display text-4xl text-foreground">€39</strong> one-time
+                <strong className="font-display text-4xl text-foreground">{PRICING.selfGuided.label}</strong> one-time
               </div>
               <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
-                {["Full 90-day program (36 sessions)", "Exercise video library", "Nutrition framework guide", "Habit-building system", "Email support"].map((x) => (
+                {[
+                  "Full 90-day program you can finish — 36 sessions, 30–40 min each",
+                  "Know exactly what to do every workout",
+                  "Eat normally — no food scale, no macro app",
+                  "Habits that stick after the 90 days",
+                  "Email support when you're stuck",
+                ].map((x) => (
                   <li key={x} className="flex gap-2">
                     <span className="font-bold text-primary">✓</span>
                     {x}
@@ -186,22 +214,22 @@ const HomePage = () => {
 
             <div className="relative flex flex-col rounded-2xl border-2 border-primary bg-background p-8 shadow-[0_0_40px_hsl(171_47%_50%_/_0.1)]">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-primary-foreground">
-                Most Popular
+                Recommended
               </div>
+              <p className="mt-2 text-center text-xs text-muted-foreground">For fathers who want accountability without the elite price.</p>
               <div className="text-xs font-semibold uppercase tracking-widest text-primary">Core Coaching</div>
               <h3 className="font-display mt-1 text-3xl">Coached Strong 90</h3>
               <div className="mt-2 text-muted-foreground">
-                <strong className="font-display text-4xl text-foreground">€299</strong> / month
+                <strong className="font-display text-4xl text-foreground">{PRICING.coachedStrong90.label}</strong> / month
               </div>
               <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border/80 pt-4 text-sm text-[#ccc]">
                 {[
                   "Everything in Self-Guided",
-                  "Custom training plan for your schedule",
-                  "Weekly check-ins — kg + energy focus",
-                  "Nutrition plan adapted to your lifestyle (no food scale)",
-                  "Form checks via video",
-                  "WhatsApp accountability group",
-                  "Free My-Gym shirt",
+                  "Train before the family wakes up — plan built for your schedule",
+                  "Feel the energy shift within the first 14 days",
+                  "Eat with your family — no food scale, no tracking obsession",
+                  "Form checks so you train safely, without injuries",
+                  "WhatsApp group that keeps you going past week 3",
                 ].map((x) => (
                   <li key={x} className="flex gap-2">
                     <span className="font-bold text-primary">✓</span>
@@ -210,7 +238,7 @@ const HomePage = () => {
                 ))}
               </ul>
               <Button asChild className="h-11 w-full bg-primary font-bold text-primary-foreground hover:bg-primary/90">
-                <Link to="/coaching-apply?plan=coached-strong-90#apply">Apply Now</Link>
+                <Link to="/coaching-apply?plan=coached-strong-90#apply">Start This Week</Link>
               </Button>
             </div>
 
@@ -218,7 +246,7 @@ const HomePage = () => {
               <div className="text-xs font-semibold uppercase tracking-widest text-primary">Elite</div>
               <h3 className="font-display mt-1 text-3xl">Private Transformation</h3>
               <div className="mt-2 text-muted-foreground">
-                <strong className="font-display text-4xl text-foreground">€699</strong> / month
+                <strong className="font-display text-4xl text-foreground">{PRICING.privateTransformation.label}</strong> / month
               </div>
               <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
                 {[
@@ -227,7 +255,7 @@ const HomePage = () => {
                   "Fully custom program — rebuilt monthly",
                   "Direct WhatsApp access to Milos",
                   "Priority response (under 1 hour)",
-                  "Free My-Gym shirt",
+                  "Monthly video call with progress analysis",
                 ].map((x) => (
                   <li key={x} className="flex gap-2">
                     <span className="font-bold text-primary">✓</span>
@@ -236,7 +264,7 @@ const HomePage = () => {
                 ))}
               </ul>
               <Button asChild variant="outline" className="h-11 w-full border-border font-semibold">
-                <Link to="/coaching-apply?plan=private-transformation#apply">Apply for Elite</Link>
+                <Link to="/coaching-apply?plan=private-transformation#apply">Book Strategy Call</Link>
               </Button>
             </div>
           </div>
@@ -369,18 +397,20 @@ const HomePage = () => {
             90 days. <span className="text-primary">Weight down. Energy back.</span>
           </h2>
           <p className="mx-auto mt-4 max-w-lg text-pretty text-muted-foreground">
-            The training system, simple nutrition, and habits — built for fathers, founders, and professionals who don&apos;t have time to waste.
+            The training system, simple nutrition, and habits — built for busy fathers in Dubai who don&apos;t have time to waste.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
-              <Link to="/coaching-apply?plan=coached-strong-90#apply">Apply for Coached Strong 90</Link>
+              <Link to="/pricing">Get the Program — {PRICING.selfGuided.label}</Link>
             </Button>
             <Button
               asChild
               variant="outline"
               className="h-12 rounded-lg border-border px-8 text-base font-semibold"
             >
-              <Link to="/pricing">Get the €39 Program</Link>
+              <a href={CALENDLY_FREE_CALL_URL} target="_blank" rel="noopener noreferrer">
+                Book a Free Call
+              </a>
             </Button>
           </div>
         </div>

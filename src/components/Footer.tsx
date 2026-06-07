@@ -24,7 +24,7 @@ const Footer = () => {
               </span>
             </Link>
             <p className="text-muted-foreground text-sm leading-relaxed">
-              90-day training for busy fathers, founders & professionals 35+. 30 min, 3x/week. Weight down. Energy back.
+              90-day training for busy fathers in Dubai. 30–40 min, 3x/week. Weight down. Energy back.
             </p>
           </div>
 
@@ -41,7 +41,7 @@ const Footer = () => {
             <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">Support</h4>
             <div className="flex flex-col gap-2">
               <Link to="/blog" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Blog</Link>
-              <Link to="/coaching-apply" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Apply for Coaching</Link>
+              <Link to="/coaching-apply" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Coaching</Link>
               <Link to="/faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">FAQ</Link>
               <Link to="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Pricing</Link>
               <Link to="/login" className="text-sm text-muted-foreground hover:text-foreground transition-colors">Member Login</Link>
