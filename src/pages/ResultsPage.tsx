@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, TrendingUp, Scale, Dumbbell, Battery, Eye } from "lucide-react";
 import coachFront from "@/assets/coach-front.webp";
 import { PageMeta } from "@/components/seo/PageMeta";
-import { PRICING } from "@/lib/pricing";
+import { usePricing } from "@/hooks/usePricing";
 
 const progressIcons = [Scale, Dumbbell, TrendingUp, Battery, Eye];
 
@@ -14,6 +14,7 @@ type Habit = { n: number; title: string; body: string; action: string };
 
 const ResultsPage = () => {
   const { t } = useTranslation("results");
+  const pricing = usePricing();
   const { t: tCommon } = useTranslation("common");
 
   const progressExpectations = t("timeline.items", { returnObjects: true }) as ProgressRow[];
@@ -161,7 +162,7 @@ const ResultsPage = () => {
           <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
             <Link to="/pricing">
               <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
-                {t("cta.getProgram", { price: PRICING.selfGuided.label })}{" "}
+                {t("cta.getProgram", { price: pricing.selfGuided.label })}{" "}
                 <ArrowRight className="icon-directional ms-2 h-5 w-5" />
               </Button>
             </Link>

@@ -1,5 +1,4 @@
 import type { BlogPost } from "./types";
-import { PRICING } from "@/lib/pricing";
 
 export const fallenOffWagonPost: BlogPost = {
   slug: "fallen-off-wagon-fitness-consistency-busy-men",
@@ -192,7 +191,7 @@ export const fallenOffWagonPost: BlogPost = {
       primaryHref: "/coaching-apply?plan=coached-strong-90#apply",
       primaryLabel: "Start Coaching",
       secondaryHref: "/pricing",
-      secondaryLabel: `Get the self-guided program for ${PRICING.selfGuided.label}`,
+      secondaryLabel: "Get the self-guided program for {{price}}",
     },
     { type: "p", text: "*You don't need to suffer more. You need to suffer smarter.*" },
   ],

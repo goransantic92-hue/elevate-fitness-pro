@@ -8,11 +8,11 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { PageMeta } from "@/components/seo/PageMeta";
-import { PRICING } from "@/lib/pricing";
+import { usePricing } from "@/hooks/usePricing";
+import { getCoachingPlanDisplay, parseCoachingPlanParam } from "@/lib/coachingPlan";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
-import { COACHING_PLAN_DISPLAY, parseCoachingPlanParam } from "@/lib/coachingPlan";
 
 const ageOptions = ["25-34", "35-39", "40-44", "45-49", "50+"] as const;
 const roleOptions = ["founder", "corporate", "parent", "freelance", "other"] as const;
@@ -22,9 +22,13 @@ const minutesOptions = ["20-30", "30-40", "40-60", "less"] as const;
 export default function CoachingApplyPage() {
   const { t } = useTranslation("coaching");
   const { toast } = useToast();
+  const pricing = usePricing();
   const [searchParams] = useSearchParams();
   const coachingPlanSlug = useMemo(() => parseCoachingPlanParam(searchParams.get("plan")), [searchParams]);
-  const coachingPlanDisplay = coachingPlanSlug ? COACHING_PLAN_DISPLAY[coachingPlanSlug] : null;
+  const coachingPlanDisplay = useMemo(
+    () => (coachingPlanSlug ? getCoachingPlanDisplay(pricing)[coachingPlanSlug] : null),
+    [coachingPlanSlug, pricing],
+  );
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
@@ -64,6 +68,7 @@ export default function CoachingApplyPage() {
           minutes,
           anythingElse,
           coachingPlan: coachingPlanSlug ?? "",
+          coachingPlanLabel: coachingPlanDisplay?.emailLabel ?? "",
         }),
       });
       const ct = r.headers.get("content-type") ?? "";
@@ -150,7 +155,7 @@ export default function CoachingApplyPage() {
                   <Link to="/coaching-apply?plan=coached-strong-90#apply" className="flex flex-col gap-0.5">
                     <span className="font-display text-base font-bold text-foreground">{t("planPicker.coachedStrong90.name")}</span>
                     <span className="text-xs font-normal text-muted-foreground">
-                      {t("planPicker.coachedStrong90.tier", { price: PRICING.coachedStrong90.labelMonthly })}
+                      {t("planPicker.coachedStrong90.tier", { price: pricing.coachedStrong90.labelMonthly })}
                     </span>
                   </Link>
                 </Button>
@@ -158,7 +163,7 @@ export default function CoachingApplyPage() {
                   <Link to="/coaching-apply?plan=private-transformation#apply" className="flex flex-col gap-0.5">
                     <span className="font-display text-base font-bold text-foreground">{t("planPicker.privateTransformation.name")}</span>
                     <span className="text-xs font-normal text-muted-foreground">
-                      {t("planPicker.privateTransformation.tier", { price: PRICING.privateTransformation.labelMonthly })}
+                      {t("planPicker.privateTransformation.tier", { price: pricing.privateTransformation.labelMonthly })}
                     </span>
                   </Link>
                 </Button>

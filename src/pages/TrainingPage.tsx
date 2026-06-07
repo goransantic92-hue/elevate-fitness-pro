@@ -6,7 +6,7 @@ import coachTraining from "@/assets/coach-training.webp";
 import { gymWorkouts, emergencyWorkouts } from "@/data/busyStrong90";
 import type { WorkoutPlan } from "@/data/busyStrong90";
 import { PageMeta } from "@/components/seo/PageMeta";
-import { PRICING } from "@/lib/pricing";
+import { usePricing } from "@/hooks/usePricing";
 
 const WorkoutCard = ({ workout, labels }: { workout: WorkoutPlan; labels: { sets: string; reps: string; rest: string; finisher: string; warmup: string } }) => (
   <div className="glass-card overflow-hidden">
@@ -52,6 +52,7 @@ const WorkoutCard = ({ workout, labels }: { workout: WorkoutPlan; labels: { sets
 
 const TrainingPage = () => {
   const { t } = useTranslation("training");
+  const pricing = usePricing();
   const gymList = [gymWorkouts.a, gymWorkouts.b, gymWorkouts.c];
   const labels = {
     sets: t("labels.sets"),
@@ -129,7 +130,7 @@ const TrainingPage = () => {
               </Link>
               <Link to="/pricing">
                 <Button className="bg-primary text-primary-foreground font-semibold">
-                  {t("home.viewAccess", { price: PRICING.selfGuided.label })}{" "}
+                  {t("home.viewAccess", { price: pricing.selfGuided.label })}{" "}
                   <ArrowRight className="icon-directional ms-2 h-4 w-4" />
                 </Button>
               </Link>

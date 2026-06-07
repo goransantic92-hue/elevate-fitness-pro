@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Utensils, MapPin, Pill, Apple, Beef, Egg } from "lucide-react";
 import coachWorkout from "@/assets/coach-workout.webp";
 import { PageMeta } from "@/components/seo/PageMeta";
-import { PRICING } from "@/lib/pricing";
+import { usePricing } from "@/hooks/usePricing";
 
 const ruleIcons = [Beef, Apple, Egg];
 
@@ -16,6 +16,7 @@ type SupplementWaste = { name: string; reason: string };
 
 const NutritionPage = () => {
   const { t } = useTranslation("nutrition");
+  const pricing = usePricing();
 
   const nutritionRules = t("rules.items", { returnObjects: true }) as NutritionRule[];
   const sampleMealPlan = t("meals.items", { returnObjects: true }) as Meal[];
@@ -199,7 +200,7 @@ const NutritionPage = () => {
           <p className="text-muted-foreground mb-8">{t("cta.subhead")}</p>
           <Link to="/pricing">
             <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
-              {t("cta.button", { price: PRICING.selfGuided.label })}{" "}
+              {t("cta.button", { price: pricing.selfGuided.label })}{" "}
               <ArrowRight className="icon-directional ms-2 h-5 w-5" />
             </Button>
           </Link>

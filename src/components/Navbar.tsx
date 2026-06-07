@@ -6,7 +6,8 @@ import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useAuth } from "@/context/AuthContext";
 import { programPublicPath } from "@/lib/programNav";
-import { CALENDLY_FREE_CALL_URL, PRICING } from "@/lib/pricing";
+import { CALENDLY_FREE_CALL_URL } from "@/lib/pricing";
+import { usePricing } from "@/hooks/usePricing";
 
 const navHrefs = [
   { href: "/", key: "home" },
@@ -28,6 +29,7 @@ const Navbar = () => {
   const { t } = useTranslation();
   const { t: tDashboard } = useTranslation("dashboard");
   const { user, isAdmin, signOut, configured, hasProgramAccess, loading } = useAuth();
+  const pricing = usePricing();
 
   const navOpts = { configured, hasProgramAccess, loading, user };
 
@@ -121,7 +123,7 @@ const Navbar = () => {
                   </a>
                 </Button>
                 <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold">
-                  <Link to="/pricing">{t("nav.programCta", { price: PRICING.selfGuided.label })}</Link>
+                  <Link to="/pricing">{t("nav.programCta", { price: pricing.selfGuided.label })}</Link>
                 </Button>
               </>
             )}
@@ -209,7 +211,7 @@ const Navbar = () => {
                   </Button>
                   <Button asChild className="w-full bg-primary text-primary-foreground font-bold">
                     <Link to="/pricing" onClick={() => setOpen(false)}>
-                      {t("nav.programCta", { price: PRICING.selfGuided.label })}
+                      {t("nav.programCta", { price: pricing.selfGuided.label })}
                     </Link>
                   </Button>
                 </>

@@ -4,12 +4,13 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PageMeta } from "@/components/seo/PageMeta";
-import { PRICING } from "@/lib/pricing";
+import { usePricing } from "@/hooks/usePricing";
 
 type FaqItem = { q: string; a: string };
 
 const FAQPage = () => {
   const { t } = useTranslation("faq");
+  const pricing = usePricing();
 
   const faqItems = t("items", { returnObjects: true }) as FaqItem[];
 
@@ -41,7 +42,7 @@ const FAQPage = () => {
 
           <div className="mt-12 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
-              <Link to="/pricing">{t("cta.getProgram", { price: PRICING.selfGuided.label })}</Link>
+              <Link to="/pricing">{t("cta.getProgram", { price: pricing.selfGuided.label })}</Link>
             </Button>
             <Button asChild variant="outline" className="h-12 rounded-lg border-border px-8 text-base font-semibold">
               <Link to="/coaching-apply?plan=coached-strong-90#apply">

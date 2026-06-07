@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
 import coachHanging from "@/assets/coach-hanging.webp";
 import { PageMeta } from "@/components/seo/PageMeta";
-import { PRICING } from "@/lib/pricing";
+import { usePricing } from "@/hooks/usePricing";
 
 const phaseColors = ["from-primary/20 to-primary/5", "from-primary/30 to-primary/10", "from-primary/40 to-primary/15"];
 
@@ -13,6 +13,7 @@ type ScheduleDay = { day: string; session: string; duration: string; focus: stri
 
 const ProgramPage = () => {
   const { t } = useTranslation("program");
+  const pricing = usePricing();
 
   const phases = t("phases", { returnObjects: true }) as Phase[];
   const weeklySchedule = t("schedule.items", { returnObjects: true }) as ScheduleDay[];
@@ -128,7 +129,7 @@ const ProgramPage = () => {
           <div className="mt-12">
             <Link to="/pricing">
               <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
-                {t("included.cta", { price: PRICING.selfGuided.label })}{" "}
+                {t("included.cta", { price: pricing.selfGuided.label })}{" "}
                 <ArrowRight className="icon-directional ms-2 h-5 w-5" />
               </Button>
             </Link>

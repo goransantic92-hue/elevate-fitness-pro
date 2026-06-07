@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
@@ -6,15 +7,28 @@ import { BlogArticleBody } from "@/components/blog/BlogArticleBody";
 import { BlogPostingSchema } from "@/components/seo/BlogPostingSchema";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { blogPosts, getBlogPostBySlug } from "@/data/blog";
+import type { BlogBlock } from "@/data/blog";
 import { formatBlogDate } from "@/lib/formatBlogDate";
-import { PRICING } from "@/lib/pricing";
+import { usePricing } from "@/hooks/usePricing";
 import NotFound from "@/pages/NotFound";
+
+function resolveBlogBlocks(blocks: BlogBlock[], priceLabel: string): BlogBlock[] {
+  return blocks.map((block) => {
+    if (block.type !== "cta" || !block.secondaryLabel?.includes("{{price}}")) return block;
+    return { ...block, secondaryLabel: block.secondaryLabel.replace("{{price}}", priceLabel) };
+  });
+}
 
 const BlogPostPage = () => {
   const { slug } = useParams<{ slug: string }>();
   const { t, i18n } = useTranslation("blog");
   const { t: tCommon } = useTranslation("common");
+  const pricing = usePricing();
   const post = slug ? getBlogPostBySlug(slug) : undefined;
+  const articleBlocks = useMemo(
+    () => (post ? resolveBlogBlocks(post.blocks, pricing.selfGuided.label) : []),
+    [post, pricing.selfGuided.label],
+  );
 
   if (!post) {
     return <NotFound />;
@@ -70,7 +84,7 @@ const BlogPostPage = () => {
               {t("arabicBodyNotice")}
             </p>
           )}
-          <BlogArticleBody blocks={post.blocks} />
+          <BlogArticleBody blocks={articleBlocks} />
         </div>
       </section>
 
@@ -104,7 +118,7 @@ const BlogPostPage = () => {
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
               <Link to="/pricing">
-                {t("post.getProgram", { price: PRICING.selfGuided.label })}{" "}
+                {t("post.getProgram", { price: pricing.selfGuided.label })}{" "}
                 <ArrowRight className="icon-directional ms-1 h-4 w-4" />
               </Link>
             </Button>

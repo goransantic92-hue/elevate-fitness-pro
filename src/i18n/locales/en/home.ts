@@ -2,11 +2,11 @@ export default {
   meta: {
     title: "Busy Strong 90 — 90-Day Fitness for Busy Fathers in Dubai | Coach Milos",
     description:
-      "90-day training & nutrition for busy fathers 35+ in Dubai. 30–40 min home workouts, no food scale. Lose weight, restore energy. Coached Strong 90 from 1,299 AED/mo.",
+      "90-day training & nutrition for busy fathers 35+ in Dubai. 30–40 min home workouts, no food scale. Lose weight, restore energy. Coached Strong 90 from €299/mo.",
   },
   hero: {
     eyebrow: "You haven't trained in months. You're tired. Your kids see it.",
-    headline: "For busy fathers in Dubai who want their",
+    headline: "For busy fathers who want their",
     headlineEnergy: "energy",
     headlineSuffix: "back.",
     subhead:

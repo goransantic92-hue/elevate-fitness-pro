@@ -9,13 +9,14 @@ import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
-import { PRICING } from "@/lib/pricing";
+import { usePricing } from "@/hooks/usePricing";
 
 type PricingTestimonial = { quote: string; name: string; sub: string };
 
 const PricingPage = () => {
   const { t } = useTranslation("pricing");
   const { t: tDashboard } = useTranslation("dashboard");
+  const pricing = usePricing();
   const { user, hasProgramAccess, configured, loading } = useAuth();
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -97,7 +98,7 @@ const PricingPage = () => {
     <div>
       <PageMeta
         title={t("meta.title")}
-        description={t("meta.description", { priceOneTime: PRICING.selfGuided.labelOneTime })}
+        description={t("meta.description", { priceOneTime: pricing.selfGuided.labelOneTime })}
         path="/pricing"
       />
       <section className="py-28 md:py-36">
@@ -117,7 +118,7 @@ const PricingPage = () => {
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
                 <Zap className="h-3 w-3" /> {t("launchBadge")}
               </div>
-              <h2 className="text-4xl md:text-5xl font-black mb-2">{PRICING.selfGuided.label}</h2>
+              <h2 className="text-4xl md:text-5xl font-black mb-2">{pricing.selfGuided.label}</h2>
               <p className="text-muted-foreground text-[10px] leading-snug sm:text-xs md:text-sm tracking-tight text-center whitespace-normal sm:whitespace-nowrap px-1">
                 {t("oneTimeLifetime")}
               </p>

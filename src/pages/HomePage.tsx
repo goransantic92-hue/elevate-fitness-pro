@@ -8,7 +8,8 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import privateTrainerFitness from "@/assets/private-trainer-fitness.webp";
 import coachAbout from "@/assets/coach-about.webp";
 import { PageMeta } from "@/components/seo/PageMeta";
-import { CALENDLY_FREE_CALL_URL, PRICING } from "@/lib/pricing";
+import { CALENDLY_FREE_CALL_URL } from "@/lib/pricing";
+import { usePricing } from "@/hooks/usePricing";
 
 const whoCardKeys = [
   { key: "fathers", icon: "👨‍👧‍👦", featured: true },
@@ -24,6 +25,7 @@ const HomePage = () => {
   const { t } = useTranslation("home");
   const { t: tCommon } = useTranslation("common");
   const { t: tFaq } = useTranslation("faq");
+  const pricing = usePricing();
 
   const heroPills = t("hero.pills", { returnObjects: true }) as string[];
   const heroTrust = t("hero.trust", { returnObjects: true }) as string[];
@@ -56,12 +58,12 @@ const HomePage = () => {
                 </span>
               </h1>
               <p className="mt-6 max-w-[600px] text-pretty text-lg leading-relaxed text-[#ccc]">
-                {t("hero.subhead", { coachingPrice: PRICING.coachedStrong90.labelMonthly })}
+                {t("hero.subhead", { coachingPrice: pricing.coachedStrong90.labelMonthly })}
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground hover:bg-primary/90">
                   <Link to="/pricing">
-                    {tCommon("cta.getProgramPrice", { price: PRICING.selfGuided.label })}
+                    {tCommon("cta.getProgramPrice", { price: pricing.selfGuided.label })}
                     <ArrowRight className="icon-directional ms-1 h-4 w-4" />
                   </Link>
                 </Button>
@@ -183,7 +185,7 @@ const HomePage = () => {
               <div className="text-xs font-semibold uppercase tracking-widest text-primary">{t("tiers.selfGuided.tier")}</div>
               <h3 className="font-display mt-1 text-3xl">{t("tiers.selfGuided.name")}</h3>
               <div className="mt-2 text-muted-foreground">
-                <strong className="font-display text-4xl text-foreground">{PRICING.selfGuided.label}</strong> {tCommon("misc.oneTime")}
+                <strong className="font-display text-4xl text-foreground">{pricing.selfGuided.label}</strong> {tCommon("misc.oneTime")}
               </div>
               <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
                 {(t("tiers.selfGuided.benefits", { returnObjects: true }) as string[]).map((x) => (
@@ -206,7 +208,7 @@ const HomePage = () => {
               <div className="text-xs font-semibold uppercase tracking-widest text-primary">{t("tiers.coached.tier")}</div>
               <h3 className="font-display mt-1 text-3xl">{t("tiers.coached.name")}</h3>
               <div className="mt-2 text-muted-foreground">
-                <strong className="font-display text-4xl text-foreground">{PRICING.coachedStrong90.label}</strong> {tCommon("misc.perMonth")}
+                <strong className="font-display text-4xl text-foreground">{pricing.coachedStrong90.label}</strong> {tCommon("misc.perMonth")}
               </div>
               <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border/80 pt-4 text-sm text-[#ccc]">
                 {(t("tiers.coached.benefits", { returnObjects: true }) as string[]).map((x) => (
@@ -225,7 +227,7 @@ const HomePage = () => {
               <div className="text-xs font-semibold uppercase tracking-widest text-primary">{t("tiers.elite.tier")}</div>
               <h3 className="font-display mt-1 text-3xl">{t("tiers.elite.name")}</h3>
               <div className="mt-2 text-muted-foreground">
-                <strong className="font-display text-4xl text-foreground">{PRICING.privateTransformation.label}</strong> {tCommon("misc.perMonth")}
+                <strong className="font-display text-4xl text-foreground">{pricing.privateTransformation.label}</strong> {tCommon("misc.perMonth")}
               </div>
               <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
                 {(t("tiers.elite.benefits", { returnObjects: true }) as string[]).map((x) => (
@@ -352,7 +354,7 @@ const HomePage = () => {
           <p className="mx-auto mt-4 max-w-lg text-pretty text-muted-foreground">{t("finalCta.body")}</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
-              <Link to="/pricing">{tCommon("cta.getProgramPrice", { price: PRICING.selfGuided.label })}</Link>
+              <Link to="/pricing">{tCommon("cta.getProgramPrice", { price: pricing.selfGuided.label })}</Link>
             </Button>
             <Button asChild variant="outline" className="h-12 rounded-lg border-border px-8 text-base font-semibold">
               <a href={CALENDLY_FREE_CALL_URL} target="_blank" rel="noopener noreferrer">

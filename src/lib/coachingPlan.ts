@@ -1,32 +1,33 @@
-import { PRICING } from "@/lib/pricing";
+import type { PricingSet } from "@/lib/pricing";
 
 /** Query value `?plan=` on /coaching-apply — must match Home pricing CTAs. */
 export const COACHING_PLAN_SLUGS = ["coached-strong-90", "private-transformation"] as const;
 export type CoachingPlanSlug = (typeof COACHING_PLAN_SLUGS)[number];
 
-/** UI + emails: keep wording aligned with `api/coaching-apply.ts` (COACHING_PLAN_LABEL). */
-export const COACHING_PLAN_DISPLAY: Record<
-  CoachingPlanSlug,
-  { name: string; tier: string; price: string; emailLabel: string }
-> = {
-  "coached-strong-90": {
-    name: "Coached Strong 90",
-    tier: "Core Coaching",
-    price: `${PRICING.coachedStrong90.labelMonthly}`,
-    emailLabel: `Coached Strong 90 — Core Coaching (${PRICING.coachedStrong90.labelMonthly})`,
-  },
-  "private-transformation": {
-    name: "Private Transformation",
-    tier: "Elite",
-    price: `${PRICING.privateTransformation.labelMonthly}`,
-    emailLabel: `Private Transformation — Elite (${PRICING.privateTransformation.labelMonthly})`,
-  },
+export type CoachingPlanDisplay = {
+  name: string;
+  tier: string;
+  price: string;
+  emailLabel: string;
 };
 
-export const COACHING_PLAN_LABEL: Record<CoachingPlanSlug, string> = {
-  "coached-strong-90": COACHING_PLAN_DISPLAY["coached-strong-90"].emailLabel,
-  "private-transformation": COACHING_PLAN_DISPLAY["private-transformation"].emailLabel,
-};
+/** UI + emails: keep wording aligned with `api/coaching-apply.ts` when no client label is sent. */
+export function getCoachingPlanDisplay(pricing: PricingSet): Record<CoachingPlanSlug, CoachingPlanDisplay> {
+  return {
+    "coached-strong-90": {
+      name: "Coached Strong 90",
+      tier: "Core Coaching",
+      price: pricing.coachedStrong90.labelMonthly,
+      emailLabel: `Coached Strong 90 — Core Coaching (${pricing.coachedStrong90.labelMonthly})`,
+    },
+    "private-transformation": {
+      name: "Private Transformation",
+      tier: "Elite",
+      price: pricing.privateTransformation.labelMonthly,
+      emailLabel: `Private Transformation — Elite (${pricing.privateTransformation.labelMonthly})`,
+    },
+  };
+}
 
 export function parseCoachingPlanParam(value: string | null): CoachingPlanSlug | null {
   if (!value) return null;

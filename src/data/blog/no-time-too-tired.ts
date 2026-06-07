@@ -1,5 +1,4 @@
 import type { BlogPost } from "./types";
-import { PRICING } from "@/lib/pricing";
 
 export const noTimeTooTiredPost: BlogPost = {
   slug: "no-time-too-tired-workout-busy-men",
@@ -206,7 +205,7 @@ export const noTimeTooTiredPost: BlogPost = {
       primaryHref: "/coaching-apply?plan=coached-strong-90#apply",
       primaryLabel: "Start Coaching",
       secondaryHref: "/pricing",
-      secondaryLabel: `Start self-guided for ${PRICING.selfGuided.label}`,
+      secondaryLabel: "Start self-guided for {{price}}",
     },
     {
       type: "p",
