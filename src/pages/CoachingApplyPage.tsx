@@ -1,5 +1,6 @@
 import { useMemo, useState, type FormEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { ArrowLeft, ArrowRight, Check, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -13,7 +14,13 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
 import { COACHING_PLAN_DISPLAY, parseCoachingPlanParam } from "@/lib/coachingPlan";
 
+const ageOptions = ["25-34", "35-39", "40-44", "45-49", "50+"] as const;
+const roleOptions = ["founder", "corporate", "parent", "freelance", "other"] as const;
+const fitnessOptions = ["scratch", "inconsistent", "no-results", "experienced"] as const;
+const minutesOptions = ["20-30", "30-40", "40-60", "less"] as const;
+
 export default function CoachingApplyPage() {
+  const { t } = useTranslation("coaching");
   const { toast } = useToast();
   const [searchParams] = useSearchParams();
   const coachingPlanSlug = useMemo(() => parseCoachingPlanParam(searchParams.get("plan")), [searchParams]);
@@ -35,7 +42,7 @@ export default function CoachingApplyPage() {
   const onSubmit = async (e: FormEvent) => {
     e.preventDefault();
     if (!age || !role || !fitness || !minutes || !goal.trim()) {
-      toast({ title: "Please complete all fields", variant: "destructive" });
+      toast({ title: t("toast.incompleteTitle"), variant: "destructive" });
       return;
     }
     setSubmitting(true);
@@ -61,24 +68,18 @@ export default function CoachingApplyPage() {
       });
       const ct = r.headers.get("content-type") ?? "";
       if (!ct.includes("application/json")) {
-        throw new Error(
-          "The form could not reach the email service. Confirm the site is deployed on Vercel with the /api/coaching-apply function, or email info@ptmilosilic.com directly."
-        );
+        throw new Error(t("toast.deployError"));
       }
       const data = (await r.json()) as { ok?: boolean; error?: string; warning?: string };
       if (!r.ok || !data.ok) {
         throw new Error(
           data.error ||
-            (r.status === 503
-              ? "Email service is not configured on the server (missing RESEND_API_KEY)."
-              : "Something went wrong")
+            (r.status === 503 ? t("toast.emailNotConfigured") : t("toast.serverError"))
         );
       }
       toast({
-        title: "Application received",
-        description: data.warning
-          ? data.warning
-          : "Check your inbox for a confirmation email with a link to book your consultation. If you don't see it, check Spam or Promotions.",
+        title: t("toast.successTitle"),
+        description: data.warning ? data.warning : t("toast.successDescription"),
       });
       setFirstName("");
       setLastName("");
@@ -94,8 +95,8 @@ export default function CoachingApplyPage() {
       setAnythingElse("");
     } catch (err) {
       toast({
-        title: "Could not submit",
-        description: err instanceof Error ? err.message : "Please try again or email info@ptmilosilic.com.",
+        title: t("toast.errorTitle"),
+        description: err instanceof Error ? err.message : t("toast.errorFallback"),
         variant: "destructive",
       });
     } finally {
@@ -105,63 +106,60 @@ export default function CoachingApplyPage() {
 
   return (
     <div className="font-sans">
-      <PageMeta
-        title="Apply for Coaching — Coach Milos"
-        description="Apply to train with Coach Milos. Limited spots. Response within 24 hours."
-        path="/coaching-apply"
-      />
+      <PageMeta title={t("meta.title")} description={t("meta.description")} path="/coaching-apply" />
       <div className="mx-auto max-w-[680px] px-6 py-12 md:py-16">
         <Link
           to="/#coaching"
           className="mb-10 inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-primary"
         >
           <ArrowLeft className="h-4 w-4" />
-          {coachingPlanDisplay ? `Back to ${coachingPlanDisplay.name}` : "Back to coaching"}
+          {coachingPlanDisplay ? t("back.toPlan", { planName: coachingPlanDisplay.name }) : t("back.toCoaching")}
         </Link>
 
         <div className="mb-10">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">Application</p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">{t("heading.eyebrow")}</p>
           <h1 className="font-display text-balance text-[clamp(2rem,5vw,3rem)] text-foreground">
-            Apply to Train With <span className="text-primary">Coach Milos</span>
+            {t("heading.title")} <span className="text-primary">{t("heading.titleHighlight")}</span>
           </h1>
-          <p className="mt-4 max-w-lg text-pretty text-[1.05rem] leading-relaxed text-muted-foreground">
-            I work with a limited number of clients at a time so I can give each person the attention they deserve. Fill out this short application and I&apos;ll
-            get back to you within 24 hours.
-          </p>
+          <p className="mt-4 max-w-lg text-pretty text-[1.05rem] leading-relaxed text-muted-foreground">{t("heading.body")}</p>
           {coachingPlanDisplay ? (
             <div
               className={cn(
                 "mt-8 max-w-lg rounded-2xl border border-primary/40 bg-gradient-to-br from-primary/[0.12] to-primary/[0.03] p-6 shadow-[0_0_0_1px_hsl(var(--primary)/0.08)]"
               )}
             >
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">You&apos;re applying for</p>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">{t("planPicker.applyingFor")}</p>
               <p className="mt-3 font-display text-balance text-2xl font-black tracking-tight text-foreground md:text-3xl">
                 {coachingPlanDisplay.name}
               </p>
               <p className="mt-1 text-sm font-semibold text-primary">{coachingPlanDisplay.tier}</p>
               <p className="mt-5 font-display text-4xl font-black tracking-tight text-foreground md:text-5xl">{coachingPlanDisplay.price}</p>
-              <p className="mt-2 text-xs text-muted-foreground">Monthly billing · limited spots.</p>
+              <p className="mt-2 text-xs text-muted-foreground">{t("planPicker.monthlyBilling")}</p>
             </div>
           ) : (
             <div className="mt-8 max-w-lg space-y-4 rounded-2xl border border-border bg-[#0d0d0d] p-5">
               <p className="text-sm text-muted-foreground">
-                Pick a program so your application is tagged with the right plan and price. You can also open this page from the{" "}
+                {t("planPicker.noPlanBody")}{" "}
                 <Link to="/#coaching" className="font-semibold text-primary hover:underline">
-                  pricing cards
+                  {t("planPicker.pricingCards")}
                 </Link>{" "}
-                on the home page.
+                {t("planPicker.noPlanBodySuffix")}
               </p>
               <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
                 <Button asChild variant="outline" className="h-auto justify-start border-primary/40 py-3 text-left">
                   <Link to="/coaching-apply?plan=coached-strong-90#apply" className="flex flex-col gap-0.5">
-                    <span className="font-display text-base font-bold text-foreground">Coached Strong 90</span>
-                    <span className="text-xs font-normal text-muted-foreground">Core Coaching · {PRICING.coachedStrong90.labelMonthly}</span>
+                    <span className="font-display text-base font-bold text-foreground">{t("planPicker.coachedStrong90.name")}</span>
+                    <span className="text-xs font-normal text-muted-foreground">
+                      {t("planPicker.coachedStrong90.tier", { price: PRICING.coachedStrong90.labelMonthly })}
+                    </span>
                   </Link>
                 </Button>
                 <Button asChild variant="outline" className="h-auto justify-start border-primary/40 py-3 text-left">
                   <Link to="/coaching-apply?plan=private-transformation#apply" className="flex flex-col gap-0.5">
-                    <span className="font-display text-base font-bold text-foreground">Private Transformation</span>
-                    <span className="text-xs font-normal text-muted-foreground">Elite · {PRICING.privateTransformation.labelMonthly}</span>
+                    <span className="font-display text-base font-bold text-foreground">{t("planPicker.privateTransformation.name")}</span>
+                    <span className="text-xs font-normal text-muted-foreground">
+                      {t("planPicker.privateTransformation.tier", { price: PRICING.privateTransformation.labelMonthly })}
+                    </span>
                   </Link>
                 </Button>
               </div>
@@ -172,10 +170,10 @@ export default function CoachingApplyPage() {
         <form onSubmit={onSubmit} className="flex flex-col gap-7">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label>First Name</Label>
+              <Label>{t("form.firstName.label")}</Label>
               <Input
                 className="h-11 border-border bg-[#111] text-foreground"
-                placeholder="Your first name"
+                placeholder={t("form.firstName.placeholder")}
                 required
                 value={firstName}
                 onChange={(ev) => setFirstName(ev.target.value)}
@@ -183,10 +181,10 @@ export default function CoachingApplyPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label>Last Name</Label>
+              <Label>{t("form.lastName.label")}</Label>
               <Input
                 className="h-11 border-border bg-[#111] text-foreground"
-                placeholder="Your last name"
+                placeholder={t("form.lastName.placeholder")}
                 required
                 value={lastName}
                 onChange={(ev) => setLastName(ev.target.value)}
@@ -196,11 +194,11 @@ export default function CoachingApplyPage() {
           </div>
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
             <div className="space-y-2">
-              <Label>Email</Label>
+              <Label>{t("form.email.label")}</Label>
               <Input
                 type="email"
                 className="h-11 border-border bg-[#111] text-foreground"
-                placeholder="you@email.com"
+                placeholder={t("form.email.placeholder")}
                 required
                 value={email}
                 onChange={(ev) => setEmail(ev.target.value)}
@@ -208,11 +206,11 @@ export default function CoachingApplyPage() {
               />
             </div>
             <div className="space-y-2">
-              <Label>WhatsApp Number</Label>
+              <Label>{t("form.whatsapp.label")}</Label>
               <Input
                 type="tel"
                 className="h-11 border-border bg-[#111] text-foreground"
-                placeholder="+971 50 123 4567"
+                placeholder={t("form.whatsapp.placeholder")}
                 value={whatsapp}
                 onChange={(ev) => setWhatsapp(ev.target.value)}
                 disabled={submitting}
@@ -220,10 +218,10 @@ export default function CoachingApplyPage() {
             </div>
           </div>
           <div className="space-y-2">
-            <Label>Where are you based?</Label>
+            <Label>{t("form.location.label")}</Label>
             <Input
               className="h-11 border-border bg-[#111] text-foreground"
-              placeholder="City, Country"
+              placeholder={t("form.location.placeholder")}
               value={location}
               onChange={(ev) => setLocation(ev.target.value)}
               disabled={submitting}
@@ -233,58 +231,53 @@ export default function CoachingApplyPage() {
           <div className="h-px bg-border" aria-hidden />
 
           <div className="space-y-2">
-            <Label>How old are you?</Label>
+            <Label>{t("form.age.label")}</Label>
             <Select value={age} onValueChange={setAge} disabled={submitting}>
               <SelectTrigger className="h-11 border-border bg-[#111] text-foreground">
-                <SelectValue placeholder="Select your age range" />
+                <SelectValue placeholder={t("form.age.placeholder")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="25-34">25–34</SelectItem>
-                <SelectItem value="35-39">35–39</SelectItem>
-                <SelectItem value="40-44">40–44</SelectItem>
-                <SelectItem value="45-49">45–49</SelectItem>
-                <SelectItem value="50+">50+</SelectItem>
+                {ageOptions.map((opt) => (
+                  <SelectItem key={opt} value={opt}>
+                    {t(`form.age.options.${opt}`)}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label>What best describes you?</Label>
+            <Label>{t("form.role.label")}</Label>
             <Select value={role} onValueChange={setRole} disabled={submitting}>
               <SelectTrigger className="h-11 border-border bg-[#111] text-foreground">
-                <SelectValue placeholder="Select one" />
+                <SelectValue placeholder={t("form.role.placeholder")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="founder">Business Owner / Founder</SelectItem>
-                <SelectItem value="corporate">Corporate Professional</SelectItem>
-                <SelectItem value="parent">Parent (stay-at-home or part-time)</SelectItem>
-                <SelectItem value="freelance">Freelancer / Self-Employed</SelectItem>
-                <SelectItem value="other">Other</SelectItem>
+                {roleOptions.map((opt) => (
+                  <SelectItem key={opt} value={opt}>
+                    {t(`form.role.options.${opt}`)}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label>How would you describe your current fitness level?</Label>
+            <Label>{t("form.fitness.label")}</Label>
             <RadioGroup value={fitness} onValueChange={setFitness} className="gap-2" disabled={submitting}>
-              {[
-                { v: "scratch", t: "Haven't trained in 6+ months", s: "Starting from scratch — that's okay" },
-                { v: "inconsistent", t: "Inconsistent — train sometimes but can't stick to it", s: "The most common answer. You're not alone." },
-                { v: "no-results", t: "Training regularly but not seeing results", s: "Effort without a system. We fix that." },
-                { v: "experienced", t: "Experienced — just need structure and accountability", s: "You know what to do, you need someone to keep you honest." },
-              ].map((o) => (
+              {fitnessOptions.map((opt) => (
                 <div
-                  key={o.v}
+                  key={opt}
                   className={cn(
                     "flex cursor-pointer items-start gap-3 rounded-lg border border-border bg-[#111] p-4 transition-colors hover:border-primary/40",
-                    fitness === o.v && "border-primary/50",
+                    fitness === opt && "border-primary/50",
                     submitting && "pointer-events-none opacity-70"
                   )}
                 >
-                  <RadioGroupItem value={o.v} id={`fit-${o.v}`} className="mt-1" />
-                  <label htmlFor={`fit-${o.v}`} className="cursor-pointer text-left">
-                    <span className="block text-sm text-foreground">{o.t}</span>
-                    <span className="mt-0.5 block text-xs text-muted-foreground">{o.s}</span>
+                  <RadioGroupItem value={opt} id={`fit-${opt}`} className="mt-1" />
+                  <label htmlFor={`fit-${opt}`} className="cursor-pointer text-left">
+                    <span className="block text-sm text-foreground">{t(`form.fitness.options.${opt}.title`)}</span>
+                    <span className="mt-0.5 block text-xs text-muted-foreground">{t(`form.fitness.options.${opt}.subtitle`)}</span>
                   </label>
                 </div>
               ))}
@@ -292,11 +285,11 @@ export default function CoachingApplyPage() {
           </div>
 
           <div className="space-y-2">
-            <Label>What&apos;s your #1 goal right now?</Label>
-            <p className="text-xs text-muted-foreground">Be specific. &ldquo;Lose the gut and have energy to play with my kids&rdquo; is better than &ldquo;get fit.&rdquo;</p>
+            <Label>{t("form.goal.label")}</Label>
+            <p className="text-xs text-muted-foreground">{t("form.goal.hint")}</p>
             <Textarea
               className="min-h-[100px] border-border bg-[#111] text-foreground"
-              placeholder="Tell me what you want to change and why it matters to you..."
+              placeholder={t("form.goal.placeholder")}
               required
               value={goal}
               onChange={(ev) => setGoal(ev.target.value)}
@@ -305,11 +298,11 @@ export default function CoachingApplyPage() {
           </div>
 
           <div className="space-y-2">
-            <Label>What have you tried before? What didn&apos;t work?</Label>
-            <p className="text-xs text-muted-foreground">This helps me understand what to do differently for you.</p>
+            <Label>{t("form.triedBefore.label")}</Label>
+            <p className="text-xs text-muted-foreground">{t("form.triedBefore.hint")}</p>
             <Textarea
               className="min-h-[100px] border-border bg-[#111] text-foreground"
-              placeholder="Gym memberships, personal trainers, apps, programs, diets..."
+              placeholder={t("form.triedBefore.placeholder")}
               value={triedBefore}
               onChange={(ev) => setTriedBefore(ev.target.value)}
               disabled={submitting}
@@ -319,26 +312,27 @@ export default function CoachingApplyPage() {
           <div className="h-px bg-border" aria-hidden />
 
           <div className="space-y-2">
-            <Label>How many minutes per day can you realistically commit to training?</Label>
+            <Label>{t("form.minutes.label")}</Label>
             <Select value={minutes} onValueChange={setMinutes} disabled={submitting}>
               <SelectTrigger className="h-11 border-border bg-[#111] text-foreground">
-                <SelectValue placeholder="Be honest — I'll build around it" />
+                <SelectValue placeholder={t("form.minutes.placeholder")} />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="20-30">20–30 minutes</SelectItem>
-                <SelectItem value="30-40">30–40 minutes</SelectItem>
-                <SelectItem value="40-60">40–60 minutes</SelectItem>
-                <SelectItem value="less">Less than 20 minutes (we'll talk)</SelectItem>
+                {minutesOptions.map((opt) => (
+                  <SelectItem key={opt} value={opt}>
+                    {t(`form.minutes.options.${opt}`)}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
           </div>
 
           <div className="space-y-2">
-            <Label>Anything else you want me to know?</Label>
-            <p className="text-xs text-muted-foreground">Injuries, medical conditions, travel schedule, dietary restrictions — anything relevant.</p>
+            <Label>{t("form.anythingElse.label")}</Label>
+            <p className="text-xs text-muted-foreground">{t("form.anythingElse.hint")}</p>
             <Textarea
               className="min-h-[100px] border-border bg-[#111] text-foreground"
-              placeholder="Optional — but the more I know, the better I can help"
+              placeholder={t("form.anythingElse.placeholder")}
               value={anythingElse}
               onChange={(ev) => setAnythingElse(ev.target.value)}
               disabled={submitting}
@@ -353,22 +347,22 @@ export default function CoachingApplyPage() {
             >
               {submitting ? (
                 <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Sending…
+                  <Loader2 className="me-2 h-4 w-4 animate-spin" />
+                  {t("form.submitting")}
                 </>
               ) : (
                 <>
-                  Submit Application
-                  <ArrowRight className="ml-1 h-4 w-4" />
+                  {t("form.submit")}
+                  <ArrowRight className="icon-directional ms-1 h-4 w-4" />
                 </>
               )}
             </Button>
             <p className="mt-4 text-center text-xs leading-relaxed text-muted-foreground">
-              I review every application personally and respond within 24 hours. You&apos;ll get a confirmation email with a link to book a quick consultation.
-              {" "}
+              {t("form.footerNote")}{" "}
               <span className="text-muted-foreground/95">
-                After submitting, please check your inbox within a few minutes — if nothing appears, look in <strong className="font-semibold text-foreground/90">Spam</strong> or{" "}
-                <strong className="font-semibold text-foreground/90">Promotions</strong>.
+                {t("form.footerSpamNote")}{" "}
+                <strong className="font-semibold text-foreground/90">{t("form.spam")}</strong> or{" "}
+                <strong className="font-semibold text-foreground/90">{t("form.promotions")}</strong>.
               </span>
             </p>
           </div>
@@ -376,13 +370,13 @@ export default function CoachingApplyPage() {
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-6 border-t border-border pt-8 text-sm text-muted-foreground">
           <span className="inline-flex items-center gap-1.5">
-            <Check className="h-3.5 w-3.5 text-primary" /> Limited spots
+            <Check className="h-3.5 w-3.5 text-primary" /> {t("trust.limitedSpots")}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Check className="h-3.5 w-3.5 text-primary" /> No commitment until we talk
+            <Check className="h-3.5 w-3.5 text-primary" /> {t("trust.noCommitment")}
           </span>
           <span className="inline-flex items-center gap-1.5">
-            <Check className="h-3.5 w-3.5 text-primary" /> 100% personalized
+            <Check className="h-3.5 w-3.5 text-primary" /> {t("trust.personalized")}
           </span>
         </div>
       </div>

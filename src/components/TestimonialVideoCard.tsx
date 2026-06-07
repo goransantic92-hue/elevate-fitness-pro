@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { Play } from "lucide-react";
 import type { TestimonialVideo } from "@/data/testimonials";
 import { testimonialPosterSrc, testimonialVideoSrc } from "@/data/testimonials";
@@ -8,6 +9,7 @@ type Props = {
 };
 
 export function TestimonialVideoCard({ testimonial }: Props) {
+  const { t } = useTranslation("common");
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
   const src = testimonialVideoSrc(testimonial);
@@ -44,9 +46,9 @@ export function TestimonialVideoCard({ testimonial }: Props) {
               aria-label={`Play ${testimonial.name}'s story`}
             >
               <span className="flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg">
-                <Play className="h-7 w-7 fill-current pl-0.5" aria-hidden />
+                <Play className="h-7 w-7 fill-current ps-0.5" aria-hidden />
               </span>
-              <span className="text-xs font-semibold uppercase tracking-wide text-white/90">Watch story</span>
+              <span className="text-xs font-semibold uppercase tracking-wide text-white/90">{t("misc.watchStory")}</span>
             </button>
           )}
         </div>
