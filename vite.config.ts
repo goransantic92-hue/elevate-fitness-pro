@@ -18,7 +18,17 @@ export default defineConfig(({ mode }) => ({
     ...(mode === "development" ? [componentTagger()] : []),
     VitePWA({
       registerType: "autoUpdate",
-      includeAssets: ["favicon-32.png", "apple-touch-icon.png", "robots.txt", "pwa-192.png", "pwa-512.png"],
+      includeAssets: [
+        "favicon.ico",
+        "favicon-32.png",
+        "favicon-48.png",
+        "favicon-192.png",
+        "apple-touch-icon.png",
+        "logo-512.png",
+        "robots.txt",
+        "pwa-192.png",
+        "pwa-512.png",
+      ],
       manifest: {
         name: "BUSY STRONG 90",
         short_name: "BS90",
