@@ -9,6 +9,7 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { HANDBOOK_IDS, type HandbookId } from "@/lib/handbooks";
 import { HANDBOOK_IMAGES } from "@/lib/handbookImages";
+import { trackLead } from "@/lib/metaPixel";
 import { cn } from "@/lib/utils";
 
 const ICONS: Record<HandbookId, typeof Utensils> = {
@@ -77,6 +78,7 @@ export function HandbooksLeadSection() {
       if (!r.ok || !data.ok) {
         throw new Error(data.error || t("toast.errorFallback"));
       }
+      trackLead("Free Handbooks", { num_items: data.count ?? selected.size });
       setSentCount(data.count ?? selected.size);
     } catch (err) {
       toast({

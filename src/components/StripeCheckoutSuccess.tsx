@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { trackPurchase } from "@/lib/metaPixel";
 
 /**
  * After Stripe redirects to /dashboard?checkout=success&session_id=..., confirms payment server-side and refreshes access.
@@ -31,7 +32,12 @@ export function StripeCheckoutSuccess() {
           },
           body: JSON.stringify({ sessionId: sid }),
         });
-        const data = (await r.json().catch(() => ({}))) as { error?: string; ok?: boolean };
+        const data = (await r.json().catch(() => ({}))) as {
+          error?: string;
+          ok?: boolean;
+          value?: number;
+          currency?: string;
+        };
 
         const next = new URLSearchParams(searchParams);
         next.delete("checkout");
@@ -51,6 +57,9 @@ export function StripeCheckoutSuccess() {
           title: "You're in!",
           description: "Program access is unlocked. Welcome to BUSY STRONG 90.",
         });
+        if (typeof data.value === "number" && data.currency) {
+          trackPurchase(data.value, data.currency, sid);
+        }
         await refreshProfile();
       } catch {
         toast({ title: "Confirmation failed", description: "Please refresh or contact support.", variant: "destructive" });

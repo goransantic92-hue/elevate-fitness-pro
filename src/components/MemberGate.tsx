@@ -5,6 +5,8 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock } from "lucide-react";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
+import { PRICING_AED } from "@/lib/pricing";
+import { trackInitiateCheckout } from "@/lib/metaPixel";
 
 export function MemberGate({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation("dashboard");
@@ -36,6 +38,7 @@ export function MemberGate({ children }: { children: React.ReactNode }) {
             onClick={() => {
               if (!user) return;
               try {
+                trackInitiateCheckout(PRICING_AED.selfGuided.amount, PRICING_AED.currency);
                 window.location.href = buildProgramCheckoutUrl(user);
               } catch {
                 window.location.href = "/pricing";

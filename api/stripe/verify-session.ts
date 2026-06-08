@@ -55,7 +55,10 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     await grantProgramAccess(user.id, "stripe");
 
-    return res.status(200).json({ ok: true });
+    const value = session.amount_total != null ? session.amount_total / 100 : undefined;
+    const currency = session.currency ? session.currency.toUpperCase() : undefined;
+
+    return res.status(200).json({ ok: true, value, currency });
   } catch (e) {
     console.error("[stripe/verify-session]", e);
     return res.status(502).json({ error: "Could not verify payment" });

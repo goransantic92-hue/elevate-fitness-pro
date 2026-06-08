@@ -9,6 +9,7 @@ import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/lib/supabase";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
+import { trackInitiateCheckout } from "@/lib/metaPixel";
 import { usePricing } from "@/hooks/usePricing";
 
 type PricingTestimonial = { quote: string; name: string; sub: string };
@@ -82,6 +83,7 @@ const PricingPage = () => {
     }
     setCheckoutBusy(true);
     try {
+      trackInitiateCheckout(pricing.selfGuided.amount, pricing.currency);
       window.location.href = buildProgramCheckoutUrl(payer);
     } catch {
       toast({

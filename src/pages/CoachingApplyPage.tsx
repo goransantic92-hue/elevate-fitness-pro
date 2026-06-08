@@ -10,6 +10,7 @@ import { useToast } from "@/hooks/use-toast";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { usePricing } from "@/hooks/usePricing";
 import { getCoachingPlanDisplay, parseCoachingPlanParam } from "@/lib/coachingPlan";
+import { trackLead } from "@/lib/metaPixel";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { cn } from "@/lib/utils";
@@ -85,6 +86,9 @@ export default function CoachingApplyPage() {
       toast({
         title: t("toast.successTitle"),
         description: data.warning ? data.warning : t("toast.successDescription"),
+      });
+      trackLead("Coaching Application", {
+        content_ids: coachingPlanSlug ?? "general",
       });
       setFirstName("");
       setLastName("");

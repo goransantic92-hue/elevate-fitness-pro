@@ -11,6 +11,7 @@ import { InstallAppPrompt } from "@/components/InstallAppPrompt";
 import { RoutePageFallback } from "@/components/RoutePageFallback";
 import { lazyRoute } from "@/lib/lazyRoute";
 import { I18nDirectionSync } from "@/components/I18nDirectionSync";
+import { MetaPixel } from "@/components/MetaPixel";
 import PublicLayout from "@/components/PublicLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AdminLayout from "@/layouts/AdminLayout";
@@ -57,6 +58,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <I18nDirectionSync />
+        <MetaPixel />
         <ScrollToTop />
         <Routes>
           <Route element={<PublicLayout />}>
