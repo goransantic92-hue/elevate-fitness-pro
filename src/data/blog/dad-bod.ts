@@ -178,7 +178,7 @@ export const dadBodPost: BlogPost = {
     },
     {
       type: "p",
-      text: "**Schedule:** Monday (Upper Push), Wednesday (Lower Body), Friday (Upper Pull). 30–40 minutes each. Rest days: 15–20 min walk.",
+      text: "**Schedule:** Monday (Upper Push), Wednesday (Lower Body), Friday (Upper Pull). 22 minutes each. Rest days: 15–20 min walk.",
     },
     {
       type: "p",
@@ -204,7 +204,7 @@ export const dadBodPost: BlogPost = {
       type: "ul",
       items: [
         "3 days, not 6",
-        "30 minutes, not 60",
+        "22 minutes, not 60",
         "Home, not gym",
         "Simple nutrition, not restrictive dieting",
         '90 days with clear phases, not "forever"',

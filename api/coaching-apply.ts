@@ -61,7 +61,7 @@ const FITNESS_LABEL: Record<string, string> = {
 
 const MINUTES_LABEL: Record<string, string> = {
   "20-30": "20–30 minutes",
-  "30-40": "30–40 minutes",
+  "30-40": "22 minutes",
   "40-60": "40–60 minutes",
   less: "Less than 20 minutes",
 };

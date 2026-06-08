@@ -166,7 +166,7 @@ export const fallenOffWagonPost: BlogPost = {
     },
     {
       type: "p",
-      text: "You don't need to feel ready for Phase 3 on Day 1. You need to **show up for Phase 1** — three times a week, 30–40 minutes, at home.",
+      text: "You don't need to feel ready for Phase 3 on Day 1. You need to **show up for Phase 1** — three times a week, 22 minutes, at home.",
     },
     {
       type: "p",

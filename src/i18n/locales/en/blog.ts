@@ -25,7 +25,7 @@ export default {
     minRead: "{{minutes}} min read",
     moreArticles: "More articles",
     ctaTitle: "Ready for a system that fits your life?",
-    ctaSubhead: "90 days. 3× per week. 30–40 minutes at home.",
+    ctaSubhead: "90 days. 3× per week. 22 minutes at home.",
     getProgram: "Get the Program — {{price}}",
     startCoaching: "Start Coaching",
   },

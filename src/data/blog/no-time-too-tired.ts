@@ -4,15 +4,15 @@ export const noTimeTooTiredPost: BlogPost = {
   slug: "no-time-too-tired-workout-busy-men",
   title: "No Time to Work Out? Too Tired? Here's What Actually Works for Busy Men",
   excerpt:
-    "No time and too tired to exercise? Why busy men 35+ fail at fitness — and how 30-minute, 3×/week home workouts restore energy without adding hours to your schedule.",
-  metaTitle: "No Time to Work Out? Too Tired? A 30-Minute System for Busy Men",
+    "No time and too tired to exercise? Why busy men 35+ fail at fitness — and how 22-minute, 3×/week home workouts restore energy without adding hours to your schedule.",
+  metaTitle: "No Time to Work Out? Too Tired? A 22-Minute System for Busy Men",
   metaDescription:
-    "No time and too tired to exercise? Learn why busy men 35+ fail at fitness — and how 30-minute, 3×/week home workouts restore energy without adding hours to your schedule.",
+    "No time and too tired to exercise? Learn why busy men 35+ fail at fitness — and how 22-minute, 3×/week home workouts restore energy without adding hours to your schedule.",
   keywords: [
     "no time to workout",
     "too tired to exercise",
     "workout for busy men",
-    "30 minute workout",
+    "22 minute workout",
     "exhausted after work fitness",
   ],
   publishedAt: "2026-05-20",
@@ -91,7 +91,7 @@ export const noTimeTooTiredPost: BlogPost = {
       type: "p",
       text: "Breaking this cycle doesn't require a 5am alarm. It requires **short, consistent sessions** that build energy instead of draining it.",
     },
-    { type: "h2", text: 'The "Exhausted by Night" Problem — and the 30-Minute Fix' },
+    { type: "h2", text: 'The "Exhausted by Night" Problem — and the 22-Minute Fix' },
     {
       type: "p",
       text: "Most busy men try to train at the worst possible time: **after everything else is done.**",
@@ -106,7 +106,7 @@ export const noTimeTooTiredPost: BlogPost = {
       headers: ["Old approach", "Busy Strong approach"],
       rows: [
         ['Train when you "feel like it"', "Train Mon / Wed / Fri — non-negotiable"],
-        ["60+ minutes", "30–40 minutes max"],
+        ["60+ minutes", "22 minutes max"],
         ["Drive to gym (adds 45 min)", "Train at home — zero commute"],
         ["5–6 days/week", "3 days/week — sustainable"],
         ["Skip if tired", "Scale intensity, never skip the habit"],
@@ -114,24 +114,24 @@ export const noTimeTooTiredPost: BlogPost = {
     },
     {
       type: "p",
-      text: "**30 minutes, 3 times per week.** That's 90 minutes total — less than one football match. And research shows that for fat loss, strength, and cardiovascular health, **3 well-designed sessions outperform 6 mediocre ones** for busy, deconditioned adults.",
+      text: "**22 minutes, 3 times per week.** That's 66 minutes total — less than one football match. And research shows that for fat loss, strength, and cardiovascular health, **3 well-designed sessions outperform 6 mediocre ones** for busy, deconditioned adults.",
     },
-    { type: "h2", text: "What a 30-Minute Session Actually Looks Like" },
+    { type: "h2", text: "What a 22-Minute Session Actually Looks Like" },
     { type: "p", text: "You don't need a home gym. You need:" },
     {
       type: "ul",
       items: [
         "A pair of dumbbells (adjustable is ideal)",
         "A bench or sturdy chair",
-        "30–40 minutes of protected time",
+        "22 minutes of protected time",
       ],
     },
     { type: "p", text: "A typical session structure:" },
     {
       type: "ol",
       items: [
-        "**5 min warmup** — arm circles, band work, light movement",
-        "**25–30 min strength** — 4–5 compound exercises (push, pull, legs)",
+        "**3 min warmup** — arm circles, band work, light movement",
+        "**17 min strength** — 4–5 compound exercises (push, pull, legs)",
         "**2 min finisher** — optional, max effort (push-ups, carries)",
       ],
     },
@@ -152,7 +152,7 @@ export const noTimeTooTiredPost: BlogPost = {
       type: "ul",
       items: [
         "**Same days every week** (Monday, Wednesday, Friday)",
-        "**Same session length** (30–40 min — no guessing)",
+        "**Same session length** (22 min — no guessing)",
         "**Simple nutrition rule** (protein at every meal — no food scale, no app)",
         "**Track two things** (body weight in kg, daily energy 1–10)",
       ],
@@ -190,7 +190,7 @@ export const noTimeTooTiredPost: BlogPost = {
     {
       type: "ul",
       items: [
-        "**90 days. 3× per week. 30–40 minutes.**",
+        "**90 days. 3× per week. 22 minutes.**",
         "Train at home. No commute. No food scale.",
         "Progressive phases: Foundation → Intensity → Transformation",
       ],
@@ -199,7 +199,7 @@ export const noTimeTooTiredPost: BlogPost = {
       type: "cta",
       title: "Ready to Stop Starting Over?",
       bullets: [
-        "90 days. 3× per week. 30–40 minutes.",
+        "90 days. 3× per week. 22 minutes.",
         "Train at home. No commute. No food scale.",
       ],
       primaryHref: "/coaching-apply?plan=coached-strong-90#apply",

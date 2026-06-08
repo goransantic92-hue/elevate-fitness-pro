@@ -2,7 +2,7 @@ export default {
   meta: {
     title: "Busy Strong 90 — 90-Day Fitness for Busy Fathers in Dubai | Coach Milos",
     description:
-      "90-day training & nutrition for busy fathers 35+ in Dubai. 30–40 min home workouts, no food scale. Lose weight, restore energy. Coached Strong 90 from €299/mo.",
+      "90-day training & nutrition for busy fathers 35+ in Dubai. 22 min home workouts, no food scale. Lose weight, restore energy. Coached Strong 90 from €299/mo.",
   },
   hero: {
     eyebrow: "You haven't trained in months. You're tired. Your kids see it.",
@@ -10,18 +10,18 @@ export default {
     headlineEnergy: "energy",
     headlineSuffix: "back.",
     subhead:
-      "The 90-day system built for men who don't have time — 30–40 minutes, 3× per week, train at home (no commute). No food scale. Coached plans from {{coachingPrice}}.",
-    pills: ["30–40 min", "No food scale", "Train at home", "Dubai, UAE"],
+      "The 90-day system built for men who don't have time — 22 minutes, 3× per week, train at home (no commute). No food scale. Coached plans from {{coachingPrice}}.",
+    pills: ["22 min", "No food scale", "Train at home", "Dubai, UAE"],
     trust: [
       "Train at home — no commute",
-      "30–40 min · track kg + energy",
+      "22 min · track kg + energy",
       "Built for fathers 35+",
     ],
   },
   stats: [
     { value: "3×", label: "Per Week" },
     { value: "90", label: "Day System" },
-    { value: "30-40", label: "Min / Session" },
+    { value: "22", label: "Min / Session" },
     { value: "35+", label: "Age Group" },
   ],
   who: {
@@ -30,16 +30,16 @@ export default {
     headlineHighlight: "fathers in Dubai",
     headlineSuffix: "— founders & professionals welcome too",
     body:
-      "You don't need another influencer telling you to \"just be consistent.\" You need 30–40 minutes, three times a week, and a plan that still works when travel, deadlines, or family blows up the week.",
+      "You don't need another influencer telling you to \"just be consistent.\" You need 22 minutes, three times a week, and a plan that still works when travel, deadlines, or family blows up the week.",
     mostCommon: "Most common",
     cards: {
       fathers: {
         title: "Busy Fathers & Parents",
-        text: "Your kids watch everything you do. When you have energy after work, you show up for them — instead of crashing on the couch. 30–40 minutes, 3× a week, at home while they're sleeping or playing.",
+        text: "Your kids watch everything you do. When you have energy after work, you show up for them — instead of crashing on the couch. 22 minutes, 3× a week, at home while they're sleeping or playing.",
       },
       founders: {
         title: "Founders & Business Owners",
-        text: "Early mornings, late nights, back-to-back calls. You need your weight down and your energy up — not another hour in the gym. 30–40 minutes, 3× a week, train at home between meetings.",
+        text: "Early mornings, late nights, back-to-back calls. You need your weight down and your energy up — not another hour in the gym. 22 minutes, 3× a week, train at home between meetings.",
       },
       professionals: {
         title: "Corporate Professionals",
@@ -59,7 +59,7 @@ export default {
       tier: "Self-Guided",
       name: "Busy Strong 90",
       benefits: [
-        "Full 90-day program you can finish — 36 sessions, 30–40 min each",
+        "Full 90-day program you can finish — 36 sessions, 22 min each",
         "Know exactly what to do every workout",
         "Eat normally — no food scale, no macro app",
         "Habits that stick after the 90 days",
@@ -106,7 +106,7 @@ export default {
       {
         num: "01",
         title: "Train Smart",
-        text: "3× per week. 30–40 minutes. Progressive overload. Compound movements that build real strength. No junk volume. Every rep has a purpose — because your time has a price tag.",
+        text: "3× per week. 22 minutes. Progressive overload. Compound movements that build real strength. No junk volume. Every rep has a purpose — because your time has a price tag.",
       },
       {
         num: "02",
