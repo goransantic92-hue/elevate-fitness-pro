@@ -14,6 +14,10 @@
     <meta property="og:title" content="Busy Strong 90 — For Busy Fathers in Dubai Who Want Their Energy Back" />
     <meta property="og:description" content="90-day system for busy fathers in Dubai. 30–40 min, 3x/week, train at home. No food scale. Coached plans from €299/mo." />
     <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://busystrong90.com/" />
+    <meta property="og:image" content="https://busystrong90.com/hero-lcp.webp" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <link rel="canonical" href="https://busystrong90.com" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -24,12 +28,52 @@
       "@type": "Product",
       "name": "BUSY STRONG 90",
       "description": "The complete 90-day training system for busy fathers in Dubai",
+      "image": [
+        "https://busystrong90.com/hero-lcp.webp",
+        "https://busystrong90.com/pwa-512.png"
+      ],
+      "url": "https://busystrong90.com/pricing",
       "brand": { "@type": "Brand", "name": "Coach Milos" },
       "offers": {
         "@type": "Offer",
+        "url": "https://busystrong90.com/pricing",
         "price": "39",
         "priceCurrency": "EUR",
-        "availability": "https://schema.org/InStock"
+        "availability": "https://schema.org/InStock",
+        "itemCondition": "https://schema.org/NewCondition",
+        "shippingDetails": {
+          "@type": "OfferShippingDetails",
+          "shippingRate": {
+            "@type": "MonetaryAmount",
+            "value": "0",
+            "currency": "EUR"
+          },
+          "shippingDestination": {
+            "@type": "DefinedRegion",
+            "addressCountry": ["AE", "GB", "US", "DE", "FR", "IT", "ES", "NL", "SE", "NO", "CH", "AU", "CA"]
+          },
+          "deliveryTime": {
+            "@type": "ShippingDeliveryTime",
+            "handlingTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 1,
+              "unitCode": "DAY"
+            },
+            "transitTime": {
+              "@type": "QuantitativeValue",
+              "minValue": 0,
+              "maxValue": 0,
+              "unitCode": "DAY"
+            }
+          }
+        },
+        "hasMerchantReturnPolicy": {
+          "@type": "MerchantReturnPolicy",
+          "applicableCountry": ["AE", "GB", "US", "DE", "FR", "IT", "ES", "NL", "SE", "NO", "CH", "AU", "CA"],
+          "returnPolicyCategory": "https://schema.org/MerchantReturnNotPermitted",
+          "merchantReturnLink": "https://busystrong90.com/faq"
+        }
       }
     }
     </script>
