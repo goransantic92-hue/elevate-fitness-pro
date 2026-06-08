@@ -14,7 +14,6 @@ const navHrefs = [
   { href: "/program", key: "program" },
   { href: "/training", key: "training" },
   { href: "/nutrition", key: "nutrition" },
-  { href: "/results", key: "results" },
   { href: "/faq", key: "faq" },
   { href: "/pricing", key: "pricing" },
 ] as const;

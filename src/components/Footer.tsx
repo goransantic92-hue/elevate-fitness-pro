@@ -33,7 +33,6 @@ const Footer = () => {
             <div className="flex flex-col gap-2">
               <Link to="/program" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("footer.programOverview")}</Link>
               <Link to={nutritionTo} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("footer.nutritionGuide")}</Link>
-              <Link to="/results" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.results")}</Link>
             </div>
           </div>
 

@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,7 +19,6 @@ import HomePage from "@/pages/HomePage";
 const ProgramPage = lazyRoute(() => import("@/pages/ProgramPage"));
 const TrainingPage = lazyRoute(() => import("@/pages/TrainingPage"));
 const NutritionPage = lazyRoute(() => import("@/pages/NutritionPage"));
-const ResultsPage = lazyRoute(() => import("@/pages/ResultsPage"));
 const FAQPage = lazyRoute(() => import("@/pages/FAQPage"));
 const PricingPage = lazyRoute(() => import("@/pages/PricingPage"));
 const CoachingApplyPage = lazyRoute(() => import("@/pages/CoachingApplyPage"));
@@ -90,14 +89,7 @@ const App = () => (
                 </Lazy>
               }
             />
-            <Route
-              path="/results"
-              element={
-                <Lazy>
-                  <ResultsPage />
-                </Lazy>
-              }
-            />
+            <Route path="/results" element={<Navigate to="/program" replace />} />
             <Route
               path="/faq"
               element={
