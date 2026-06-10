@@ -1,7 +1,7 @@
 import { Helmet } from "react-helmet-async";
 
 const SITE_ORIGIN = "https://busystrong90.com";
-const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/hero-lcp.webp`;
+const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/og-image.jpg`;
 
 type BlogPostingSchemaProps = {
   title: string;

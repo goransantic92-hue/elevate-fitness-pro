@@ -34,6 +34,10 @@ export function PageMeta({
       <meta property="og:url" content={url} />
       <meta property="og:type" content={ogType} />
       <meta property="og:image" content={ogImage} />
+      <meta property="og:image:secure_url" content={ogImage} />
+      <meta property="og:image:type" content="image/jpeg" />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content={siteName} />
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={fullTitle} />
