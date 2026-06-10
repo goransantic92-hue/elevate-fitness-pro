@@ -109,7 +109,7 @@ export default {
       placeholder: "Be honest — I'll build around it",
       options: {
         "20-30": "20–30 minutes",
-        "30-40": "30–40 minutes",
+        "30-40": "22 minutes",
         "40-60": "40–60 minutes",
         less: "Less than 20 minutes (we'll talk)",
       },

@@ -16,7 +16,7 @@ export default {
     memberLogin: "Member Login",
   },
   footer: {
-    tagline: "90-day training for busy fathers in Dubai. 30–40 min, 3x/week. Weight down. Energy back.",
+    tagline: "90-day training for busy fathers in Dubai. 22 min, 3x/week. Weight down. Energy back.",
     program: "Program",
     programOverview: "Program Overview",
     nutritionGuide: "Nutrition Guide",
