@@ -22,9 +22,14 @@ function getFbq(): Fbq | undefined {
   return typeof window !== "undefined" ? window.fbq : undefined;
 }
 
-/** Load Meta Pixel base script once. */
+/** Load Meta Pixel base script once (skipped when index.html already injected fbq). */
 export function ensureMetaPixelScript(): void {
   if (typeof window === "undefined" || !META_PIXEL_ID || scriptRequested) return;
+  if (getFbq()) {
+    scriptRequested = true;
+    initialized = true;
+    return;
+  }
   scriptRequested = true;
 
   const fbq: Fbq = function (...args: unknown[]) {
@@ -52,6 +57,10 @@ let initialized = false;
 
 export function initMetaPixel(): void {
   if (!META_PIXEL_ID || initialized) return;
+  if (getFbq()) {
+    initialized = true;
+    return;
+  }
   ensureMetaPixelScript();
   getFbq()?.("init", META_PIXEL_ID);
   initialized = true;
