@@ -14,7 +14,7 @@ type Fbq = {
   version?: string;
 };
 
-export const META_PIXEL_ID = import.meta.env.VITE_META_PIXEL_ID?.trim() || "488254828939981";
+export const META_PIXEL_ID = import.meta.env.VITE_META_PIXEL_ID?.trim() || "1530200815324243";
 
 let scriptRequested = false;
 
