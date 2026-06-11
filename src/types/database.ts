@@ -317,10 +317,43 @@ export type Database = {
           created_at?: string;
         };
       };
+      homepage_content: {
+        Row: {
+          locale: "en" | "ar";
+          draft: Json;
+          published: Json;
+          review_status: "draft" | "pending_review" | "published";
+          review_requested_at: string | null;
+          published_at: string | null;
+          updated_at: string;
+          updated_by: string | null;
+        };
+        Insert: {
+          locale: "en" | "ar";
+          draft?: Json;
+          published?: Json;
+          review_status?: "draft" | "pending_review" | "published";
+          review_requested_at?: string | null;
+          published_at?: string | null;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Update: {
+          locale?: "en" | "ar";
+          draft?: Json;
+          published?: Json;
+          review_status?: "draft" | "pending_review" | "published";
+          review_requested_at?: string | null;
+          published_at?: string | null;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+      };
     };
     Views: Record<string, never>;
     Functions: {
       is_admin: { Args: Record<string, never>; Returns: boolean };
+      get_published_homepage: { Args: { p_locale: string }; Returns: Json };
     };
     Enums: Record<string, never>;
   };

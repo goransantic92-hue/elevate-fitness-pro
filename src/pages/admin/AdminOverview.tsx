@@ -1,26 +1,28 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, LineChart, Bell, BookOpen } from "lucide-react";
+import { Users, LineChart, Bell, BookOpen, Home } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
 export default function AdminOverview() {
-  const [counts, setCounts] = useState({ members: 0, checkins: 0, reminders: 0, handbookLeads: 0 });
+  const [counts, setCounts] = useState({ members: 0, checkins: 0, reminders: 0, handbookLeads: 0, homepagePending: 0 });
 
   useEffect(() => {
     (async () => {
-      const [p, c, r, h] = await Promise.all([
+      const [p, c, r, h, homepage] = await Promise.all([
         supabase.from("profiles").select("id", { count: "exact", head: true }),
         supabase.from("progress_checkins").select("id", { count: "exact", head: true }),
         supabase.from("reminder_jobs").select("id", { count: "exact", head: true }),
         supabase.from("handbook_leads").select("id", { count: "exact", head: true }),
+        supabase.from("homepage_content").select("locale", { count: "exact", head: true }).eq("review_status", "pending_review"),
       ]);
       setCounts({
         members: p.count ?? 0,
         checkins: c.count ?? 0,
         reminders: r.count ?? 0,
         handbookLeads: h.count ?? 0,
+        homepagePending: homepage.count ?? 0,
       });
     })();
   }, []);
@@ -72,8 +74,25 @@ export default function AdminOverview() {
           </CardContent>
         </Card>
       </div>
+      {counts.homepagePending > 0 && (
+        <Card className="glass-card border-amber-500/40">
+          <CardHeader className="flex flex-row items-center justify-between pb-2">
+            <CardTitle className="text-sm font-medium">Homepage changes waiting</CardTitle>
+            <Home className="h-4 w-4 text-amber-500" />
+          </CardHeader>
+          <CardContent className="space-y-3">
+            <p className="text-sm text-muted-foreground">
+              {counts.homepagePending} locale{counts.homepagePending === 1 ? "" : "s"} marked ready for review. Publish from the homepage editor — no deploy needed.
+            </p>
+            <Button variant="link" className="h-auto p-0 text-amber-500" asChild>
+              <Link to="/admin/homepage">Open homepage editor</Link>
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
       <p className="text-sm text-muted-foreground">
-        Purchases via Stripe unlock access automatically. You can still grant or revoke access manually under Members. Workout and nutrition copy follows the official PDF in the app code; database content is for extra resources only.
+        Purchases via Stripe unlock access automatically. You can still grant or revoke access manually under Members. Hero and coach copy can be edited under Homepage. Workout and nutrition copy follows the official PDF in the app code.
       </p>
     </div>
   );

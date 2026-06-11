@@ -11,6 +11,9 @@ import { PageMeta } from "@/components/seo/PageMeta";
 import { HandbooksLeadSection } from "@/components/HandbooksLeadSection";
 import { CALENDLY_FREE_CALL_URL } from "@/lib/pricing";
 import { usePricing } from "@/hooks/usePricing";
+import { usePublishedHomepageCms } from "@/hooks/usePublishedHomepageCms";
+import { resolveHomepageCoach, resolveHomepageHero } from "@/lib/homepageCms";
+import { homepageStorageUrl } from "@/lib/homepageMedia";
 
 const whoCardKeys = [
   { key: "fathers", icon: "👨‍👧‍👦", featured: true },
@@ -27,13 +30,24 @@ const HomePage = () => {
   const { t: tCommon } = useTranslation("common");
   const { t: tFaq } = useTranslation("faq");
   const pricing = usePricing();
+  const { data: homepageCms } = usePublishedHomepageCms();
 
-  const heroPills = t("hero.pills", { returnObjects: true }) as string[];
-  const heroTrust = t("hero.trust", { returnObjects: true }) as string[];
+  const hero = resolveHomepageHero(
+    homepageCms?.hero,
+    t,
+    "Coach Milos — cable training in the gym"
+  );
+  const coach = resolveHomepageCoach(homepageCms?.coach, t);
+  const heroImage =
+    homepageStorageUrl(hero.imagePath) ?? privateTrainerFitness;
+  const coachImage =
+    homepageStorageUrl(coach.imagePath) ?? coachAbout;
+  const heroSubhead = hero.subhead.includes("{{coachingPrice}}")
+    ? hero.subhead.replace("{{coachingPrice}}", pricing.coachedStrong90.labelMonthly)
+    : hero.subhead;
+
   const stats = t("stats", { returnObjects: true }) as StatItem[];
   const pillars = t("pillars.items", { returnObjects: true }) as PillarItem[];
-  const coachStats = t("coach.stats", { returnObjects: true }) as StatItem[];
-  const coachParagraphs = t("coach.paragraphs", { returnObjects: true }) as string[];
   const faqItems = tFaq("items", { returnObjects: true }) as FaqItem[];
 
   return (
@@ -51,15 +65,15 @@ const HomePage = () => {
             <div className="min-w-0 md:col-span-7 lg:col-span-7">
               <h1 className="font-display text-[clamp(2.4rem,6vw,4rem)] leading-[1.08] text-foreground">
                 <span className="mb-3 block font-sans text-base font-normal normal-case leading-relaxed tracking-normal text-muted-foreground md:text-lg">
-                  {t("hero.eyebrow")}
+                  {hero.eyebrow}
                 </span>
                 <span className="block max-w-[22ch] text-balance">
-                  {t("hero.headline")}{" "}
-                  <span className="text-primary">{t("hero.headlineEnergy")}</span> {t("hero.headlineSuffix")}
+                  {hero.headline}{" "}
+                  <span className="text-primary">{hero.headlineEnergy}</span> {hero.headlineSuffix}
                 </span>
               </h1>
               <p className="mt-6 max-w-[600px] text-pretty text-lg leading-relaxed text-[#ccc]">
-                {t("hero.subhead", { coachingPrice: pricing.coachedStrong90.labelMonthly })}
+                {heroSubhead}
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground hover:bg-primary/90">
@@ -84,7 +98,7 @@ const HomePage = () => {
                 </a>
               </p>
               <div className="mt-6 flex flex-wrap gap-2">
-                {heroPills.map((pill) => (
+                {hero.pills.map((pill) => (
                   <span
                     key={pill}
                     className="inline-flex items-center rounded-full border border-primary/30 bg-primary/10 px-3 py-1 text-xs font-semibold tracking-tight text-primary"
@@ -94,7 +108,7 @@ const HomePage = () => {
                 ))}
               </div>
               <div className="mt-6 flex flex-wrap gap-6 text-sm text-muted-foreground">
-                {heroTrust.map((item) => (
+                {hero.trust.map((item) => (
                   <span key={item} className="inline-flex items-center gap-1.5">
                     <Check className="h-4 w-4 shrink-0 text-primary" />
                     {item}
@@ -105,8 +119,8 @@ const HomePage = () => {
             <div className="md:col-span-5 lg:col-span-5">
               <div className="relative mx-auto aspect-[4/5] w-full max-w-[430px] overflow-hidden rounded-2xl border border-border/60 bg-secondary/20">
                 <img
-                  src={privateTrainerFitness}
-                  alt="Coach Milos — cable training in the gym"
+                  src={heroImage}
+                  alt={hero.imageAlt}
                   width={430}
                   height={538}
                   decoding="async"
@@ -278,8 +292,8 @@ const HomePage = () => {
           <div className="grid items-center gap-10 md:grid-cols-2 md:gap-14">
             <div className="aspect-[4/5] overflow-hidden rounded-2xl border border-border bg-secondary/20">
               <img
-                src={coachAbout}
-                alt="Coach Milos"
+                src={coachImage}
+                alt={coach.imageAlt}
                 width={430}
                 height={538}
                 loading="lazy"
@@ -288,18 +302,18 @@ const HomePage = () => {
               />
             </div>
             <div>
-              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">{t("coach.eyebrow")}</p>
+              <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">{coach.eyebrow}</p>
               <h2 className="font-display text-balance text-[clamp(2rem,4.5vw,2.75rem)] text-foreground">
-                {t("coach.headline")} <span className="text-primary">{t("coach.headlineHighlight")}</span>
+                {coach.headline} <span className="text-primary">{coach.headlineHighlight}</span>
               </h2>
-              {coachParagraphs.map((paragraph) => (
+              {coach.paragraphs.map((paragraph) => (
                 <p key={paragraph.slice(0, 40)} className="mt-4 text-[0.95rem] leading-8 text-[#ccc] first:mt-5">
                   {paragraph}
                 </p>
               ))}
-              <p className="mt-4 text-[0.95rem] font-medium leading-8 text-primary">{t("coach.highlight")}</p>
+              <p className="mt-4 text-[0.95rem] font-medium leading-8 text-primary">{coach.highlight}</p>
               <div className="mt-8 grid grid-cols-3 gap-4 border-t border-border pt-8">
-                {coachStats.map((s) => (
+                {coach.stats.map((s) => (
                   <div key={s.label}>
                     <h3 className="font-display text-3xl text-primary">{s.value}</h3>
                     <p className="mt-0.5 text-xs uppercase tracking-wide text-muted-foreground">{s.label}</p>

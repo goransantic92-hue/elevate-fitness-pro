@@ -44,6 +44,7 @@ const AdminContentPage = lazyRoute(() => import("@/pages/admin/AdminContentPage"
 const AdminRemindersPage = lazyRoute(() => import("@/pages/admin/AdminRemindersPage"));
 const AdminHandbookLeadsPage = lazyRoute(() => import("@/pages/admin/AdminHandbookLeadsPage"));
 const AdminWorkoutsPage = lazyRoute(() => import("@/pages/admin/AdminWorkoutsPage"));
+const AdminHomepagePage = lazyRoute(() => import("@/pages/admin/AdminHomepagePage"));
 
 const queryClient = new QueryClient();
 
@@ -270,6 +271,14 @@ const App = () => (
               element={
                 <Lazy>
                   <AdminHandbookLeadsPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="homepage"
+              element={
+                <Lazy>
+                  <AdminHomepagePage />
                 </Lazy>
               }
             />
