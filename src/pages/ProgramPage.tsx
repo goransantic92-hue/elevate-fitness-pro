@@ -133,7 +133,7 @@ const ProgramPage = () => {
           <div className="mt-12">
             <Link to="/pricing">
               <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
-                {content.included.cta.replace("{{price}}", pricing.selfGuided.label)}{" "}
+                {content.included.cta?.replace("{{price}}", pricing.selfGuided.label) ?? pricing.selfGuided.label}{" "}
                 <ArrowRight className="icon-directional ms-2 h-5 w-5" />
               </Button>
             </Link>

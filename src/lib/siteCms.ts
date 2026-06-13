@@ -577,6 +577,9 @@ export function resolveHandbooksCms(cms: HandbooksCmsPayload | null | undefined,
 }
 
 export function resolveProgramCms(cms: ProgramCmsPayload | null | undefined, t: TFunction<"program">): ProgramCmsPayload {
+  const locale = t.language?.startsWith("ar") ? "ar" : "en";
+  const d = getDefaultSiteCms("program", locale) as ProgramCmsPayload;
+
   if (!cms) {
     return {
       hero: t("hero", { returnObjects: true }) as ProgramCmsPayload["hero"],
@@ -595,16 +598,34 @@ export function resolveProgramCms(cms: ProgramCmsPayload | null | undefined, t: 
       },
     };
   }
-  const d = getDefaultSiteCms("program", "en");
+
   return {
-    hero: cms.hero.headline ? cms.hero : d.hero,
-    phases: cms.phases.length ? cms.phases : d.phases,
-    schedule: cms.schedule.items.length ? cms.schedule : d.schedule,
-    included: cms.included.items.length ? cms.included : d.included,
+    hero: {
+      eyebrow: cms.hero?.eyebrow || d.hero.eyebrow,
+      headline: cms.hero?.headline || d.hero.headline,
+      headlineHighlight: cms.hero?.headlineHighlight || d.hero.headlineHighlight,
+      subhead: cms.hero?.subhead || d.hero.subhead,
+    },
+    phases: cms.phases?.length ? cms.phases : d.phases,
+    schedule: {
+      title: cms.schedule?.title || d.schedule.title,
+      titleHighlight: cms.schedule?.titleHighlight || d.schedule.titleHighlight,
+      subhead: cms.schedule?.subhead || d.schedule.subhead,
+      items: cms.schedule?.items?.length ? cms.schedule.items : d.schedule.items,
+    },
+    included: {
+      title: cms.included?.title || d.included.title,
+      titleHighlight: cms.included?.titleHighlight || d.included.titleHighlight,
+      items: cms.included?.items?.length ? cms.included.items : d.included.items,
+      cta: cms.included?.cta || d.included.cta,
+    },
   };
 }
 
 export function resolveNutritionCms(cms: NutritionCmsPayload | null | undefined, t: TFunction<"nutrition">): NutritionCmsPayload {
+  const locale = t.language?.startsWith("ar") ? "ar" : "en";
+  const d = getDefaultSiteCms("nutrition", locale) as NutritionCmsPayload;
+
   if (!cms) {
     return {
       hero: t("hero", { returnObjects: true }) as NutritionCmsPayload["hero"],
@@ -616,10 +637,20 @@ export function resolveNutritionCms(cms: NutritionCmsPayload | null | undefined,
       },
     };
   }
-  const d = getDefaultSiteCms("nutrition", "en") as NutritionCmsPayload;
+
   return {
-    hero: cms.hero.headline ? cms.hero : d.hero,
-    rules: cms.rules.items.length ? cms.rules : d.rules,
+    hero: {
+      eyebrow: cms.hero?.eyebrow || d.hero.eyebrow,
+      headline: cms.hero?.headline || d.hero.headline,
+      headlineHighlight: cms.hero?.headlineHighlight || d.hero.headlineHighlight,
+      subhead: cms.hero?.subhead || d.hero.subhead,
+    },
+    rules: {
+      title: cms.rules?.title || d.rules.title,
+      titleHighlight: cms.rules?.titleHighlight || d.rules.titleHighlight,
+      titleSuffix: cms.rules?.titleSuffix || d.rules.titleSuffix,
+      items: cms.rules?.items?.length ? cms.rules.items : d.rules.items,
+    },
   };
 }
 
