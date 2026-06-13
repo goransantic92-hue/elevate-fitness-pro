@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, LineChart, Bell, BookOpen, Home } from "lucide-react";
+import { Users, LineChart, Bell, BookOpen, Home, Smartphone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -90,6 +90,27 @@ export default function AdminOverview() {
           <Button variant="outline" asChild>
             <Link to="/admin/pages">Edit other pages (Pricing, FAQ…)</Link>
           </Button>
+          <Button variant="outline" asChild>
+            <Link to="/admin/member">Edit member app content</Link>
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Card className="glass-card border-primary/20">
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="text-base font-bold">Member app CMS</CardTitle>
+          <Smartphone className="h-5 w-5 text-primary" />
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-muted-foreground">
+            Dashboard copy, member nutrition, roadmap phases, and homepage testimonial videos — publish without deploy.
+          </p>
+          <Button variant="outline" asChild>
+            <Link to="/admin/member">Member app editor</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link to="/admin/testimonials">Testimonial videos</Link>
+          </Button>
         </CardContent>
       </Card>
 
@@ -111,7 +132,7 @@ export default function AdminOverview() {
       )}
 
       <p className="text-sm text-muted-foreground">
-        Purchases via Stripe unlock access automatically. You can still grant or revoke access manually under Members. Hero and coach copy can be edited under Homepage. Workout and nutrition copy follows the official PDF in the app code.
+        Purchases via Stripe unlock access automatically. You can still grant or revoke access manually under Members. Marketing and member app copy can be edited in Admin — no deploy needed for text or images.
       </p>
     </div>
   );

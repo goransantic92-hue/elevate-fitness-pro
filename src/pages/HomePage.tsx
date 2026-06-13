@@ -3,7 +3,8 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
 import { TestimonialVideoCard } from "@/components/TestimonialVideoCard";
-import { testimonialVideos } from "@/data/testimonials";
+import { resolveTestimonialsCms } from "@/lib/memberAppCms";
+import { usePublishedTestimonials } from "@/hooks/usePublishedTestimonials";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import privateTrainerFitness from "@/assets/private-trainer-fitness.webp";
 import coachAbout from "@/assets/coach-about.webp";
@@ -41,6 +42,8 @@ const HomePage = () => {
   const pricing = usePricing();
   const { data: homepageCms } = usePublishedHomepageCms();
   const { data: faqCms } = usePublishedSiteCms("faq");
+  const { data: testimonialsCms } = usePublishedTestimonials();
+  const testimonialVideos = resolveTestimonialsCms(testimonialsCms ?? null);
 
   const hero = resolveHomepageHero(homepageCms?.hero, t, "Coach Milos — cable training in the gym");
   const coach = resolveHomepageCoach(homepageCms?.coach, t);

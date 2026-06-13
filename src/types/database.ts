@@ -351,7 +351,17 @@ export type Database = {
       };
       site_content: {
         Row: {
-          page_key: "pricing" | "faq" | "handbooks" | "program" | "nutrition" | "coaching";
+          page_key:
+            | "pricing"
+            | "faq"
+            | "handbooks"
+            | "program"
+            | "nutrition"
+            | "coaching"
+            | "member_dashboard"
+            | "member_nutrition"
+            | "member_roadmap"
+            | "testimonials";
           locale: "en" | "ar";
           draft: Json;
           published: Json;
@@ -362,7 +372,17 @@ export type Database = {
           updated_by: string | null;
         };
         Insert: {
-          page_key: "pricing" | "faq" | "handbooks" | "program" | "nutrition" | "coaching";
+          page_key:
+            | "pricing"
+            | "faq"
+            | "handbooks"
+            | "program"
+            | "nutrition"
+            | "coaching"
+            | "member_dashboard"
+            | "member_nutrition"
+            | "member_roadmap"
+            | "testimonials";
           locale: "en" | "ar";
           draft?: Json;
           published?: Json;
@@ -373,7 +393,17 @@ export type Database = {
           updated_by?: string | null;
         };
         Update: {
-          page_key?: "pricing" | "faq" | "handbooks" | "program" | "nutrition" | "coaching";
+          page_key?:
+            | "pricing"
+            | "faq"
+            | "handbooks"
+            | "program"
+            | "nutrition"
+            | "coaching"
+            | "member_dashboard"
+            | "member_nutrition"
+            | "member_roadmap"
+            | "testimonials";
           locale?: "en" | "ar";
           draft?: Json;
           published?: Json;

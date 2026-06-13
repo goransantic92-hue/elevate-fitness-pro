@@ -1,6 +1,16 @@
 import type { HomepageLocale, HomepageReviewStatus } from "@/types/homepageCms";
 
-export type SitePageKey = "pricing" | "faq" | "handbooks" | "program" | "nutrition" | "coaching";
+export type SitePageKey =
+  | "pricing"
+  | "faq"
+  | "handbooks"
+  | "program"
+  | "nutrition"
+  | "coaching"
+  | "member_dashboard"
+  | "member_nutrition"
+  | "member_roadmap"
+  | "testimonials";
 
 export type FaqItem = { q: string; a: string };
 
@@ -108,6 +118,61 @@ export type CoachingCmsPayload = {
   trust: string[];
 };
 
+export type MemberDashboardCmsPayload = {
+  gate: { title: string; description: string };
+  home: { headline: string; subhead: string };
+  training: { title: string; subhead: string };
+  roadmap: { title: string; subhead: string; scheduleTitle: string; scheduleSubhead: string };
+  progress: { title: string; headline: string; body: string; expectationsTitle: string; expectationsSubhead: string };
+};
+
+export type MemberMeal = { time: string; name: string; meal: string; macros: string; tip: string };
+export type EatAnywherePlace = { place: string; tips: string[] };
+export type SupplementItem = { name: string; dose: string; note: string };
+export type SupplementWasteItem = { name: string; reason: string };
+
+export type MemberNutritionCmsPayload = {
+  title: string;
+  subhead: string;
+  rulesTitle: string;
+  mealPlanTitle: string;
+  mealPlanSubhead: string;
+  eatAnywhereTitle: string;
+  supplementsTitle: string;
+  supplementsSubhead: string;
+  essentialTitle: string;
+  optionalTitle: string;
+  wasteTitle: string;
+  rules: NutritionRule[];
+  meals: MemberMeal[];
+  eatAnywhere: EatAnywherePlace[];
+  rule9010: { title: string; body: string; quote: string };
+  essential: SupplementItem[];
+  optional: SupplementItem[];
+  waste: SupplementWasteItem[];
+};
+
+export type MemberRoadmapCmsPayload = {
+  title: string;
+  subhead: string;
+  scheduleTitle: string;
+  scheduleSubhead: string;
+  phases: ProgramPhase[];
+  schedule: ProgramScheduleDay[];
+};
+
+export type TestimonialCmsItem = {
+  id: string;
+  name: string;
+  videoPath: string | null;
+  posterPath: string | null;
+  enabled: boolean;
+};
+
+export type TestimonialsCmsPayload = {
+  items: TestimonialCmsItem[];
+};
+
 export type SiteCmsPayloadMap = {
   pricing: PricingCmsPayload;
   faq: FaqCmsPayload;
@@ -115,6 +180,10 @@ export type SiteCmsPayloadMap = {
   program: ProgramCmsPayload;
   nutrition: NutritionCmsPayload;
   coaching: CoachingCmsPayload;
+  member_dashboard: MemberDashboardCmsPayload;
+  member_nutrition: MemberNutritionCmsPayload;
+  member_roadmap: MemberRoadmapCmsPayload;
+  testimonials: TestimonialsCmsPayload;
 };
 
 export type SiteContentRow<K extends SitePageKey = SitePageKey> = {
@@ -134,6 +203,21 @@ export const SITE_PAGE_LABELS: Record<SitePageKey, string> = {
   faq: "FAQ",
   handbooks: "Free handbooks",
   program: "Program",
-  nutrition: "Nutrition",
+  nutrition: "Nutrition (marketing)",
   coaching: "Coaching apply",
+  member_dashboard: "Member app — dashboard copy",
+  member_nutrition: "Member app — nutrition",
+  member_roadmap: "Member app — roadmap",
+  testimonials: "Testimonial videos",
 };
+
+export const MEMBER_APP_PAGE_KEYS = ["member_dashboard", "member_nutrition", "member_roadmap"] as const;
+
+export const MARKETING_SITE_PAGE_KEYS = [
+  "pricing",
+  "faq",
+  "handbooks",
+  "program",
+  "nutrition",
+  "coaching",
+] as const satisfies readonly SitePageKey[];

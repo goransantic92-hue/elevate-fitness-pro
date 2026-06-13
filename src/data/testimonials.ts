@@ -28,7 +28,13 @@ export function testimonialVideoSrc(t: TestimonialVideo): string {
   return testimonialStorageUrl(t.videoPath);
 }
 
-/** Posters extracted from video frames (served from /public/testimonials). */
+/** Posters from Supabase storage or legacy /public/testimonials. */
 export function testimonialPosterSrc(t: TestimonialVideo): string {
+  if (t.posterPath.startsWith("posters/") || t.posterPath.startsWith("videos/")) {
+    return testimonialStorageUrl(t.posterPath);
+  }
+  if (t.posterPath.includes("/")) {
+    return testimonialStorageUrl(t.posterPath);
+  }
   return `/testimonials/${t.id}.jpg`;
 }

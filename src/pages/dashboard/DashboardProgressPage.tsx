@@ -11,6 +11,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Switch } from "@/components/ui/switch";
 import { useToast } from "@/hooks/use-toast";
+import { useMemberDashboardCms } from "@/hooks/useMemberAppCms";
 import type { Database } from "@/types/database";
 
 type Checkin = Database["public"]["Tables"]["progress_checkins"]["Row"];
@@ -24,6 +25,7 @@ export default function DashboardProgressPage() {
   const { user } = useAuth();
   const { toast } = useToast();
   const { t } = useTranslation("dashboard");
+  const { content: dashboardCms } = useMemberDashboardCms();
   const [week, setWeek] = useState(1);
   const [checkins, setCheckins] = useState<Checkin[]>([]);
   const [logs, setLogs] = useState<WLog[]>([]);
@@ -110,15 +112,15 @@ export default function DashboardProgressPage() {
     <MemberGate>
       <div className="max-w-4xl mx-auto space-y-10">
         <div>
-          <h1 className="text-3xl font-black">{t("progress.title")}</h1>
-          <p className="text-muted-foreground mt-2">{t("progress.headline")}</p>
-          <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{t("progress.body")}</p>
+          <h1 className="text-3xl font-black">{dashboardCms.progress.title}</h1>
+          <p className="text-muted-foreground mt-2">{dashboardCms.progress.headline}</p>
+          <p className="text-sm text-muted-foreground mt-2 leading-relaxed">{dashboardCms.progress.body}</p>
         </div>
 
         <Card className="glass-card">
           <CardHeader>
-            <CardTitle className="text-lg">{t("progress.expectationsTitle")}</CardTitle>
-            <CardDescription>{t("progress.expectationsSubhead")}</CardDescription>
+            <CardTitle className="text-lg">{dashboardCms.progress.expectationsTitle}</CardTitle>
+            <CardDescription>{dashboardCms.progress.expectationsSubhead}</CardDescription>
           </CardHeader>
           <CardContent className="overflow-x-auto">
             <table className="w-full text-xs md:text-sm">

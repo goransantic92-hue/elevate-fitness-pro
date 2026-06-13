@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/AuthContext";
+import { useMemberDashboardCms } from "@/hooks/useMemberAppCms";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock } from "lucide-react";
@@ -11,6 +12,7 @@ import { trackInitiateCheckout } from "@/lib/metaPixel";
 export function MemberGate({ children }: { children: React.ReactNode }) {
   const { t } = useTranslation("dashboard");
   const { hasProgramAccess, loading, user } = useAuth();
+  const { content: dashboardCms } = useMemberDashboardCms();
 
   if (loading) {
     return (
@@ -26,9 +28,9 @@ export function MemberGate({ children }: { children: React.ReactNode }) {
         <CardHeader>
           <div className="flex items-center gap-2 text-primary">
             <Lock className="h-5 w-5" />
-            <CardTitle>{t("gate.title")}</CardTitle>
+            <CardTitle>{dashboardCms.gate.title}</CardTitle>
           </div>
-          <CardDescription>{t("gate.description")}</CardDescription>
+          <CardDescription>{dashboardCms.gate.description}</CardDescription>
         </CardHeader>
         <CardContent className="flex flex-col sm:flex-row gap-3">
           <Button

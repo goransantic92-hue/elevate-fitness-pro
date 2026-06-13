@@ -13,6 +13,16 @@ import enPricing from "@/i18n/locales/en/pricing";
 import enProgram from "@/i18n/locales/en/program";
 import { HANDBOOK_IDS } from "@/lib/handbooks";
 import {
+  getDefaultMemberDashboard,
+  getDefaultMemberNutrition,
+  getDefaultMemberRoadmap,
+  getDefaultTestimonials,
+  parseMemberDashboard,
+  parseMemberNutrition,
+  parseMemberRoadmap,
+  parseTestimonialsCms,
+} from "@/lib/memberAppCms";
+import {
   asNullableString,
   asString,
   asStringArray,
@@ -110,6 +120,22 @@ export function getDefaultSiteCms<K extends SitePageKey>(pageKey: K, locale: Hom
         items: n.rules.items.map((item) => ({ ...item })),
       },
     } as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "member_dashboard") {
+    return getDefaultMemberDashboard(locale) as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "member_nutrition") {
+    return getDefaultMemberNutrition(locale) as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "member_roadmap") {
+    return getDefaultMemberRoadmap(locale) as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "testimonials") {
+    return getDefaultTestimonials() as SiteCmsPayloadMap[K];
   }
 
   const c = isAr ? arCoaching : enCoaching;
@@ -309,6 +335,22 @@ export function parseSiteCmsPayload<K extends SitePageKey>(
         items: ruleItems.length > 0 ? ruleItems : d.rules.items,
       },
     } as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "member_dashboard") {
+    return parseMemberDashboard(raw, locale) as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "member_nutrition") {
+    return parseMemberNutrition(raw, locale) as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "member_roadmap") {
+    return parseMemberRoadmap(raw, locale) as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "testimonials") {
+    return parseTestimonialsCms(raw) as SiteCmsPayloadMap[K];
   }
 
   const d = defaults as CoachingCmsPayload;

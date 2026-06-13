@@ -14,18 +14,19 @@ import { getProgramProgressFromSessionLogs } from "@/lib/programProgress";
 import type { PlanTab } from "@/lib/dashboardSessionLinks";
 import { supabase } from "@/lib/supabase";
 import { useToast } from "@/hooks/use-toast";
+import { useMemberDashboardCms, useMemberRoadmapCms } from "@/hooks/useMemberAppCms";
 import type { Database } from "@/types/database";
 import { isWeekFullyCompleteUnion } from "@/lib/weekCompletionStats";
 
 type Checkin = Database["public"]["Tables"]["progress_checkins"]["Row"];
 type WLog = Database["public"]["Tables"]["workout_session_logs"]["Row"];
 type Slot = WLog["slot"];
-type ScheduleDay = { day: string; session: string; duration: string; focus: string; note: string };
 
 export default function DashboardHome() {
   const { t } = useTranslation("dashboard");
-  const { t: tProgram } = useTranslation("program");
   const { hasProgramAccess, profile, user } = useAuth();
+  const { content: dashboardCms } = useMemberDashboardCms();
+  const { content: roadmapCms } = useMemberRoadmapCms();
   const { toast } = useToast();
   const [checkins, setCheckins] = useState<Checkin[]>([]);
   const [logs, setLogs] = useState<WLog[]>([]);
@@ -35,7 +36,7 @@ export default function DashboardHome() {
   const [planTab, setPlanTab] = useState<PlanTab>("gym");
   const [checkinWeek, setCheckinWeek] = useState<number | null>(null);
 
-  const weeklySchedule = tProgram("schedule.items", { returnObjects: true }) as ScheduleDay[];
+  const weeklySchedule = roadmapCms.schedule;
   const progress = useMemo(() => getProgramProgressFromSessionLogs(logs), [logs]);
 
   const load = useCallback(async () => {
@@ -155,10 +156,10 @@ export default function DashboardHome() {
           {t("home.greeting")}
           {firstName ? `, ${firstName}` : ""}
           <br />
-          <span className="text-gradient">{t("home.headline")}</span>
+          <span className="text-gradient">{dashboardCms.home.headline}</span>
         </h1>
         <p className="text-muted-foreground mt-3 md:text-lg max-w-2xl leading-relaxed">
-          {t("home.subhead", { programName: programMeta.name })}
+          {dashboardCms.home.subhead.replace(/\{\{programName\}\}/g, programMeta.name)}
         </p>
       </div>
 

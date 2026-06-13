@@ -1,27 +1,22 @@
 import { useTranslation } from "react-i18next";
 import { MemberGate } from "@/components/MemberGate";
+import { useMemberRoadmapCms } from "@/hooks/useMemberAppCms";
 import { Check } from "lucide-react";
 
-type Phase = { number: string; name: string; weeks: string; description: string; focus: string[] };
-type ScheduleDay = { day: string; session: string; duration: string; focus: string; note: string };
-
 export default function DashboardRoadmapPage() {
-  const { t } = useTranslation("dashboard");
   const { t: tProgram } = useTranslation("program");
-
-  const phases = tProgram("phases", { returnObjects: true }) as Phase[];
-  const weeklySchedule = tProgram("schedule.items", { returnObjects: true }) as ScheduleDay[];
+  const { content } = useMemberRoadmapCms();
 
   return (
     <MemberGate>
       <div className="max-w-4xl mx-auto space-y-12">
         <div>
-          <h1 className="text-3xl font-black">{t("roadmap.title")}</h1>
-          <p className="text-muted-foreground mt-2">{t("roadmap.subhead")}</p>
+          <h1 className="text-3xl font-black">{content.title}</h1>
+          <p className="text-muted-foreground mt-2">{content.subhead}</p>
         </div>
 
         <div className="space-y-6">
-          {phases.map((phase) => (
+          {content.phases.map((phase) => (
             <div
               key={phase.number}
               className="glass-card p-5 sm:p-6 md:p-8 bg-gradient-to-r from-primary/10 to-transparent border-primary/15 relative min-w-0 rounded-2xl"
@@ -54,10 +49,10 @@ export default function DashboardRoadmapPage() {
         </div>
 
         <div>
-          <h2 className="text-2xl font-black mb-2">{t("roadmap.scheduleTitle")}</h2>
-          <p className="text-sm text-muted-foreground mb-6">{t("roadmap.scheduleSubhead")}</p>
+          <h2 className="text-2xl font-black mb-2">{content.scheduleTitle}</h2>
+          <p className="text-sm text-muted-foreground mb-6">{content.scheduleSubhead}</p>
           <div className="space-y-2">
-            {weeklySchedule.map((d, i) => {
+            {content.schedule.map((d, i) => {
               const isTraining = [0, 2, 4, 5].includes(i);
               return (
                 <div

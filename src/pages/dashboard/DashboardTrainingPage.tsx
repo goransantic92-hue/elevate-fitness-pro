@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { MemberGate } from "@/components/MemberGate";
+import { useMemberDashboardCms } from "@/hooks/useMemberAppCms";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
@@ -39,13 +40,14 @@ function WorkoutCard({
 
 export default function DashboardTrainingPage() {
   const { t } = useTranslation("dashboard");
+  const { content: dashboardCms } = useMemberDashboardCms();
 
   return (
     <MemberGate>
       <div className="max-w-5xl mx-auto space-y-8">
         <div>
-          <h1 className="text-3xl font-black">{t("training.title")}</h1>
-          <p className="text-muted-foreground mt-2">{t("training.subhead")}</p>
+          <h1 className="text-3xl font-black">{dashboardCms.training.title}</h1>
+          <p className="text-muted-foreground mt-2">{dashboardCms.training.subhead}</p>
         </div>
 
         <Tabs defaultValue="gym" className="w-full">

@@ -1,39 +1,28 @@
 import { useTranslation } from "react-i18next";
 import { MemberGate } from "@/components/MemberGate";
+import { useMemberNutritionCms } from "@/hooks/useMemberAppCms";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Ban, Beef, Pill, Utensils } from "lucide-react";
 
-type NutritionRule = { number: string; title: string; body: string };
-type Meal = { time: string; name: string; meal: string; macros: string; tip: string };
-type EatAnywherePlace = { place: string; tips: string[] };
-type Supplement = { name: string; dose: string; note: string };
-type SupplementWaste = { name: string; reason: string };
-
 export default function DashboardNutritionPage() {
   const { t } = useTranslation("nutrition");
-
-  const nutritionRules = t("rules.items", { returnObjects: true }) as NutritionRule[];
-  const sampleMealPlan = t("meals.items", { returnObjects: true }) as Meal[];
-  const eatAnywhere = t("eatAnywhere.items", { returnObjects: true }) as EatAnywherePlace[];
-  const supplementEssential = t("supplements.essential", { returnObjects: true }) as Supplement[];
-  const supplementOptional = t("supplements.optional", { returnObjects: true }) as Supplement[];
-  const supplementWaste = t("supplements.waste", { returnObjects: true }) as SupplementWaste[];
+  const { content } = useMemberNutritionCms();
 
   return (
     <MemberGate>
       <div className="max-w-4xl mx-auto space-y-10">
         <div>
-          <h1 className="text-3xl font-black">{t("member.title")}</h1>
-          <p className="text-muted-foreground mt-2">{t("member.subhead")}</p>
+          <h1 className="text-3xl font-black">{content.title}</h1>
+          <p className="text-muted-foreground mt-2">{content.subhead}</p>
         </div>
 
         <section>
           <h2 className="text-xl font-black mb-4 flex items-center gap-2">
             <Utensils className="h-5 w-5 text-primary" />
-            {t("member.rulesTitle")}
+            {content.rulesTitle}
           </h2>
           <div className="grid md:grid-cols-3 gap-4">
-            {nutritionRules.map((r) => (
+            {content.rules.map((r) => (
               <Card key={r.number} className="glass-card">
                 <CardHeader className="pb-2">
                   <p className="text-xs font-bold text-primary">{t("member.ruleLabel", { number: r.number })}</p>
@@ -46,10 +35,10 @@ export default function DashboardNutritionPage() {
         </section>
 
         <section>
-          <h2 className="text-xl font-black mb-4">{t("member.mealPlanTitle")}</h2>
-          <p className="text-sm text-muted-foreground mb-4">{t("member.mealPlanSubhead")}</p>
+          <h2 className="text-xl font-black mb-4">{content.mealPlanTitle}</h2>
+          <p className="text-sm text-muted-foreground mb-4">{content.mealPlanSubhead}</p>
           <div className="space-y-3">
-            {sampleMealPlan.map((m) => (
+            {content.meals.map((m) => (
               <Card key={m.name} className="glass-card">
                 <CardContent className="p-5 flex flex-col md:flex-row md:gap-6">
                   <div className="shrink-0 w-28">
@@ -70,10 +59,10 @@ export default function DashboardNutritionPage() {
         <section>
           <h2 className="text-xl font-black mb-4 flex items-center gap-2">
             <Beef className="h-5 w-5 text-primary" />
-            {t("member.eatAnywhereTitle")}
+            {content.eatAnywhereTitle}
           </h2>
           <div className="grid sm:grid-cols-2 gap-4">
-            {eatAnywhere.map((block) => (
+            {content.eatAnywhere.map((block) => (
               <Card key={block.place} className="glass-card">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-base text-primary">{block.place}</CardTitle>
@@ -93,8 +82,8 @@ export default function DashboardNutritionPage() {
           </div>
           <Card className="glass-card mt-4 bg-gradient-to-r from-primary/10 to-transparent border-primary/20">
             <CardContent className="p-6">
-              <h3 className="font-bold mb-2">{t("eatAnywhere.rule9010.title")}</h3>
-              <p className="text-sm text-muted-foreground">{t("eatAnywhere.rule9010.body")}</p>
+              <h3 className="font-bold mb-2">{content.rule9010.title}</h3>
+              <p className="text-sm text-muted-foreground">{content.rule9010.body}</p>
             </CardContent>
           </Card>
         </section>
@@ -102,12 +91,12 @@ export default function DashboardNutritionPage() {
         <section>
           <h2 className="text-xl font-black mb-4 flex items-center gap-2">
             <Pill className="h-5 w-5 text-primary" />
-            {t("member.supplementsTitle")}
+            {content.supplementsTitle}
           </h2>
-          <p className="text-sm text-muted-foreground mb-4">{t("member.supplementsSubhead")}</p>
-          <h3 className="text-sm font-bold text-primary mb-3">{t("member.essentialTitle")}</h3>
+          <p className="text-sm text-muted-foreground mb-4">{content.supplementsSubhead}</p>
+          <h3 className="text-sm font-bold text-primary mb-3">{content.essentialTitle}</h3>
           <div className="space-y-2 mb-8">
-            {supplementEssential.map((s) => (
+            {content.essential.map((s) => (
               <Card key={s.name} className="glass-card">
                 <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-sm">
                   <span className="font-bold w-48 shrink-0">{s.name}</span>
@@ -117,9 +106,9 @@ export default function DashboardNutritionPage() {
               </Card>
             ))}
           </div>
-          <h3 className="text-sm font-bold text-muted-foreground mb-3">{t("member.optionalTitle")}</h3>
+          <h3 className="text-sm font-bold text-muted-foreground mb-3">{content.optionalTitle}</h3>
           <div className="space-y-2 mb-8">
-            {supplementOptional.map((s) => (
+            {content.optional.map((s) => (
               <Card key={s.name} className="glass-card">
                 <CardContent className="p-4 flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-6 text-sm">
                   <span className="font-semibold w-48 shrink-0">{s.name}</span>
@@ -131,10 +120,10 @@ export default function DashboardNutritionPage() {
           </div>
           <h3 className="text-sm font-bold text-destructive mb-3 flex items-center gap-2">
             <Ban className="h-4 w-4" />
-            {t("member.wasteTitle")}
+            {content.wasteTitle}
           </h3>
           <div className="space-y-2">
-            {supplementWaste.map((s) => (
+            {content.waste.map((s) => (
               <Card key={s.name} className="glass-card opacity-70">
                 <CardContent className="p-4 flex flex-col sm:flex-row gap-2 text-sm">
                   <span className="font-bold line-through w-48 shrink-0">{s.name}</span>

@@ -46,6 +46,8 @@ const AdminHandbookLeadsPage = lazyRoute(() => import("@/pages/admin/AdminHandbo
 const AdminWorkoutsPage = lazyRoute(() => import("@/pages/admin/AdminWorkoutsPage"));
 const AdminHomepagePage = lazyRoute(() => import("@/pages/admin/AdminHomepagePage"));
 const AdminSitePagesPage = lazyRoute(() => import("@/pages/admin/AdminSitePagesPage"));
+const AdminMemberAppPage = lazyRoute(() => import("@/pages/admin/AdminMemberAppPage"));
+const AdminTestimonialsPage = lazyRoute(() => import("@/pages/admin/AdminTestimonialsPage"));
 
 const queryClient = new QueryClient();
 
@@ -288,6 +290,22 @@ const App = () => (
               element={
                 <Lazy>
                   <AdminHomepagePage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="member"
+              element={
+                <Lazy>
+                  <AdminMemberAppPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="testimonials"
+              element={
+                <Lazy>
+                  <AdminTestimonialsPage />
                 </Lazy>
               }
             />

@@ -33,8 +33,8 @@ import type {
   SiteContentRow,
   SiteCmsPayloadMap,
   SitePageKey,
-  SITE_PAGE_LABELS,
 } from "@/types/siteCms";
+import { SITE_PAGE_LABELS, MARKETING_SITE_PAGE_KEYS } from "@/types/siteCms";
 
 const statusLabels: Record<HomepageReviewStatus, string> = {
   draft: "Draft",
@@ -42,7 +42,7 @@ const statusLabels: Record<HomepageReviewStatus, string> = {
   published: "Published",
 };
 
-const PAGE_KEYS = Object.keys(SITE_PAGE_LABELS) as SitePageKey[];
+const PAGE_KEYS = MARKETING_SITE_PAGE_KEYS;
 
 export default function AdminSitePagesPage() {
   const { toast } = useToast();
