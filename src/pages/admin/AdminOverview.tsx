@@ -74,6 +74,22 @@ export default function AdminOverview() {
           </CardContent>
         </Card>
       </div>
+
+      <Card className="glass-card border-primary/30">
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="text-base font-bold">Edit homepage</CardTitle>
+          <Home className="h-5 w-5 text-primary" />
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-muted-foreground">
+            Change hero text, coach bio, and photos — no code. Save draft, then publish when ready.
+          </p>
+          <Button className="bg-amber-500 text-black font-bold hover:bg-amber-400" asChild>
+            <Link to="/admin/homepage">Open homepage editor</Link>
+          </Button>
+        </CardContent>
+      </Card>
+
       {counts.homepagePending > 0 && (
         <Card className="glass-card border-amber-500/40">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
