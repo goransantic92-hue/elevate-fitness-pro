@@ -56,26 +56,43 @@ export default function AdminSitePagesPage() {
   const [uploadingId, setUploadingId] = useState<string | null>(null);
 
   const load = useCallback(async () => {
+    const key = pageKey;
+    const loc = locale;
     setLoading(true);
     try {
-      const next = await fetchSiteContentRow(pageKey, locale);
+      const next = await fetchSiteContentRow(key, loc);
+      if (key !== pageKey || loc !== locale) return;
       setRow(next);
       setDraft(next.draft);
     } catch (error) {
+      if (key !== pageKey || loc !== locale) return;
       toast({
         title: "Load failed",
         description: error instanceof Error ? error.message : "Could not load page content.",
         variant: "destructive",
       });
     } finally {
-      setLoading(false);
+      if (key === pageKey && loc === locale) setLoading(false);
     }
   }, [locale, pageKey, toast]);
 
   useEffect(() => {
-    setDraft(getDefaultSiteCms(pageKey, locale));
-    load();
-  }, [load, locale, pageKey]);
+    void load();
+  }, [load]);
+
+  function changePageKey(key: SitePageKey) {
+    setPageKey(key);
+    setDraft(getDefaultSiteCms(key, locale));
+    setRow(null);
+    setLoading(true);
+  }
+
+  function changeLocale(loc: HomepageLocale) {
+    setLocale(loc);
+    setDraft(getDefaultSiteCms(pageKey, loc));
+    setRow(null);
+    setLoading(true);
+  }
 
   async function persist(action: "draft" | "review" | "publish") {
     setSaving(true);
@@ -350,7 +367,7 @@ export default function AdminSitePagesPage() {
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
           <Label>Page</Label>
-          <Select value={pageKey} onValueChange={(v) => setPageKey(v as SitePageKey)}>
+          <Select value={pageKey} onValueChange={(v) => changePageKey(v as SitePageKey)}>
             <SelectTrigger><SelectValue /></SelectTrigger>
             <SelectContent>
               {PAGE_KEYS.map((key) => (
@@ -359,7 +376,7 @@ export default function AdminSitePagesPage() {
             </SelectContent>
           </Select>
         </div>
-        <Tabs value={locale} onValueChange={(v) => setLocale(v as HomepageLocale)}>
+        <Tabs value={locale} onValueChange={(v) => changeLocale(v as HomepageLocale)}>
           <Label className="mb-2 block">Language</Label>
           <TabsList>
             <TabsTrigger value="en">English</TabsTrigger>

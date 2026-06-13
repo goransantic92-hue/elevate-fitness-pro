@@ -394,7 +394,11 @@ export async function fetchPublishedSiteCms<K extends SitePageKey>(
     p_locale: locale,
   });
   if (error || !data || !hasPublishedPayload(data)) return null;
-  return parseSiteCmsPayload(pageKey, data, locale);
+  try {
+    return parseSiteCmsPayload(pageKey, data, locale);
+  } catch {
+    return null;
+  }
 }
 
 export async function fetchSiteContentRow<K extends SitePageKey>(
