@@ -22,6 +22,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
+import { CmsWorkflowBar } from "@/components/admin/CmsWorkflowBar";
+import { HomepageExtraSections } from "@/components/admin/HomepageExtraSections";
 import type { HomepageCmsPayload, HomepageContentRow, HomepageLocale, HomepageReviewStatus } from "@/types/homepageCms";
 
 const statusLabels: Record<HomepageReviewStatus, string> = {
@@ -46,6 +48,7 @@ export default function AdminHomepagePage() {
   const [saving, setSaving] = useState(false);
   const [uploadingHero, setUploadingHero] = useState(false);
   const [uploadingCoach, setUploadingCoach] = useState(false);
+  const [section, setSection] = useState<"hero-coach" | "more">("hero-coach");
 
   const load = useCallback(async () => {
     setLoading(true);
@@ -203,6 +206,17 @@ export default function AdminHomepagePage() {
         </TabsList>
       </Tabs>
 
+      <Tabs value={section} onValueChange={(value) => setSection(value as "hero-coach" | "more")}>
+        <TabsList>
+          <TabsTrigger value="hero-coach">Hero & coach</TabsTrigger>
+          <TabsTrigger value="more">Stats, tiers, pillars & more</TabsTrigger>
+        </TabsList>
+      </Tabs>
+
+      {section === "more" ? (
+        <HomepageExtraSections draft={draft} setDraft={setDraft} />
+      ) : (
+        <>
       <Card className="glass-card border-amber-500/20">
         <CardHeader>
           <CardTitle className="text-lg">Hero section</CardTitle>
@@ -473,6 +487,8 @@ export default function AdminHomepagePage() {
           </div>
         </CardContent>
       </Card>
+        </>
+      )}
 
       <Card className="glass-card">
         <CardHeader>
@@ -481,43 +497,15 @@ export default function AdminHomepagePage() {
             Save draft while editing. Request review when ready — then publish to go live instantly (no deploy for text or images).
           </CardDescription>
         </CardHeader>
-        <CardContent className="flex flex-col gap-3 sm:flex-row sm:flex-wrap">
-          <Button
-            type="button"
-            variant="outline"
-            disabled={saving}
-            onClick={() => {
-              void handleSaveDraft();
-            }}
-          >
-            Save draft
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            disabled={saving}
-            onClick={() => {
-              void handleRequestReview();
-            }}
-          >
-            Ready — notify for review
-          </Button>
-          <Button
-            type="button"
-            className="bg-amber-500 text-black font-bold hover:bg-amber-400"
-            disabled={saving}
-            onClick={() => {
-              void handlePublish();
-            }}
-          >
-            Publish now
-          </Button>
-          <Button type="button" variant="ghost" disabled={saving} onClick={resetDraftFromPublished}>
-            Reset form to published
-          </Button>
-          <Button type="button" variant="ghost" disabled={saving} onClick={resetDraftFromDefaults}>
-            Reset form to defaults
-          </Button>
+        <CardContent>
+          <CmsWorkflowBar
+            saving={saving}
+            onSaveDraft={() => void handleSaveDraft()}
+            onRequestReview={() => void handleRequestReview()}
+            onPublish={() => void handlePublish()}
+            onResetPublished={resetDraftFromPublished}
+            onResetDefaults={resetDraftFromDefaults}
+          />
         </CardContent>
       </Card>
 

@@ -5,25 +5,28 @@ import { ArrowRight } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { usePricing } from "@/hooks/usePricing";
+import { usePublishedSiteCms } from "@/hooks/usePublishedSiteCms";
+import { resolveFaqCms } from "@/lib/siteCms";
 
 type FaqItem = { q: string; a: string };
 
 const FAQPage = () => {
   const { t } = useTranslation("faq");
   const pricing = usePricing();
-
-  const faqItems = t("items", { returnObjects: true }) as FaqItem[];
+  const { data: faqCms } = usePublishedSiteCms("faq");
+  const content = resolveFaqCms(faqCms ?? null, t);
+  const faqItems = content.items;
 
   return (
     <div className="font-sans">
       <PageMeta title={t("meta.title")} description={t("meta.description")} path="/faq" />
       <section className="pt-8 pb-12 md:pt-12 md:pb-16">
         <div className="container mx-auto max-w-3xl px-6 text-center">
-          <p className="text-xs font-semibold uppercase tracking-widest text-primary">{t("page.eyebrow")}</p>
+          <p className="text-xs font-semibold uppercase tracking-widest text-primary">{content.page.eyebrow}</p>
           <h1 className="font-display mt-2 text-balance text-[clamp(2rem,5vw,3rem)] text-foreground">
-            {t("page.headline")} <span className="text-primary">{t("page.headlineHighlight")}</span>
+            {content.page.headline} <span className="text-primary">{content.page.headlineHighlight}</span>
           </h1>
-          <p className="mt-3 text-pretty text-muted-foreground">{t("page.subhead")}</p>
+          <p className="mt-3 text-pretty text-muted-foreground">{content.page.subhead}</p>
         </div>
       </section>
 

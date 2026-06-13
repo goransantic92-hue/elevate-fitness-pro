@@ -87,6 +87,9 @@ export default function AdminOverview() {
           <Button className="bg-amber-500 text-black font-bold hover:bg-amber-400" asChild>
             <Link to="/admin/homepage">Open homepage editor</Link>
           </Button>
+          <Button variant="outline" asChild>
+            <Link to="/admin/pages">Edit other pages (Pricing, FAQ…)</Link>
+          </Button>
         </CardContent>
       </Card>
 

@@ -9,6 +9,9 @@ import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
 import { HANDBOOK_IDS, type HandbookId } from "@/lib/handbooks";
 import { HANDBOOK_IMAGES } from "@/lib/handbookImages";
+import { usePublishedSiteCms } from "@/hooks/usePublishedSiteCms";
+import { resolveHandbooksCms } from "@/lib/siteCms";
+import { homepageStorageUrl } from "@/lib/homepageMedia";
 import { trackLead } from "@/lib/metaPixel";
 import { cn } from "@/lib/utils";
 
@@ -21,6 +24,8 @@ const ICONS: Record<HandbookId, typeof Utensils> = {
 
 export function HandbooksLeadSection() {
   const { t } = useTranslation("handbooks");
+  const { data: handbooksCms } = usePublishedSiteCms("handbooks");
+  const content = resolveHandbooksCms(handbooksCms ?? null, t);
   const { toast } = useToast();
   const [selected, setSelected] = useState<Set<HandbookId>>(new Set());
   const [name, setName] = useState("");
@@ -114,17 +119,19 @@ export function HandbooksLeadSection() {
         </div>
       ) : (
         <div className="container mx-auto max-w-[1100px] px-6">
-        <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{t("eyebrow")}</p>
+        <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{content.eyebrow}</p>
         <h2 className="font-display mt-2 text-balance text-center text-[clamp(1.75rem,4vw,2.75rem)] text-foreground">
-          {t("title")}
+          {content.title}
         </h2>
-        <p className="mx-auto mt-3 max-w-[640px] text-center text-pretty text-muted-foreground">{t("subhead")}</p>
+        <p className="mx-auto mt-3 max-w-[640px] text-center text-pretty text-muted-foreground">{content.subhead}</p>
 
         <div className="mt-10 grid grid-cols-1 gap-5 sm:grid-cols-2">
           {HANDBOOK_IDS.map((id) => {
             const Icon = ICONS[id];
             const checked = selected.has(id);
             const cardId = `handbook-${id}`;
+            const item = content.items[id];
+            const cover = homepageStorageUrl(item?.imagePath) ?? HANDBOOK_IMAGES[id];
             return (
               <label
                 key={id}
@@ -138,8 +145,8 @@ export function HandbooksLeadSection() {
               >
                 <div className="relative aspect-[16/10] overflow-hidden">
                   <img
-                    src={HANDBOOK_IMAGES[id]}
-                    alt={t(`items.${id}.imageAlt`)}
+                    src={cover}
+                    alt={item?.imageAlt ?? t(`items.${id}.imageAlt`)}
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     loading="lazy"
                     decoding="async"
@@ -162,10 +169,10 @@ export function HandbooksLeadSection() {
                 <span className="flex flex-1 flex-col p-5">
                   <span className="flex items-center gap-2">
                     <Icon className="h-4 w-4 shrink-0 text-primary" aria-hidden />
-                    <span className="font-display text-lg text-foreground">{t(`items.${id}.title`)}</span>
+                    <span className="font-display text-lg text-foreground">{item?.title ?? t(`items.${id}.title`)}</span>
                   </span>
                   <span className="mt-2 block text-sm leading-relaxed text-muted-foreground">
-                    {t(`items.${id}.description`)}
+                    {item?.description ?? t(`items.${id}.description`)}
                   </span>
                 </span>
               </label>

@@ -12,7 +12,18 @@ import { HandbooksLeadSection } from "@/components/HandbooksLeadSection";
 import { CALENDLY_FREE_CALL_URL } from "@/lib/pricing";
 import { usePricing } from "@/hooks/usePricing";
 import { usePublishedHomepageCms } from "@/hooks/usePublishedHomepageCms";
-import { resolveHomepageCoach, resolveHomepageHero } from "@/lib/homepageCms";
+import { usePublishedSiteCms } from "@/hooks/usePublishedSiteCms";
+import {
+  resolveHomepageCoach,
+  resolveHomepageFinalCta,
+  resolveHomepageHero,
+  resolveHomepagePillars,
+  resolveHomepageStats,
+  resolveHomepageTiers,
+  resolveHomepageWho,
+  resolveSectionHeaders,
+} from "@/lib/homepageCms";
+import { resolveFaqCms } from "@/lib/siteCms";
 import { homepageStorageUrl } from "@/lib/homepageMedia";
 
 const whoCardKeys = [
@@ -21,8 +32,6 @@ const whoCardKeys = [
   { key: "professionals", icon: "🏢" },
 ] as const;
 
-type StatItem = { value: string; label: string };
-type PillarItem = { num: string; title: string; text: string };
 type FaqItem = { q: string; a: string };
 
 const HomePage = () => {
@@ -31,24 +40,25 @@ const HomePage = () => {
   const { t: tFaq } = useTranslation("faq");
   const pricing = usePricing();
   const { data: homepageCms } = usePublishedHomepageCms();
+  const { data: faqCms } = usePublishedSiteCms("faq");
 
-  const hero = resolveHomepageHero(
-    homepageCms?.hero,
-    t,
-    "Coach Milos — cable training in the gym"
-  );
+  const hero = resolveHomepageHero(homepageCms?.hero, t, "Coach Milos — cable training in the gym");
   const coach = resolveHomepageCoach(homepageCms?.coach, t);
-  const heroImage =
-    homepageStorageUrl(hero.imagePath) ?? privateTrainerFitness;
-  const coachImage =
-    homepageStorageUrl(coach.imagePath) ?? coachAbout;
+  const stats = resolveHomepageStats(homepageCms?.stats, t);
+  const who = resolveHomepageWho(homepageCms?.who, t);
+  const tiers = resolveHomepageTiers(homepageCms?.tiers, t);
+  const pillars = resolveHomepagePillars(homepageCms?.pillars, t);
+  const testimonialsHeaders = resolveSectionHeaders(homepageCms?.testimonials, t, "testimonials");
+  const faqHeaders = resolveSectionHeaders(homepageCms?.faq, t, "faq");
+  const finalCta = resolveHomepageFinalCta(homepageCms?.finalCta, t);
+  const faqResolved = resolveFaqCms(faqCms ?? null, tFaq);
+  const faqItems = faqResolved.items;
+
+  const heroImage = homepageStorageUrl(hero.imagePath) ?? privateTrainerFitness;
+  const coachImage = homepageStorageUrl(coach.imagePath) ?? coachAbout;
   const heroSubhead = hero.subhead.includes("{{coachingPrice}}")
     ? hero.subhead.replace("{{coachingPrice}}", pricing.coachedStrong90.labelMonthly)
     : hero.subhead;
-
-  const stats = t("stats", { returnObjects: true }) as StatItem[];
-  const pillars = t("pillars.items", { returnObjects: true }) as PillarItem[];
-  const faqItems = tFaq("items", { returnObjects: true }) as FaqItem[];
 
   return (
     <div className="font-sans">
@@ -150,12 +160,12 @@ const HomePage = () => {
       {/* Who */}
       <section className="section-padding">
         <div className="container mx-auto max-w-[1100px] px-6">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">{t("who.eyebrow")}</p>
+          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-primary">{who.eyebrow}</p>
           <h2 className="font-display text-balance text-[clamp(2rem,5vw,3rem)] text-foreground">
-            {t("who.headline")} <span className="text-primary">{t("who.headlineHighlight")}</span> {t("who.headlineSuffix")}
+            {who.headline} <span className="text-primary">{who.headlineHighlight}</span> {who.headlineSuffix}
           </h2>
           <p className="mb-10 mt-4 max-w-[600px] text-pretty text-[1.05rem] leading-relaxed text-muted-foreground">
-            {t("who.body")}
+            {who.body}
           </p>
           <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
             {whoCardKeys.map((c) => (
@@ -169,7 +179,7 @@ const HomePage = () => {
               >
                 {c.featured && (
                   <div className="mb-4 inline-block rounded-full bg-primary/10 px-3 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-primary">
-                    {t("who.mostCommon")}
+                    {who.mostCommon}
                   </div>
                 )}
                 <div
@@ -178,8 +188,8 @@ const HomePage = () => {
                 >
                   {c.icon}
                 </div>
-                <h4 className="font-sans text-base font-bold text-foreground">{t(`who.cards.${c.key}.title`)}</h4>
-                <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{t(`who.cards.${c.key}.text`)}</p>
+                <h4 className="font-sans text-base font-bold text-foreground">{who.cards[c.key].title}</h4>
+                <p className="mt-2.5 text-sm leading-relaxed text-muted-foreground">{who.cards[c.key].text}</p>
               </div>
             ))}
           </div>
@@ -189,21 +199,21 @@ const HomePage = () => {
       {/* Tiers */}
       <section id="coaching" className="section-padding !pt-8 border-y border-border bg-[hsl(0_0%_6.5%)]">
         <div className="container mx-auto max-w-[1100px] px-6">
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{t("tiers.eyebrow")}</p>
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{tiers.eyebrow}</p>
           <h2 className="font-display mt-2 text-balance text-center text-[clamp(2rem,5vw,3rem)] text-foreground">
-            {t("tiers.headlinePrefix")} <span className="text-primary">{t("tiers.headlineProgram")}</span> {t("tiers.headlineMiddle")}{" "}
-            <span className="text-primary">{t("tiers.headlineCoach")}</span>
+            {tiers.headlinePrefix} <span className="text-primary">{tiers.headlineProgram}</span> {tiers.headlineMiddle}{" "}
+            <span className="text-primary">{tiers.headlineCoach}</span>
           </h2>
-          <p className="mx-auto mt-3 max-w-[560px] text-center text-pretty text-muted-foreground">{t("tiers.subhead")}</p>
+          <p className="mx-auto mt-3 max-w-[560px] text-center text-pretty text-muted-foreground">{tiers.subhead}</p>
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
             <div className="flex flex-col rounded-2xl border border-border bg-background p-8">
-              <div className="text-xs font-semibold uppercase tracking-widest text-primary">{t("tiers.selfGuided.tier")}</div>
-              <h3 className="font-display mt-1 text-3xl">{t("tiers.selfGuided.name")}</h3>
+              <div className="text-xs font-semibold uppercase tracking-widest text-primary">{tiers.selfGuided.tier}</div>
+              <h3 className="font-display mt-1 text-3xl">{tiers.selfGuided.name}</h3>
               <div className="mt-2 text-muted-foreground">
                 <strong className="font-display text-4xl text-foreground">{pricing.selfGuided.label}</strong> {tCommon("misc.oneTime")}
               </div>
               <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
-                {(t("tiers.selfGuided.benefits", { returnObjects: true }) as string[]).map((x) => (
+                {tiers.selfGuided.benefits.map((x) => (
                   <li key={x} className="flex gap-2">
                     <span className="font-bold text-primary">✓</span>
                     {x}
@@ -211,22 +221,22 @@ const HomePage = () => {
                 ))}
               </ul>
               <Button asChild variant="outline" className="h-11 w-full border-border font-semibold">
-                <Link to="/pricing">{t("tiers.selfGuided.cta")}</Link>
+                <Link to="/pricing">{tiers.selfGuided.cta}</Link>
               </Button>
             </div>
 
             <div className="relative flex flex-col rounded-2xl border-2 border-primary bg-background p-8 shadow-[0_0_40px_hsl(171_47%_50%_/_0.1)]">
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 rounded-full bg-primary px-4 py-0.5 text-[0.65rem] font-bold uppercase tracking-wider text-primary-foreground">
-                {t("tiers.coached.recommended")}
+                {tiers.coached.recommended}
               </div>
-              <p className="mt-2 text-center text-xs text-muted-foreground">{t("tiers.coached.recommendedNote")}</p>
-              <div className="text-xs font-semibold uppercase tracking-widest text-primary">{t("tiers.coached.tier")}</div>
-              <h3 className="font-display mt-1 text-3xl">{t("tiers.coached.name")}</h3>
+              <p className="mt-2 text-center text-xs text-muted-foreground">{tiers.coached.recommendedNote}</p>
+              <div className="text-xs font-semibold uppercase tracking-widest text-primary">{tiers.coached.tier}</div>
+              <h3 className="font-display mt-1 text-3xl">{tiers.coached.name}</h3>
               <div className="mt-2 text-muted-foreground">
                 <strong className="font-display text-4xl text-foreground">{pricing.coachedStrong90.label}</strong> {tCommon("misc.perMonth")}
               </div>
               <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border/80 pt-4 text-sm text-[#ccc]">
-                {(t("tiers.coached.benefits", { returnObjects: true }) as string[]).map((x) => (
+                {tiers.coached.benefits.map((x) => (
                   <li key={x} className="flex gap-2">
                     <span className="font-bold text-primary">✓</span>
                     {x}
@@ -234,18 +244,18 @@ const HomePage = () => {
                 ))}
               </ul>
               <Button asChild className="h-11 w-full bg-primary font-bold text-primary-foreground hover:bg-primary/90">
-                <Link to="/coaching-apply?plan=coached-strong-90#apply">{t("tiers.coached.cta")}</Link>
+                <Link to="/coaching-apply?plan=coached-strong-90#apply">{tiers.coached.cta}</Link>
               </Button>
             </div>
 
             <div className="flex flex-col rounded-2xl border border-border bg-background p-8">
-              <div className="text-xs font-semibold uppercase tracking-widest text-primary">{t("tiers.elite.tier")}</div>
-              <h3 className="font-display mt-1 text-3xl">{t("tiers.elite.name")}</h3>
+              <div className="text-xs font-semibold uppercase tracking-widest text-primary">{tiers.elite.tier}</div>
+              <h3 className="font-display mt-1 text-3xl">{tiers.elite.name}</h3>
               <div className="mt-2 text-muted-foreground">
                 <strong className="font-display text-4xl text-foreground">{pricing.privateTransformation.label}</strong> {tCommon("misc.perMonth")}
               </div>
               <ul className="my-6 flex-1 list-none space-y-2.5 border-t border-border pt-4 text-sm text-[#ccc]">
-                {(t("tiers.elite.benefits", { returnObjects: true }) as string[]).map((x) => (
+                {tiers.elite.benefits.map((x) => (
                   <li key={x} className="flex gap-2">
                     <span className="font-bold text-primary">✓</span>
                     {x}
@@ -253,7 +263,7 @@ const HomePage = () => {
                 ))}
               </ul>
               <Button asChild variant="outline" className="h-11 w-full border-border font-semibold">
-                <Link to="/coaching-apply?plan=private-transformation#apply">{t("tiers.elite.cta")}</Link>
+                <Link to="/coaching-apply?plan=private-transformation#apply">{tiers.elite.cta}</Link>
               </Button>
             </div>
           </div>
@@ -265,13 +275,13 @@ const HomePage = () => {
       {/* Pillars */}
       <section className="section-padding">
         <div className="container mx-auto max-w-[1100px] px-6">
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{t("pillars.eyebrow")}</p>
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{pillars.eyebrow}</p>
           <h2 className="font-display mt-2 text-balance text-center text-[clamp(2rem,5vw,3rem)] text-foreground">
-            {t("pillars.headlinePrefix")} <span className="text-primary">{t("pillars.headlineBrand")}</span>
+            {pillars.headlinePrefix} <span className="text-primary">{pillars.headlineBrand}</span>
           </h2>
-          <p className="mx-auto mt-3 max-w-[560px] text-center text-pretty text-[1.05rem] text-muted-foreground">{t("pillars.subhead")}</p>
+          <p className="mx-auto mt-3 max-w-[560px] text-center text-pretty text-[1.05rem] text-muted-foreground">{pillars.subhead}</p>
           <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-3">
-            {pillars.map((p) => (
+            {pillars.items.map((p) => (
               <div
                 key={p.num}
                 className="relative overflow-hidden rounded-xl border border-border bg-[#111] p-8 pt-10 text-center"
@@ -328,11 +338,11 @@ const HomePage = () => {
       {/* Testimonials */}
       <section className="section-padding border-t border-border/60 bg-card/30">
         <div className="container mx-auto max-w-[1100px] px-6">
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{t("testimonials.eyebrow")}</p>
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{testimonialsHeaders.eyebrow}</p>
           <h2 className="font-display mt-2 text-balance text-center text-[clamp(2rem,5vw,3rem)] text-foreground">
-            {t("testimonials.headline")} <span className="text-primary">{t("testimonials.headlineHighlight")}</span>
+            {testimonialsHeaders.headline} <span className="text-primary">{testimonialsHeaders.headlineHighlight}</span>
           </h2>
-          <p className="mx-auto mt-2 max-w-[560px] text-center text-pretty text-muted-foreground">{t("testimonials.subhead")}</p>
+          <p className="mx-auto mt-2 max-w-[560px] text-center text-pretty text-muted-foreground">{testimonialsHeaders.subhead}</p>
           <div className="mt-12 grid grid-cols-1 gap-10 sm:grid-cols-2 lg:grid-cols-4 lg:gap-8">
             {testimonialVideos.map((item) => (
               <TestimonialVideoCard key={item.id} testimonial={item} />
@@ -344,11 +354,11 @@ const HomePage = () => {
       {/* FAQ */}
       <section className="section-padding">
         <div className="container mx-auto max-w-[1100px] px-6">
-          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{t("faq.eyebrow")}</p>
+          <p className="text-center text-xs font-semibold uppercase tracking-widest text-primary">{faqHeaders.eyebrow}</p>
           <h2 className="font-display mt-2 text-balance text-center text-[clamp(2rem,5vw,3rem)] text-foreground">
-            {t("faq.headline")} <span className="text-primary">{t("faq.headlineHighlight")}</span>
+            {faqHeaders.headline} <span className="text-primary">{faqHeaders.headlineHighlight}</span>
           </h2>
-          <p className="mx-auto mt-2 max-w-[520px] text-center text-pretty text-muted-foreground">{t("faq.subhead")}</p>
+          <p className="mx-auto mt-2 max-w-[520px] text-center text-pretty text-muted-foreground">{faqHeaders.subhead}</p>
           <Accordion type="single" collapsible className="mx-auto mt-10 max-w-3xl w-full">
             {faqItems.map((f, i) => (
               <AccordionItem key={f.q} value={`faq-${i}`} className="border-border">
@@ -366,9 +376,9 @@ const HomePage = () => {
       <section id="apply" className="section-padding border-t border-border/50 pb-24 text-center">
         <div className="container mx-auto max-w-3xl px-6">
           <h2 className="font-display text-balance text-[clamp(2.2rem,6vw,3.5rem)] text-foreground">
-            {t("finalCta.headline")} <span className="text-primary">{t("finalCta.headlineHighlight")}</span>
+            {finalCta.headline} <span className="text-primary">{finalCta.headlineHighlight}</span>
           </h2>
-          <p className="mx-auto mt-4 max-w-lg text-pretty text-muted-foreground">{t("finalCta.body")}</p>
+          <p className="mx-auto mt-4 max-w-lg text-pretty text-muted-foreground">{finalCta.body}</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
               <Link to="/pricing">{tCommon("cta.getProgramPrice", { price: pricing.selfGuided.label })}</Link>

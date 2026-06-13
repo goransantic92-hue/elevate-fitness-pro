@@ -1,11 +1,15 @@
-# Homepage CMS setup
+# Site CMS setup
 
-Run the migration `20260611120000_homepage_content.sql` in the Supabase SQL Editor (or via `supabase db push`).
+Run both migrations in Supabase SQL Editor (or via `supabase db push`):
 
-This creates:
+1. `20260611120000_homepage_content.sql` — homepage hero/coach and extended sections
+2. `20260612120000_site_content.sql` — Pricing, FAQ, Handbooks, Program, Nutrition, Coaching
 
-- `homepage_content` table (draft / published JSON per locale)
-- `get_published_homepage(locale)` RPC for the public site
-- `homepage` storage bucket for hero and coach images
+## Admin URLs
 
-After migration, admins can edit content at `/admin/homepage` on the live site.
+- `/admin/homepage` — full homepage (hero, coach, stats, tiers, pillars, CTA…)
+- `/admin/pages` — other marketing pages (dropdown to pick page)
+
+## Workflow
+
+Save draft → Ready for review → Publish now (live without deploy).

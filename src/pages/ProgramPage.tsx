@@ -5,6 +5,8 @@ import { ArrowRight, Check } from "lucide-react";
 import coachHanging from "@/assets/coach-hanging.webp";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { usePricing } from "@/hooks/usePricing";
+import { usePublishedSiteCms } from "@/hooks/usePublishedSiteCms";
+import { resolveProgramCms } from "@/lib/siteCms";
 
 const phaseColors = ["from-primary/20 to-primary/5", "from-primary/30 to-primary/10", "from-primary/40 to-primary/15"];
 
@@ -14,10 +16,12 @@ type ScheduleDay = { day: string; session: string; duration: string; focus: stri
 const ProgramPage = () => {
   const { t } = useTranslation("program");
   const pricing = usePricing();
+  const { data: programCms } = usePublishedSiteCms("program");
+  const content = resolveProgramCms(programCms ?? null, t);
 
-  const phases = t("phases", { returnObjects: true }) as Phase[];
-  const weeklySchedule = t("schedule.items", { returnObjects: true }) as ScheduleDay[];
-  const includedItems = t("included.items", { returnObjects: true }) as string[];
+  const phases = content.phases;
+  const weeklySchedule = content.schedule.items;
+  const includedItems = content.included.items;
 
   return (
     <div>
@@ -35,11 +39,11 @@ const ProgramPage = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <div className="text-xs text-primary font-bold tracking-widest mb-4">{t("hero.eyebrow")}</div>
+          <div className="text-xs text-primary font-bold tracking-widest mb-4">{content.hero.eyebrow}</div>
           <h1 className="text-4xl md:text-6xl font-black mb-6">
-            {t("hero.headline")} <span className="text-gradient">{t("hero.headlineHighlight")}</span>
+            {content.hero.headline} <span className="text-gradient">{content.hero.headlineHighlight}</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("hero.subhead")}</p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{content.hero.subhead}</p>
         </div>
       </section>
 
@@ -85,9 +89,9 @@ const ProgramPage = () => {
         <div className="container mx-auto max-w-4xl">
           <div className="text-center mb-14">
             <h2 className="text-3xl md:text-4xl font-black mb-4">
-              {t("schedule.title")} <span className="text-gradient">{t("schedule.titleHighlight")}</span>
+              {content.schedule.title} <span className="text-gradient">{content.schedule.titleHighlight}</span>
             </h2>
-            <p className="text-muted-foreground">{t("schedule.subhead")}</p>
+            <p className="text-muted-foreground">{content.schedule.subhead}</p>
           </div>
           <div className="space-y-3">
             {weeklySchedule.map((day) => {
@@ -114,7 +118,7 @@ const ProgramPage = () => {
       <section className="section-padding">
         <div className="container mx-auto max-w-4xl text-center">
           <h2 className="text-3xl md:text-4xl font-black mb-10">
-            {t("included.title")} <span className="text-gradient">{t("included.titleHighlight")}</span>
+            {content.included.title} <span className="text-gradient">{content.included.titleHighlight}</span>
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-left max-w-2xl mx-auto">
             {includedItems.map((item) => (
@@ -129,7 +133,7 @@ const ProgramPage = () => {
           <div className="mt-12">
             <Link to="/pricing">
               <Button size="lg" className="bg-primary text-primary-foreground font-bold h-14 px-10 glow-green">
-                {t("included.cta", { price: pricing.selfGuided.label })}{" "}
+                {content.included.cta.replace("{{price}}", pricing.selfGuided.label)}{" "}
                 <ArrowRight className="icon-directional ms-2 h-5 w-5" />
               </Button>
             </Link>

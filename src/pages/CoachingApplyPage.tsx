@@ -9,6 +9,8 @@ import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { usePricing } from "@/hooks/usePricing";
+import { usePublishedSiteCms } from "@/hooks/usePublishedSiteCms";
+import { resolveCoachingCms } from "@/lib/siteCms";
 import { getCoachingPlanDisplay, parseCoachingPlanParam } from "@/lib/coachingPlan";
 import { trackLead } from "@/lib/metaPixel";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
@@ -24,6 +26,8 @@ export default function CoachingApplyPage() {
   const { t } = useTranslation("coaching");
   const { toast } = useToast();
   const pricing = usePricing();
+  const { data: coachingCms } = usePublishedSiteCms("coaching");
+  const content = resolveCoachingCms(coachingCms ?? null, t);
   const [searchParams] = useSearchParams();
   const coachingPlanSlug = useMemo(() => parseCoachingPlanParam(searchParams.get("plan")), [searchParams]);
   const coachingPlanDisplay = useMemo(
@@ -126,11 +130,11 @@ export default function CoachingApplyPage() {
         </Link>
 
         <div className="mb-10">
-          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">{t("heading.eyebrow")}</p>
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-primary">{content.heading.eyebrow}</p>
           <h1 className="font-display text-balance text-[clamp(2rem,5vw,3rem)] text-foreground">
-            {t("heading.title")} <span className="text-primary">{t("heading.titleHighlight")}</span>
+            {content.heading.title} <span className="text-primary">{content.heading.titleHighlight}</span>
           </h1>
-          <p className="mt-4 max-w-lg text-pretty text-[1.05rem] leading-relaxed text-muted-foreground">{t("heading.body")}</p>
+          <p className="mt-4 max-w-lg text-pretty text-[1.05rem] leading-relaxed text-muted-foreground">{content.heading.body}</p>
           {coachingPlanDisplay ? (
             <div
               className={cn(
@@ -378,15 +382,11 @@ export default function CoachingApplyPage() {
         </form>
 
         <div className="mt-10 flex flex-wrap items-center justify-center gap-6 border-t border-border pt-8 text-sm text-muted-foreground">
-          <span className="inline-flex items-center gap-1.5">
-            <Check className="h-3.5 w-3.5 text-primary" /> {t("trust.limitedSpots")}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Check className="h-3.5 w-3.5 text-primary" /> {t("trust.noCommitment")}
-          </span>
-          <span className="inline-flex items-center gap-1.5">
-            <Check className="h-3.5 w-3.5 text-primary" /> {t("trust.personalized")}
-          </span>
+          {content.trust.map((badge) => (
+            <span key={badge} className="inline-flex items-center gap-1.5">
+              <Check className="h-3.5 w-3.5 text-primary" /> {badge}
+            </span>
+          ))}
         </div>
       </div>
     </div>

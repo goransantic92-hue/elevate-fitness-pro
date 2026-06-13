@@ -349,11 +349,47 @@ export type Database = {
           updated_by?: string | null;
         };
       };
+      site_content: {
+        Row: {
+          page_key: "pricing" | "faq" | "handbooks" | "program" | "nutrition" | "coaching";
+          locale: "en" | "ar";
+          draft: Json;
+          published: Json;
+          review_status: "draft" | "pending_review" | "published";
+          review_requested_at: string | null;
+          published_at: string | null;
+          updated_at: string;
+          updated_by: string | null;
+        };
+        Insert: {
+          page_key: "pricing" | "faq" | "handbooks" | "program" | "nutrition" | "coaching";
+          locale: "en" | "ar";
+          draft?: Json;
+          published?: Json;
+          review_status?: "draft" | "pending_review" | "published";
+          review_requested_at?: string | null;
+          published_at?: string | null;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+        Update: {
+          page_key?: "pricing" | "faq" | "handbooks" | "program" | "nutrition" | "coaching";
+          locale?: "en" | "ar";
+          draft?: Json;
+          published?: Json;
+          review_status?: "draft" | "pending_review" | "published";
+          review_requested_at?: string | null;
+          published_at?: string | null;
+          updated_at?: string;
+          updated_by?: string | null;
+        };
+      };
     };
     Views: Record<string, never>;
     Functions: {
       is_admin: { Args: Record<string, never>; Returns: boolean };
       get_published_homepage: { Args: { p_locale: string }; Returns: Json };
+      get_published_site_content: { Args: { p_page_key: string; p_locale: string }; Returns: Json };
     };
     Enums: Record<string, never>;
   };

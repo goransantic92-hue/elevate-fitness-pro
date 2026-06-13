@@ -5,6 +5,8 @@ import { ArrowRight, Utensils, MapPin, Pill, Apple, Beef, Egg } from "lucide-rea
 import coachWorkout from "@/assets/coach-workout.webp";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { usePricing } from "@/hooks/usePricing";
+import { usePublishedSiteCms } from "@/hooks/usePublishedSiteCms";
+import { resolveNutritionCms } from "@/lib/siteCms";
 
 const ruleIcons = [Beef, Apple, Egg];
 
@@ -17,8 +19,10 @@ type SupplementWaste = { name: string; reason: string };
 const NutritionPage = () => {
   const { t } = useTranslation("nutrition");
   const pricing = usePricing();
+  const { data: nutritionCms } = usePublishedSiteCms("nutrition");
+  const content = resolveNutritionCms(nutritionCms ?? null, t);
 
-  const nutritionRules = t("rules.items", { returnObjects: true }) as NutritionRule[];
+  const nutritionRules = content.rules.items;
   const sampleMealPlan = t("meals.items", { returnObjects: true }) as Meal[];
   const eatAnywhere = t("eatAnywhere.items", { returnObjects: true }) as EatAnywherePlace[];
   const supplementEssential = t("supplements.essential", { returnObjects: true }) as Supplement[];
@@ -41,11 +45,11 @@ const NutritionPage = () => {
           <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-background" />
         </div>
         <div className="container mx-auto px-4 relative z-10 text-center">
-          <div className="text-xs text-primary font-bold tracking-widest mb-4">{t("hero.eyebrow")}</div>
+          <div className="text-xs text-primary font-bold tracking-widest mb-4">{content.hero.eyebrow}</div>
           <h1 className="text-4xl md:text-6xl font-black mb-6">
-            {t("hero.headline")} <span className="text-gradient">{t("hero.headlineHighlight")}</span>
+            {content.hero.headline} <span className="text-gradient">{content.hero.headlineHighlight}</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{t("hero.subhead")}</p>
+          <p className="text-lg text-muted-foreground max-w-2xl mx-auto">{content.hero.subhead}</p>
         </div>
       </section>
 

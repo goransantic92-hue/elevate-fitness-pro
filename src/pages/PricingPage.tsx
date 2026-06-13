@@ -11,8 +11,8 @@ import { supabase } from "@/lib/supabase";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
 import { trackInitiateCheckout } from "@/lib/metaPixel";
 import { usePricing } from "@/hooks/usePricing";
-
-type PricingTestimonial = { quote: string; name: string; sub: string };
+import { usePublishedSiteCms } from "@/hooks/usePublishedSiteCms";
+import { resolvePricingCms } from "@/lib/siteCms";
 
 const PricingPage = () => {
   const { t } = useTranslation("pricing");
@@ -24,9 +24,11 @@ const PricingPage = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [checkoutBusy, setCheckoutBusy] = useState(false);
   const [sessionUser, setSessionUser] = useState<User | null>(null);
+  const { data: pricingCms } = usePublishedSiteCms("pricing");
+  const content = resolvePricingCms(pricingCms ?? null, t);
 
-  const features = t("features", { returnObjects: true }) as string[];
-  const testimonials = t("testimonials", { returnObjects: true }) as PricingTestimonial[];
+  const features = content.features;
+  const testimonials = content.testimonials;
 
   useEffect(() => {
     if (!configured) return;
@@ -105,11 +107,11 @@ const PricingPage = () => {
       />
       <section className="py-28 md:py-36">
         <div className="container mx-auto px-4 text-center">
-          <div className="text-xs text-primary font-bold tracking-widest mb-4">{t("hero.eyebrow")}</div>
+          <div className="text-xs text-primary font-bold tracking-widest mb-4">{content.hero.eyebrow}</div>
           <h1 className="text-4xl md:text-6xl font-black mb-6">
-            {t("hero.headline")} <span className="text-gradient">{t("hero.headlineHighlight")}</span>
+            {content.hero.headline} <span className="text-gradient">{content.hero.headlineHighlight}</span>
           </h1>
-          <p className="text-lg text-muted-foreground max-w-xl mx-auto">{t("hero.subhead")}</p>
+          <p className="text-lg text-muted-foreground max-w-xl mx-auto">{content.hero.subhead}</p>
         </div>
       </section>
 
@@ -118,7 +120,7 @@ const PricingPage = () => {
           <div className="glass-card glow-green overflow-hidden min-w-0">
             <div className="bg-gradient-to-r from-primary/20 to-primary/5 p-5 sm:p-8 text-center border-b border-border/50">
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold mb-4">
-                <Zap className="h-3 w-3" /> {t("launchBadge")}
+                <Zap className="h-3 w-3" /> {content.launchBadge}
               </div>
               <h2 className="text-4xl md:text-5xl font-black mb-2">{pricing.selfGuided.label}</h2>
               <p className="text-muted-foreground text-[10px] leading-snug sm:text-xs md:text-sm tracking-tight text-center whitespace-normal sm:whitespace-nowrap px-1">
@@ -224,8 +226,8 @@ const PricingPage = () => {
                 <Star key={i} className="h-5 w-5 fill-primary text-primary" />
               ))}
             </div>
-            <p className="text-sm text-muted-foreground italic max-w-md mx-auto">&ldquo;{t("coachQuote.text")}&rdquo;</p>
-            <p className="text-sm font-bold mt-2">{t("coachQuote.attribution")}</p>
+            <p className="text-sm text-muted-foreground italic max-w-md mx-auto">&ldquo;{content.coachQuote.text}&rdquo;</p>
+            <p className="text-sm font-bold mt-2">{content.coachQuote.attribution}</p>
           </div>
         </div>
       </section>
