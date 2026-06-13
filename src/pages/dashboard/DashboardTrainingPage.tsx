@@ -2,10 +2,10 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { MemberGate } from "@/components/MemberGate";
 import { useMemberDashboardCms } from "@/hooks/useMemberAppCms";
+import { useMemberWorkoutsCms } from "@/hooks/useMemberWorkoutsCms";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
-import { gymWorkouts, homeWorkouts, emergencyWorkouts } from "@/data/busyStrong90";
 import { ArrowRight } from "lucide-react";
 
 function WorkoutCard({
@@ -41,6 +41,7 @@ function WorkoutCard({
 export default function DashboardTrainingPage() {
   const { t } = useTranslation("dashboard");
   const { content: dashboardCms } = useMemberDashboardCms();
+  const { gymWorkouts, homeWorkouts, emergencyWorkouts } = useMemberWorkoutsCms();
 
   return (
     <MemberGate>

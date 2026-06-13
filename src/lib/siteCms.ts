@@ -23,6 +23,10 @@ import {
   parseTestimonialsCms,
 } from "@/lib/memberAppCms";
 import {
+  getDefaultMemberWorkouts,
+  parseMemberWorkouts,
+} from "@/lib/workoutCms";
+import {
   asNullableString,
   asString,
   asStringArray,
@@ -136,6 +140,10 @@ export function getDefaultSiteCms<K extends SitePageKey>(pageKey: K, locale: Hom
 
   if (pageKey === "testimonials") {
     return getDefaultTestimonials() as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "member_workouts") {
+    return getDefaultMemberWorkouts(locale) as SiteCmsPayloadMap[K];
   }
 
   const c = isAr ? arCoaching : enCoaching;
@@ -351,6 +359,10 @@ export function parseSiteCmsPayload<K extends SitePageKey>(
 
   if (pageKey === "testimonials") {
     return parseTestimonialsCms(raw) as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "member_workouts") {
+    return parseMemberWorkouts(raw, locale) as SiteCmsPayloadMap[K];
   }
 
   const d = defaults as CoachingCmsPayload;

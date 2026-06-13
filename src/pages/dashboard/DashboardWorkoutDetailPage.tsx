@@ -9,9 +9,8 @@ import {
   type WorkoutDemoClip,
   exerciseHasDemo,
   getExerciseDemoClips,
-  gymWorkouts,
-  homeWorkouts,
 } from "@/data/busyStrong90";
+import { useMemberWorkoutsCms } from "@/hooks/useMemberWorkoutsCms";
 import { getWorkoutDemoSignedUrl } from "@/lib/workoutDemoMedia";
 import { ArrowLeft, Loader2, PlayCircle } from "lucide-react";
 import NotFound from "@/pages/NotFound";
@@ -42,6 +41,7 @@ const emptyDemo: DemoState = {
 export default function DashboardWorkoutDetailPage() {
   const { variant, code } = useParams<{ variant: string; code: string }>();
   const { t } = useTranslation("dashboard");
+  const { gymWorkouts, homeWorkouts } = useMemberWorkoutsCms();
   const videoRef = useRef<HTMLVideoElement>(null);
   const [demo, setDemo] = useState<DemoState>(emptyDemo);
 

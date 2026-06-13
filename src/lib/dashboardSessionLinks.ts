@@ -1,8 +1,17 @@
-import { emergencyWorkouts, gymWorkouts, homeWorkouts, weeklySchedule } from "@/data/busyStrong90";
+import { emergencyWorkouts as defaultEmergency, gymWorkouts as defaultGym, homeWorkouts as defaultHome, weeklySchedule } from "@/data/busyStrong90";
+import type { EmergencyWorkoutCms, MemberWorkoutsCmsPayload, WorkoutPlanCms } from "@/types/siteCms";
 
 export type PlanTab = "gym" | "home" | "emergency";
 
 export type SessionSlot = "mon" | "wed" | "fri" | "sat_bonus";
+
+export type WorkoutContentSources = Pick<MemberWorkoutsCmsPayload, "gym" | "home" | "emergency">;
+
+const defaultSources: WorkoutContentSources = {
+  gym: defaultGym,
+  home: defaultHome,
+  emergency: [...defaultEmergency],
+};
 
 const SLOT_TO_CODE: Record<Exclude<SessionSlot, "sat_bonus">, "a" | "b" | "c"> = {
   mon: "a",
@@ -25,14 +34,21 @@ export type SessionLinkMeta = {
   badge?: string;
 };
 
-function emergencyById(id: string) {
-  return emergencyWorkouts.find((w) => w.id === id);
+function emergencyById(id: string, emergency: EmergencyWorkoutCms[]) {
+  return emergency.find((w) => w.id === id);
 }
 
-export function getSessionLinkMeta(slot: SessionSlot, planTab: PlanTab): SessionLinkMeta {
+export function getSessionLinkMeta(
+  slot: SessionSlot,
+  planTab: PlanTab,
+  sources: WorkoutContentSources = defaultSources
+): SessionLinkMeta {
+  const gymWorkouts = sources.gym;
+  const homeWorkouts = sources.home;
+  const emergencyWorkouts = sources.emergency;
   if (planTab === "emergency") {
     const id = SLOT_TO_EMERGENCY_ID[slot];
-    const w = emergencyById(id);
+    const w = emergencyById(id, emergencyWorkouts);
     if (!w) {
       return { to: "/dashboard/training", title: "Training", description: "Open training plans" };
     }
@@ -45,7 +61,7 @@ export function getSessionLinkMeta(slot: SessionSlot, planTab: PlanTab): Session
   }
 
   if (slot === "sat_bonus") {
-    const w = emergencyById("full");
+    const w = emergencyById("full", emergencyWorkouts);
     const sat = weeklySchedule.find((d) => d.day === "Saturday");
     return {
       to: `/dashboard/training/emergency/full`,
@@ -56,7 +72,7 @@ export function getSessionLinkMeta(slot: SessionSlot, planTab: PlanTab): Session
   }
 
   const code = SLOT_TO_CODE[slot];
-  const workout = planTab === "gym" ? gymWorkouts[code] : homeWorkouts[code];
+  const workout: WorkoutPlanCms = planTab === "gym" ? gymWorkouts[code] : homeWorkouts[code];
   const dayName = slot === "mon" ? "Monday" : slot === "wed" ? "Wednesday" : "Friday";
   const dayRow = weeklySchedule.find((d) => d.day === dayName);
 

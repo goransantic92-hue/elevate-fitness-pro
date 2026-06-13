@@ -3,8 +3,8 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Dumbbell, Home, Zap } from "lucide-react";
 import coachTraining from "@/assets/coach-training.webp";
-import { gymWorkouts, emergencyWorkouts } from "@/data/busyStrong90";
 import type { WorkoutPlan } from "@/data/busyStrong90";
+import { useMemberWorkoutsCms } from "@/hooks/useMemberWorkoutsCms";
 import { PageMeta } from "@/components/seo/PageMeta";
 import { usePricing } from "@/hooks/usePricing";
 
@@ -53,7 +53,8 @@ const WorkoutCard = ({ workout, labels }: { workout: WorkoutPlan; labels: { sets
 const TrainingPage = () => {
   const { t } = useTranslation("training");
   const pricing = usePricing();
-  const gymList = [gymWorkouts.a, gymWorkouts.b, gymWorkouts.c];
+  const { gymWorkouts, emergencyWorkouts } = useMemberWorkoutsCms();
+  const gymList = [gymWorkouts.a, gymWorkouts.b, gymWorkouts.c] as WorkoutPlan[];
   const labels = {
     sets: t("labels.sets"),
     reps: t("labels.reps"),

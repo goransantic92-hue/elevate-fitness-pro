@@ -6,6 +6,7 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import type { Database } from "@/types/database";
+import { useMemberWorkoutsCms } from "@/hooks/useMemberWorkoutsCms";
 import { getSessionLinkMeta, type PlanTab, type SessionSlot } from "@/lib/dashboardSessionLinks";
 import { PROGRAM_TOTAL_DAYS } from "@/lib/programProgress";
 
@@ -44,6 +45,7 @@ export function WeekWorkoutChecklist({
   programArcComplete,
 }: Props) {
   const { t } = useTranslation("dashboard");
+  const { gymWorkouts, homeWorkouts, emergencyWorkouts } = useMemberWorkoutsCms();
   const v = variantForTab(planTab);
 
   const doneMap = useMemo(() => {
@@ -93,7 +95,11 @@ export function WeekWorkoutChecklist({
       <ul className="space-y-2">
         {SLOTS.map((slot) => {
           const done = doneMap[slot] ?? false;
-          const meta = getSessionLinkMeta(slot, planTab);
+          const meta = getSessionLinkMeta(slot, planTab, {
+            gym: gymWorkouts,
+            home: homeWorkouts,
+            emergency: emergencyWorkouts,
+          });
           const checkId = `session-${weekNumber}-${planTab}-${slot}`;
 
           return (

@@ -10,7 +10,8 @@ export type SitePageKey =
   | "member_dashboard"
   | "member_nutrition"
   | "member_roadmap"
-  | "testimonials";
+  | "testimonials"
+  | "member_workouts";
 
 export type FaqItem = { q: string; a: string };
 
@@ -173,6 +174,46 @@ export type TestimonialsCmsPayload = {
   items: TestimonialCmsItem[];
 };
 
+export type WorkoutDemoClipCms = { label: string; path: string; startSec?: number };
+
+export type ExerciseCms = {
+  order: number;
+  name: string;
+  target: string;
+  sets: string;
+  reps: string;
+  rest: string;
+  tip: string;
+  demoVideoPath?: string;
+  demoVideoPaths?: WorkoutDemoClipCms[];
+  demoVideoStartSec?: number;
+};
+
+export type WorkoutPlanCms = {
+  id: "a" | "b" | "c";
+  code: string;
+  title: string;
+  focus: string;
+  warmup: string;
+  exercises: ExerciseCms[];
+  finisher: string;
+};
+
+export type EmergencyWorkoutRowCms = { exercise: string; sets: string; reps: string; rest: string };
+
+export type EmergencyWorkoutCms = {
+  id: string;
+  name: string;
+  time: string;
+  rows: EmergencyWorkoutRowCms[];
+};
+
+export type MemberWorkoutsCmsPayload = {
+  gym: Record<"a" | "b" | "c", WorkoutPlanCms>;
+  home: Record<"a" | "b" | "c", WorkoutPlanCms>;
+  emergency: EmergencyWorkoutCms[];
+};
+
 export type SiteCmsPayloadMap = {
   pricing: PricingCmsPayload;
   faq: FaqCmsPayload;
@@ -184,6 +225,7 @@ export type SiteCmsPayloadMap = {
   member_nutrition: MemberNutritionCmsPayload;
   member_roadmap: MemberRoadmapCmsPayload;
   testimonials: TestimonialsCmsPayload;
+  member_workouts: MemberWorkoutsCmsPayload;
 };
 
 export type SiteContentRow<K extends SitePageKey = SitePageKey> = {
@@ -209,6 +251,7 @@ export const SITE_PAGE_LABELS: Record<SitePageKey, string> = {
   member_nutrition: "Member app — nutrition",
   member_roadmap: "Member app — roadmap",
   testimonials: "Testimonial videos",
+  member_workouts: "Member app — workouts",
 };
 
 export const MEMBER_APP_PAGE_KEYS = ["member_dashboard", "member_nutrition", "member_roadmap"] as const;

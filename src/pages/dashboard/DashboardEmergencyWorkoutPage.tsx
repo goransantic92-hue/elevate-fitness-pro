@@ -2,17 +2,16 @@ import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { MemberGate } from "@/components/MemberGate";
 import { Button } from "@/components/ui/button";
-import { emergencyWorkouts } from "@/data/busyStrong90";
+import { useMemberWorkoutsCms } from "@/hooks/useMemberWorkoutsCms";
 import { ArrowLeft } from "lucide-react";
 import NotFound from "@/pages/NotFound";
-
-const IDS = new Set(emergencyWorkouts.map((w) => w.id));
 
 export default function DashboardEmergencyWorkoutPage() {
   const { id } = useParams<{ id: string }>();
   const { t } = useTranslation("dashboard");
+  const { emergencyWorkouts } = useMemberWorkoutsCms();
 
-  if (!id || !IDS.has(id)) return <NotFound />;
+  if (!id || !emergencyWorkouts.some((w) => w.id === id)) return <NotFound />;
 
   const w = emergencyWorkouts.find((x) => x.id === id)!;
 

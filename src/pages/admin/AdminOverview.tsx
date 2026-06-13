@@ -103,10 +103,13 @@ export default function AdminOverview() {
         </CardHeader>
         <CardContent className="space-y-3">
           <p className="text-sm text-muted-foreground">
-            Dashboard copy, member nutrition, roadmap phases, and homepage testimonial videos — publish without deploy.
+            Dashboard copy, nutrition, roadmap, workouts, and testimonial videos — publish without deploy.
           </p>
           <Button variant="outline" asChild>
             <Link to="/admin/member">Member app editor</Link>
+          </Button>
+          <Button variant="outline" asChild>
+            <Link to="/admin/workouts">Workout editor</Link>
           </Button>
           <Button variant="outline" asChild>
             <Link to="/admin/testimonials">Testimonial videos</Link>
