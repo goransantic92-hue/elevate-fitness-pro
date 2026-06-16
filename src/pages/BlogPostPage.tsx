@@ -14,8 +14,15 @@ import NotFound from "@/pages/NotFound";
 
 function resolveBlogBlocks(blocks: BlogBlock[], priceLabel: string): BlogBlock[] {
   return blocks.map((block) => {
-    if (block.type !== "cta" || !block.secondaryLabel?.includes("{{price}}")) return block;
-    return { ...block, secondaryLabel: block.secondaryLabel.replace("{{price}}", priceLabel) };
+    if (block.type !== "cta") return block;
+    const primaryLabel = block.primaryLabel?.includes("{{price}}")
+      ? block.primaryLabel.replace("{{price}}", priceLabel)
+      : block.primaryLabel;
+    const secondaryLabel = block.secondaryLabel?.includes("{{price}}")
+      ? block.secondaryLabel.replace("{{price}}", priceLabel)
+      : block.secondaryLabel;
+    if (primaryLabel === block.primaryLabel && secondaryLabel === block.secondaryLabel) return block;
+    return { ...block, primaryLabel, secondaryLabel };
   });
 }
 
@@ -71,6 +78,17 @@ const BlogPostPage = () => {
           <h1 className="font-display mt-4 text-balance text-[clamp(2rem,5vw,2.75rem)] leading-[1.1] text-foreground">
             {title}
           </h1>
+          {post.coverImage && (
+            <div className="mt-8 overflow-hidden rounded-xl border border-border">
+              <img
+                src={post.coverImage}
+                alt={post.coverImageAlt ?? title}
+                className="aspect-[16/9] w-full object-cover"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+          )}
         </div>
       </section>
 

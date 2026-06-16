@@ -14,7 +14,7 @@ const BlogIndexPage = () => {
       <PageMeta title={t("meta.title")} description={t("meta.description")} path="/blog" keywords={keywords} />
 
       <section className="pt-8 pb-12 md:pt-12 md:pb-16">
-        <div className="container mx-auto max-w-3xl px-6 text-center">
+        <div className="container mx-auto max-w-5xl px-6 text-center">
           <p className="text-xs font-semibold uppercase tracking-widest text-primary">{t("index.eyebrow")}</p>
           <h1 className="font-display mt-2 text-balance text-[clamp(2rem,5vw,3rem)] text-foreground">
             {t("index.headline")} <span className="text-primary">{t("index.headlineHighlight")}</span>
@@ -24,34 +24,47 @@ const BlogIndexPage = () => {
       </section>
 
       <section className="pb-20 md:pb-28 px-6">
-        <div className="container mx-auto max-w-3xl">
-          <ul className="flex flex-col gap-8">
+        <div className="container mx-auto max-w-5xl">
+          <ul className="grid grid-cols-1 gap-8 md:grid-cols-2">
             {blogPosts.map((post) => (
               <li key={post.slug}>
-                <article className="rounded-xl border border-border bg-card/50 p-6 transition-colors hover:border-primary/40 md:p-8">
-                  <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
-                    <time dateTime={post.publishedAt}>{formatBlogDate(post.publishedAt, i18n.language)}</time>
-                    <span aria-hidden>·</span>
-                    <span className="inline-flex items-center gap-1">
-                      <Clock className="h-3.5 w-3.5" aria-hidden />
-                      {t("index.minRead", { minutes: post.readingTimeMinutes })}
-                    </span>
-                  </div>
-                  <h2 className="font-display mt-3 text-2xl leading-tight text-foreground md:text-3xl">
-                    <Link to={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
-                      {t(`posts.${post.slug}.title`)}
+                <article className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-card/50 transition-colors hover:border-primary/40">
+                  {post.coverImage && (
+                    <Link to={`/blog/${post.slug}`} className="block aspect-[16/10] overflow-hidden">
+                      <img
+                        src={post.coverImage}
+                        alt={post.coverImageAlt ?? t(`posts.${post.slug}.title`)}
+                        className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                        decoding="async"
+                      />
                     </Link>
-                  </h2>
-                  <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-base">
-                    {t(`posts.${post.slug}.excerpt`)}
-                  </p>
-                  <Link
-                    to={`/blog/${post.slug}`}
-                    className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/90"
-                  >
-                    {t("index.readArticle")}
-                    <ArrowRight className="icon-directional h-4 w-4" aria-hidden />
-                  </Link>
+                  )}
+                  <div className="flex flex-1 flex-col p-6 md:p-8">
+                    <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
+                      <time dateTime={post.publishedAt}>{formatBlogDate(post.publishedAt, i18n.language)}</time>
+                      <span aria-hidden>·</span>
+                      <span className="inline-flex items-center gap-1">
+                        <Clock className="h-3.5 w-3.5" aria-hidden />
+                        {t("index.minRead", { minutes: post.readingTimeMinutes })}
+                      </span>
+                    </div>
+                    <h2 className="font-display mt-3 text-2xl leading-tight text-foreground">
+                      <Link to={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
+                        {t(`posts.${post.slug}.title`)}
+                      </Link>
+                    </h2>
+                    <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground md:text-base">
+                      {t(`posts.${post.slug}.excerpt`)}
+                    </p>
+                    <Link
+                      to={`/blog/${post.slug}`}
+                      className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/90"
+                    >
+                      {t("index.readArticle")}
+                      <ArrowRight className="icon-directional h-4 w-4" aria-hidden />
+                    </Link>
+                  </div>
                 </article>
               </li>
             ))}

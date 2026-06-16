@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Check } from "lucide-react";
 import { TestimonialVideoCard } from "@/components/TestimonialVideoCard";
+import { HomeBlogSection } from "@/components/blog/HomeBlogSection";
 import { resolveTestimonialsCms } from "@/lib/memberAppCms";
 import { usePublishedTestimonials } from "@/hooks/usePublishedTestimonials";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -353,6 +354,8 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+
+      <HomeBlogSection />
 
       {/* FAQ */}
       <section className="section-padding">

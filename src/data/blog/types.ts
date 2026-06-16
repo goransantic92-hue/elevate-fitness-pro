@@ -25,5 +25,8 @@ export type BlogPost = {
   keywords: string[];
   publishedAt: string;
   readingTimeMinutes: number;
+  coverImage?: string;
+  coverImageAlt?: string;
+  featuredOnHomepage?: boolean;
   blocks: BlogBlock[];
 };

@@ -20,6 +20,13 @@ export default {
     minRead: "{{minutes}} دقائق قراءة",
     readArticle: "اقرأ المقال",
   },
+  home: {
+    eyebrow: "أحدث المقالات",
+    headline: "نصائح التدريب",
+    headlineHighlight: "والتغذية",
+    subhead: "نصائح عملية عن بناء العضلات، الطعام، تمرين الذراعين، والمكملات — للرجال المشغولين.",
+    viewAll: "عرض كل المقالات",
+  },
   post: {
     allArticles: "كل المقالات",
     minRead: "{{minutes}} دقائق قراءة",
@@ -53,6 +60,38 @@ export default {
       metaTitle: "بطن الأب وبعد الأطفال؟ كيف تعود قوياً دون البدء من الصفر",
       metaDescription:
         "خارج اللياقة بعد الأطفال؟ دليل عملي للرجال 35+ لإعادة بناء القوة، إنقاص الوزن، واستعادة الجسم — والطاقة — قبل أن تصبح الحياة مزدحمة.",
+    },
+    "tips-for-muscle-growth": {
+      title: "Tips for Muscle Growth: What Busy Men 35+ Should Actually Focus On",
+      excerpt:
+        "Progressive overload, protein, sleep, and recovery — build muscle without living in the gym. Practical tips from Coach Milos.",
+      metaTitle: "Tips for Muscle Growth — Practical Guide for Busy Men 35+",
+      metaDescription:
+        "Build muscle without 90-minute gym sessions. Progressive overload, protein, sleep, and smart training tips.",
+    },
+    "five-foods-for-bodybuilding": {
+      title: "5 Foods for Bodybuilding That Busy Men Can Actually Eat Every Day",
+      excerpt:
+        "Five whole foods that build muscle, keep you full, and fit family meals — no six-container Sunday prep.",
+      metaTitle: "5 Foods for Bodybuilding — Simple Muscle-Building Nutrition",
+      metaDescription:
+        "The five best bodybuilding foods: eggs, Greek yoghurt, chicken, oats, and salmon.",
+    },
+    "four-mistakes-training-arms": {
+      title: "4 Mistakes When Training Arms (And What to Do Instead)",
+      excerpt:
+        "Fix ego curls, neglected triceps, extra arm days, and poor recovery — grow arms without extra gym time.",
+      metaTitle: "4 Mistakes When Training Arms — Biceps & Triceps Tips",
+      metaDescription:
+        "Avoid the four biggest arm training mistakes for busy men.",
+    },
+    "health-fitness-supplements": {
+      title: "Health and Fitness Supplements: What to Buy, Skip, and Why",
+      excerpt:
+        "Evidence-based guide to creatine, protein, vitamin D — and products that waste your money.",
+      metaTitle: "Health and Fitness Supplements — Evidence-Based Guide",
+      metaDescription:
+        "Which supplements actually work? Creatine, whey, vitamin D, magnesium, omega-3.",
     },
   },
   arabicBodyNotice:

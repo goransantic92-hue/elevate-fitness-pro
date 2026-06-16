@@ -20,6 +20,13 @@ export default {
     minRead: "{{minutes}} min čitanja",
     readArticle: "Pročitaj članak",
   },
+  home: {
+    eyebrow: "Najnoviji članci",
+    headline: "Saveti za trening",
+    headlineHighlight: "i ishranu",
+    subhead: "Praktični saveti o rastu mišića, hrani, treningu ruku i suplementima — za zaposlene muškarce koji nemaju vremena za život u teretani.",
+    viewAll: "Pogledaj sve članke",
+  },
   post: {
     allArticles: "Svi članci",
     minRead: "{{minutes}} min čitanja",
@@ -53,6 +60,38 @@ export default {
       metaTitle: "Dad bod i van forme posle dece? Kako ponovo postati jak bez početka ispočetka",
       metaDescription:
         "Van forme posle dece? Praktičan vodič za muškarce 35+ da ponovo izgrade snagu, skinu kilograme i vrate telo — i energiju — koje ste imali pre nego što je život postao haotičan.",
+    },
+    "tips-for-muscle-growth": {
+      title: "Saveti za rast mišića: na šta zaposleni muškarci 35+ treba da se fokusiraju",
+      excerpt:
+        "Progresivno opterećenje, proteini, san i oporavak — poluge koje grade mišiće bez života u teretani. Praktični saveti od Coach Milosa.",
+      metaTitle: "Saveti za rast mišića — praktičan vodič za zaposlene muškarce 35+",
+      metaDescription:
+        "Gradite mišiće bez 90-minutnih sesija u teretani. Progresivno opterećenje, proteini, san i pametan trening za zaposlene muškarce 35+.",
+    },
+    "five-foods-for-bodybuilding": {
+      title: "5 namirnica za bodybuilding koje zaposleni muškarci mogu jesti svaki dan",
+      excerpt:
+        "Piletina i pirinač nisu jedini put. Pet celovitih namirnica koje grade mišiće, zasite vas i uklapaju se u porodične obroke.",
+      metaTitle: "5 namirnica za bodybuilding — jednostavna ishrana za mišiće",
+      metaDescription:
+        "Pet najboljih bodybuilding namirnica: jaja, grčki jogurt, piletina, ovsena kaša i losos. Jednostavno, porodično, bez vagu.",
+    },
+    "four-mistakes-training-arms": {
+      title: "4 greške pri treningu ruku (i šta raditi umesto toga)",
+      excerpt:
+        "Mahanje tegom na biceps, zanemarivanje tricepsa i beskrajni arm day neće vam dati ruke — usporiće napredak. Ispravite ove četiri greške.",
+      metaTitle: "4 greške pri treningu ruku — saveti za biceps i triceps",
+      metaDescription:
+        "Izbegnite četiri najveće greške: ego lifting, zanemarivanje tricepsa, previše izolacije i loš oporavak.",
+    },
+    "health-fitness-supplements": {
+      title: "Zdravstveni i fitnes suplementi: šta kupiti, šta preskočiti i zašto",
+      excerpt:
+        "Suplementi su ~5% rezultata — ali pravi 5% je bitan. Vodič za kreatin, protein, vitamin D i proizvode koji troše novac.",
+      metaTitle: "Zdravstveni i fitnes suplementi — vodič zasnovan na dokazima",
+      metaDescription:
+        "Koji suplementi zaista rade? Kreatin, whey, vitamin D, magnezijum, omega-3 — i šta preskočiti (fat burneri, test boosteri).",
     },
   },
   arabicBodyNotice:
