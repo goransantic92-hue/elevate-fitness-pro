@@ -9,9 +9,10 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { AppLanguage } from "@/i18n/constants";
 
-const LANGUAGES: { code: AppLanguage; labelKey: "en" | "ar" }[] = [
+const LANGUAGES: { code: AppLanguage; labelKey: "en" | "ar" | "sr" }[] = [
   { code: "en", labelKey: "en" },
   { code: "ar", labelKey: "ar" },
+  { code: "sr", labelKey: "sr" },
 ];
 
 type Props = {

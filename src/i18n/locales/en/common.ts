@@ -39,6 +39,7 @@ export default {
     label: "Language",
     en: "English",
     ar: "العربية",
+    sr: "Srpski",
   },
   misc: {
     oneTime: "one-time",

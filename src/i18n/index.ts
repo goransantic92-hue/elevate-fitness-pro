@@ -28,6 +28,19 @@ import arAuth from "./locales/ar/auth";
 import arBlog from "./locales/ar/blog";
 import arDashboard from "./locales/ar/dashboard";
 import arHandbooks from "./locales/ar/handbooks";
+import srAuth from "./locales/sr/auth";
+import srBlog from "./locales/sr/blog";
+import srCoaching from "./locales/sr/coaching";
+import srCommon from "./locales/sr/common";
+import srDashboard from "./locales/sr/dashboard";
+import srFaq from "./locales/sr/faq";
+import srHandbooks from "./locales/sr/handbooks";
+import srHome from "./locales/sr/home";
+import srNutrition from "./locales/sr/nutrition";
+import srPricing from "./locales/sr/pricing";
+import srProgram from "./locales/sr/program";
+import srResults from "./locales/sr/results";
+import srTraining from "./locales/sr/training";
 
 void i18n
   .use(LanguageDetector)
@@ -63,6 +76,21 @@ void i18n
         blog: arBlog,
         dashboard: arDashboard,
         handbooks: arHandbooks,
+      },
+      sr: {
+        common: srCommon,
+        home: srHome,
+        pricing: srPricing,
+        faq: srFaq,
+        coaching: srCoaching,
+        program: srProgram,
+        training: srTraining,
+        nutrition: srNutrition,
+        results: srResults,
+        auth: srAuth,
+        blog: srBlog,
+        dashboard: srDashboard,
+        handbooks: srHandbooks,
       },
     },
     fallbackLng: DEFAULT_LANGUAGE,

@@ -319,7 +319,7 @@ export type Database = {
       };
       homepage_content: {
         Row: {
-          locale: "en" | "ar";
+          locale: "en" | "ar" | "sr";
           draft: Json;
           published: Json;
           review_status: "draft" | "pending_review" | "published";
@@ -329,7 +329,7 @@ export type Database = {
           updated_by: string | null;
         };
         Insert: {
-          locale: "en" | "ar";
+          locale: "en" | "ar" | "sr";
           draft?: Json;
           published?: Json;
           review_status?: "draft" | "pending_review" | "published";
@@ -339,7 +339,7 @@ export type Database = {
           updated_by?: string | null;
         };
         Update: {
-          locale?: "en" | "ar";
+          locale?: "en" | "ar" | "sr";
           draft?: Json;
           published?: Json;
           review_status?: "draft" | "pending_review" | "published";
@@ -363,7 +363,7 @@ export type Database = {
             | "member_roadmap"
             | "testimonials"
             | "member_workouts";
-          locale: "en" | "ar";
+          locale: "en" | "ar" | "sr";
           draft: Json;
           published: Json;
           review_status: "draft" | "pending_review" | "published";
@@ -385,7 +385,7 @@ export type Database = {
             | "member_roadmap"
             | "testimonials"
             | "member_workouts";
-          locale: "en" | "ar";
+          locale: "en" | "ar" | "sr";
           draft?: Json;
           published?: Json;
           review_status?: "draft" | "pending_review" | "published";
@@ -407,7 +407,7 @@ export type Database = {
             | "member_roadmap"
             | "testimonials"
             | "member_workouts";
-          locale?: "en" | "ar";
+          locale?: "en" | "ar" | "sr";
           draft?: Json;
           published?: Json;
           review_status?: "draft" | "pending_review" | "published";

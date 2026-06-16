@@ -1,6 +1,7 @@
 const LOCALE_MAP: Record<string, string> = {
   en: "en-GB",
   ar: "ar-AE",
+  sr: "sr-RS",
 };
 
 export function formatBlogDate(isoDate: string, locale?: string): string {

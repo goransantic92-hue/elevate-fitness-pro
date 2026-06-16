@@ -1,0 +1,63 @@
+export default {
+  meta: {
+    title: "Cene — BUSY STRONG 90",
+    description:
+      "Lansirna cena {{priceOneTime}} za kompletan BUSY STRONG 90 digitalni program. Doživotni pristup treningu, ishrani i navikama.",
+  },
+  hero: {
+    eyebrow: "CENE",
+    headline: "Jedan program.",
+    headlineHighlight: "Jedna cena.",
+    subhead: "Bez pretplata. Bez skrivenih troškova. Jedna uplata, doživotni pristup — u skladu sa vašim priručnikom.",
+  },
+  launchBadge: "LANSIRNA CENA — OGRANIČENO VREME",
+  oneTimeLifetime: "Jednokratna uplata · Doživotni pristup",
+  everythingIncluded: "Sve uključeno:",
+  features: [
+    "3 Gym programa treninga (A/B/C)",
+    "3 Domaća programa treninga (A/B/C)",
+    "4 Hitna 10-minutna vežbanja",
+    "Kompletan okvir ishrane",
+    "Primer dnevnog plana obroka",
+    "Eat Anywhere vodič",
+    "Suplement vodič zasnovan na dokazima",
+    "Sistem od 6 navika za konzistentnost",
+    "Praćenje napretka 12 nedelja",
+    "Roadmap faza po faza",
+    "Coach saveti za svaku vežbu",
+  ],
+  checkout: {
+    checkingAccount: "Provera naloga…",
+    redirecting: "Preusmeravanje na checkout…",
+    getProgram: "Uzmi program",
+    checkoutOpensStripe: "Checkout se otvara na Stripe-u sa vašim nalogom.",
+    alreadyRegistered: "Već ste registrovani?",
+    logIn: "Prijavite se",
+    newHere: "Novi ste?",
+    signUp: "Registrujte se",
+    canceledTitle: "Checkout otkazan",
+    canceledDescription: "Kupovinu možete završiti bilo kada sa ove stranice.",
+    notConfiguredTitle: "Nije podešeno",
+    notConfiguredDescription: "Nedostaje Supabase okruženje.",
+    failedTitle: "Checkout nije uspeo",
+    failedDescription: "Neispravna Stripe payment link konfiguracija.",
+  },
+  testimonials: [
+    {
+      quote:
+        "Sada dolazim kući drugačije i deca to primete. Imam energiju da se igram sa njima posle posla umesto da padnem na kauč.",
+      name: "David M.",
+      sub: "Project Manager, 42 — Otac troje dece · Dubai",
+    },
+    {
+      quote:
+        "Tri sesije koje zaista mogu da zaštitim u kalendaru — jači bez života u teretani. Ovo je prvi program koji sam zaista završio.",
+      name: "Marcus V.",
+      sub: "Corporate Lead, 45 — Otac jednog deteta · Dubai",
+    },
+  ],
+  coachQuote: {
+    text: "Napravio sam ovaj program da zaista promeni živote — ne samo da prodam PDF. Ako imate pitanja, javite se. Čitam svaku poruku.",
+    attribution: "— Coach Milos",
+  },
+} as const;

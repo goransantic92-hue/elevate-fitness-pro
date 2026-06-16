@@ -76,12 +76,12 @@ const BlogPostPage = () => {
 
       <section className="pb-12 px-6">
         <div className="container mx-auto max-w-3xl">
-          {i18n.language.startsWith("ar") && (
+          {!i18n.language.startsWith("en") && (
             <p
               role="status"
               className="mb-6 rounded-lg border border-primary/30 bg-primary/10 px-4 py-3 text-sm leading-relaxed text-foreground"
             >
-              {t("arabicBodyNotice")}
+              {t("articleBodyNotice")}
             </p>
           )}
           <BlogArticleBody blocks={articleBlocks} />

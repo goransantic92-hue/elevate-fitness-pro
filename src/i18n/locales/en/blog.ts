@@ -57,4 +57,6 @@ export default {
   },
   arabicBodyNotice:
     "This article is currently available in English only. Switch to English to read the full article, or check back soon for the Arabic version.",
+  articleBodyNotice:
+    "This article is currently available in English only. Switch to English to read the full article, or check back soon for the Arabic version.",
 } as const;

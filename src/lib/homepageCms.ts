@@ -1,6 +1,7 @@
 import type { TFunction } from "i18next";
 import arHome from "@/i18n/locales/ar/home";
 import enHome from "@/i18n/locales/en/home";
+import srHome from "@/i18n/locales/sr/home";
 import {
   arrayToLines,
   asNullableString,
@@ -33,7 +34,9 @@ import type {
 export { arrayToLines, linesToArray } from "@/lib/cmsUtils";
 
 function homeBundle(locale: HomepageLocale) {
-  return locale === "ar" ? arHome : enHome;
+  if (locale === "ar") return arHome;
+  if (locale === "sr") return srHome;
+  return enHome;
 }
 
 function cloneTierCard(card: HomepageTierCard): HomepageTierCard {
@@ -58,7 +61,12 @@ export function getDefaultHomepageCms(locale: HomepageLocale): HomepageCmsPayloa
       pills: [...home.hero.pills],
       trust: [...home.hero.trust],
       imagePath: null,
-      imageAlt: locale === "ar" ? "Coach Milos — تدريب في الصالة" : "Coach Milos — cable training in the gym",
+      imageAlt:
+        locale === "ar"
+          ? "Coach Milos — تدريب في الصالة"
+          : locale === "sr"
+            ? "Coach Milos — trening u teretani"
+            : "Coach Milos — cable training in the gym",
     },
     stats: home.stats.map((s) => ({ ...s })),
     who: {

@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { useTranslation } from "react-i18next";
+import { resolveHomepageLocale } from "@/i18n/constants";
 import { fetchPublishedHomepageCms } from "@/lib/homepageCms";
-import type { HomepageLocale } from "@/types/homepageCms";
 
 export function usePublishedHomepageCms() {
   const { i18n } = useTranslation();
-  const locale: HomepageLocale = i18n.language.startsWith("ar") ? "ar" : "en";
+  const locale = resolveHomepageLocale(i18n.language);
 
   return useQuery({
     queryKey: ["homepage-cms", locale],

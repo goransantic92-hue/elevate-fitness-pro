@@ -4,12 +4,20 @@ import arNutrition from "@/i18n/locales/ar/nutrition";
 import arProgram from "@/i18n/locales/ar/program";
 import enDashboard from "@/i18n/locales/en/dashboard";
 import enNutrition from "@/i18n/locales/en/nutrition";
-import enProgram from "@/i18n/locales/en/program";
+import srDashboard from "@/i18n/locales/sr/dashboard";
+import srNutrition from "@/i18n/locales/sr/nutrition";
+import srProgram from "@/i18n/locales/sr/program";
 import { testimonialVideos } from "@/data/testimonials";
 import { asNullableString, asString, asStringArray, isRecord } from "@/lib/cmsUtils";
 import { supabase } from "@/lib/supabase";
 import type { TestimonialVideo } from "@/data/testimonials";
 import type { HomepageLocale } from "@/types/homepageCms";
+
+function pickLocaleBundle<T>(locale: HomepageLocale, en: T, ar: T, sr: T): T {
+  if (locale === "ar") return ar;
+  if (locale === "sr") return sr;
+  return en;
+}
 import type {
   MemberDashboardCmsPayload,
   MemberMeal,
@@ -25,7 +33,7 @@ import type {
 } from "@/types/siteCms";
 
 export function getDefaultMemberDashboard(locale: HomepageLocale): MemberDashboardCmsPayload {
-  const d = locale === "ar" ? arDashboard : enDashboard;
+  const d = pickLocaleBundle(locale, enDashboard, arDashboard, srDashboard);
   return {
     gate: { title: d.gate.title, description: d.gate.description },
     home: { headline: d.home.headline, subhead: d.home.subhead },
@@ -47,7 +55,7 @@ export function getDefaultMemberDashboard(locale: HomepageLocale): MemberDashboa
 }
 
 export function getDefaultMemberNutrition(locale: HomepageLocale): MemberNutritionCmsPayload {
-  const n = locale === "ar" ? arNutrition : enNutrition;
+  const n = pickLocaleBundle(locale, enNutrition, arNutrition, srNutrition);
   return {
     title: n.member.title,
     subhead: n.member.subhead,
@@ -71,8 +79,8 @@ export function getDefaultMemberNutrition(locale: HomepageLocale): MemberNutriti
 }
 
 export function getDefaultMemberRoadmap(locale: HomepageLocale): MemberRoadmapCmsPayload {
-  const d = locale === "ar" ? arDashboard : enDashboard;
-  const p = locale === "ar" ? arProgram : enProgram;
+  const d = pickLocaleBundle(locale, enDashboard, arDashboard, srDashboard);
+  const p = pickLocaleBundle(locale, enProgram, arProgram, srProgram);
   return {
     title: d.roadmap.title,
     subhead: d.roadmap.subhead,

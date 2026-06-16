@@ -1,3 +1,4 @@
+import { resolveHomepageLocale } from "@/i18n/constants";
 import type { AppLanguage } from "@/i18n/constants";
 
 export type PricingTier = {
@@ -58,7 +59,7 @@ export const PRICING_EUR: PricingSet = {
 };
 
 export function getPricing(lang: string): PricingSet {
-  return lang.startsWith("ar") ? PRICING_AED : PRICING_EUR;
+  return resolveHomepageLocale(lang) === "ar" ? PRICING_AED : PRICING_EUR;
 }
 
 export function getPricingForLanguage(lang: AppLanguage): PricingSet {

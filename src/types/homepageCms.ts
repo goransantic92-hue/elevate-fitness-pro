@@ -95,7 +95,7 @@ export type HomepageCmsPayload = {
   finalCta: HomepageFinalCtaContent;
 };
 
-export type HomepageLocale = "en" | "ar";
+export type HomepageLocale = "en" | "ar" | "sr";
 
 export type HomepageReviewStatus = "draft" | "pending_review" | "published";
 

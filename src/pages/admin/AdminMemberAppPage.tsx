@@ -282,6 +282,7 @@ export default function AdminMemberAppPage() {
         <TabsList>
           <TabsTrigger value="en">English</TabsTrigger>
           <TabsTrigger value="ar">Arabic</TabsTrigger>
+          <TabsTrigger value="sr">Serbian</TabsTrigger>
         </TabsList>
       </Tabs>
 

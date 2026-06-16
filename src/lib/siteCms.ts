@@ -11,6 +11,13 @@ import enHandbooks from "@/i18n/locales/en/handbooks";
 import enNutrition from "@/i18n/locales/en/nutrition";
 import enPricing from "@/i18n/locales/en/pricing";
 import enProgram from "@/i18n/locales/en/program";
+import srCoaching from "@/i18n/locales/sr/coaching";
+import srFaq from "@/i18n/locales/sr/faq";
+import srHandbooks from "@/i18n/locales/sr/handbooks";
+import srNutrition from "@/i18n/locales/sr/nutrition";
+import srPricing from "@/i18n/locales/sr/pricing";
+import srProgram from "@/i18n/locales/sr/program";
+import { resolveHomepageLocale } from "@/i18n/constants";
 import { HANDBOOK_IDS } from "@/lib/handbooks";
 import {
   getDefaultMemberDashboard,
@@ -51,11 +58,15 @@ import type {
   SitePageKey,
 } from "@/types/siteCms";
 
-export function getDefaultSiteCms<K extends SitePageKey>(pageKey: K, locale: HomepageLocale): SiteCmsPayloadMap[K] {
-  const isAr = locale === "ar";
+function pickLocaleBundle<T>(locale: HomepageLocale, en: T, ar: T, sr: T): T {
+  if (locale === "ar") return ar;
+  if (locale === "sr") return sr;
+  return en;
+}
 
+export function getDefaultSiteCms<K extends SitePageKey>(pageKey: K, locale: HomepageLocale): SiteCmsPayloadMap[K] {
   if (pageKey === "pricing") {
-    const p = isAr ? arPricing : enPricing;
+    const p = pickLocaleBundle(locale, enPricing, arPricing, srPricing);
     return {
       hero: { ...p.hero },
       launchBadge: p.launchBadge,
@@ -66,7 +77,7 @@ export function getDefaultSiteCms<K extends SitePageKey>(pageKey: K, locale: Hom
   }
 
   if (pageKey === "faq") {
-    const f = isAr ? arFaq : enFaq;
+    const f = pickLocaleBundle(locale, enFaq, arFaq, srFaq);
     return {
       page: { ...f.page },
       items: f.items.map((item) => ({ ...item })),
@@ -74,7 +85,7 @@ export function getDefaultSiteCms<K extends SitePageKey>(pageKey: K, locale: Hom
   }
 
   if (pageKey === "handbooks") {
-    const h = isAr ? arHandbooks : enHandbooks;
+    const h = pickLocaleBundle(locale, enHandbooks, arHandbooks, srHandbooks);
     const items: HandbooksCmsPayload["items"] = {};
     for (const id of HANDBOOK_IDS) {
       const item = h.items[id];
@@ -94,7 +105,7 @@ export function getDefaultSiteCms<K extends SitePageKey>(pageKey: K, locale: Hom
   }
 
   if (pageKey === "program") {
-    const p = isAr ? arProgram : enProgram;
+    const p = pickLocaleBundle(locale, enProgram, arProgram, srProgram);
     return {
       hero: { ...p.hero },
       phases: p.phases.map((phase) => ({ ...phase, focus: [...phase.focus] })),
@@ -114,7 +125,7 @@ export function getDefaultSiteCms<K extends SitePageKey>(pageKey: K, locale: Hom
   }
 
   if (pageKey === "nutrition") {
-    const n = isAr ? arNutrition : enNutrition;
+    const n = pickLocaleBundle(locale, enNutrition, arNutrition, srNutrition);
     return {
       hero: { ...n.hero },
       rules: {
@@ -146,7 +157,7 @@ export function getDefaultSiteCms<K extends SitePageKey>(pageKey: K, locale: Hom
     return getDefaultMemberWorkouts(locale) as SiteCmsPayloadMap[K];
   }
 
-  const c = isAr ? arCoaching : enCoaching;
+  const c = pickLocaleBundle(locale, enCoaching, arCoaching, srCoaching);
   return {
     heading: { ...c.heading },
     trust: [c.trust.limitedSpots, c.trust.noCommitment, c.trust.personalized],
@@ -593,7 +604,7 @@ export function resolveHandbooksCms(cms: HandbooksCmsPayload | null | undefined,
 }
 
 export function resolveProgramCms(cms: ProgramCmsPayload | null | undefined, t: TFunction<"program">): ProgramCmsPayload {
-  const locale = t.language?.startsWith("ar") ? "ar" : "en";
+  const locale = resolveHomepageLocale(t.language ?? "en");
   const d = getDefaultSiteCms("program", locale) as ProgramCmsPayload;
 
   if (!cms) {
@@ -639,7 +650,7 @@ export function resolveProgramCms(cms: ProgramCmsPayload | null | undefined, t: 
 }
 
 export function resolveNutritionCms(cms: NutritionCmsPayload | null | undefined, t: TFunction<"nutrition">): NutritionCmsPayload {
-  const locale = t.language?.startsWith("ar") ? "ar" : "en";
+  const locale = resolveHomepageLocale(t.language ?? "en");
   const d = getDefaultSiteCms("nutrition", locale) as NutritionCmsPayload;
 
   if (!cms) {
