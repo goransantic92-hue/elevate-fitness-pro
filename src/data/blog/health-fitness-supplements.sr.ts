@@ -3,123 +3,91 @@ import type { BlogBlock } from "./types";
 export const blocksSr: BlogBlock[] = [
   {
     type: "p",
-    text: "Uđi u bilo koju prodavnicu suplemenata i izaći ćeš zbunjen — ili siromašniji. **Industrija profitira od kompleksnosti**, ne od jasnoće.",
+    text: "Sa rastućim nivoima gojaznosti, hroničnim bolestima van kontrole, opadajućim očekivanim životnim vekom i sve lošijom kondicijom, sigurno je reći da razvijeni svet **nije u najboljoj formi** — i to je blago rečeno.",
   },
   {
     type: "p",
-    text: "Evo iskrenog podela: **Hrana je ~80% rezultata. Trening ~15%. Suplementi ~5%.** Taj 5% i dalje važi — ako ga potrošiš na prave stvari.",
+    text: "Zbog nezdrave ishrane i sve sedentarnijeg načina života, sve više nas svakodnevno postaje deblje i nezdravije — a to jednostavno mora da se promeni. Prekomerna težina i loše zdravlje ne pogađaju samo fizičko stanje, već i **veliki pritisak na mentalno zdravlje**. Dobra vest je da postoje stvari koje možeš da uradiš da vodiš zdrav život — **nikad nije kasno** da napraviš promene.",
   },
   {
     type: "p",
-    text: 'Ovaj vodič je ono što kažem zauzetim klijentima u Dubaiju kada pitaju „šta da uzimam?" — **bez affiliate hype-a, bez magičnih pilula.**',
-  },
-  { type: "h2", text: "Osnovni stack (kupi ovo prvo)" },
-  { type: "h3", text: "Kreatin monohidrat — 5 g/dan" },
-  {
-    type: "p",
-    text: "Najistraženiji suplement u sportskoj nauci. **Snaga, moć, mišićni volumen, kognitivna funkcija** — kreatin isporučuje sve to.",
+    text: "Očigledno, dve najveće promene koje možeš da napraviš u pogledu zdravlja i telesne težine jesu **više vežbanja i čišćenje ishrane**. Pored zdrave dijete i pametnog režima vežbanja, sledeći korak su **zdravstveni i fitnes suplementi** koji pomažu da dođeš u formu.",
   },
   {
     type: "p",
-    text: 'Nije potrebna loading faza. Pomešaj 5 g u vodi dnevno. **Jeftin, bezbedan, efikasan.** Ignoriši fancy „buffered" verzije — monohidrat je standard.',
+    text: "Ako želiš da poboljšaš zdravlje i kondiciju, evo **4 suplementa za ultimate fitness stack**.",
   },
-  { type: "h3", text: "Whey protein — kada hrana nije praktična" },
+  { type: "h2", text: "Omega-3 masne kiseline" },
   {
     type: "p",
-    text: "Proteinski prah je **hrana u prahu**, ne steroid. Koristi ga kada ne možeš da dostigneš proteinske ciljeve obrocima — dani putovanja, žurba posle treninga, zauzeta jutra.",
-  },
-  {
-    type: "p",
-    text: "1–2 scoopa dnevno maksimum za većinu muškaraca. **Ako već jedeš jaja, piletinu i jogurt, možda ti uopšte ne treba.**",
-  },
-  { type: "h3", text: "Vitamin D3 + K2 — posebno ako si u zatvorenom" },
-  {
-    type: "p",
-    text: "Većina kancelarijskih radnika ima nedostatak. Vitamin D podržava **testosteron, imunitet, raspoloženje i zdravlje kostiju.** Upari sa K2 za usmeravanje kalcijuma.",
+    text: "Što se tiče važnosti za zdravlje, omega-3 suplementi su **među najboljima** — i to sa dobrim razlogom.",
   },
   {
     type: "p",
-    text: "2000–4000 IU D3 dnevno je tipično. **Uradi krvnu sliku jednom** ako nisi siguran — više nije uvek bolje.",
-  },
-  { type: "h3", text: "Magnezijum glicinat — san i oporavak" },
-  {
-    type: "p",
-    text: "300–400 mg pre spavanja poboljšava **kvalitet sna i oporavak mišića.** Glicinat forma je blaga za stomak.",
+    text: "Omega-3 esencijalne masne kiseline su toliko važne jer se procenjuje da **8 od 10 ljudi ima nedostatak**. Pošto su esencijalne, telu su potrebne za optimalno funkcionisanje, ali ih telo ne može samo da proizvede — moraju doći iz hrane ili suplemenata.",
   },
   {
     type: "p",
-    text: "Ako treniraš teško, loše spavaš ili grči te noću — **ovo je često prva stvar koju treba probati.**",
-  },
-  { type: "h3", text: "Omega-3 riblje ulje — 2–3 g EPA+DHA dnevno" },
-  {
-    type: "p",
-    text: "Anti-inflamatorno, zdravlje srca, podrška zglobovima, funkcija mozga. **Posebno korisno ako ne jedeš masnu ribu 2–3× nedeljno.**",
-  },
-  { type: "h2", text: "Opciono (situaciono)" },
-  {
-    type: "ul",
-    items: [
-      "**Kofein / pre-workout** — 100–200 mg pre treninga. Izbegavaj posle 14h. Pravi boost performansi; nije obavezan.",
-      "**ZMA** — Cink + magnezijum combo ako se jako znojiš ili jedeš malo povrća.",
-      "**Kolagen + vitamin C** — 10 g kolagena pre treninga za podršku zglobovima/tetivama ako su kolena ili ramena uništena.",
-    ],
-  },
-  { type: "h2", text: "Bacanje para — ne kupuj ovo" },
-  {
-    type: "ul",
-    items: [
-      "**Testosterone boosteri** — Nijedan ne radi. Sačuvaj novac; popravi san, proteine i telesnu mast.",
-      "**Fat burneri** — Marketing. Kalorijski deficit i trening su jedini fat burneri koji rade.",
-      "**BCAA** — Suvišni ako je unos proteina adekvatan (a treba da bude).",
-      "**Mass gainers** — Šećerne bombe. Jedite pravu hranu.",
-      "**Detox čajevi i cleanse** — Jetra već detoksikuje. Pij vodu.",
-    ],
-  },
-  { type: "h2", text: "Kako suplementi ulaze u Busy Strong 90 ishranu" },
-  {
-    type: "p",
-    text: "Nutritivni okvir programa gradi se na **celovitoj hrani prvo:** protein na svakom obroku, 80% celovite hrane, 20% fleksibilnosti.",
+    text: "Često se nalaze u masnoj ribi. Omega-3 pomaže **jačanju srca i kardiovaskularnog sistema**, kognitivnom zdravlju, sprečavanju demencije kasnije u životu, balansiranju hormona i nivoa šećera u krvi — i mnogo toga još.",
   },
   {
     type: "p",
-    text: "Suplementi popunjavaju praznine — ne zamenjuju obroke. **Kreatin + vitamin D + magnezijum** pokrivaju većinu zauzetih muškaraca. Dodaj whey samo kada praktičnost zahteva.",
+    text: "Dovoljno je **1 kapsula dnevno**.",
   },
+  { type: "h2", text: "Kreatin" },
   {
-    type: "table",
-    headers: ["Prioritet", "Suplement", "Dnevna doza"],
-    rows: [
-      ["1", "Kreatin monohidrat", "5 g"],
-      ["2", "Vitamin D3 + K2", "2000–4000 IU D3"],
-      ["3", "Magnezijum glicinat", "300–400 mg (pre spavanja)"],
-      ["4", "Omega-3", "2–3 g EPA+DHA"],
-      ["5", "Whey protein", "Po potrebi za proteinske praznine"],
-    ],
-  },
-  { type: "h2", text: "Pre nego što kupiš bilo šta drugo" },
-  {
-    type: "ol",
-    items: [
-      "Dostigni **protein na svakom obroku** 30 dana",
-      "Treniraj **3× nedeljno** konzistentno",
-      "Spavaj **7+ sati**",
-      "Zatim dodaj kreatin i vitamin D ako već nisi",
-    ],
+    type: "p",
+    text: "Ako si fizički aktivan i redovno vežbaš, kreatin je **jedan od najboljih suplemenata za sportske performanse**.",
   },
   {
     type: "p",
-    text: "**Suplementi pojačavaju sistem koji radi.** Ne popravljaju pokvareni.",
+    text: "Kreatin je posebno popularan među bodybuilderima i dizačima tegova jer **povećava nivo energije**, što vodi produktivnijem treningu.",
+  },
+  {
+    type: "p",
+    text: "Kreatin služi kao donor fosfata za obnovu ATP-a u telu. ATP (adenozin trifosfat) je primarni izvor goriva za mišiće — tačnije, ćelije koje ih čine. Što je više ATP-a dostupno, više goriva imaju mišićne ćelije i **teže će raditi tokom treninga**.",
+  },
+  {
+    type: "p",
+    text: "Kreatin je odličan za dizanje malo teže težine, izbacivanje još jednog repa, trčanje malo brže, skok malo više — i tako dalje.",
+  },
+  { type: "h2", text: "Multivitamin" },
+  {
+    type: "p",
+    text: "Kada su zdravlje i fitnes u pitanju, kvalitetan multivitamin je verovatno **najbolji all-round suplement**.",
+  },
+  {
+    type: "p",
+    text: "Multivitamin obezbeđuje **sve vitamine i minerale** potrebne telu za osnovne fiziološke procese.",
+  },
+  {
+    type: "p",
+    text: "Od jačanja imuniteta do regulacije hormona i svega između — **jedan multivitamin dnevno** donosi brojne zdravstvene benefite i toplo se preporučuje.",
+  },
+  { type: "h2", text: "Proteinski suplementi" },
+  {
+    type: "p",
+    text: "Za oporavak i rast mišića, proteinski suplementi poput **whey i casein proteina** su ključni.",
+  },
+  {
+    type: "p",
+    text: "Protein je esencijalan za rast i popravku mišićnog tkiva. Proteinski shake je **praktičan i efikasan način** da brzo uneseš veliku količinu proteina, koje telo koristi za proteinsku sintezu i stvaranje novih mišićnih proteina.",
+  },
+  {
+    type: "p",
+    text: "Posle napornog vežbanja, **whey shake** je idealan jer se brzo apsorbuje i brzo ulazi u krvotok. Neposredno pred spavanje, **casein shake** je savršen — casein se sporo vari i apsorbuje, pa tokom sna dobijaš **stabilan protok proteina i aminokiselina**, što te drži u anabolicnom stanju.",
   },
   {
     type: "cta",
-    title: "Dobij kompletan vodič za suplemente unutar Busy Strong 90",
+    title: "Kompletan okvir ishrane unutar Busy Strong 90",
     bullets: [
-      "Osnovno vs opciono vs bacanje para",
-      "Uparuje se sa Eat Anywhere okvirom ishrane",
-      "Zasnovano na dokazima — bez hype proizvoda",
+      "Primer plana obroka + jednostavna pravila — bez kuhinjske vage",
+      "Jedite sa porodicom — bez opsesije makro aplikacijom",
+      "Napravljeno za zaposlene muškarce koji treniraju 3× nedeljno",
     ],
     primaryHref: "/nutrition",
-    primaryLabel: "Pogledaj ishranu i suplemente",
+    primaryLabel: "Pogledaj sistem ishrane",
     secondaryHref: "/pricing",
-    secondaryLabel: "Uzmi pun pristup — {{price}}",
+    secondaryLabel: "Pun pristup — {{price}}",
   },
 ];
