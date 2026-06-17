@@ -35,6 +35,19 @@ export default {
     startCoaching: "ابدأ التدريب الشخصي",
     seeCoaching: "أو تعرّف على التدريب الشخصي",
   },
+  checkout: {
+    confirming: "جاري تأكيد الدفع…",
+    successTitle: "أنت داخل البرنامج!",
+    successDescription: "تم فتح الوصول للبرنامج. مرحباً بك في BUSY STRONG 90.",
+    failedTitle: "فشل التأكيد",
+    failedDescription: "يرجى تحديث الصفحة أو التواصل مع الدعم.",
+    paymentFailedTitle: "تعذّر تأكيد الدفع",
+    paymentFailedDescription: "حاول تحديث الصفحة أو تواصل مع الدعم.",
+  },
+  authCallback: {
+    signingIn: "جاري تسجيل الدخول…",
+    linkExpired: "انتهت صلاحية الرابط أو غير صالح. جرّب تسجيل الدخول.",
+  },
   language: {
     label: "اللغة",
     en: "English",

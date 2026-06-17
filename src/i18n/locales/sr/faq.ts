@@ -12,7 +12,7 @@ export default {
   },
   cta: {
     getProgram: "Uzmi program — {{price}}",
-    startCoaching: "Započni coaching",
+    startCoaching: "Započni lični coaching",
   },
   items: [
     {
@@ -49,7 +49,7 @@ export default {
     },
     {
       q: "Koja je razlika između samostalnog i coaching programa?",
-      a: "Samostalno (€39) daje pun 90-dnevni sistem — trening, okvir ishrane, navike. Coached Strong 90 (€299/mesec) dodaje plan prilagođen vašem kalendaru, nedeljne check-in-e, pregled forme preko videa i nekoga ko neće dozvoliti da tiho nestanete posle treće nedelje. Ako ste već sami odustajali od programa, coaching je praktično rešenje.",
+      a: "Samostalno ({{selfGuidedOneTime}}) daje pun 90-dnevni sistem — trening, okvir ishrane, navike. Coached Strong 90 ({{coachedMonthly}}) dodaje plan prilagođen vašem kalendaru, nedeljne check-in-e, pregled forme preko videa i nekoga ko neće dozvoliti da tiho nestanete posle treće nedelje. Ako ste već sami odustajali od programa, lični coaching je praktično rešenje.",
     },
     {
       q: "Po čemu se ovo razlikuje od ličnog trenera u teretani?",

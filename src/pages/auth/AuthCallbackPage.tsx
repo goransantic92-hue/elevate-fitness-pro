@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { supabase } from "@/lib/supabase";
 import { safeInternalPath } from "@/lib/safeRedirect";
 
@@ -11,7 +12,8 @@ import { safeInternalPath } from "@/lib/safeRedirect";
 export default function AuthCallbackPage() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const [msg, setMsg] = useState("Signing you in…");
+  const { t } = useTranslation("common");
+  const [msg, setMsg] = useState(t("authCallback.signingIn"));
 
   useEffect(() => {
     let cancelled = false;
@@ -23,7 +25,7 @@ export default function AuthCallbackPage() {
           const { error } = await supabase.auth.exchangeCodeForSession(code);
           if (error) {
             if (!cancelled) {
-              setMsg("Link expired or invalid. Try logging in.");
+              setMsg(t("authCallback.linkExpired"));
               setTimeout(() => navigate("/login", { replace: true }), 2500);
             }
             return;
@@ -52,7 +54,7 @@ export default function AuthCallbackPage() {
     return () => {
       cancelled = true;
     };
-  }, [navigate, searchParams]);
+  }, [navigate, searchParams, t]);
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4 bg-background">

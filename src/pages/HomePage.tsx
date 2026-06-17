@@ -26,7 +26,7 @@ import {
   resolveSectionHeaders,
 } from "@/lib/homepageCms";
 import { resolveFaqCms } from "@/lib/siteCms";
-import { homepageStorageUrl } from "@/lib/homepageMedia";
+import { applyPricingTokens } from "@/lib/pricingTokens";
 
 const whoCardKeys = [
   { key: "fathers", icon: "👨‍👧‍👦", featured: true },
@@ -56,17 +56,19 @@ const HomePage = () => {
   const faqHeaders = resolveSectionHeaders(homepageCms?.faq, t, "faq");
   const finalCta = resolveHomepageFinalCta(homepageCms?.finalCta, t);
   const faqResolved = resolveFaqCms(faqCms ?? null, tFaq);
-  const faqItems = faqResolved.items;
+  const faqItems = faqResolved.items.map((item) => ({
+    ...item,
+    a: applyPricingTokens(item.a, pricing),
+  }));
 
   const heroImage = homepageStorageUrl(hero.imagePath) ?? privateTrainerFitness;
   const coachImage = homepageStorageUrl(coach.imagePath) ?? coachAbout;
-  const heroSubhead = hero.subhead.includes("{{coachingPrice}}")
-    ? hero.subhead.replace("{{coachingPrice}}", pricing.coachedStrong90.labelMonthly)
-    : hero.subhead;
+  const heroSubhead = applyPricingTokens(hero.subhead, pricing);
+  const metaDescription = applyPricingTokens(t("meta.description"), pricing);
 
   return (
     <div className="font-sans">
-      <PageMeta title={t("meta.title")} description={t("meta.description")} path="/" />
+      <PageMeta title={t("meta.title")} description={metaDescription} path="/" />
 
       {/* Hero */}
       <section className="relative overflow-hidden pt-8 pb-16 md:pt-10 md:pb-24">

@@ -2,7 +2,7 @@ export default {
   meta: {
     title: "Busy Strong 90 — 90-dnevni fitnes za zaposlene očeve u Dubaiju | Coach Milos",
     description:
-      "90-dnevni trening i ishrana za zaposlene očeve 35+ u Dubaiju. 30–40 min domaći treninzi, bez kuhinjske vage. Gubitak kilograma, povratak energije. Coached Strong 90 od €299/mes.",
+      "90-dnevni trening i ishrana za zaposlene očeve 35+ u Dubaiju. 30–40 min domaći treninzi, bez kuhinjske vage. Gubitak kilograma, povratak energije. Coached Strong 90 od {{coachingPrice}}.",
   },
   hero: {
     eyebrow: "Niste trenirali mesecima. Umorni ste. Vaša deca to vide.",
@@ -52,7 +52,7 @@ export default {
     headlinePrefix: "",
     headlineProgram: "Program",
     headlineMiddle: "ili",
-    headlineCoach: "Coach",
+    headlineCoach: "Trenera",
     subhead:
       "Samostalni program daje sistem. Coaching vas dovodi brže — prilagođen raspored, nedeljni check-in-i i praćenje težine (kg) i energije nedelju za nedeljom.",
     selfGuided: {
@@ -68,7 +68,7 @@ export default {
       cta: "Uzmi program",
     },
     coached: {
-      tier: "Core Coaching",
+      tier: "Osnovni coaching",
       name: "Coached Strong 90",
       recommended: "Preporučeno",
       recommendedNote: "Za očeve koji žele odgovornost bez elitne cene.",
@@ -83,10 +83,10 @@ export default {
       cta: "Počni ove nedelje",
     },
     elite: {
-      tier: "Elite",
-      name: "Private Transformation",
+      tier: "Elitni paket",
+      name: "Privatna transformacija",
       benefits: [
-        "Sve iz Core Coaching-a",
+        "Sve iz osnovnog coachinga",
         "1-on-1 pozivi sa Coach Milos-om (4×/mesec)",
         "Potpuno prilagođen program — obnavlja se mesečno",
         "Direktan WhatsApp pristup Milosu",

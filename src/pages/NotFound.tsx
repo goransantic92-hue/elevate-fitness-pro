@@ -17,7 +17,7 @@ const NotFound = () => {
         <h1 className="mb-4 text-4xl font-bold">{t("notFound.title")}</h1>
         <p className="mb-4 text-xl text-muted-foreground">{t("notFound.message")}</p>
         <Link to="/" className="text-primary underline hover:text-primary/90">
-          {t("notFound.backHome")}
+          {t("notFound.returnHome")}
         </Link>
       </div>
     </div>

@@ -97,5 +97,5 @@ export default {
   arabicBodyNotice:
     "Ovaj članak je trenutno dostupan samo na engleskom. Prebacite na engleski da biste pročitali ceo članak, ili se vratite uskoro za arapsku verziju.",
   articleBodyNotice:
-    "Ovaj članak je trenutno dostupan samo na engleskom. Prebacite na engleski da biste pročitali ceo članak, ili se vratite uskoro za srpsku verziju.",
+    "Ovaj članak je trenutno dostupan samo na engleskom. Prebacite na engleski da biste pročitali ceo članak.",
 } as const;

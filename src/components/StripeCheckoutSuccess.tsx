@@ -1,5 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useSearchParams } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
 import { trackPurchase } from "@/lib/metaPixel";
@@ -11,6 +12,7 @@ export function StripeCheckoutSuccess() {
   const [searchParams, setSearchParams] = useSearchParams();
   const { session, refreshProfile } = useAuth();
   const { toast } = useToast();
+  const { t } = useTranslation("common");
   const ran = useRef(false);
 
   useEffect(() => {
@@ -46,26 +48,30 @@ export function StripeCheckoutSuccess() {
 
         if (!r.ok || !data.ok) {
           toast({
-            title: "Could not confirm payment",
-            description: data.error ?? "Try refreshing the page or contact support.",
+            title: t("checkout.paymentFailedTitle"),
+            description: data.error ?? t("checkout.paymentFailedDescription"),
             variant: "destructive",
           });
           return;
         }
 
         toast({
-          title: "You're in!",
-          description: "Program access is unlocked. Welcome to BUSY STRONG 90.",
+          title: t("checkout.successTitle"),
+          description: t("checkout.successDescription"),
         });
         if (typeof data.value === "number" && data.currency) {
           trackPurchase(data.value, data.currency, sid);
         }
         await refreshProfile();
       } catch {
-        toast({ title: "Confirmation failed", description: "Please refresh or contact support.", variant: "destructive" });
+        toast({
+          title: t("checkout.failedTitle"),
+          description: t("checkout.failedDescription"),
+          variant: "destructive",
+        });
       }
     })();
-  }, [searchParams, session?.access_token, setSearchParams, toast, refreshProfile]);
+  }, [searchParams, session?.access_token, setSearchParams, toast, refreshProfile, t]);
 
   return null;
 }

@@ -6,6 +6,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { PageMeta } from "@/components/seo/PageMeta";
 import { usePricing } from "@/hooks/usePricing";
 import { usePublishedSiteCms } from "@/hooks/usePublishedSiteCms";
+import { applyPricingTokens } from "@/lib/pricingTokens";
 import { resolveFaqCms } from "@/lib/siteCms";
 
 type FaqItem = { q: string; a: string };
@@ -15,7 +16,10 @@ const FAQPage = () => {
   const pricing = usePricing();
   const { data: faqCms } = usePublishedSiteCms("faq");
   const content = resolveFaqCms(faqCms ?? null, t);
-  const faqItems = content.items;
+  const faqItems = content.items.map((item) => ({
+    ...item,
+    a: applyPricingTokens(item.a, pricing),
+  }));
 
   return (
     <div className="font-sans">

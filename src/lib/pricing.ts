@@ -10,7 +10,7 @@ export type PricingTier = {
 };
 
 export type PricingSet = {
-  currency: "EUR" | "AED";
+  currency: "EUR" | "AED" | "RSD";
   selfGuided: PricingTier & { labelOneTime: string; stripeAmountFils: number };
   coachedStrong90: PricingTier & { labelMonthly: string };
   privateTransformation: PricingTier & { labelMonthly: string };
@@ -58,12 +58,38 @@ export const PRICING_EUR: PricingSet = {
   },
 };
 
+/** Serbian UI list prices (RSD). Checkout still uses AED via Stripe. */
+export const PRICING_RSD: PricingSet = {
+  currency: "RSD",
+  selfGuided: {
+    amount: 4590,
+    label: "4.590 RSD",
+    labelOneTime: "4.590 RSD jednokratno",
+    stripeAmountFils: PRICING_AED.selfGuided.stripeAmountFils,
+  },
+  coachedStrong90: {
+    amount: 34990,
+    label: "34.990 RSD",
+    labelMonthly: "34.990 RSD / mesec",
+  },
+  privateTransformation: {
+    amount: 81990,
+    label: "81.990 RSD",
+    labelMonthly: "81.990 RSD / mesec",
+  },
+};
+
 export function getPricing(lang: string): PricingSet {
-  return resolveHomepageLocale(lang) === "ar" ? PRICING_AED : PRICING_EUR;
+  const locale = resolveHomepageLocale(lang);
+  if (locale === "ar") return PRICING_AED;
+  if (locale === "sr") return PRICING_RSD;
+  return PRICING_EUR;
 }
 
 export function getPricingForLanguage(lang: AppLanguage): PricingSet {
-  return lang === "ar" ? PRICING_AED : PRICING_EUR;
+  if (lang === "ar") return PRICING_AED;
+  if (lang === "sr") return PRICING_RSD;
+  return PRICING_EUR;
 }
 
 /** Stripe + legacy imports — always AED amounts for payment processing. */

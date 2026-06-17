@@ -35,6 +35,19 @@ export default {
     startCoaching: "Start Coaching",
     seeCoaching: "Or see how coaching works",
   },
+  checkout: {
+    confirming: "Confirming payment…",
+    successTitle: "You're in!",
+    successDescription: "Program access is unlocked. Welcome to BUSY STRONG 90.",
+    failedTitle: "Confirmation failed",
+    failedDescription: "Please refresh or contact support.",
+    paymentFailedTitle: "Could not confirm payment",
+    paymentFailedDescription: "Try refreshing the page or contact support.",
+  },
+  authCallback: {
+    signingIn: "Signing you in…",
+    linkExpired: "Link expired or invalid. Try logging in.",
+  },
   language: {
     label: "Language",
     en: "English",

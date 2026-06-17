@@ -14,17 +14,17 @@ export default {
   oneTimeLifetime: "Jednokratna uplata · Doživotni pristup",
   everythingIncluded: "Sve uključeno:",
   features: [
-    "3 Gym programa treninga (A/B/C)",
-    "3 Domaća programa treninga (A/B/C)",
-    "4 Hitna 10-minutna vežbanja",
+    "3 teretanska programa (A/B/C)",
+    "3 domaća programa (A/B/C)",
+    "4 hitna 10-minutna vežbanja",
     "Kompletan okvir ishrane",
     "Primer dnevnog plana obroka",
-    "Eat Anywhere vodič",
+    "Vodič „Jedi bilo gde“",
     "Suplement vodič zasnovan na dokazima",
     "Sistem od 6 navika za konzistentnost",
     "Praćenje napretka 12 nedelja",
-    "Roadmap faza po faza",
-    "Coach saveti za svaku vežbu",
+    "Plan puta faza po faza",
+    "Saveti trenera za svaku vežbu",
   ],
   checkout: {
     checkingAccount: "Provera naloga…",
@@ -47,13 +47,13 @@ export default {
       quote:
         "Sada dolazim kući drugačije i deca to primete. Imam energiju da se igram sa njima posle posla umesto da padnem na kauč.",
       name: "David M.",
-      sub: "Project Manager, 42 — Otac troje dece · Dubai",
+      sub: "Menadžer projekata, 42 — Otac troje dece · Dubai",
     },
     {
       quote:
         "Tri sesije koje zaista mogu da zaštitim u kalendaru — jači bez života u teretani. Ovo je prvi program koji sam zaista završio.",
       name: "Marcus V.",
-      sub: "Corporate Lead, 45 — Otac jednog deteta · Dubai",
+      sub: "Korporativni rukovodilac, 45 — Otac jednog deteta · Dubai",
     },
   ],
   coachQuote: {

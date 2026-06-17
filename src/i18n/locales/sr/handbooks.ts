@@ -7,24 +7,24 @@ export default {
   photoCredit: "Naslovne fotografije sa Pexels-a",
   items: {
     "eat-nutrition": {
-      title: "EAT Nutrition Guide",
+      title: "EAT vodič za ishranu",
       description: "Jednostavna pravila ishrane — bez kuhinjske vage, bez opsesije makroima. Jedite sa porodicom i ostanite na pravom putu.",
       imageAlt: "Šarena zdrava posuda sa povrćem i žitaricama",
     },
     "fuel-supplements": {
-      title: "FUEL Supplement Guide",
+      title: "FUEL vodič za suplemente",
       description: "Šta kupiti, šta je opciono i šta je bacanje novca. Zasnovano na dokazima, bez hype-a.",
       imageAlt: "Razni suplementi u kapsulama i vitamini",
     },
     "muscle-handbook": {
-      title: "Muscle Handbook",
+      title: "Priručnik za mišiće",
       description: "Osnove treninga, prioriteti forme i progresivni rad na snazi za zaposlene muškarce 35+.",
       imageAlt: "Mišićav muškarac radi biceps curl sa bučicama",
     },
     "busy-strong-7day": {
-      title: "Busy Strong 7-Day Starter",
+      title: "Busy Strong 7-dnevni starter",
       description: "Vaša prva nedelja isplanirana — praktičan uvod pre punog 90-dnevnog sistema.",
-      imageAlt: "Sportista trenira sa battle rope-ovima u teretani",
+      imageAlt: "Sportista trenira sa konopcem u teretani",
     },
   },
   form: {

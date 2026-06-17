@@ -4,7 +4,7 @@ export default {
     description: "Prijavite se za trening sa Coach Milos-om. Ograničen broj mesta. Odgovor u roku od 24 sata.",
   },
   back: {
-    toCoaching: "Nazad na coaching",
+    toCoaching: "Nazad na lični coaching",
     toPlan: "Nazad na {{planName}}",
   },
   heading: {
@@ -23,11 +23,11 @@ export default {
     noPlanBodySuffix: "na početnoj stranici.",
     coachedStrong90: {
       name: "Coached Strong 90",
-      tier: "Core Coaching · {{price}}",
+      tier: "Osnovni coaching · {{price}}",
     },
     privateTransformation: {
-      name: "Private Transformation",
-      tier: "Elite · {{price}}",
+      name: "Privatna transformacija",
+      tier: "Elitni paket · {{price}}",
     },
   },
   form: {

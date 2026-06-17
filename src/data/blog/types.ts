@@ -1,3 +1,5 @@
+import type { AppLanguage } from "@/i18n/constants";
+
 export type BlogBlock =
   | { type: "p"; text: string }
   | { type: "h2"; text: string }
@@ -29,4 +31,5 @@ export type BlogPost = {
   coverImageAlt?: string;
   featuredOnHomepage?: boolean;
   blocks: BlogBlock[];
+  blocksByLocale?: Partial<Record<AppLanguage, BlogBlock[]>>;
 };

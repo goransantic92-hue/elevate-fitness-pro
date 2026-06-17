@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { BlogArticleBody } from "@/components/blog/BlogArticleBody";
 import { BlogPostingSchema } from "@/components/seo/BlogPostingSchema";
 import { PageMeta } from "@/components/seo/PageMeta";
-import { blogPosts, getBlogPostBySlug } from "@/data/blog";
+import { blogPosts, getBlogPostBySlug, getBlogBlocks, hasLocalizedBlogBody } from "@/data/blog";
 import type { BlogBlock } from "@/data/blog";
 import { formatBlogDate } from "@/lib/formatBlogDate";
 import { usePricing } from "@/hooks/usePricing";
@@ -33,8 +33,8 @@ const BlogPostPage = () => {
   const pricing = usePricing();
   const post = slug ? getBlogPostBySlug(slug) : undefined;
   const articleBlocks = useMemo(
-    () => (post ? resolveBlogBlocks(post.blocks, pricing.selfGuided.label) : []),
-    [post, pricing.selfGuided.label],
+    () => (post ? resolveBlogBlocks(getBlogBlocks(post, i18n.language), pricing.selfGuided.label) : []),
+    [post, pricing.selfGuided.label, i18n.language],
   );
 
   if (!post) {
@@ -94,7 +94,7 @@ const BlogPostPage = () => {
 
       <section className="pb-12 px-6">
         <div className="container mx-auto max-w-3xl">
-          {!i18n.language.startsWith("en") && (
+          {!hasLocalizedBlogBody(post, i18n.language) && (
             <p
               role="status"
               className="mb-6 rounded-lg border border-primary/30 bg-primary/10 px-4 py-3 text-sm leading-relaxed text-foreground"

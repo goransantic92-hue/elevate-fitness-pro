@@ -11,7 +11,7 @@ import { PageMeta } from "@/components/seo/PageMeta";
 import { usePricing } from "@/hooks/usePricing";
 import { usePublishedSiteCms } from "@/hooks/usePublishedSiteCms";
 import { resolveCoachingCms } from "@/lib/siteCms";
-import { getCoachingPlanDisplay, parseCoachingPlanParam } from "@/lib/coachingPlan";
+import { parseCoachingPlanParam } from "@/lib/coachingPlan";
 import { trackLead } from "@/lib/metaPixel";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
@@ -30,10 +30,22 @@ export default function CoachingApplyPage() {
   const content = resolveCoachingCms(coachingCms ?? null, t);
   const [searchParams] = useSearchParams();
   const coachingPlanSlug = useMemo(() => parseCoachingPlanParam(searchParams.get("plan")), [searchParams]);
-  const coachingPlanDisplay = useMemo(
-    () => (coachingPlanSlug ? getCoachingPlanDisplay(pricing)[coachingPlanSlug] : null),
-    [coachingPlanSlug, pricing],
-  );
+  const coachingPlanDisplay = useMemo(() => {
+    if (!coachingPlanSlug) return null;
+    const planKey = coachingPlanSlug === "coached-strong-90" ? "coachedStrong90" : "privateTransformation";
+    const price =
+      coachingPlanSlug === "coached-strong-90"
+        ? pricing.coachedStrong90.labelMonthly
+        : pricing.privateTransformation.labelMonthly;
+    const name = t(`planPicker.${planKey}.name`);
+    const tier = t(`planPicker.${planKey}.tier`, { price });
+    return {
+      name,
+      tier,
+      price,
+      emailLabel: `${name} — ${tier}`,
+    };
+  }, [coachingPlanSlug, pricing, t]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
