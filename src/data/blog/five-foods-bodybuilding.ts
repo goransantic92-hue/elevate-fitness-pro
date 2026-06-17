@@ -3,18 +3,18 @@ import { blocksSr } from "./five-foods-bodybuilding.sr";
 
 export const fiveFoodsBodybuildingPost: BlogPost = {
   slug: "five-foods-for-bodybuilding",
-  title: "5 Foods for Bodybuilding That Busy Men Can Actually Eat Every Day",
+  title: "Eat to Grow – 5 Foods Perfect for Bodybuilders",
   excerpt:
-    "Chicken and rice isn't the only path. Five whole foods that build muscle, keep you full, and fit family meals — no six-container Sunday prep required.",
-  metaTitle: "5 Foods for Bodybuilding — Simple Muscle-Building Nutrition",
+    "Muscle is built in the kitchen. Here are five bodybuilding staples — eggs, salmon, oats, beef, and chicken — and why each one earns a place on your plate.",
+  metaTitle: "Eat to Grow — 5 Foods Perfect for Bodybuilders",
   metaDescription:
-    "The five best bodybuilding foods for busy men: eggs, Greek yoghurt, chicken, oats, and salmon. Simple, family-friendly, no food scale required.",
+    "The best bodybuilding foods: eggs, salmon, oats, beef, and chicken. Protein, energy, and nutrients for serious muscle growth.",
   keywords: [
     "bodybuilding foods",
-    "muscle building diet",
-    "best foods for muscle growth",
-    "protein foods men",
-    "simple bodybuilding nutrition",
+    "foods for muscle growth",
+    "eggs bodybuilding",
+    "salmon protein",
+    "chicken breast bodybuilding",
   ],
   publishedAt: "2026-06-12",
   readingTimeMinutes: 5,
@@ -24,116 +24,100 @@ export const fiveFoodsBodybuildingPost: BlogPost = {
   blocks: [
     {
       type: "p",
-      text: "Bodybuilding nutrition gets overcomplicated on purpose — so someone can sell you a meal plan, a macro app, or a supplement stack you don't need.",
+      text: "When it comes to bodybuilding, despite the actual training in a gym being so physically intense and demanding, one of the toughest parts of bulking up and getting jacked, is getting your diet right.",
     },
     {
       type: "p",
-      text: "For busy men 35+, the goal isn't perfection. It's **repeatable protein** you can buy at any supermarket, cook in 15 minutes, and eat with your family.",
+      text: "They say that 'muscle is built in the kitchen' and while that saying shouldn't be taken literally, at its core, it is absolutely correct. Basically, this saying is referring to the fact that building muscle is all about diet and nutrition. Without the proper diet, no matter how hard you work in the gym, you won't make any real progress and won't grow anywhere near as big as you should.",
     },
     {
       type: "p",
-      text: "These five foods cover the majority of what my clients eat when they're building muscle or recomping after years off training.",
+      text: "If you are serious about making some noticeable gains, and if you are willing to put the work in at the gym, as well as at home in the kitchen, here's a look at 5 foods perfect for bodybuilders.",
     },
-    { type: "h2", text: "1. Whole Eggs — The Complete Protein" },
+    { type: "h2", text: "Eggs" },
     {
       type: "p",
-      text: "Eggs deliver **~6g protein each**, healthy fats, choline for brain function, and vitamin D — most busy men are deficient.",
-    },
-    {
-      type: "p",
-      text: "**How to use:** Scramble 3–4 eggs with toast for breakfast. Hard-boil a batch for snacks. Takes 8 minutes. No recipe blog required.",
+      text: "First up we have what many bodybuilders consider to be a true lifesaver in terms of versatility – eggs.",
     },
     {
       type: "p",
-      text: "Don't fear the yolk. Unless your doctor says otherwise, **whole eggs beat egg whites alone** for satiety and nutrients.",
-    },
-    { type: "h2", text: "2. Greek Yoghurt — Fast Protein When You're Rushed" },
-    {
-      type: "p",
-      text: "200g of plain Greek yoghurt = **~20g protein**, probiotics, and calcium. It's the busiest man's backup meal.",
+      text: "Eggs are a staple in virtually every bodybuilder's diet, and for good reason. Eggs are fantastic for building muscle as they are rich in muscle-building protein, as well as amino acids. In fact, eggs provide a complete essential and non-essential amino acid profile, which basically means that eggs contain the right amounts of amino acids needed by the body.",
     },
     {
       type: "p",
-      text: "**How to use:** Mid-morning snack with berries and nuts. Post-workout when you can't sit for a full meal. Desk snack before a late meeting.",
-    },
-    {
-      type: "blockquote",
-      text: "If you skip breakfast and crash at 10am, Greek yoghurt is the fix — not another coffee.",
-    },
-    { type: "h2", text: "3. Chicken Breast (or Thigh) — The Anchor Meal" },
-    {
-      type: "p",
-      text: "Lean poultry is **cheap, versatile, and easy to batch cook**. 200g cooked chicken = ~45g protein.",
+      text: "Eggs are great for bodybuilding as not only do they contain protein, but they also contain nutrients including choline, B vitamins, vitamin D, and healthy fats in the yolk. One medium egg contains between 4 and 6g of protein.",
     },
     {
       type: "p",
-      text: "**How to use:** Grill or bake Sunday night. Slice for lunches all week. Pair with rice, potatoes, or salad — whatever your family already eats.",
+      text: "Whether you eat yours poached, fried, coddled, scrambled, baked, in an omelette, or in any other way, eggs make the perfect muscle building food.",
+    },
+    { type: "h2", text: "Salmon" },
+    {
+      type: "p",
+      text: "Salmon is another food that is perfect for building muscle as it too is rich in protein.",
     },
     {
       type: "p",
-      text: "Thighs have slightly more fat but **better flavour and more forgiving cooking** — good trade if you're not cutting aggressively.",
-    },
-    { type: "h2", text: "4. Oats — Training Fuel Without the Sugar Crash" },
-    {
-      type: "p",
-      text: "Oats are **slow carbs + fibre + a few grams of protein**. They stabilise blood sugar better than cereal or pastries.",
+      text: "An 85-gram serving of salmon will provide around 18g of protein, along with B vitamins, and omega-3 essential fatty acids.",
     },
     {
       type: "p",
-      text: "**How to use:** Overnight oats with protein powder and banana. Or hot oats before an early morning session. Add peanut butter for calories if you're hard to feed.",
+      text: "The healthy fats found in salmon promote cardiovascular health, brain function, they boost the metabolism, they help to regulate hormones, and much more besides.",
+    },
+    { type: "h2", text: "Oats" },
+    {
+      type: "p",
+      text: "Up next we have oats.",
     },
     {
       type: "p",
-      text: "Carbs aren't the enemy. **Under-fueling kills training quality** — especially on leg day.",
-    },
-    { type: "h2", text: "5. Salmon (or Oily Fish) — Recovery and Inflammation" },
-    {
-      type: "p",
-      text: "Salmon brings **protein + omega-3 fats** that support joint health, recovery, and heart health — all relevant after 35.",
+      text: "Some people may be surprised by this next food as it isn't a high protein food, but when it comes to building muscle, carbohydrates for energy are just as important as protein for muscle growth.",
     },
     {
       type: "p",
-      text: "**How to use:** 2–3 dinners per week. Oven-bake with lemon and vegetables. Frozen fillets work — don't overthink freshness on a Tuesday night.",
+      text: "Oats are a great food to consume before a workout as they contain slow-release energy in the form of complex carbohydrates which will provide a slow and gradual stream of energy to help power your workouts.",
     },
     {
       type: "p",
-      text: "Can't afford salmon every week? **Tinned sardines or mackerel** count. Same omega-3 benefit, fraction of the price.",
+      text: "As well as being rich in carbs, oats are also rich in B vitamins, and minerals such as zinc, iron, potassium, and magnesium, which contribute towards health and athletic performance.",
     },
-    { type: "h2", text: "How to Combine Them (No Meal Plan Required)" },
+    { type: "h2", text: "Beef" },
     {
       type: "p",
-      text: "A simple day using all five:",
-    },
-    {
-      type: "ul",
-      items: [
-        "**Breakfast:** 3 eggs + toast + banana",
-        "**Snack:** Greek yoghurt + handful of nuts",
-        "**Lunch:** Batch-cooked chicken + rice + vegetables",
-        "**Pre-workout (if training):** Oats + whey or extra yoghurt",
-        "**Dinner:** Salmon + potatoes + greens",
-      ],
+      text: "Beef is an incredibly anabolic food that is ideal for anybody looking to get hench.",
     },
     {
       type: "p",
-      text: "Swap proteins freely. **The structure matters more than the exact foods.** One rule stays: protein at every meal.",
-    },
-    { type: "h2", text: "What About Supplements?" },
-    {
-      type: "p",
-      text: "Food first. **Whey protein** is optional convenience — not magic. **Creatine** (5g/day) is the one supplement with decades of evidence for strength and muscle.",
+      text: "Beef is great for making gains because it is rich in B vitamins which help to increase energy levels via boosting the metabolism. On top of that, beef is also rich in minerals such as zinc and iron, plus it contains creatine, which the muscles use to produce ATP for energy.",
     },
     {
       type: "p",
-      text: "Everything else is situational. Master these five foods for 90 days before you buy another tub of powder.",
+      text: "Beef is also packed full of protein, with just 3 ounces providing 22g of protein.",
+    },
+    {
+      type: "p",
+      text: "If you're watching your figure and want to keep caloric intakes low, opt for 95% lean beef as this provides the same amount of protein, with just 145 calories for 3-ounce serving.",
+    },
+    { type: "h2", text: "Chicken" },
+    {
+      type: "p",
+      text: "Come on, you didn't honestly expect us to compile a list of the best foods for building muscle and to not include chicken, did you?",
+    },
+    {
+      type: "p",
+      text: "Chicken is probably THE staple protein source for meat-eating bodybuilders as it is versatile, it goes with most things, it's packed full of protein, and it's low in calories, especially if you opt for skinless chicken breast.",
+    },
+    {
+      type: "p",
+      text: "A 3-ounce serving of chicken contains 26 grams of protein, and comes in around 145 – 150 calories.",
     },
     {
       type: "cta",
       title: "Get the full nutrition framework inside Busy Strong 90",
       bullets: [
-        "Sample meal plan + Eat Anywhere guide",
-        "No food scale · protein at every meal",
-        "Supplement guide — what to buy and skip",
+        "Sample meal plan + simple rules — no food scale",
+        "Eat with your family — no macro app obsession",
+        "Built for busy men who train 3× per week",
       ],
       primaryHref: "/nutrition",
       primaryLabel: "See Nutrition System",

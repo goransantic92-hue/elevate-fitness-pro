@@ -70,12 +70,12 @@ export default {
         "Gradite mišiće sa četiri proverena trika: proteini na svakom obroku, kalorijski suficit, složene vežbe i težak trening.",
     },
     "five-foods-for-bodybuilding": {
-      title: "5 namirnica za bodybuilding koje zaposleni muškarci mogu jesti svaki dan",
+      title: "Jedi da rasteš – 5 namirnica savršenih za bodybuildere",
       excerpt:
-        "Piletina i pirinač nisu jedini put. Pet celovitih namirnica koje grade mišiće, zasite vas i uklapaju se u porodične obroke.",
-      metaTitle: "5 namirnica za bodybuilding — jednostavna ishrana za mišiće",
+        "Mišići se grade u kuhinji. Pet bodybuilding osnova — jaja, losos, ovsena kaša, govedina i piletina — i zašto svaka zaslužuje mesto na tanjiru.",
+      metaTitle: "Jedi da rasteš — 5 namirnica savršenih za bodybuildere",
       metaDescription:
-        "Pet najboljih bodybuilding namirnica: jaja, grčki jogurt, piletina, ovsena kaša i losos. Jednostavno, porodično, bez vagu.",
+        "Najbolje bodybuilding namirnice: jaja, losos, ovsena kaša, govedina i piletina. Proteini, energija i nutrijenti za ozbiljan rast mišića.",
     },
     "four-mistakes-training-arms": {
       title: "4 greške pri treningu ruku (i šta raditi umesto toga)",

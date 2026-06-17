@@ -70,12 +70,12 @@ export default {
         "Build muscle with four proven hacks: protein at every meal, caloric surplus, compound exercises, and heavy training.",
     },
     "five-foods-for-bodybuilding": {
-      title: "5 Foods for Bodybuilding That Busy Men Can Actually Eat Every Day",
+      title: "Eat to Grow – 5 Foods Perfect for Bodybuilders",
       excerpt:
-        "Chicken and rice isn't the only path. Five whole foods that build muscle, keep you full, and fit family meals — no six-container Sunday prep.",
-      metaTitle: "5 Foods for Bodybuilding — Simple Muscle-Building Nutrition",
+        "Muscle is built in the kitchen. Five bodybuilding staples — eggs, salmon, oats, beef, and chicken — and why each earns a place on your plate.",
+      metaTitle: "Eat to Grow — 5 Foods Perfect for Bodybuilders",
       metaDescription:
-        "The five best bodybuilding foods for busy men: eggs, Greek yoghurt, chicken, oats, and salmon. Simple, family-friendly nutrition.",
+        "The best bodybuilding foods: eggs, salmon, oats, beef, and chicken. Protein, energy, and nutrients for serious muscle growth.",
     },
     "four-mistakes-training-arms": {
       title: "4 Mistakes When Training Arms (And What to Do Instead)",

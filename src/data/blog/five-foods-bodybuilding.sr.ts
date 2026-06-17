@@ -3,120 +3,104 @@ import type { BlogBlock } from "./types";
 export const blocksSr: BlogBlock[] = [
   {
     type: "p",
-    text: "Bodibilderska ishrana se namerno komplikuje — da bi ti neko prodao plan ishrane, makro aplikaciju ili suplement stack koji ti ne treba.",
+    text: "Kada je bodybuilding u pitanju, iako je sam trening u teretani fizički intenzivan i zahtevan, **jedan od najtežih delova bulk-a i ozbiljne mišićne mase jeste ishrana**.",
   },
   {
     type: "p",
-    text: "Za zauzete muškarce 35+, cilj nije savršenstvo. To je **ponovljiv protein** koji možeš da kupiš u bilo kom supermarketu, skuvaš za 15 minuta i jedeš sa porodicom.",
+    text: "Kažu da se „mišići grade u kuhinji“ — i iako to ne treba shvatiti doslovno, u suštini je **potpuno tačno**. Gradnja mišića je pre svega stvar ishrane i nutricionizma. Bez pravilne dijete, bez obzira koliko teško trenirate, **nećete napraviti pravi napredak** niti porasti koliko biste mogli.",
   },
   {
     type: "p",
-    text: "Ove pet namirnica pokrivaju većinu onoga što moji klijenti jedu kada grade mišiće ili recompuju posle godina bez treninga.",
+    text: "Ako ozbiljno želite gains i spremni ste da radite i u teretani i kod kuće u kuhinji, evo **5 namirnica savršenih za bodybuildere**.",
   },
-  { type: "h2", text: "1. Cela jaja — kompletan protein" },
+  { type: "h2", text: "Jaja" },
   {
     type: "p",
-    text: "Jaja donose **~6 g proteina po komadu**, zdrave masti, holin za funkciju mozga i vitamin D — većina zauzetih muškaraca ima nedostatak.",
-  },
-  {
-    type: "p",
-    text: "**Kako koristiti:** Kuvaj 3–4 jaja sa tostom za doručak. Skuvaj seriju za užinu. Traje 8 minuta. Nije potreban food blog.",
+    text: "Prvo na listi su **jaja** — mnogi bodybuilderi ih smatraju pravim spasom zbog svestranosti.",
   },
   {
     type: "p",
-    text: "Ne boj se žumanca. Osim ako ti lekar ne kaže drugačije, **cela jaja su bolja od samo belanca** za sitost i nutrijente.",
-  },
-  { type: "h2", text: "2. Grčki jogurt — brz protein kada žuriš" },
-  {
-    type: "p",
-    text: "200 g običnog grčkog jogurta = **~20 g proteina**, probiotici i kalcijum. To je rezervni obrok najzauzetijeg muškarcа.",
+    text: "Jaja su osnova gotovo svake bodybuilding dijete. Odlična su za gradnju mišića jer su bogata **proteinima i aminokiselinama**. Jaja pružaju kompletan profil esencijalnih i neesencijalnih aminokiselina — tačno onoliko koliko telu treba.",
   },
   {
     type: "p",
-    text: "**Kako koristiti:** Užina pre podne sa bobicama i orasima. Posle treninga kada ne možeš da sedneš za pun obrok. Užina za stolom pre kasnog sastanka.",
-  },
-  {
-    type: "blockquote",
-    text: "Ako preskačeš doručak i pucaš u 10h, grčki jogurt je rešenje — ne još jedna kafa.",
-  },
-  { type: "h2", text: "3. Pileća prsa (ili batak) — osnovni obrok" },
-  {
-    type: "p",
-    text: "Povrtna perad je **jeftina, svestrana i laka za batch kuvanje**. 200 g kuvane piletine = ~45 g proteina.",
+    text: "Pored proteina, jaja sadrže **holin, B vitamine, vitamin D i zdrave masti u žumancu**. Jedno srednje jaje ima između 4 i 6 g proteina.",
   },
   {
     type: "p",
-    text: "**Kako koristiti:** Roštilj ili pečenje nedeljom uveče. Iseci za ručkove cele nedelje. Uz pirinač, krompir ili salatu — šta god tvoja porodica već jede.",
+    text: "Bilo poširana, pržena, kuvana, kajgana, omlet ili na bilo koji drugi način — **jaja su savršena hrana za mišiće**.",
+  },
+  { type: "h2", text: "Losos" },
+  {
+    type: "p",
+    text: "**Losos** je još jedna namirnica idealna za gradnju mišića — bogat je proteinima.",
   },
   {
     type: "p",
-    text: "Bataci imaju malo više masti ali **bolji ukus i tolerantnije kuvanje** — dobar razmen ako ne režeš agresivno.",
-  },
-  { type: "h2", text: "4. Ovsena kaša — gorivo za trening bez šećernog pada" },
-  {
-    type: "p",
-    text: "Ovsena kaša su **spori ugljeni hidrati + vlakna + nekoliko grama proteina**. Stabilizuju šećer u krvi bolje od žitarica ili peciva.",
+    text: "Porcija od 85 g lososa daje oko **18 g proteina**, plus B vitamine i **omega-3 esencijalne masne kiseline**.",
   },
   {
     type: "p",
-    text: "**Kako koristiti:** Overnight oats sa proteinskim prahom i bananom. Ili topla ovsena kaša pre ranog jutarnjeg treninga. Dodaj puter od kikirikija za kalorije ako te je teško nahraniti.",
+    text: "Zdrave masti u lososu podržavaju zdravlje srca, mozga, ubrzavaju metabolizam, pomažu regulaciji hormona i mnogo toga još.",
+  },
+  { type: "h2", text: "Ovsena kaša" },
+  {
+    type: "p",
+    text: "Slede **ovsena kaša (oats)**.",
   },
   {
     type: "p",
-    text: "Ugljeni hidrati nisu neprijatelj. **Nedovoljna energija ubija kvalitet treninga** — posebno na dan nogu.",
-  },
-  { type: "h2", text: "5. Losos (ili masna riba) — oporavak i upala" },
-  {
-    type: "p",
-    text: "Losos donosi **protein + omega-3 masti** koje podržavaju zdravlje zglobova, oporavak i srce — sve relevantno posle 35.",
+    text: "Neki se čude jer nije visokoproteinska hrana — ali za gradnju mišića **ugljeni hidrati za energiju** jednako su važni kao proteini za rast.",
   },
   {
     type: "p",
-    text: "**Kako koristiti:** 2–3 večere nedeljno. Pečenje u rerni sa limunom i povrćem. Smrznuti fileti rade — ne komplikuj svežinu utorkom uveče.",
+    text: "Ovsena kaša je odlična **pre treninga** — složeni ugljeni hidrati daju **sporo oslobađanje energije** tokom celog vežbanja.",
   },
   {
     type: "p",
-    text: "Ne možeš da priuštiš losos svake nedelje? **Sardine ili skuša u konzervi** se računaju. Ista omega-3 korist, delić cene.",
+    text: "Osim ugljenih hidrata, sadrži B vitamine i minerale poput **cinka, gvožđa, kalijuma i magnezijuma** — važni za zdravlje i sportske performanse.",
   },
-  { type: "h2", text: "Kako ih kombinovati (bez plana ishrane)" },
+  { type: "h2", text: "Govedina" },
   {
     type: "p",
-    text: "Jednostavan dan sa svih pet:",
-  },
-  {
-    type: "ul",
-    items: [
-      "**Doručak:** 3 jaja + tost + banana",
-      "**Užina:** Grčki jogurt + šaka oraha",
-      "**Ručak:** Batch-kuvana piletina + pirinač + povrće",
-      "**Pre treninga (ako treniraš):** Ovsena kaša + whey ili dodatni jogurt",
-      "**Večera:** Losos + krompir + zeleno povrće",
-    ],
+    text: "**Govedina** je izuzetno anabolna namirnica — idealna za svakoga ko želi ozbiljnu mišićnu masu.",
   },
   {
     type: "p",
-    text: "Slobodno menjaj proteine. **Struktura je važnija od tačnih namirnica.** Jedno pravilo ostaje: protein na svakom obroku.",
-  },
-  { type: "h2", text: "A šta sa suplementima?" },
-  {
-    type: "p",
-    text: "Hrana prvo. **Whey protein** je opciona praktičnost — ne magija. **Kreatin** (5 g/dan) je jedini suplement sa decenijama dokaza za snagu i mišiće.",
+    text: "Bogata je B vitaminima koji podižu energiju kroz metabolizam, mineralima poput cinka i gvožđa, plus sadrži **kreatin** — mišići ga koriste za proizvodnju ATP energije.",
   },
   {
     type: "p",
-    text: "Sve ostalo je situaciono. Savladaj ovih pet namirnica 90 dana pre nego što kupiš još jednu kesu praha.",
+    text: "Puna je proteina: **samo 85 g (3 unce) daje 22 g proteina**.",
+  },
+  {
+    type: "p",
+    text: "Ako pazite na kalorije, birajte **95% lean govedinu** — isti protein, oko **145 kalorija za porciju od 85 g**.",
+  },
+  { type: "h2", text: "Piletina" },
+  {
+    type: "p",
+    text: "Niste ozbiljno očekivali listu najboljih namirnica za mišiće **bez piletine**, zar ne?",
+  },
+  {
+    type: "p",
+    text: "Piletina je verovatno **glavni izvor proteina** za bodybuildere koji jedu meso — svestrana, ide uz skoro sve, puna proteina i niska u kalorijama, posebno **pileći file bez kože**.",
+  },
+  {
+    type: "p",
+    text: "Porcija od 85 g piletine sadrži **26 g proteina** i oko **145–150 kalorija**.",
   },
   {
     type: "cta",
-    title: "Dobij kompletan okvir ishrane unutar Busy Strong 90",
+    title: "Kompletan okvir ishrane unutar Busy Strong 90",
     bullets: [
-      "Primer plana ishrane + Eat Anywhere vodič",
-      "Bez kuhinjske vage · protein na svakom obroku",
-      "Vodič za suplemente — šta kupiti, a šta preskočiti",
+      "Primer plana obroka + jednostavna pravila — bez kuhinjske vage",
+      "Jedite sa porodicom — bez opsesije makro aplikacijom",
+      "Napravljeno za zaposlene muškarce koji treniraju 3× nedeljno",
     ],
     primaryHref: "/nutrition",
     primaryLabel: "Pogledaj sistem ishrane",
     secondaryHref: "/pricing",
-    secondaryLabel: "Uzmi pun pristup — {{price}}",
+    secondaryLabel: "Pun pristup — {{price}}",
   },
 ];
