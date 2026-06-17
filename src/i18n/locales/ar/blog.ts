@@ -86,12 +86,12 @@ export default {
         "Avoid leaning back on curls, neglecting triceps, too little variation, and lifting too heavy.",
     },
     "health-fitness-supplements": {
-      title: "Health and Fitness Supplements: What to Buy, Skip, and Why",
+      title: "4 Supplements for the Ultimate Health and Fitness Stack",
       excerpt:
-        "Evidence-based guide to creatine, protein, vitamin D — and products that waste your money.",
-      metaTitle: "Health and Fitness Supplements — Evidence-Based Guide",
+        "Omega-3, creatine, multivitamins, and protein — four supplements to build the ultimate health and fitness stack.",
+      metaTitle: "4 Supplements for the Ultimate Health and Fitness Stack",
       metaDescription:
-        "Which supplements actually work? Creatine, whey, vitamin D, magnesium, omega-3.",
+        "Build your health and fitness stack with omega-3, creatine, multivitamins, and protein supplements.",
     },
   },
   arabicBodyNotice:

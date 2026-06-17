@@ -86,12 +86,12 @@ export default {
         "Izbegnite naginjanje unazad, zanemarivanje tricepsa, nedovoljno varijacija i dizanje preteških tegova.",
     },
     "health-fitness-supplements": {
-      title: "Zdravstveni i fitnes suplementi: šta kupiti, šta preskočiti i zašto",
+      title: "4 suplementa za ultimate health and fitness stack",
       excerpt:
-        "Suplementi su ~5% rezultata — ali pravi 5% je bitan. Vodič za kreatin, protein, vitamin D i proizvode koji troše novac.",
-      metaTitle: "Zdravstveni i fitnes suplementi — vodič zasnovan na dokazima",
+        "Omega-3, kreatin, multivitamin i protein — četiri suplementa za ultimate fitness stack uz ishranu i vežbanje.",
+      metaTitle: "4 suplementa za ultimate health and fitness stack",
       metaDescription:
-        "Koji suplementi zaista rade? Kreatin, whey, vitamin D, magnezijum, omega-3 — i šta preskočiti (fat burneri, test boosteri).",
+        "Izgradi fitness stack sa omega-3 masnim kiselinama, kreatinom, kvalitetnim multivitaminom i proteinskim suplementima.",
     },
   },
   arabicBodyNotice:
