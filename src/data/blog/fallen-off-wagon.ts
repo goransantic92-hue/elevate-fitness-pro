@@ -1,4 +1,5 @@
 import type { BlogPost } from "./types";
+import { blocksSr } from "./fallen-off-wagon.sr";
 
 export const fallenOffWagonPost: BlogPost = {
   slug: "fallen-off-wagon-fitness-consistency-busy-men",
@@ -195,4 +196,5 @@ export const fallenOffWagonPost: BlogPost = {
     },
     { type: "p", text: "*You don't need to suffer more. You need to suffer smarter.*" },
   ],
+  blocksByLocale: { sr: blocksSr },
 };

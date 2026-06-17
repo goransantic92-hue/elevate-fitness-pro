@@ -1,4 +1,5 @@
 import type { BlogPost } from "./types";
+import { blocksSr } from "./five-foods-bodybuilding.sr";
 
 export const fiveFoodsBodybuildingPost: BlogPost = {
   slug: "five-foods-for-bodybuilding",
@@ -140,4 +141,5 @@ export const fiveFoodsBodybuildingPost: BlogPost = {
       secondaryLabel: "Get Full Access — {{price}}",
     },
   ],
+  blocksByLocale: { sr: blocksSr },
 };

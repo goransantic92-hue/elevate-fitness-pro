@@ -1,4 +1,5 @@
 import type { BlogPost } from "./types";
+import { blocksSr } from "./no-time-too-tired.sr";
 
 export const noTimeTooTiredPost: BlogPost = {
   slug: "no-time-too-tired-workout-busy-men",
@@ -212,4 +213,5 @@ export const noTimeTooTiredPost: BlogPost = {
       text: "*Coach Milos helps busy men 35+ lose weight, build strength, and restore energy — without living in the gym.*",
     },
   ],
+  blocksByLocale: { sr: blocksSr },
 };
