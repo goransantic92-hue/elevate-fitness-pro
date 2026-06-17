@@ -62,12 +62,12 @@ export default {
         "Van forme posle dece? Praktičan vodič za muškarce 35+ da ponovo izgrade snagu, skinu kilograme i vrate telo — i energiju — koje ste imali pre nego što je život postao haotičan.",
     },
     "tips-for-muscle-growth": {
-      title: "Saveti za rast mišića: na šta zaposleni muškarci 35+ treba da se fokusiraju",
+      title: "4 trika za masivan rast mišića",
       excerpt:
-        "Progresivno opterećenje, proteini, san i oporavak — poluge koje grade mišiće bez života u teretani. Praktični saveti od Coach Milosa.",
-      metaTitle: "Saveti za rast mišića — praktičan vodič za zaposlene muškarce 35+",
+        "Proteini na svakom obroku, jedite više, složene vežbe i težak trening — četiri proverena trika za ozbiljnu mišićnu masu bez Instagram hype-a.",
+      metaTitle: "4 trika za masivan rast mišića — Coach Milos",
       metaDescription:
-        "Gradite mišiće bez 90-minutnih sesija u teretani. Progresivno opterećenje, proteini, san i pametan trening za zaposlene muškarce 35+.",
+        "Gradite mišiće sa četiri proverena trika: proteini na svakom obroku, kalorijski suficit, složene vežbe i težak trening.",
     },
     "five-foods-for-bodybuilding": {
       title: "5 namirnica za bodybuilding koje zaposleni muškarci mogu jesti svaki dan",

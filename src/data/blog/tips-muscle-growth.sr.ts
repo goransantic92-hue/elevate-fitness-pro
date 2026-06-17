@@ -3,148 +3,87 @@ import type { BlogBlock } from "./types";
 export const blocksSr: BlogBlock[] = [
   {
     type: "p",
-    text: "Većina muškaraca misli da rast mišića zahteva dva sata u teretani, šest dana nedeljno i nedelju posvećenu pripremi obroka koja pojede celo popodne. **To je model bodibildera — ne model zauzetog oca.**",
+    text: "Svi vežbaju iz različitih razloga. Neki žele kondiciju, neki da skinu one tvrdoglave kilograme koje drže od praznika, a neki samo bolje zdravlje i dobrobit. Sa estetskog stanovišta, jedan od glavnih razloga zašto ljudi idu u teretanu više puta nedeljno jeste **izgradnja mišića**.",
   },
   {
     type: "p",
-    text: "Ako imaš 35+, radiš puno radno vreme i odgajaš porodicu, ne treba ti više volumena. Treba ti **bolja poluga** na nekoliko stvari koje zaista pomere iglu.",
+    text: "Gradnja mišića i „jacked“ izgled može delovati lako prema takozvanim „influenserima“ na Instagramu sa savršenim telom koji osuđuju one koji se usude da izađu na večeru sa prijateljima ili popiju pivo vikendom — ali istina je da **nije lako**. Gradnja mišića je dug, naporan proces koji zahteva strpljenje, rad, motivaciju i odlučnost.",
   },
   {
     type: "p",
-    text: "Posle 15 godina takmičarskog treninga i vođenja zauzetih klijenata u Dubaiju, ovo su saveti na koje se stalno vraćam — jer funkcionišu kada je život haotičan.",
-  },
-  { type: "h2", text: "1. Progresivno opterećenje — nešto što se ne pregovara" },
-  {
-    type: "p",
-    text: "Mišići rastu kada im daš razlog da se prilagode. Taj razlog je **progresivno opterećenje**: malo više posla tokom vremena.",
+    text: "Ne postoje brza rešenja za bulk i ozbiljan mišićni rast, ali ako radite, budete strpljivi i znate šta radite — **rezultati mogu biti impresivni**.",
   },
   {
     type: "p",
-    text: "Više posla može značiti:",
+    text: "Da vam pomognem u potrazi za ozbiljnom mišićnom masom, evo **4 trika za masivan rast mišića**.",
   },
+  { type: "h2", text: "Proteini na svakom obroku" },
   {
-    type: "ul",
-    items: [
-      "**Više težine** na istom broju ponavljanja (dodaj 2,5 kg kada dostigneš gornju granicu opsega)",
-      "**Više ponavljanja** na istoj težini",
-      "**Bolja forma** i sporiji tempo (ista težina, jači stimulus)",
-      "**Još jedna serija** kada oporavak dozvoljava",
-    ],
+    type: "p",
+    text: "Jedan od najočiglednijih, a ujedno i najvažnijih saveta za gradnju mišića jeste da **dovoljno unosite proteine**.",
   },
   {
     type: "p",
-    text: "Ne moraš da ideš na maksimum svaki trening. Treba ti **dnevnik** — bench, čučanj, veslanje ili njihovi kućni ekvivalenti — i pravilo: pobedi prošlu nedelju ili izjednači je boljom formom.",
-  },
-  { type: "h2", text: "2. Treniraj svaki mišić 2–3× nedeljno (ne jednom)" },
-  {
-    type: "p",
-    text: 'Stari split „grudi ponedeljak, leđa utorak" ne funkcioniše za zauzete muškarce jer **jedan propušten dan pokvari celu nedelju.**',
+    text: "Proteini su verovatno najvažniji od tri makronutrijenta (ostala dva su masti i ugljeni hidrati) jer učestvuju u brojnim fiziološkim procesima. Za one koji grade mišiće posebno je važno znati da proteini igraju ključnu ulogu u **rastu i oporavku mišića**. Bez dovoljno proteina, mišići se ne bi popravljali i obnavljali posle treninga — bez obzira koliko ste teško trenirali.",
   },
   {
     type: "p",
-    text: "Full-body ili upper/lower split pogađa svaku mišićnu grupu **2–3 puta nedeljno** sa manje volumena po treningu — savršeno za treninge od 30–40 minuta.",
+    text: "Da maksimizujete gains, ciljajte **izvor proteina na svakom obroku**. Idealno, dnevno unesite između **0,6 i 1 g proteina po funti telesne težine**.",
+  },
+  { type: "h2", text: "Jedite više" },
+  {
+    type: "p",
+    text: "Ako želite bulk i ozbiljnu mišićnu masu, morate naviknuti se da **jedete više**.",
   },
   {
     type: "p",
-    text: "Busy Strong 90 koristi tri treninga: **Push (pon), Lower (sre), Pull (pet).** Svaki veći mišić se trenira više puta. Konzistentnost pobedi savršenstvo.",
-  },
-  { type: "h2", text: "3. Proteini na svakom obroku — ne šejk u ponoć" },
-  {
-    type: "p",
-    text: "Sinteza mišićnih proteina najbolje reaguje na **raspoređene proteine** tokom dana — otprilike 30–40 g po obroku za većinu muškaraca.",
+    text: "Da biste gradili mišiće, telo mora biti u **kalorijskom suficit** — unosite više kalorija nego što telo sagoreva na održavanju težine.",
   },
   {
     type: "p",
-    text: "Ciljaj **1,6–2,2 g po kg telesne težine** dnevno. Nije potrebna kuhinjska vaga. Svaki tanjir gradi oko:",
-  },
-  {
-    type: "ul",
-    items: [
-      "Jaja, grčki jogurt ili pavlaka na doručku",
-      "Piletina, riba, govedina ili sočivo na ručku",
-      "Isto na večeri — jedi sa porodicom, samo dodaj porciju proteina veličine dlanа",
-    ],
+    text: "Ciljajte obrok **svake 3 sata ili tako**, zdrave i uravnotežene obroke sa dovoljno hranljivih materija.",
   },
   {
     type: "p",
-    text: "Ako si u fazi gubitka masti, **drži proteine visoko** čak i kada kalorije padnu. Tako gubiš težinu bez gubitka mišića.",
+    text: "Hrana ne pomaže samo rastu i oporavku mišića — **pokreće i trening**, pa ćete u teretani biti efikasniji pri dizanju tegova.",
   },
-  { type: "h2", text: "4. San je tvoj anabolni prozor" },
+  { type: "h2", text: "Ne preskačite složene vežbe" },
   {
     type: "p",
-    text: "Ne rasteš u teretani. Rasteš **kada se oporavljaš.** Hormon rasta, testosteron i obnova tkiva dosežu vrhunac tokom dubokog sna.",
-  },
-  {
-    type: "p",
-    text: "**7–8 sati** je minimalna efektivna doza. Hronični manjak sna podiže kortizol, ubija motivaciju i čini svaki trening težim nego što treba.",
-  },
-  {
-    type: "blockquote",
-    text: "Nijedan program treninga ne nadvladava hronični nedostatak sna. Čuvaj san kao sportista — jer to i jesi.",
-  },
-  { type: "h2", text: "5. Kontroliši ekscentričnu fazu (spuštanje)" },
-  {
-    type: "p",
-    text: "Većina muškaraca odbija ponavljanja da bi pomerila težinu. **Uspori negativ** — 2–3 sekunde nadole — i osetićeš mišiće za koje nisi znao da postoje.",
+    text: "Ako želite gains, **složene (compound) vežbe** treba da budu okosnica treninga.",
   },
   {
     type: "p",
-    text: "Smanji težinu 10–20% kada prvi put treniraš ovako. Stimulus raste; ego pada. **To je dobar razmen.**",
-  },
-  { type: "h2", text: "6. Prestani da dodaješ vežbe — savladaj osnove" },
-  {
-    type: "p",
-    text: "Sklekovi, veslanje, čučnjevi, iskoraci i hinge pokrivaju 90% onoga što zauzetom muškarcu treba. **Dodatne vežbe su zabava, ne rast.**",
-  },
-  {
-    type: "ul",
-    items: [
-      "Horizontalni push (sklek, bench)",
-      "Horizontalno povlačenje (veslanje)",
-      "Čučanj ili leg press obrazac",
-      "Hinge (mrtvo dizanje, RDL, good morning)",
-      "Opciono: direktan core i carries",
-    ],
+    text: "Složena vežba radi **više mišićnih grupa odjednom**. Za gradnju mišića je to idealno — više mišića pod opterećenjem znači **veću hipertrofiju**.",
   },
   {
     type: "p",
-    text: 'Ojačaj se na ovome 12 nedelja pre nego što brineš o „muscle confusion".',
+    text: "Npr. **potisak sa šipkom na klupi** radi grudi, triceps, core i deltoide — sa **jednom vežbom** trenirate 4 velike mišićne grupe.",
   },
-  { type: "h2", text: "7. Deload pre nego što pukneš" },
+  { type: "h2", text: "Trenirajte teško" },
   {
     type: "p",
-    text: "Svakih 4–6 nedelja smanji volumen ili intenzitet za **40–50%** jednu nedelju. Zglobovi se oporave. Motivacija se resetuje. Vraćaš se jači.",
-  },
-  {
-    type: "p",
-    text: "Zauzeti muškarci preskaču deload i čude se zašto se povrede ili odustanu u 5. nedelji. **Isplaniraj laku nedelju — ne čekaj da bol to nameće.**",
-  },
-  { type: "h2", text: "Spoji sve: minimalna efektivna doza" },
-  {
-    type: "p",
-    text: "Rast mišića za zauzetog muškarcu 35+ izgleda ovako:",
-  },
-  {
-    type: "ol",
-    items: [
-      "**3 treninga nedeljno**, 30–40 minuta",
-      "**Složene vežbe** sa progresivnim opterećenjem",
-      "**Proteini na svakom obroku** — bez opsesije makro aplikacijom",
-      "**7+ sati sna** — nešto što se ne pregovara",
-      "**Prati glavne dizanje** nedeljno — težina i ponavljanja",
-    ],
+    text: "Pored složenih vežbi, trebalo bi da **trenirate teško** — u skladu sa vašim nivoom.",
   },
   {
     type: "p",
-    text: "To je sistem unutar Busy Strong 90. Ne maksimalno patnje — **maksimalan povrat na minimalno vreme.**",
+    text: "Težak trening opterećuje mišiće koncentrično i ekscentrično, što stvara više mikro-pucanja u mišićnim vlaknima — a to znači **veću hipertrofiju**.",
+  },
+  {
+    type: "p",
+    text: "„Teško“ je **relativno za vas**. Umesto tegova gde padnete posle 12–15 ponavljanja, birajte težinu gde **padnete posle 4–6 ponavljanja**.",
+  },
+  {
+    type: "p",
+    text: "Posle 2 zagrevne serije, ciljajte **4–5 serija po 4–6 ponavljanja** po vežbi.",
   },
   {
     type: "cta",
-    title: "Spreman da gradiš mišiće po rasporedu koji možeš da držiš?",
+    title: "Spremni za sistem koji gradi mišiće uz stvaran raspored?",
     bullets: [
-      "3× nedeljno · 30–40 min · kod kuće ili u teretani",
-      "Progresivni trening snage + jednostavna ishrana",
-      "Napravljeno za oce 35+ koji ne mogu da žive u teretani",
+      "3× nedeljno · 30–40 min · fokus na složene vežbe",
+      "Proteini na svakom obroku — bez kuhinjske vage",
+      "Napravljeno za zaposlene muškarce koji ne mogu živeti u teretani",
     ],
     primaryHref: "/pricing",
     primaryLabel: "Uzmi program — {{price}}",

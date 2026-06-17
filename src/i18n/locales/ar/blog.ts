@@ -62,12 +62,12 @@ export default {
         "خارج اللياقة بعد الأطفال؟ دليل عملي للرجال 35+ لإعادة بناء القوة، إنقاص الوزن، واستعادة الجسم — والطاقة — قبل أن تصبح الحياة مزدحمة.",
     },
     "tips-for-muscle-growth": {
-      title: "Tips for Muscle Growth: What Busy Men 35+ Should Actually Focus On",
+      title: "4 Hacks for Massive Muscle Growth",
       excerpt:
-        "Progressive overload, protein, sleep, and recovery — build muscle without living in the gym. Practical tips from Coach Milos.",
-      metaTitle: "Tips for Muscle Growth — Practical Guide for Busy Men 35+",
+        "Protein at every meal, eat more, compound lifts, and train heavy — four proven hacks for building serious muscle mass.",
+      metaTitle: "4 Hacks for Massive Muscle Growth — Coach Milos",
       metaDescription:
-        "Build muscle without 90-minute gym sessions. Progressive overload, protein, sleep, and smart training tips.",
+        "Build muscle with four proven hacks: protein, caloric surplus, compound exercises, and heavy training.",
     },
     "five-foods-for-bodybuilding": {
       title: "5 Foods for Bodybuilding That Busy Men Can Actually Eat Every Day",

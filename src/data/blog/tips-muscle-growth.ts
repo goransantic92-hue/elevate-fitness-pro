@@ -3,169 +3,108 @@ import { blocksSr } from "./tips-muscle-growth.sr";
 
 export const tipsMuscleGrowthPost: BlogPost = {
   slug: "tips-for-muscle-growth",
-  title: "Tips for Muscle Growth: What Busy Men 35+ Should Actually Focus On",
+  title: "4 Hacks for Massive Muscle Growth",
   excerpt:
-    "Progressive overload, protein, sleep, and recovery — the four levers that build muscle without living in the gym. Practical tips from Coach Milos for men with real schedules.",
-  metaTitle: "Tips for Muscle Growth — Practical Guide for Busy Men 35+",
+    "Protein at every meal, eat more, compound lifts, and train heavy — four proven hacks for building serious muscle mass without the Instagram hype.",
+  metaTitle: "4 Hacks for Massive Muscle Growth — Coach Milos",
   metaDescription:
-    "Build muscle without 90-minute gym sessions. Progressive overload, protein at every meal, sleep, and smart training tips for busy men 35+ from Coach Milos.",
+    "Build muscle with four proven hacks: protein at every meal, caloric surplus, compound exercises, and heavy training. No quick fixes — just what actually works.",
   keywords: [
-    "muscle growth tips",
-    "build muscle after 35",
-    "hypertrophy for busy men",
-    "progressive overload",
-    "muscle building men over 40",
+    "muscle growth hacks",
+    "build muscle mass",
+    "protein for muscle growth",
+    "compound exercises",
+    "heavy training hypertrophy",
   ],
   publishedAt: "2026-06-10",
-  readingTimeMinutes: 6,
+  readingTimeMinutes: 5,
   coverImage: "/blog/muscle-growth.jpg",
   coverImageAlt: "Man performing a barbell squat in the gym for muscle growth",
   featuredOnHomepage: true,
   blocks: [
     {
       type: "p",
-      text: "Most men think muscle growth requires two hours in the gym, six days a week, and a meal prep Sunday that eats your entire afternoon. **That's the bodybuilder model — not the busy father model.**",
+      text: "Everybody works out for different reasons. Some people want to get fit, some want to burn off those stubborn few pounds of fat they've been holding onto since the holidays, and some just want to improve all around health and wellness. From an aesthetic standpoint however, one of the main reasons why people hit the gym multiple times each week, is because they're looking to build muscle.",
     },
     {
       type: "p",
-      text: "If you're 35+, working full time, and raising a family, you don't need more volume. You need **better leverage** on the few things that actually move the needle.",
+      text: "Building muscle and getting jacked may seem easy according to so-called \"influencers\" on Instagram with impeccable physiques who judge people who dare to eat out with friends or enjoy a beer or two at the weekend, but the truth of the matter is that it's not. Building muscle is a long drawn out and arduous process that requires patience, hard work, motivation, and determination.",
     },
     {
       type: "p",
-      text: "After 15 years of competitive training and coaching busy clients in Dubai, these are the tips I keep coming back to — because they work when life is messy.",
-    },
-    { type: "h2", text: "1. Progressive Overload — The Non-Negotiable" },
-    {
-      type: "p",
-      text: "Muscle grows when you give it a reason to adapt. That reason is **progressive overload**: doing slightly more work over time.",
+      text: "There are no quick fixes when it comes to bulking up and getting jacked, but if you put the work in, are patient, and know what you're doing, you can still see some very impressive results.",
     },
     {
       type: "p",
-      text: "More work can mean:",
+      text: "To help you in your quest to get jacked beyond belief, here are 4 hacks for massive muscle growth.",
     },
+    { type: "h2", text: "Consume protein with every meal" },
     {
-      type: "ul",
-      items: [
-        "**More weight** on the same reps (add 2.5 kg when you hit the top of your rep range)",
-        "**More reps** at the same weight",
-        "**Better form** and slower tempo (same weight, harder stimulus)",
-        "**One more set** when recovery allows",
-      ],
+      type: "p",
+      text: "Perhaps one of the most obvious, yet most important, tips when it comes to building muscle, is to ensure you're getting enough protein.",
     },
     {
       type: "p",
-      text: "You don't need to max out every session. You need a **logbook** — bench, squat, row, or their home equivalents — and a rule: beat last week or match it with better form.",
-    },
-    { type: "h2", text: "2. Train Each Muscle 2–3× Per Week (Not Once)" },
-    {
-      type: "p",
-      text: "The old \"chest Monday, back Tuesday\" split fails busy men because **one missed day ruins the week.**",
+      text: "Protein is arguably the most important of all three macronutrients (the other two being fat and carbohydrates) as it plays key roles in countless physiological processes. People looking to build muscle will be especially interested to learn that protein plays a key role in muscle growth and recovery. Without sufficient amounts of protein, our muscles wouldn't repair and rebuild themselves after a workout, no matter how hard we trained.",
     },
     {
       type: "p",
-      text: "Full-body or upper/lower splits hit each muscle group **2–3 times per week** with less volume per session — perfect for 30–40 minute workouts.",
+      text: "To help maximize your gains, aim to consume a source of protein with every meal. Ideally, per day, you should aim for between 0.6 and 1g of protein per pound of bodyweight.",
+    },
+    { type: "h2", text: "Eat more" },
+    {
+      type: "p",
+      text: "If you want to bulk up and add some serious muscle mass to your frame, you are going to have to get into the habit of eating more.",
     },
     {
       type: "p",
-      text: "Busy Strong 90 uses three sessions: **Push (Mon), Lower (Wed), Pull (Fri).** Every major muscle gets worked multiple times. Consistency beats perfection.",
-    },
-    { type: "h2", text: "3. Protein at Every Meal — Not a Shake at Midnight" },
-    {
-      type: "p",
-      text: "Muscle protein synthesis responds best to **distributed protein** across the day — roughly 30–40g per meal for most men.",
+      text: "In order to build muscle, you need to put your body into a caloric surplus which basically means that you need to consume more calories than your body is able to burn off at maintenance.",
     },
     {
       type: "p",
-      text: "Target **1.6–2.2g per kg of bodyweight** daily. No food scale required. Build each plate around:",
-    },
-    {
-      type: "ul",
-      items: [
-        "Eggs, Greek yoghurt, or cottage cheese at breakfast",
-        "Chicken, fish, beef, or lentils at lunch",
-        "Same at dinner — eat with your family, just add a palm-sized protein portion",
-      ],
+      text: "Aim to consume a meal every 3 hours or so, making sure to eat healthy and balanced meals containing plenty of nutrients.",
     },
     {
       type: "p",
-      text: "If you're in a fat-loss phase, **keep protein high** even when calories drop. That's how you lose weight without losing muscle.",
+      text: "Food will not only assist with muscle growth and recovery, it will also fuel your workouts so you'll become more efficient in the gym when lifting.",
     },
-    { type: "h2", text: "4. Sleep Is Your Anabolic Window" },
+    { type: "h2", text: "Don't skip those compounds" },
     {
       type: "p",
-      text: "You don't grow in the gym. You grow **when you recover.** Growth hormone, testosterone, and tissue repair peak during deep sleep.",
-    },
-    {
-      type: "p",
-      text: "**7–8 hours** is the minimum effective dose. Chronic sleep debt raises cortisol, kills motivation, and makes every session feel harder than it should.",
-    },
-    {
-      type: "blockquote",
-      text: "No training program overcomes chronic sleep deprivation. Protect your sleep like an athlete — because you are one.",
-    },
-    { type: "h2", text: "5. Control the Eccentric (Lowering Phase)" },
-    {
-      type: "p",
-      text: "Most men bounce reps to move weight. **Slow the negative** — 2–3 seconds down — and you'll feel muscles you didn't know you had.",
+      text: "For those of you who are looking make those gains, compound exercises should be the backbone of your training routine.",
     },
     {
       type: "p",
-      text: "Drop weight 10–20% when you first train this way. The stimulus goes up; the ego goes down. **That's a good trade.**",
-    },
-    { type: "h2", text: "6. Stop Adding Exercises — Master the Basics" },
-    {
-      type: "p",
-      text: "Push-ups, rows, squats, lunges, and hinges cover 90% of what a busy man needs. **Extra exercises are entertainment, not growth.**",
-    },
-    {
-      type: "ul",
-      items: [
-        "Horizontal push (push-up, bench)",
-        "Horizontal pull (row)",
-        "Squat or leg press pattern",
-        "Hinge (deadlift, RDL, good morning)",
-        "Optional: direct core and carries",
-      ],
+      text: "A compound exercise is basically an exercise that works several different muscle groups at once. For building muscle, this is ideal because by working several muscles at once you're maximizing muscle tissue overloading which results in greater levels of muscle hypertrophy.",
     },
     {
       type: "p",
-      text: "Get strong on these for 12 weeks before you worry about \"muscle confusion.\"",
+      text: "Barbell bench press for example, is a compound exercise because it not only targets the pectoral muscles, it will also work your triceps, your core, and your delts. With that one exercise, you are essentially training 4 major muscle groups at once.",
     },
-    { type: "h2", text: "7. Deload Before You Break" },
+    { type: "h2", text: "Train heavy" },
     {
       type: "p",
-      text: "Every 4–6 weeks, cut volume or intensity by **40–50%** for one week. Joints recover. Motivation resets. You come back stronger.",
-    },
-    {
-      type: "p",
-      text: "Busy men skip deloads and wonder why they get injured or quit at week 5. **Plan the easy week — don't wait for pain to force it.**",
-    },
-    { type: "h2", text: "Put It Together: The Minimum Effective Dose" },
-    {
-      type: "p",
-      text: "Muscle growth for a busy man 35+ looks like this:",
-    },
-    {
-      type: "ol",
-      items: [
-        "**3 sessions per week**, 30–40 minutes",
-        "**Compound movements** with progressive overload",
-        "**Protein at every meal** — no macro app obsession",
-        "**7+ hours sleep** — non-negotiable",
-        "**Track main lifts** weekly — weight and reps",
-      ],
+      text: "As well as compound exercises, you should also train heavy when you're lifting.",
     },
     {
       type: "p",
-      text: "That's the system inside Busy Strong 90. Not maximum suffering — **maximum return on minimum time.**",
+      text: "Heavy training will challenge your muscles concentrically and eccentrically, which in turn will result in greater amounts of rips and tears in the muscle fibres, which means greater levels of muscle hypertrophy.",
+    },
+    {
+      type: "p",
+      text: "When we say train heavy, you should only train heavy for you. Rather than lifting weights where you hit failure after 12 – 15 reps for example, you should instead choose weights which result in you reaching failure after 4 – 6 reps.",
+    },
+    {
+      type: "p",
+      text: "After 2 warm-up sets, aim for 4 – 5 sets of 4 – 6 reps per exercise.",
     },
     {
       type: "cta",
-      title: "Ready to build muscle on a schedule you can keep?",
+      title: "Ready for a system that builds muscle on a real schedule?",
       bullets: [
-        "3× per week · 30–40 min · home or gym",
-        "Progressive strength work + simple nutrition",
-        "Built for fathers 35+ who can't live in the gym",
+        "3× per week · 30–40 min · compound-focused training",
+        "Protein at every meal — no food scale required",
+        "Built for busy men who can't live in the gym",
       ],
       primaryHref: "/pricing",
       primaryLabel: "Get the Program — {{price}}",
