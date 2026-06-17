@@ -3,119 +3,71 @@ import type { BlogBlock } from "./types";
 export const blocksSr: BlogBlock[] = [
   {
     type: "p",
-    text: "Svaki zauzet muškarac na kraju želi **veće ruke.** To je prvo što proveravaš u ogledalu i prva mišićna grupa koju početnici preterano treniraju.",
+    text: "Znaš kako kažu: „Sunce je vani, pokaži mišiće“ — ali šta ako tvoje ruke uopšte nemaju veličinu i definiciju, i jedva da popuniš majicu veličine S/M?",
   },
   {
     type: "p",
-    text: "Problem nije što je teško izgraditi ruke. Problem je **kako ih većina trenira** — posebno kada je vreme ograničeno, a ego visok.",
+    text: "Kada ljudi fleksuju mišiće, u 9 od 10 slučajeva prva poza je single ili double biceps. Videćeš mnogo ljudi kako fleksuju biceps za selfije u teretani ili napolju, ali retko ko radi rear lat spread ili side chest.",
   },
   {
     type: "p",
-    text: 'Ispravi ove četiri greške i ruke će rasti kao **sporedni efekat jačanja celog sistema** — ne od dodatnih 45 minuta „dana za ruke".',
-  },
-  { type: "h2", text: "Greška #1: Ljuljanje težine (ego curls)" },
-  {
-    type: "p",
-    text: "Ako ti lakti idu napred, kukovi pokreću ponavljanje ili težina pada na putu nadole — **biceps ne radi posao.** Donji deo leđa radi.",
+    text: "Lepo je fleksovati biceps ako imaš ruke koje bi i Arnolda ostavile bez teksta — ali šta ako tvoje ruke liče na špagete, a biceps vrhovi na ravne brdoce, bez obzira koliko curls radiš? U tom slučaju, verovatno treniraš ruke pogrešno.",
   },
   {
     type: "p",
-    text: "**Ispravi ovako:**",
+    text: "Evo **4 česte greške pri treningu ruku**.",
   },
-  {
-    type: "ul",
-    items: [
-      "Zakači lakete uz telo (ili osloni na klupu kod preacher curls)",
-      "Smanji težinu **10–20%**",
-      "2–3 sekunde negativa na svakom ponavljanju",
-      "Stani 1–2 ponavljanja pre nego što forma pukne",
-    ],
-  },
-  {
-    type: "blockquote",
-    text: "Mišić ne zna koliko težine je na šipci. Zna napetost. Kontrola stvara napetost.",
-  },
-  { type: "h2", text: "Greška #2: Ignorišeš triceps (čini 2/3 ruke)" },
+  { type: "h2", text: "Naginjanje unazad tokom curls" },
   {
     type: "p",
-    text: "Većina muškaraca trenira biceps jer ga vide u ogledalu. Ali **triceps čini otprilike dve trećine mase gornjeg dela ruke.**",
+    text: "Budimo realni — ako želiš da treniraš biceps, moraćeš da navikneš na curling.",
   },
   {
     type: "p",
-    text: "Sklekovi sa uskim hvatom, dips i ekstenzije iznad glave grade potkovicu brže od još jedne serije curls.",
+    text: "Postoji mnogo varijacija biceps curls (više o tome kasnije), ali glavna greška koju ljudi prave jeste **naginjanje unazad da bi dobili zamah**.",
   },
   {
     type: "p",
-    text: "**Ispravi ovako:** Za svaku biceps vežbu u nedelji uključi triceps pokret. U Busy Strong 90, push dani već jako pogađaju triceps — **možda ti uopšte ne treba poseban dan za ruke.**",
+    text: "Naginjanje unazad tokom curls ne samo da te izlaže riziku od povrede leđa, već i **značajno smanjuje efekat vežbe**. Zapamti: mišići rastu od napetosti — bukvalno želiš da stvoriš što više mikro pucanja u mišićnim vlaknima. Naginjanje unazad smanjuje napetost na bicepsu, što znači manje mišića.",
   },
-  { type: "h2", text: 'Greška #3: Dodaješ „dan za ruke" pre nego što si jak na složenim vežbama' },
+  { type: "h2", text: "Ne treniraš triceps" },
   {
     type: "p",
-    text: "Početnici dodaju **15 serija za ruke** dok benchaju 40 kg i veslaju sa zamahom. Ruke rastu kada se ceo sistem ojača.",
-  },
-  {
-    type: "p",
-    text: "Chin-ups grade biceps. Veslanje gradi biceps. Sklekovi i pressovi grade triceps. **Složene vežbe prvo — izolacija je začin, ne glavno jelo.**",
+    text: "Ako zaista želiš ruke koje pucaju iz majice, veruj ili ne — **nije dovoljno fokusirati se samo na biceps**. Za veće ruke treba ti više triceps vežbi.",
   },
   {
     type: "p",
-    text: "**Ispravi ovako:** Ako treniraš 3× nedeljno, dodaj **2–3 direktne serije za ruke na kraju** push ili pull treninga. To je dovoljno za većinu zauzetih muškaraca.",
-  },
-  { type: "h2", text: "Greška #4: Treniraš ruke kada su već umorne" },
-  {
-    type: "p",
-    text: "Radiš curls posle teškog dana za leđa kada su bicepsi već iscrpljeni od veslanja? **Treniraš umor, ne mišić.**",
+    text: "Previše ljudi trenira biceps kada žele veće ruke, ali fokus isključivo na biceps gradi **veliki biceps mišić, ne velike ruke**.",
   },
   {
     type: "p",
-    text: "Isto sa tricepsom posle teškog pressovanja — ako ne osećaš da mišić radi, serija je prazan volumen.",
+    text: "Triceps ima 3 glave — otuda i ime — i **mnogo je veći od bicepsa**. Što su ti tricepsi veći, ruke će izgledati impresivnije.",
+  },
+  { type: "h2", text: "Nedovoljno varijacija" },
+  {
+    type: "p",
+    text: "Razumemo — svako ima svoje omiljene vežbe za određene delove tela, i za ruke nije drugačije. Verovatno su ti top 2 biceps vežbe dumbbell curls i EZ curls, a glavna triceps vežba triceps rope pushdown. Odlične su vežbe, ali **nisu jedine**.",
   },
   {
     type: "p",
-    text: "**Ispravi ovako:**",
-  },
-  {
-    type: "ul",
-    items: [
-      "Stavi direktan rad za ruke **rano u treningu** ako su ruke prioritet",
-      "Ili prihvati da su složene vežbe dovoljne prvih 8–12 nedelja",
-      "San i proteini su važniji od 4. varijacije curls",
-    ],
-  },
-  { type: "h2", text: "Jednostavan finišer za ruke (maks. 10 minuta)" },
-  {
-    type: "p",
-    text: "Dodaj ovo posle glavnog treninga **jednom ili dvaput nedeljno:**",
-  },
-  {
-    type: "ol",
-    items: [
-      "**A1:** Dumbbell curls — 3×10–12, kontrolisan tempo",
-      "**A2:** Overhead triceps extension — 3×10–12, isti tempo",
-      "Naizmenično sa **60 s odmora** između vežbi",
-    ],
+    text: "Za optimalnu hipertrofiju uvek je najbolje **menjati rutinu i dodavati varijacije** — da mišići ne „naviknu“ na isti stimulus.",
   },
   {
     type: "p",
-    text: "Šest serija ukupno. Gotovo za manje od 10 minuta. **Više od toga retko treba** kada su push/pull radovi solidni.",
+    text: "Probaj različite biceps i triceps vežbe, različite težine, opremu, broj ponavljanja i serija — bićeš iznenađen koliko će ti ruke biti napumpanije posle treninga.",
   },
-  { type: "h2", text: "Šira slika" },
+  { type: "h2", text: "Ne dižeš preteške težine" },
   {
     type: "p",
-    text: "Ruke rastu kada:",
-  },
-  {
-    type: "ul",
-    items: [
-      "Ojačaš na **veslanju, pressovima i chin-ups**",
-      "Jedeš **dovoljno proteina** dnevno",
-      "Spavaš **7+ sati**",
-      "Dodaš **malo** direktnog rada za ruke bez žrtvovanja oporavka",
-    ],
+    text: "Za hipertrofiju (rast mišića) progresivno opterećenje može biti veoma korisno, a jedan način jeste dizanje težih tegova nego što si navikao. Međutim, ako dižeš **preteško**, forma strada i nećeš pogoditi ciljne mišiće niti pravilno izvesti vežbu.",
   },
   {
     type: "p",
-    text: "Busy Strong 90 gradi ruke kroz **push, pull i progres složenih vežbi** — ne kroz poseban bro-split koji pojede kalendar.",
+    text: "Slobodno treniraj teško, ali ne diži težine koje očigledno ne možeš da kontrolišeš — jedini način da ih podigneš bi bio ljuljanje i naginjanje za zamah, pa biceps i triceps ne rade posao.",
+  },
+  {
+    type: "p",
+    text: "Za optimalan rast mišića biraj težinu koja te testira, ali koju **kontrolišeš tokom cele radne serije**. Ako na kraju serije moraš blago da „varaš“ da izbaciš još rep ili dva — to je prihvatljivo. Varati od prvog repa — nije.",
   },
   {
     type: "cta",
@@ -123,6 +75,6 @@ export const blocksSr: BlogBlock[] = [
     primaryHref: "/training",
     primaryLabel: "Pogledaj programe treninga",
     secondaryHref: "/pricing",
-    secondaryLabel: "Uzmi pun pristup — {{price}}",
+    secondaryLabel: "Pun pristup — {{price}}",
   },
 ];

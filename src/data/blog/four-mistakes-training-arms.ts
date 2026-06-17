@@ -3,12 +3,12 @@ import { blocksSr } from "./four-mistakes-training-arms.sr";
 
 export const fourMistakesArmsPost: BlogPost = {
   slug: "four-mistakes-training-arms",
-  title: "4 Mistakes When Training Arms (And What to Do Instead)",
+  title: "4 Mistakes When Training Arms",
   excerpt:
-    "Swinging curls, skipping triceps, and endless arm days won't build sleeves — they'll stall your progress. Fix these four errors and grow arms without extra gym time.",
+    "From leaning back on curls to skipping triceps — four common arm training mistakes that stop your biceps and triceps from growing.",
   metaTitle: "4 Mistakes When Training Arms — Biceps & Triceps Tips",
   metaDescription:
-    "Avoid the four biggest arm training mistakes: ego lifting, neglecting triceps, too much isolation, and bad recovery. Better arm workouts for busy men.",
+    "Avoid leaning back on curls, neglecting triceps, too little variation, and lifting too heavy. Four common arm training mistakes and how to fix them.",
   keywords: [
     "arm training mistakes",
     "biceps workout tips",
@@ -24,119 +24,71 @@ export const fourMistakesArmsPost: BlogPost = {
   blocks: [
     {
       type: "p",
-      text: "Every busy man eventually wants **bigger arms.** It's the first thing you check in the mirror and the first muscle group beginners overtrain.",
+      text: "You know what they say: 'Sun's out, guns out' but what if your guns (arms) are distinctly lacking in terms of size and definition, and you struggle to fill out a small/medium shirt?",
     },
     {
       type: "p",
-      text: "The problem isn't that arms are hard to grow. The problem is **how most people train them** — especially when time is limited and ego is high.",
+      text: "When people flex their muscles, 9 times out of 10, their go-to pose will be a single, or a double bicep pose. You see plenty of people flexing their biceps for selfies when out and about or in the gym, yet you don't see many people busting out a rear lat spread or a cheeky side chest.",
     },
     {
       type: "p",
-      text: "Fix these four mistakes and your arms will grow as a **by-product of getting stronger overall** — not from an extra 45-minute \"arm day.\"",
-    },
-    { type: "h2", text: "Mistake #1: Swinging the Weight (Ego Curls)" },
-    {
-      type: "p",
-      text: "If your elbows travel forward, your hips drive the rep, or the weight drops on the way down — **your biceps aren't doing the work.** Your lower back is.",
+      text: "It's all well and good flexing your biceps if you've a set of arms that would give Arnold himself a run for his money, but what about if your arms resemble strings of spaghetti and your bicep peaks are more like flat hills, no matter how many bicep curls you pump out? Well, if this is the case, you may be training your arms incorrectly.",
     },
     {
       type: "p",
-      text: "**Fix it:**",
+      text: "Here's a look at 4 common mistakes when training arms.",
     },
-    {
-      type: "ul",
-      items: [
-        "Pin elbows to your sides (or bench on preacher curls)",
-        "Lower the weight **10–20%**",
-        "2–3 second negative on every rep",
-        "Stop 1–2 reps before form breaks",
-      ],
-    },
-    {
-      type: "blockquote",
-      text: "The muscle doesn't know how much weight is on the bar. It knows tension. Control creates tension.",
-    },
-    { type: "h2", text: "Mistake #2: Ignoring Triceps (They're 2/3 of Your Arm)" },
+    { type: "h2", text: "Leaning back as you curl" },
     {
       type: "p",
-      text: "Most men train biceps because they see them in the mirror. But **triceps make up roughly two-thirds of upper arm mass.**",
+      text: "Let's face it, if you want to train your biceps you are going to have to get used to curling.",
     },
     {
       type: "p",
-      text: "Close-grip push-ups, dips, and overhead extensions build the horseshoe faster than another set of curls.",
+      text: "There are plenty of bicep curl variations (more on that later) yet the main mistake people can make when curling is leaning back to gain momentum.",
     },
     {
       type: "p",
-      text: "**Fix it:** For every biceps exercise in your week, include a triceps movement. In Busy Strong 90, push days already hit triceps hard — **you may not need a dedicated arm day at all.**",
+      text: "Leaning back as you curl will not only put you at risk of a back injury, but it will also render the exercise far less effective. Remember, it's tension that will make the muscles grow as you are literally looking to create as many micro rips and tears in the muscle fibres as possible. Leaning back reduces tension placed upon the biceps, which obviously means less muscle will be built.",
     },
-    { type: "h2", text: "Mistake #3: Adding an \"Arm Day\" Before You're Strong on Compounds" },
+    { type: "h2", text: "Not training triceps" },
     {
       type: "p",
-      text: "Beginners add **15 sets of arms** while benching 40 kg and rowing with momentum. Arms grow when the whole system gets stronger.",
-    },
-    {
-      type: "p",
-      text: "Chin-ups build biceps. Rows build biceps. Push-ups and presses build triceps. **Compounds first — isolation is seasoning, not the meal.**",
+      text: "If you really want a set of sleeve-busting arms, believe it or not but it isn't just biceps that you should focus on. In fact, if you want bigger arms, you need to perform more triceps exercises.",
     },
     {
       type: "p",
-      text: "**Fix it:** If you train 3× per week, add **2–3 direct arm sets at the end** of push or pull sessions. That's enough for most busy men.",
-    },
-    { type: "h2", text: "Mistake #4: Training Arms When They're Already Fatigued" },
-    {
-      type: "p",
-      text: "Doing curls after a heavy back day when your biceps are already smoked from rows? **You're training fatigue, not muscle.**",
+      text: "Far too many people focus on training the biceps when they're looking to build up their arms, yet focussing solely on the biceps will only build a big biceps muscle, not a big set of arms.",
     },
     {
       type: "p",
-      text: "Same with triceps after heavy pressing — if you can't feel the muscle work, the set is junk volume.",
+      text: "The triceps muscle has 3 heads, hence the name, and it is much larger than the biceps muscle. Therefore, the bigger your triceps, the bigger your arms will look.",
+    },
+    { type: "h2", text: "Not enough variation" },
+    {
+      type: "p",
+      text: "Okay, we get it, everybody has their own unique preferences when it comes to gym exercises for specific body parts, and for the arms that's no different. More than likely, your top 2 bicep exercises are dumbbell curls and EZ curls, and your primary triceps exercise is the triceps rope pushdown. Don't get us wrong, these are great exercises, but they aren't the only exercises.",
     },
     {
       type: "p",
-      text: "**Fix it:**",
-    },
-    {
-      type: "ul",
-      items: [
-        "Place direct arm work **early in the session** if arms are the priority",
-        "Or accept that compounds are enough for the first 8–12 weeks",
-        "Sleep and protein matter more than the 4th curl variation",
-      ],
-    },
-    { type: "h2", text: "A Simple Arm Finisher (10 Minutes Max)" },
-    {
-      type: "p",
-      text: "Add this after your main workout **once or twice per week:**",
-    },
-    {
-      type: "ol",
-      items: [
-        "**A1:** Dumbbell curls — 3×10–12, controlled tempo",
-        "**A2:** Overhead triceps extension — 3×10–12, same tempo",
-        "Alternate with **60s rest** between exercises",
-      ],
+      text: "For optimal muscle hypertrophy, it is always best to switch up your routine and add some variation in there, in order to keep the muscles guessing.",
     },
     {
       type: "p",
-      text: "Six sets total. Done in under 10 minutes. **More than that is rarely needed** when your push/pull work is solid.",
+      text: "Try different bicep and triceps exercises, different weights, different equipment, different rep ranges, and a different amount of sets and you'll be amazed by just how much more pumped your arms feel once you've finished training.",
     },
-    { type: "h2", text: "The Bigger Picture" },
+    { type: "h2", text: "Don't lift too heavy" },
     {
       type: "p",
-      text: "Arms grow when you:",
-    },
-    {
-      type: "ul",
-      items: [
-        "Get stronger on **rows, presses, and chin-ups**",
-        "Eat **enough protein** daily",
-        "Sleep **7+ hours**",
-        "Add **small amounts** of direct arm work without sacrificing recovery",
-      ],
+      text: "For muscle hypertrophy (growth) progressive overload training can be very beneficial, and one way of overloading the muscles is to lift heavier weights than they are used to. The thing to remember here however, is that if you try lifting too heavy, your form will suffer and you won't hit the target muscles or perform the exercise correctly.",
     },
     {
       type: "p",
-      text: "Busy Strong 90 builds arms through **push, pull, and compound progress** — not through a separate bro-split that eats your calendar.",
+      text: "By all means train heavy, but don't lift weights that are clearly too heavy for you to handle, as the only way you will lift them will be via rocking and leaning back and forth for momentum, so you won't work the biceps or triceps properly.",
+    },
+    {
+      type: "p",
+      text: 'For optimal muscle growth, choose a weight that tests you, but that you are in control of for the duration of your working set. If at the end of your working set, you need to "cheat" ever so slightly to force out a rep or two, that\'s acceptable, but cheating from the start is not.',
     },
     {
       type: "cta",

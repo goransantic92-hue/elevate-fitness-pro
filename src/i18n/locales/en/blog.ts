@@ -78,12 +78,12 @@ export default {
         "The best bodybuilding foods: eggs, salmon, oats, beef, and chicken. Protein, energy, and nutrients for serious muscle growth.",
     },
     "four-mistakes-training-arms": {
-      title: "4 Mistakes When Training Arms (And What to Do Instead)",
+      title: "4 Mistakes When Training Arms",
       excerpt:
-        "Swinging curls, skipping triceps, and endless arm days won't build sleeves. Fix these four errors and grow arms without extra gym time.",
+        "From leaning back on curls to skipping triceps — four common arm training mistakes that stop your biceps and triceps from growing.",
       metaTitle: "4 Mistakes When Training Arms — Biceps & Triceps Tips",
       metaDescription:
-        "Avoid the four biggest arm training mistakes: ego lifting, neglecting triceps, too much isolation, and bad recovery.",
+        "Avoid leaning back on curls, neglecting triceps, too little variation, and lifting too heavy. Four common arm training mistakes.",
     },
     "health-fitness-supplements": {
       title: "Health and Fitness Supplements: What to Buy, Skip, and Why",
