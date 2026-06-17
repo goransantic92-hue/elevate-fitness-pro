@@ -78,12 +78,12 @@ export default {
         "Najbolje bodybuilding namirnice: jaja, losos, ovsena kaša, govedina i piletina. Proteini, energija i nutrijenti za ozbiljan rast mišića.",
     },
     "four-mistakes-training-arms": {
-      title: "4 greške pri treningu ruku (i šta raditi umesto toga)",
+      title: "4 greške pri treningu ruku",
       excerpt:
-        "Mahanje tegom na biceps, zanemarivanje tricepsa i beskrajni arm day neće vam dati ruke — usporiće napredak. Ispravite ove četiri greške.",
+        "Od naginjanja unazad na curls do zanemarivanja tricepsa — četiri česte greške koje sprečavaju rast bicepsa i tricepsa.",
       metaTitle: "4 greške pri treningu ruku — saveti za biceps i triceps",
       metaDescription:
-        "Izbegnite četiri najveće greške: ego lifting, zanemarivanje tricepsa, previše izolacije i loš oporavak.",
+        "Izbegnite naginjanje unazad, zanemarivanje tricepsa, nedovoljno varijacija i dizanje preteških tegova.",
     },
     "health-fitness-supplements": {
       title: "Zdravstveni i fitnes suplementi: šta kupiti, šta preskočiti i zašto",
