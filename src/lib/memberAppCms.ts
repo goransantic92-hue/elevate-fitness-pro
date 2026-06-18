@@ -4,6 +4,7 @@ import arNutrition from "@/i18n/locales/ar/nutrition";
 import arProgram from "@/i18n/locales/ar/program";
 import enDashboard from "@/i18n/locales/en/dashboard";
 import enNutrition from "@/i18n/locales/en/nutrition";
+import enProgram from "@/i18n/locales/en/program";
 import srDashboard from "@/i18n/locales/sr/dashboard";
 import srNutrition from "@/i18n/locales/sr/nutrition";
 import srProgram from "@/i18n/locales/sr/program";
