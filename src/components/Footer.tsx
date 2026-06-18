@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Dumbbell, Instagram, Link2, Mail } from "lucide-react";
 import { useAuth } from "@/context/AuthContext";
 import { programPublicPath } from "@/lib/programNav";
+import { useAppLocale } from "@/hooks/useAppLocale";
 
 const INSTAGRAM_URL = "https://www.instagram.com/_coachmilos/";
 const LINKTREE_URL =
@@ -10,16 +11,17 @@ const LINKTREE_URL =
 
 const Footer = () => {
   const { t } = useTranslation();
+  const { to } = useAppLocale();
   const { configured, hasProgramAccess, loading, user } = useAuth();
   const navOpts = { configured, hasProgramAccess, loading, user };
-  const nutritionTo = programPublicPath("/nutrition", navOpts);
+  const nutritionTo = to(programPublicPath("/nutrition", navOpts));
 
   return (
     <footer className="bg-card border-t border-border">
       <div className="container mx-auto px-4 py-16">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
           <div className="md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 font-display text-xl font-bold tracking-tight mb-4">
+            <Link to={to("/")} className="flex items-center gap-2 font-display text-xl font-bold tracking-tight mb-4">
               <Dumbbell className="h-6 w-6 text-primary" />
               <span>
                 BUSY<span className="text-primary">STRONG</span>90
@@ -31,7 +33,7 @@ const Footer = () => {
           <div>
             <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">{t("footer.program")}</h4>
             <div className="flex flex-col gap-2">
-              <Link to="/program" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("footer.programOverview")}</Link>
+              <Link to={to("/program")} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("footer.programOverview")}</Link>
               <Link to={nutritionTo} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("footer.nutritionGuide")}</Link>
             </div>
           </div>
@@ -39,9 +41,9 @@ const Footer = () => {
           <div>
             <h4 className="font-sans font-semibold text-sm uppercase tracking-wider mb-4 text-primary">{t("footer.support")}</h4>
             <div className="flex flex-col gap-2">
-              <Link to="/coaching-apply" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.coaching")}</Link>
-              <Link to="/faq" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.faq")}</Link>
-              <Link to="/pricing" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.pricing")}</Link>
+              <Link to={to("/coaching-apply")} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.coaching")}</Link>
+              <Link to={to("/faq")} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.faq")}</Link>
+              <Link to={to("/pricing")} className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.pricing")}</Link>
               <Link to="/login" className="text-sm text-muted-foreground hover:text-foreground transition-colors">{t("nav.memberLogin")}</Link>
             </div>
           </div>

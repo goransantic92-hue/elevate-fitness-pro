@@ -1,30 +1,22 @@
 import { Suspense } from "react";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes, useLocation } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
-import { ProgramContentGate } from "@/components/ProgramContentGate";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { InstallAppPrompt } from "@/components/InstallAppPrompt";
 import { RoutePageFallback } from "@/components/RoutePageFallback";
 import { lazyRoute } from "@/lib/lazyRoute";
 import { I18nDirectionSync } from "@/components/I18nDirectionSync";
 import { MetaPixel } from "@/components/MetaPixel";
+import { LocaleRouteSync } from "@/components/LocaleRouteSync";
 import PublicLayout from "@/components/PublicLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import AdminLayout from "@/layouts/AdminLayout";
-import HomePage from "@/pages/HomePage";
+import { publicRouteElements } from "@/routes/publicRoutes";
 
-const ProgramPage = lazyRoute(() => import("@/pages/ProgramPage"));
-const TrainingPage = lazyRoute(() => import("@/pages/TrainingPage"));
-const NutritionPage = lazyRoute(() => import("@/pages/NutritionPage"));
-const FAQPage = lazyRoute(() => import("@/pages/FAQPage"));
-const PricingPage = lazyRoute(() => import("@/pages/PricingPage"));
-const CoachingApplyPage = lazyRoute(() => import("@/pages/CoachingApplyPage"));
-const BlogIndexPage = lazyRoute(() => import("@/pages/BlogIndexPage"));
-const BlogPostPage = lazyRoute(() => import("@/pages/BlogPostPage"));
 const NotFound = lazyRoute(() => import("@/pages/NotFound"));
 const LoginPage = lazyRoute(() => import("@/pages/auth/LoginPage"));
 const SignupPage = lazyRoute(() => import("@/pages/auth/SignupPage"));
@@ -55,6 +47,12 @@ function Lazy({ children }: { children: React.ReactNode }) {
   return <Suspense fallback={<RoutePageFallback />}>{children}</Suspense>;
 }
 
+function RedirectFromEnPrefix() {
+  const { pathname, search, hash } = useLocation();
+  const stripped = pathname.replace(/^\/en(?=\/|$)/, "") || "/";
+  return <Navigate to={`${stripped}${search}${hash}`} replace />;
+}
+
 const App = () => (
   <QueryClientProvider client={queryClient}>
     <TooltipProvider>
@@ -65,78 +63,22 @@ const App = () => (
         <MetaPixel />
         <ScrollToTop />
         <Routes>
-          <Route element={<PublicLayout />}>
-            <Route path="/" element={<HomePage />} />
-            <Route
-              path="/program"
-              element={
-                <Lazy>
-                  <ProgramPage />
-                </Lazy>
-              }
-            />
-            <Route
-              path="/training"
-              element={
-                <Lazy>
-                  <ProgramContentGate>
-                    <TrainingPage />
-                  </ProgramContentGate>
-                </Lazy>
-              }
-            />
-            <Route
-              path="/nutrition"
-              element={
-                <Lazy>
-                  <ProgramContentGate>
-                    <NutritionPage />
-                  </ProgramContentGate>
-                </Lazy>
-              }
-            />
-            <Route path="/results" element={<Navigate to="/program" replace />} />
-            <Route
-              path="/faq"
-              element={
-                <Lazy>
-                  <FAQPage />
-                </Lazy>
-              }
-            />
-            <Route
-              path="/pricing"
-              element={
-                <Lazy>
-                  <PricingPage />
-                </Lazy>
-              }
-            />
-            <Route
-              path="/coaching-apply"
-              element={
-                <Lazy>
-                  <CoachingApplyPage />
-                </Lazy>
-              }
-            />
-            <Route
-              path="/blog"
-              element={
-                <Lazy>
-                  <BlogIndexPage />
-                </Lazy>
-              }
-            />
-            <Route
-              path="/blog/:slug"
-              element={
-                <Lazy>
-                  <BlogPostPage />
-                </Lazy>
-              }
-            />
+          {/* English public pages at root (canonical for x-default) */}
+          <Route element={<LocaleRouteSync locale="en" />}>
+            <Route element={<PublicLayout />}>{publicRouteElements()}</Route>
           </Route>
+
+          {/* Serbian public pages at /sr/* */}
+          <Route path="sr" element={<LocaleRouteSync locale="sr" />}>
+            <Route element={<PublicLayout />}>{publicRouteElements()}</Route>
+          </Route>
+
+          {/* Arabic public pages at /ar/* */}
+          <Route path="ar" element={<LocaleRouteSync locale="ar" />}>
+            <Route element={<PublicLayout />}>{publicRouteElements()}</Route>
+          </Route>
+
+          <Route path="/en/*" element={<RedirectFromEnPrefix />} />
 
           <Route
             path="/login"

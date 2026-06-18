@@ -3,9 +3,11 @@ import { useTranslation } from "react-i18next";
 import { ArrowRight, Clock } from "lucide-react";
 import { getHomepageFeaturedPosts } from "@/data/blog";
 import { formatBlogDate } from "@/lib/formatBlogDate";
+import { useAppLocale } from "@/hooks/useAppLocale";
 
 export function HomeBlogSection() {
   const { t, i18n } = useTranslation("blog");
+  const { to } = useAppLocale();
   const posts = getHomepageFeaturedPosts(3);
 
   if (posts.length === 0) return null;
@@ -26,7 +28,7 @@ export function HomeBlogSection() {
               className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card/50 transition-colors hover:border-primary/40"
             >
               {post.coverImage && (
-                <Link to={`/blog/${post.slug}`} className="block aspect-[16/10] overflow-hidden">
+                <Link to={to(`/blog/${post.slug}`)} className="block aspect-[16/10] overflow-hidden">
                   <img
                     src={post.coverImage}
                     alt={post.coverImageAlt ?? t(`posts.${post.slug}.title`)}
@@ -46,7 +48,7 @@ export function HomeBlogSection() {
                   </span>
                 </div>
                 <h3 className="font-display mt-3 text-xl leading-snug text-foreground">
-                  <Link to={`/blog/${post.slug}`} className="hover:text-primary transition-colors">
+                  <Link to={to(`/blog/${post.slug}`)} className="hover:text-primary transition-colors">
                     {t(`posts.${post.slug}.title`)}
                   </Link>
                 </h3>
@@ -54,7 +56,7 @@ export function HomeBlogSection() {
                   {t(`posts.${post.slug}.excerpt`)}
                 </p>
                 <Link
-                  to={`/blog/${post.slug}`}
+                  to={to(`/blog/${post.slug}`)}
                   className="mt-4 inline-flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary/90"
                 >
                   {t("index.readArticle")}
@@ -67,7 +69,7 @@ export function HomeBlogSection() {
 
         <div className="mt-10 text-center">
           <Link
-            to="/blog"
+            to={to("/blog")}
             className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:text-primary/90"
           >
             {t("home.viewAll")}

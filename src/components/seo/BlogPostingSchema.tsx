@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import { localePath } from "@/i18n/localePaths";
+import type { AppLanguage } from "@/i18n/constants";
 
 const SITE_ORIGIN = "https://busystrong90.com";
 const DEFAULT_OG_IMAGE = `${SITE_ORIGIN}/og-image.jpg`;
@@ -9,6 +11,7 @@ type BlogPostingSchemaProps = {
   slug: string;
   publishedAt: string;
   keywords?: string[];
+  locale?: AppLanguage;
 };
 
 export function BlogPostingSchema({
@@ -17,8 +20,9 @@ export function BlogPostingSchema({
   slug,
   publishedAt,
   keywords = [],
+  locale = "en",
 }: BlogPostingSchemaProps) {
-  const url = `${SITE_ORIGIN}/blog/${slug}`;
+  const url = `${SITE_ORIGIN}${localePath(`/blog/${slug}`, locale)}`;
   const schema = {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -43,7 +47,7 @@ export function BlogPostingSchema({
     },
     image: DEFAULT_OG_IMAGE,
     keywords: keywords.join(", "),
-    inLanguage: "en",
+    inLanguage: locale === "sr" ? "sr-RS" : locale === "ar" ? "ar-AE" : "en-GB",
   };
 
   return (

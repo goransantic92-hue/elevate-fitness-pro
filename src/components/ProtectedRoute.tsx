@@ -1,5 +1,8 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "@/context/AuthContext";
+import { useTranslation } from "react-i18next";
+import { localePath } from "@/i18n/localePaths";
+import type { AppLanguage } from "@/i18n/constants";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;
@@ -10,6 +13,8 @@ type ProtectedRouteProps = {
 export function ProtectedRoute({ children, requireAdmin, requireProgramAccess }: ProtectedRouteProps) {
   const { user, loading, configured, isAdmin, hasProgramAccess } = useAuth();
   const location = useLocation();
+  const { i18n } = useTranslation();
+  const locale = (i18n.language?.split("-")[0] ?? "en") as AppLanguage;
 
   if (!configured) {
     return (
@@ -40,7 +45,7 @@ export function ProtectedRoute({ children, requireAdmin, requireProgramAccess }:
   }
 
   if (requireProgramAccess && !hasProgramAccess) {
-    return <Navigate to="/pricing" replace />;
+    return <Navigate to={localePath("/pricing", locale)} replace />;
   }
 
   return <>{children}</>;
