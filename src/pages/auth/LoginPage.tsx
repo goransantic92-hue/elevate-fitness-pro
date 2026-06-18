@@ -46,7 +46,7 @@ export default function LoginPage() {
           <p className="text-sm text-muted-foreground mb-6">{t("login.subhead")}</p>
           {!configured && (
             <p className="text-xs text-amber-500 mb-4 p-3 rounded-lg bg-amber-500/10 border border-amber-500/20">
-              {t("login.supabaseWarning")}
+              {t("login.supabaseMissing")}
             </p>
           )}
           <form onSubmit={onSubmit} className="space-y-4">
@@ -73,7 +73,7 @@ export default function LoginPage() {
               />
             </div>
             <Button type="submit" className="w-full bg-primary text-primary-foreground font-bold" disabled={busy || !configured}>
-              {busy ? t("login.signingIn") : t("login.signIn")}
+              {busy ? t("login.submitting") : t("login.submit")}
             </Button>
           </form>
           <p className="text-sm text-muted-foreground mt-6 text-center">
@@ -84,7 +84,7 @@ export default function LoginPage() {
           </p>
           <p className="text-center mt-4">
             <Link to="/" className="text-xs text-muted-foreground hover:text-foreground">
-              {t("login.backToSite")}
+              {t("login.backToWebsite")}
             </Link>
           </p>
         </div>
