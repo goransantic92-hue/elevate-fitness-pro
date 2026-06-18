@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useAuth } from "@/context/AuthContext";
 import { useToast } from "@/hooks/use-toast";
+import { useAppLocale } from "@/hooks/useAppLocale";
 import { safeInternalPath } from "@/lib/safeRedirect";
 
 export default function LoginPage() {
@@ -20,6 +21,7 @@ export default function LoginPage() {
   const location = useLocation();
   const [searchParams] = useSearchParams();
   const { toast } = useToast();
+  const { to } = useAppLocale();
   const from = safeInternalPath(searchParams.get("redirect"), (location.state as { from?: string } | null)?.from, "/dashboard");
 
   async function onSubmit(e: React.FormEvent) {
@@ -83,7 +85,7 @@ export default function LoginPage() {
             </Link>
           </p>
           <p className="text-center mt-4">
-            <Link to="/" className="text-xs text-muted-foreground hover:text-foreground">
+            <Link to={to("/")} className="text-xs text-muted-foreground hover:text-foreground">
               {t("login.backToWebsite")}
             </Link>
           </p>

@@ -1,73 +1,217 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <!-- Homepage -->
   <url>
     <loc>https://busystrong90.com/</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://busystrong90.com/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/" />
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
+    <loc>https://busystrong90.com/sr</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://busystrong90.com/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://busystrong90.com/ar</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://busystrong90.com/ar" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/" />
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Program -->
+  <url>
     <loc>https://busystrong90.com/program</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/program" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/program" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://busystrong90.com/ar/program" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/program" />
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://busystrong90.com/sr/program</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- FAQ -->
+  <url>
     <loc>https://busystrong90.com/faq</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/faq" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/faq" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://busystrong90.com/ar/faq" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/faq" />
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://busystrong90.com/sr/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Pricing -->
+  <url>
     <loc>https://busystrong90.com/pricing</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/pricing" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/pricing" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://busystrong90.com/ar/pricing" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/pricing" />
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
+  <url>
+    <loc>https://busystrong90.com/sr/pricing</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Coaching -->
   <url>
     <loc>https://busystrong90.com/coaching-apply</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/coaching-apply" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/coaching-apply" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://busystrong90.com/ar/coaching-apply" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/coaching-apply" />
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://busystrong90.com/sr/coaching-apply</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Blog index -->
+  <url>
     <loc>https://busystrong90.com/blog</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/blog" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/blog" />
+    <xhtml:link rel="alternate" hreflang="ar" href="https://busystrong90.com/ar/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/blog" />
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://busystrong90.com/sr/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Blog posts -->
+  <url>
     <loc>https://busystrong90.com/blog/no-time-too-tired-workout-busy-men</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/blog/no-time-too-tired-workout-busy-men" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/blog/no-time-too-tired-workout-busy-men" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/blog/no-time-too-tired-workout-busy-men" />
+    <lastmod>2026-05-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://busystrong90.com/sr/blog/no-time-too-tired-workout-busy-men</loc>
     <lastmod>2026-05-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://busystrong90.com/blog/fallen-off-wagon-fitness-consistency-busy-men</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/blog/fallen-off-wagon-fitness-consistency-busy-men" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/blog/fallen-off-wagon-fitness-consistency-busy-men" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/blog/fallen-off-wagon-fitness-consistency-busy-men" />
+    <lastmod>2026-05-22</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://busystrong90.com/sr/blog/fallen-off-wagon-fitness-consistency-busy-men</loc>
     <lastmod>2026-05-22</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://busystrong90.com/blog/dad-bod-out-of-shape-after-kids-fitness</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/blog/dad-bod-out-of-shape-after-kids-fitness" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/blog/dad-bod-out-of-shape-after-kids-fitness" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/blog/dad-bod-out-of-shape-after-kids-fitness" />
+    <lastmod>2026-05-25</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://busystrong90.com/sr/blog/dad-bod-out-of-shape-after-kids-fitness</loc>
     <lastmod>2026-05-25</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://busystrong90.com/blog/tips-for-muscle-growth</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/blog/tips-for-muscle-growth" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/blog/tips-for-muscle-growth" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/blog/tips-for-muscle-growth" />
+    <lastmod>2026-06-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://busystrong90.com/sr/blog/tips-for-muscle-growth</loc>
     <lastmod>2026-06-10</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://busystrong90.com/blog/five-foods-for-bodybuilding</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/blog/five-foods-for-bodybuilding" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/blog/five-foods-for-bodybuilding" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/blog/five-foods-for-bodybuilding" />
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://busystrong90.com/sr/blog/five-foods-for-bodybuilding</loc>
     <lastmod>2026-06-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://busystrong90.com/blog/four-mistakes-training-arms</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/blog/four-mistakes-training-arms" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/blog/four-mistakes-training-arms" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/blog/four-mistakes-training-arms" />
+    <lastmod>2026-06-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://busystrong90.com/sr/blog/four-mistakes-training-arms</loc>
     <lastmod>2026-06-14</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://busystrong90.com/blog/health-fitness-supplements</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://busystrong90.com/blog/health-fitness-supplements" />
+    <xhtml:link rel="alternate" hreflang="sr" href="https://busystrong90.com/sr/blog/health-fitness-supplements" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://busystrong90.com/blog/health-fitness-supplements" />
+    <lastmod>2026-06-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://busystrong90.com/sr/blog/health-fitness-supplements</loc>
     <lastmod>2026-06-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>

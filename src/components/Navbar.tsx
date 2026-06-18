@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Menu, X, Dumbbell, Instagram, LayoutDashboard, Link2, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -8,6 +8,7 @@ import { useAuth } from "@/context/AuthContext";
 import { programPublicPath } from "@/lib/programNav";
 import { CALENDLY_FREE_CALL_URL } from "@/lib/pricing";
 import { usePricing } from "@/hooks/usePricing";
+import { useAppLocale } from "@/hooks/useAppLocale";
 
 const navHrefs = [
   { href: "/", key: "home" },
@@ -24,7 +25,7 @@ const LINKTREE_URL =
 
 const Navbar = () => {
   const [open, setOpen] = useState(false);
-  const location = useLocation();
+  const { to, path } = useAppLocale();
   const { t } = useTranslation();
   const { t: tDashboard } = useTranslation("dashboard");
   const { user, isAdmin, signOut, configured, hasProgramAccess, loading } = useAuth();
@@ -33,15 +34,14 @@ const Navbar = () => {
   const navOpts = { configured, hasProgramAccess, loading, user };
 
   const linkTo = (href: string) => {
-    if (href === "/training") return programPublicPath("/training", navOpts);
-    if (href === "/nutrition") return programPublicPath("/nutrition", navOpts);
-    return href;
+    if (href === "/training") return to(programPublicPath("/training", navOpts));
+    if (href === "/nutrition") return to(programPublicPath("/nutrition", navOpts));
+    return to(href);
   };
 
-  const linkActive = (href: string, to: string) => {
-    if (href === "/training") return location.pathname === "/training";
-    if (href === "/nutrition") return location.pathname === "/nutrition";
-    return location.pathname === to;
+  const linkActive = (href: string) => {
+    if (href === "/") return path === "/";
+    return path === href;
   };
 
   const scrollHomeTop = () => {
@@ -51,7 +51,7 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
       <div className="container mx-auto flex items-center justify-between h-16 px-4">
-        <Link to="/" onClick={scrollHomeTop} className="flex items-center gap-2 font-display text-xl font-bold tracking-tight">
+        <Link to={to("/")} onClick={scrollHomeTop} className="flex items-center gap-2 font-display text-xl font-bold tracking-tight">
           <Dumbbell className="h-6 w-6 text-primary" aria-hidden />
           <span>
             BUSY<span className="text-primary">STRONG</span>90
@@ -67,7 +67,7 @@ const Navbar = () => {
                 to={to}
                 onClick={link.href === "/" ? scrollHomeTop : undefined}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
-                  linkActive(link.href, to) ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                  linkActive(link.href) ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                 }`}
               >
                 {t(`nav.${link.key}`)}
@@ -122,7 +122,7 @@ const Navbar = () => {
                   </a>
                 </Button>
                 <Button asChild size="sm" className="bg-primary text-primary-foreground hover:bg-primary/90 font-bold">
-                  <Link to="/pricing">{t("nav.programCta", { price: pricing.selfGuided.label })}</Link>
+                  <Link to={to("/pricing")}>{t("nav.programCta", { price: pricing.selfGuided.label })}</Link>
                 </Button>
               </>
             )}
@@ -158,7 +158,7 @@ const Navbar = () => {
                     setOpen(false);
                   }}
                   className={`px-4 py-3 rounded-lg text-sm font-medium transition-colors ${
-                    linkActive(link.href, to) ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
+                    linkActive(link.href) ? "text-primary bg-primary/10" : "text-muted-foreground hover:text-foreground hover:bg-secondary"
                   }`}
                 >
                   {t(`nav.${link.key}`)}

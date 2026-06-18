@@ -5,12 +5,15 @@ import { useMemberDashboardCms } from "@/hooks/useMemberAppCms";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock } from "lucide-react";
+import { localePath } from "@/i18n/localePaths";
+import type { AppLanguage } from "@/i18n/constants";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
 import { PRICING_AED } from "@/lib/pricing";
 import { trackInitiateCheckout } from "@/lib/metaPixel";
 
 export function MemberGate({ children }: { children: React.ReactNode }) {
-  const { t } = useTranslation("dashboard");
+  const { t, i18n } = useTranslation("dashboard");
+  const locale = (i18n.language?.split("-")[0] ?? "en") as AppLanguage;
   const { hasProgramAccess, loading, user } = useAuth();
   const { content: dashboardCms } = useMemberDashboardCms();
 
@@ -43,14 +46,14 @@ export function MemberGate({ children }: { children: React.ReactNode }) {
                 trackInitiateCheckout(PRICING_AED.selfGuided.amount, PRICING_AED.currency);
                 window.location.href = buildProgramCheckoutUrl(user);
               } catch {
-                window.location.href = "/pricing";
+                window.location.href = localePath("/pricing", locale);
               }
             }}
           >
             {t("gate.getProgram")}
           </Button>
           <Button variant="outline" asChild>
-            <Link to="/">{t("gate.backHome")}</Link>
+            <Link to={localePath("/", locale)}>{t("gate.backHome")}</Link>
           </Button>
         </CardContent>
       </Card>

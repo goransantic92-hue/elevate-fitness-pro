@@ -1,5 +1,8 @@
 import { Navigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useAuth } from "@/context/AuthContext";
+import { localePath } from "@/i18n/localePaths";
+import type { AppLanguage } from "@/i18n/constants";
 
 /**
  * Public Training / Nutrition pages: only members with program access (or admins).
@@ -7,6 +10,8 @@ import { useAuth } from "@/context/AuthContext";
  */
 export function ProgramContentGate({ children }: { children: React.ReactNode }) {
   const { configured, hasProgramAccess, loading } = useAuth();
+  const { i18n } = useTranslation();
+  const locale = (i18n.language?.split("-")[0] ?? "en") as AppLanguage;
 
   if (!configured) {
     return <>{children}</>;
@@ -21,7 +26,7 @@ export function ProgramContentGate({ children }: { children: React.ReactNode }) 
   }
 
   if (!hasProgramAccess) {
-    return <Navigate to="/pricing" replace />;
+    return <Navigate to={localePath("/pricing", locale)} replace />;
   }
 
   return <>{children}</>;

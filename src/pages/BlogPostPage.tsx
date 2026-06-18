@@ -10,6 +10,7 @@ import { blogPosts, getBlogPostBySlug, getBlogBlocks, hasLocalizedBlogBody } fro
 import type { BlogBlock } from "@/data/blog";
 import { formatBlogDate } from "@/lib/formatBlogDate";
 import { usePricing } from "@/hooks/usePricing";
+import { useAppLocale } from "@/hooks/useAppLocale";
 import NotFound from "@/pages/NotFound";
 
 function resolveBlogBlocks(blocks: BlogBlock[], priceLabel: string): BlogBlock[] {
@@ -31,6 +32,7 @@ const BlogPostPage = () => {
   const { t, i18n } = useTranslation("blog");
   const { t: tCommon } = useTranslation("common");
   const pricing = usePricing();
+  const { to, locale } = useAppLocale();
   const post = slug ? getBlogPostBySlug(slug) : undefined;
   const articleBlocks = useMemo(
     () => (post ? resolveBlogBlocks(getBlogBlocks(post, i18n.language), pricing.selfGuided.label) : []),
@@ -49,19 +51,20 @@ const BlogPostPage = () => {
 
   return (
     <div className="font-sans">
-      <PageMeta title={metaTitle} description={metaDescription} path={path} ogType="article" keywords={post.keywords} />
+      <PageMeta title={metaTitle} description={metaDescription} path={path} ogType="article" keywords={post.keywords} locale={locale} />
       <BlogPostingSchema
         title={title}
         description={metaDescription}
         slug={post.slug}
         publishedAt={post.publishedAt}
         keywords={post.keywords}
+        locale={locale}
       />
 
       <section className="pt-8 pb-8 md:pt-12">
         <div className="container mx-auto max-w-3xl px-6">
           <Link
-            to="/blog"
+            to={to("/blog")}
             className="inline-flex items-center gap-1.5 text-sm text-muted-foreground hover:text-primary transition-colors"
           >
             <ArrowLeft className="icon-directional h-4 w-4" aria-hidden />
@@ -114,7 +117,7 @@ const BlogPostPage = () => {
               {otherPosts.map((other) => (
                 <li key={other.slug}>
                   <Link
-                    to={`/blog/${other.slug}`}
+                    to={to(`/blog/${other.slug}`)}
                     className="group flex items-start justify-between gap-4 rounded-lg border border-border p-4 transition-colors hover:border-primary/40"
                   >
                     <span className="text-sm font-medium text-foreground group-hover:text-primary">
@@ -135,13 +138,13 @@ const BlogPostPage = () => {
           <p className="mt-3 text-sm text-muted-foreground">{t("post.ctaSubhead")}</p>
           <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
-              <Link to="/pricing">
+              <Link to={to("/pricing")}>
                 {t("post.getProgram", { price: pricing.selfGuided.label })}{" "}
                 <ArrowRight className="icon-directional ms-1 h-4 w-4" />
               </Link>
             </Button>
             <Button asChild variant="outline" className="h-12 rounded-lg border-border px-8 text-base font-semibold">
-              <Link to="/coaching-apply?plan=coached-strong-90#apply">{tCommon("cta.startCoaching")}</Link>
+              <Link to={to("/coaching-apply?plan=coached-strong-90#apply")}>{tCommon("cta.startCoaching")}</Link>
             </Button>
           </div>
         </div>

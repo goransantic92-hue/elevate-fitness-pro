@@ -28,6 +28,7 @@ import {
 import { resolveFaqCms } from "@/lib/siteCms";
 import { applyPricingTokens } from "@/lib/pricingTokens";
 import { homepageStorageUrl } from "@/lib/homepageMedia";
+import { useAppLocale } from "@/hooks/useAppLocale";
 
 const whoCardKeys = [
   { key: "fathers", icon: "👨‍👧‍👦", featured: true },
@@ -42,6 +43,7 @@ const HomePage = () => {
   const { t: tCommon } = useTranslation("common");
   const { t: tFaq } = useTranslation("faq");
   const pricing = usePricing();
+  const { to } = useAppLocale();
   const { data: homepageCms } = usePublishedHomepageCms();
   const { data: faqCms } = usePublishedSiteCms("faq");
   const { data: testimonialsCms } = usePublishedTestimonials();
@@ -94,7 +96,7 @@ const HomePage = () => {
               </p>
               <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-center">
                 <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground hover:bg-primary/90">
-                  <Link to="/pricing">
+                  <Link to={to("/pricing")}>
                     {tCommon("cta.getProgramPrice", { price: pricing.selfGuided.label })}
                     <ArrowRight className="icon-directional ms-1 h-4 w-4" />
                   </Link>
@@ -228,7 +230,7 @@ const HomePage = () => {
                 ))}
               </ul>
               <Button asChild variant="outline" className="h-11 w-full border-border font-semibold">
-                <Link to="/pricing">{tiers.selfGuided.cta}</Link>
+                <Link to={to("/pricing")}>{tiers.selfGuided.cta}</Link>
               </Button>
             </div>
 
@@ -251,7 +253,7 @@ const HomePage = () => {
                 ))}
               </ul>
               <Button asChild className="h-11 w-full bg-primary font-bold text-primary-foreground hover:bg-primary/90">
-                <Link to="/coaching-apply?plan=coached-strong-90#apply">{tiers.coached.cta}</Link>
+                <Link to={to("/coaching-apply?plan=coached-strong-90#apply")}>{tiers.coached.cta}</Link>
               </Button>
             </div>
 
@@ -270,7 +272,7 @@ const HomePage = () => {
                 ))}
               </ul>
               <Button asChild variant="outline" className="h-11 w-full border-border font-semibold">
-                <Link to="/coaching-apply?plan=private-transformation#apply">{tiers.elite.cta}</Link>
+                <Link to={to("/coaching-apply?plan=private-transformation#apply")}>{tiers.elite.cta}</Link>
               </Button>
             </div>
           </div>
@@ -390,7 +392,7 @@ const HomePage = () => {
           <p className="mx-auto mt-4 max-w-lg text-pretty text-muted-foreground">{finalCta.body}</p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
             <Button asChild className="h-12 rounded-lg bg-primary px-8 text-base font-bold text-primary-foreground">
-              <Link to="/pricing">{tCommon("cta.getProgramPrice", { price: pricing.selfGuided.label })}</Link>
+              <Link to={to("/pricing")}>{tCommon("cta.getProgramPrice", { price: pricing.selfGuided.label })}</Link>
             </Button>
             <Button asChild variant="outline" className="h-12 rounded-lg border-border px-8 text-base font-semibold">
               <a href={CALENDLY_FREE_CALL_URL} target="_blank" rel="noopener noreferrer">
