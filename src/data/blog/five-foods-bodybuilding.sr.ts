@@ -3,7 +3,7 @@ import type { BlogBlock } from "./types";
 export const blocksSr: BlogBlock[] = [
   {
     type: "p",
-    text: "Kada je bodybuilding u pitanju, iako je sam trening u teretani fizički intenzivan i zahtevan, **jedan od najtežih delova bulk-a i ozbiljne mišićne mase jeste ishrana**.",
+    text: "Kada je gradnja mišića u pitanju, iako je sam trening u teretani fizički intenzivan i zahtevan, **jedan od najtežih delova dodavanja mase i ozbiljne mišićne mase jeste ishrana**.",
   },
   {
     type: "p",
@@ -11,16 +11,16 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Ako ozbiljno želite gains i spremni ste da radite i u teretani i kod kuće u kuhinji, evo **5 namirnica savršenih za bodybuildere**.",
+    text: "Ako ozbiljno želite napredak i spremni ste da radite i u teretani i kod kuće u kuhinji, evo **5 namirnica savršenih za gradnju mišića**.",
   },
   { type: "h2", text: "Jaja" },
   {
     type: "p",
-    text: "Prvo na listi su **jaja** — mnogi bodybuilderi ih smatraju pravim spasom zbog svestranosti.",
+    text: "Prvo na listi su **jaja** — mnogi koji ozbiljno grade mišiće smatraju ih pravim spasom zbog svestranosti.",
   },
   {
     type: "p",
-    text: "Jaja su osnova gotovo svake bodybuilding dijete. Odlična su za gradnju mišića jer su bogata **proteinima i aminokiselinama**. Jaja pružaju kompletan profil esencijalnih i neesencijalnih aminokiselina — tačno onoliko koliko telu treba.",
+    text: "Jaja su osnova gotovo svake ishrane za gradnju mišića. Odlična su za gradnju mišića jer su bogata **proteinima i aminokiselinama**. Jaja pružaju kompletan profil esencijalnih i neesencijalnih aminokiselina — tačno onoliko koliko telu treba.",
   },
   {
     type: "p",
@@ -46,7 +46,7 @@ export const blocksSr: BlogBlock[] = [
   { type: "h2", text: "Ovsena kaša" },
   {
     type: "p",
-    text: "Slede **ovsena kaša (oats)**.",
+    text: "Slede **ovsena kaša**.",
   },
   {
     type: "p",
@@ -58,12 +58,12 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Osim ugljenih hidrata, sadrži B vitamine i minerale poput **cinka, gvožđa, kalijuma i magnezijuma** — važni za zdravlje i sportske performanse.",
+    text: "Osim ugljenih hidrata, sadrži B vitamine i minerale poput **cinka, gvožđa, kalijuma i magnezijuma** — važni za zdravlje i sportske sposobnosti.",
   },
   { type: "h2", text: "Govedina" },
   {
     type: "p",
-    text: "**Govedina** je izuzetno anabolna namirnica — idealna za svakoga ko želi ozbiljnu mišićnu masu.",
+    text: "**Govedina** je izuzetno korisna namirnica za rast mišića — idealna za svakoga ko želi ozbiljnu mišićnu masu.",
   },
   {
     type: "p",
@@ -71,11 +71,11 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Puna je proteina: **samo 85 g (3 unce) daje 22 g proteina**.",
+    text: "Puna je proteina: **samo 85 g daje 22 g proteina**.",
   },
   {
     type: "p",
-    text: "Ako pazite na kalorije, birajte **95% lean govedinu** — isti protein, oko **145 kalorija za porciju od 85 g**.",
+    text: "Ako pazite na kalorije, birajte **95% nemasnu govedinu** — isti protein, oko **145 kalorija za porciju od 85 g**.",
   },
   { type: "h2", text: "Piletina" },
   {
@@ -84,7 +84,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Piletina je verovatno **glavni izvor proteina** za bodybuildere koji jedu meso — svestrana, ide uz skoro sve, puna proteina i niska u kalorijama, posebno **pileći file bez kože**.",
+    text: "Piletina je verovatno **glavni izvor proteina** za one koji jedu meso i ozbiljno grade mišiće — svestrana, ide uz skoro sve, puna proteina i niska u kalorijama, posebno **pileći file bez kože**.",
   },
   {
     type: "p",
@@ -95,7 +95,7 @@ export const blocksSr: BlogBlock[] = [
     title: "Kompletan okvir ishrane unutar Busy Strong 90",
     bullets: [
       "Primer plana obroka + jednostavna pravila — bez kuhinjske vage",
-      "Jedite sa porodicom — bez opsesije makro aplikacijom",
+      "Jedite sa porodicom — bez opsesije aplikacijom za makronutrijente",
       "Napravljeno za zaposlene muškarce koji treniraju 3× nedeljno",
     ],
     primaryHref: "/nutrition",

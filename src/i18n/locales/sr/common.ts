@@ -12,7 +12,7 @@ export default {
     admin: "Administracija",
     bookFreeCall: "Zakaži besplatan poziv",
     programCta: "Program {{price}}",
-    coaching: "Lični coaching",
+    coaching: "Lični trening",
     memberLogin: "Prijava članova",
   },
   footer: {
@@ -32,8 +32,8 @@ export default {
     bookFreeCall: "Zakaži besplatan poziv",
     startThisWeek: "Počni ove nedelje",
     bookStrategyCall: "Zakaži strategijski poziv",
-    startCoaching: "Započni lični coaching",
-    seeCoaching: "Ili pogledaj kako lični coaching funkcioniše",
+    startCoaching: "Započni lični trening",
+    seeCoaching: "Ili pogledaj kako lični trening funkcioniše",
   },
   checkout: {
     confirming: "Potvrda uplate…",

@@ -10,7 +10,7 @@ export default {
     headlineEnergy: "energiju",
     headlineSuffix: "nazad.",
     subhead:
-      "90-dnevni sistem napravljen za muškarce bez vremena — 30–40 minuta, 3× nedeljno, trenirate kod kuće (bez putovanja). Bez kuhinjske vage. Coaching planovi od {{coachingPrice}}.",
+      "90-dnevni sistem napravljen za muškarce bez vremena — 30–40 minuta, 3× nedeljno, trenirate kod kuće (bez putovanja). Bez kuhinjske vage. Planovi sa ličnim trenerom od {{coachingPrice}}.",
     pills: ["30–40 min", "Bez kuhinjske vage", "Treniraj kod kuće", "Dubai, UAE"],
     trust: [
       "Treniraj kod kuće — bez putovanja",
@@ -54,21 +54,21 @@ export default {
     headlineMiddle: "ili",
     headlineCoach: "Trenera",
     subhead:
-      "Samostalni program daje sistem. Coaching vas dovodi brže — prilagođen raspored, nedeljni check-in-i i praćenje težine (kg) i energije nedelju za nedeljom.",
+      "Samostalni program daje sistem. Lični trening vas dovodi brže — prilagođen raspored, nedeljne provere i praćenje težine (kg) i energije nedelju za nedeljom.",
     selfGuided: {
       tier: "Samostalno",
       name: "Busy Strong 90",
       benefits: [
         "Kompletan 90-dnevni program koji možete završiti — 36 sesija, po 30–40 min",
         "Tačno znate šta raditi na svakom treningu",
-        "Jedite normalno — bez kuhinjske vage, bez makro aplikacije",
+        "Jedite normalno — bez kuhinjske vage, bez aplikacije za makronutrijente",
         "Navike koje traju i posle 90 dana",
         "Email podrška kad ste zaglavljeni",
       ],
       cta: "Uzmi program",
     },
     coached: {
-      tier: "Osnovni coaching",
+      tier: "Osnovni paket sa trenerom",
       name: "Coached Strong 90",
       recommended: "Preporučeno",
       recommendedNote: "Za očeve koji žele odgovornost bez elitne cene.",
@@ -86,8 +86,8 @@ export default {
       tier: "Elitni paket",
       name: "Privatna transformacija",
       benefits: [
-        "Sve iz osnovnog coachinga",
-        "1-on-1 pozivi sa Coach Milos-om (4×/mesec)",
+        "Sve iz osnovnog paketa sa trenerom",
+        "Pojedinačni pozivi sa trenerom Milošem (4×/mesec)",
         "Potpuno prilagođen program — obnavlja se mesečno",
         "Direktan WhatsApp pristup Milosu",
         "Prioritetni odgovor (ispod 1 sata)",
@@ -111,7 +111,7 @@ export default {
       {
         num: "02",
         title: "Jedi jednostavno",
-        text: "Bez aplikacije. Bez kuhinjske vage. Jedno pravilo: protein na svakom obroku. Ostatak sledi prirodno. Napravljeno za ljude koji jedu sa porodicom, putuju poslom i nemaju vremena za meal prep 6 posuda u nedelju.",
+        text: "Bez aplikacije. Bez kuhinjske vage. Jedno pravilo: protein na svakom obroku. Ostatak sledi prirodno. Napravljeno za ljude koji jedu sa porodicom, putuju poslom i nemaju vremena da unapred pripreme 6 posuda obroka u nedelju.",
       },
       {
         num: "03",
@@ -121,16 +121,16 @@ export default {
     ],
   },
   coach: {
-    eyebrow: "Upoznajte svog coach-a",
-    headline: "Ja sam Milos. Prvo otac.",
-    headlineHighlight: "Zatim coach.",
+    eyebrow: "Upoznajte svog trenera",
+    headline: "Ja sam Miloš. Prvo otac.",
+    headlineHighlight: "Zatim trener.",
     paragraphs: [
       "10 godina sam bio takmičarski bodibilder. Trenirao 4+ sata dnevno, jeo iz posuda i živeo u teretani. Onda sam postao otac — dvaput. I sve se promenilo.",
       "Shvatio sam da je stari način mrtav. Nisam mogao da treniram kao 22-godišnjak bez obaveza. Prepravio sam ceo pristup ispočetka: minimum vremena, maksimalan uticaj, bez kompromisa na rezultatima.",
       "Taj sistem je postao Busy Strong 90. Koristim ga sam. Podučavam ga klijentima. I radi — jer ga je napravio neko ko zaista živi život koji vi živite.",
     ],
     highlight:
-      "Trening je način na koji roditeljstvujem. Moja deca ne čuju da pričam o disciplini — vide je. Svako jutro. To je pravi razlog zašto treniram. I to želim za vas.",
+      "Trening je način na koji bavim roditeljstvom — kroz primer, ne kroz predavanje. Moja deca ne čuju da pričam o disciplini — vide je. Svako jutro. To je pravi razlog zašto treniram. I to želim za vas.",
     stats: [
       { value: "15+", label: "Godina treninga" },
       { value: "10", label: "Godina takmičenja" },
