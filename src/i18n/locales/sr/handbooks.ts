@@ -13,13 +13,13 @@ export default {
     },
     "fuel-supplements": {
       title: "FUEL vodič za suplemente",
-      description: "Šta kupiti, šta je opciono i šta je bacanje novca. Zasnovano na dokazima, bez hype-a.",
+      description: "Šta kupiti, šta je opciono i šta je bacanje novca. Zasnovano na dokazima, bez prenaglašavanja.",
       imageAlt: "Razni suplementi u kapsulama i vitamini",
     },
     "muscle-handbook": {
       title: "Priručnik za mišiće",
       description: "Osnove treninga, prioriteti forme i progresivni rad na snazi za zaposlene muškarce 35+.",
-      imageAlt: "Mišićav muškarac radi biceps curl sa bučicama",
+      imageAlt: "Mišićav muškarac radi vežbu savijanja za biceps sa bučicama",
     },
     "busy-strong-7day": {
       title: "Busy Strong 7-dnevni starter",
@@ -39,8 +39,8 @@ export default {
   },
   success: {
     title: "Proverite email",
-    body: "Izabrani PDF priručnik je na putu. Ako ga ne vidite za nekoliko minuta, proverite spam ili promotions.",
-    bodyPlural: "Izabrani PDF priručnici su na putu. Ako ih ne vidite za nekoliko minuta, proverite spam ili promotions.",
+    body: "Izabrani PDF priručnik je na putu. Ako ga ne vidite za nekoliko minuta, proverite spam ili folder Promocije.",
+    bodyPlural: "Izabrani PDF priručnici su na putu. Ako ih ne vidite za nekoliko minuta, proverite spam ili folder Promocije.",
     cta: "Spremni za puni 90-dnevni sistem?",
     ctaButton: "Pogledaj BUSY STRONG 90",
   },

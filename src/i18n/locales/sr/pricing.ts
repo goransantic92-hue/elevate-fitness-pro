@@ -28,19 +28,19 @@ export default {
   ],
   checkout: {
     checkingAccount: "Provera naloga…",
-    redirecting: "Preusmeravanje na checkout…",
+    redirecting: "Preusmeravanje na plaćanje…",
     getProgram: "Uzmi program",
-    checkoutOpensStripe: "Checkout se otvara na Stripe-u sa vašim nalogom.",
+    checkoutOpensStripe: "Plaćanje se otvara na Stripe-u sa vašim nalogom.",
     alreadyRegistered: "Već ste registrovani?",
     logIn: "Prijavite se",
     newHere: "Novi ste?",
     signUp: "Registrujte se",
-    canceledTitle: "Checkout otkazan",
+    canceledTitle: "Plaćanje otkazano",
     canceledDescription: "Kupovinu možete završiti bilo kada sa ove stranice.",
     notConfiguredTitle: "Nije podešeno",
     notConfiguredDescription: "Nedostaje Supabase okruženje.",
-    failedTitle: "Checkout nije uspeo",
-    failedDescription: "Neispravna Stripe payment link konfiguracija.",
+    failedTitle: "Plaćanje nije uspelo",
+    failedDescription: "Neispravna Stripe konfiguracija linka za plaćanje.",
   },
   testimonials: [
     {
@@ -58,6 +58,6 @@ export default {
   ],
   coachQuote: {
     text: "Napravio sam ovaj program da zaista promeni živote — ne samo da prodam PDF. Ako imate pitanja, javite se. Čitam svaku poruku.",
-    attribution: "— Coach Milos",
+    attribution: "— trener Miloš",
   },
 } as const;

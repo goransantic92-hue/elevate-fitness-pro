@@ -88,6 +88,6 @@ export const blocksSr: BlogBlock[] = [
     primaryHref: "/pricing",
     primaryLabel: "Uzmi program — {{price}}",
     secondaryHref: "/coaching-apply?plan=coached-strong-90#apply",
-    secondaryLabel: "Započni lični coaching",
+    secondaryLabel: "Započni lični trening",
   },
 ];

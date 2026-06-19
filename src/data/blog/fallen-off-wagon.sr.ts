@@ -172,7 +172,7 @@ export const blocksSr: BlogBlock[] = [
     type: "cta",
     title: "Prestani da odustaješ. Počni da gradiš.",
     primaryHref: "/coaching-apply?plan=coached-strong-90#apply",
-    primaryLabel: "Započni lični coaching",
+    primaryLabel: "Započni lični trening",
     secondaryHref: "/pricing",
     secondaryLabel: "Uzmi samostalni program za {{price}}",
   },

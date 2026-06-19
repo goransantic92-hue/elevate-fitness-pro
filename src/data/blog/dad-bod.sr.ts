@@ -210,7 +210,7 @@ export const blocksSr: BlogBlock[] = [
     type: "cta",
     title: "Vrati se u ritam — ovog puta zaista",
     primaryHref: "/coaching-apply?plan=coached-strong-90#apply",
-    primaryLabel: "Započni lični coaching",
+    primaryLabel: "Započni lični trening",
     secondaryHref: "/pricing",
     secondaryLabel: "Počni samostalni program za {{price}}",
   },

@@ -186,7 +186,7 @@ export const blocksSr: BlogBlock[] = [
       "Treniraj kod kuće. Bez putovanja. Bez kuhinjske vage.",
     ],
     primaryHref: "/coaching-apply?plan=coached-strong-90#apply",
-    primaryLabel: "Započni lični coaching",
+    primaryLabel: "Započni lični trening",
     secondaryHref: "/pricing",
     secondaryLabel: "Počni samostalno za {{price}}",
   },
