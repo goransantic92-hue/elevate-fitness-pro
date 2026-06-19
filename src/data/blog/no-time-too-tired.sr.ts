@@ -15,7 +15,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: 'Ovaj članak nije još jedna predavanja „samo ustani u 5h". Praktičan je pregled zašto zauzeti muškarci ne uspevaju u fitnesu — i sistema koji stvarno odgovara pravom rasporedu.',
+    text: 'Ovaj članak nije još jedno predavanje „samo ustani u 5h". Praktičan je pregled zašto zauzeti muškarci ne uspevaju u fitnesu — i sistema koji stvarno odgovara pravom rasporedu.',
   },
   { type: "h2", text: 'Zašto je „nemam vremena" najiskrenija izgovor — i pogrešno rešenje' },
   {
@@ -24,7 +24,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Prosečan zauzet profesionalac ne nedostaje mu discipline. Nedostaju mu **neobavezujući sati**. Između posla, porodice, putovanja na posao i osnovnog održavanja odraslog života, kalendar je pun pre nego što fitnes dobije termin.",
+    text: "Prosečnom zauzetom profesionalcu ne nedostaje discipline. Nedostaju mu **neobavezujući sati**. Između posla, porodice, putovanja na posao i osnovnog održavanja odraslog života, kalendar je pun pre nego što fitnes dobije termin.",
   },
   {
     type: "p",
@@ -36,7 +36,7 @@ export const blocksSr: BlogBlock[] = [
       "Treningi od 60–90 minuta",
       "5–6 dana nedeljno",
       "Posebni dani za kardio",
-      "Meal prep koji pojede nedeljno popodne",
+      "Priprema obroka unapred koja pojede nedeljno popodne",
     ],
   },
   {
@@ -54,7 +54,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: 'Pelotonov UK fitnes izveštaj iz 2024. pokazao je da **39% ljudi** navodi nedostatak energije kao glavnu prepreku vežbanju — izjednačeno sa nedostatkom motivacije. Physiopedia istraživanje o unutrašnjim preprekama rangira **„previše umoran"** kao #1 razlog zašto srednjoškolci i stariji preskaču treninge.',
+    text: 'Pelotonov britanski fitnes izveštaj iz 2024. pokazao je da **39% ljudi** navodi nedostatak energije kao glavnu prepreku vežbanju — izjednačeno sa nedostatkom motivacije. Physiopedia istraživanje o unutrašnjim preprekama rangira **„previše umoran"** kao prvi razlog zašto srednjoškolci i stariji preskaču treninge.',
   },
   { type: "p", text: "Zašto?" },
   {
@@ -81,7 +81,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Do 20h si doneo 200 odluka. Volja je potrošena. Telo želi kauč, ne squat rack.",
+    text: "Do 20h si doneo 200 odluka. Volja je potrošena. Telo želi kauč, ne spravu za čučnjeve.",
   },
   { type: "p", text: "Rešenje nije volja. Rešenje je **struktura**:" },
   {
@@ -97,7 +97,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "**30 minuta, 3 puta nedeljno.** To je 90 minuta ukupno — manje od jedne fudbalske utakmice. I istraživanja pokazuju da za gubitak masti, snagu i kardiovaskularno zdravlje, **3 dobro osmišljena treninga nadmašuju 6 prosečnih** za zauzete, deconditioned odrasle.",
+    text: "**30 minuta, 3 puta nedeljno.** To je 90 minuta ukupno — manje od jedne fudbalske utakmice. I istraživanja pokazuju da za gubitak masti, snagu i kardiovaskularno zdravlje, **3 dobro osmišljena treninga nadmašuju 6 prosečnih** za zauzete, neuvezane odrasle.",
   },
   { type: "h2", text: "Kako izgleda trening od 30 minuta" },
   { type: "p", text: "Ne treba ti kućna teretana. Treba ti:" },
@@ -114,17 +114,17 @@ export const blocksSr: BlogBlock[] = [
     type: "ol",
     items: [
       "**5 min zagrevanje** — krugovi rukama, rad sa trakom, lagan pokret",
-      "**25–30 min snaga** — 4–5 složenih vežbi (push, pull, noge)",
-      "**2 min finišer** — opciono, maksimalan napor (sklekovi, carries)",
+      "**25–30 min snaga** — 4–5 složenih vežbi (potisak, povlačenje, noge)",
+      "**2 min završni segment** — opciono, maksimalan napor (sklekovi, nošenje tegova)",
     ],
   },
   {
     type: "p",
-    text: 'To je to. Nema trake za trčanje. Nema ab circuit-a. Nema „muscle confusion".',
+    text: 'To je to. Nema trake za trčanje. Nema kruga vežbi za stomak. Nema „zbunjivanja mišića".',
   },
   {
     type: "p",
-    text: "Složene vežbe — bench press, veslanje, čučnjevi, overhead press — daju najveći povrat po minutu. Progresivno opterećenje (dodavanje težine ili ponavljanja svake nedelje) pokreće rezultate bez dodavanja vremena.",
+    text: "Složene vežbe — potisak sa šipkom ležeći, veslanje, čučnjevi, potisak iznad glave — daju najveći povrat po minutu. Progresivno opterećenje (dodavanje težine ili ponavljanja svake nedelje) pokreće rezultate bez dodavanja vremena.",
   },
   { type: "h2", text: "Energija se vraća kada je sistem jednostavan" },
   {
@@ -175,7 +175,7 @@ export const blocksSr: BlogBlock[] = [
     items: [
       "**90 dana. 3× nedeljno. 30–40 minuta.**",
       "Treniraj kod kuće. Bez putovanja. Bez kuhinjske vage.",
-      "Progresivne faze: Foundation → Intensity → Transformation",
+      "Progresivne faze: Osnove → Intenzitet → Transformacija",
     ],
   },
   {

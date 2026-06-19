@@ -11,7 +11,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Sada? **Van si forme.** Imaš **dad bod**. Negde između pelena, rokova i večera, verzija tebe koja je trenirala nestala je.",
+    text: "Sada? **Van si forme.** Imaš **tata telo**. Negde između pelena, rokova i večera, verzija tebe koja je trenirala nestala je.",
   },
   { type: "p", text: "Nisi sam. I nisi predaleko otišao." },
   {
@@ -40,7 +40,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Dad bod nije genetska sudbina. To su **akumulirane odluke** tokom 3–7 godina prioritizovanja svega osim svog tela.",
+    text: "Tata telo nije genetska sudbina. To su **akumulirane odluke** tokom 3–7 godina prioritizovanja svega osim svog tela.",
   },
   {
     type: "p",
@@ -57,7 +57,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "**2. Dijetuju kao bodibilderi.** Piletina i pirinač šest puta dnevno. Nema fleksibilnosti za porodične obroke. Traje 10 dana.",
+    text: "**2. Dijetuju kao profesionalni graditelji mišića.** Piletina i pirinač šest puta dnevno. Nema fleksibilnosti za porodične obroke. Traje 10 dana.",
   },
   {
     type: "p",
@@ -74,9 +74,9 @@ export const blocksSr: BlogBlock[] = [
   { type: "h2", text: "90-dnevna obnova: šta se zaista menja" },
   {
     type: "p",
-    text: "Busy Strong 90 je troslojni sistem dizajniran za deconditioned, zauzete muškarce — ne gym rats:",
+    text: "Busy Strong 90 je troslojni sistem dizajniran za neuvezane, zauzete muškarce — ne za one koji žive u teretani:",
   },
-  { type: "h3", text: "Faza 1: Foundation (Nedelje 1–4)" },
+  { type: "h3", text: "Faza 1: Osnove (Nedelje 1–4)" },
   {
     type: "ul",
     items: [
@@ -86,7 +86,7 @@ export const blocksSr: BlogBlock[] = [
       "**Očekivano:** Energija raste. San se poboljšava. Odeća se malo drugačije oseća.",
     ],
   },
-  { type: "h3", text: "Faza 2: Intensity (Nedelje 5–8)" },
+  { type: "h3", text: "Faza 2: Intenzitet (Nedelje 5–8)" },
   {
     type: "ul",
     items: [
@@ -96,19 +96,19 @@ export const blocksSr: BlogBlock[] = [
       "**Očekivano:** Ljudi počinju da komentarišu. Primećuješ na fotografijama.",
     ],
   },
-  { type: "h3", text: "Faza 3: Transformation (Nedelje 9–12)" },
+  { type: "h3", text: "Faza 3: Transformacija (Nedelje 9–12)" },
   {
     type: "ul",
     items: [
       "Vrhunski intenzitet sa solidnom tehnikom",
-      "Vidljiva recompozicija tela",
+      "Vidljiva promena sastava tela",
       "Navike deluju automatski",
       "**Očekivano:** Fotografije iz 12. nedelje ne liče na 1. nedelju.",
     ],
   },
   {
     type: "p",
-    text: "Ovo nije crash dijeta. To je **obnova** — strukturirana, progresivna, održiva.",
+    text: "Ovo nije nagla dijeta. To je **obnova** — strukturirana, progresivna, održiva.",
   },
   { type: "h2", text: "Ishrana bez kuhinjske vage (jer više nisi 22)" },
   {
@@ -122,7 +122,7 @@ export const blocksSr: BlogBlock[] = [
   { type: "blockquote", text: "Protein na svakom obroku." },
   {
     type: "p",
-    text: "To je to. Nema aplikacije. Nema brojanja makroa. Nema nedeljnog meal prep-a od 3 sata.",
+    text: "To je to. Nema aplikacije. Nema brojanja makronutrijenata. Nema nedeljne pripreme obroka unapred od tri sata.",
   },
   {
     type: "ul",
@@ -138,12 +138,12 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Za muškarcа od 90 kg koji cilja gubitak masti: ciljaj **150–180 g proteina dnevno** kroz 3–4 obroka. Prilagodi porcije po gladi i nedeljnom trendu na vagi (meri se jednom nedeljno, isti uslovi).",
+    text: "Za muškarca od 90 kg koji cilja gubitak masti: ciljaj **150–180 g proteina dnevno** kroz 3–4 obroka. Prilagodi porcije po gladi i nedeljnom trendu na vagi (meri se jednom nedeljno, isti uslovi).",
   },
   { type: "h2", text: "Treniraj kod kuće — jer teretana dodaje sat koji nemaš" },
   {
     type: "p",
-    text: "Dad bodu nije stalo do tvoje članarine. Važno je **završeni treningi.**",
+    text: "Tata telu nije stalo do tvoje članarine. Važni su **završeni treninzi.**",
   },
   { type: "p", text: "Kućni trening uklanja:" },
   {
@@ -157,11 +157,11 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "**Potrebna oprema:** podesive bučice, klupa, resistance trake. Ukupna investicija: manje od 3 meseca članarine u teretani.",
+    text: "**Potrebna oprema:** podesive bučice, klupa, trake za otpor. Ukupna investicija: manje od tri meseca članarine u teretani.",
   },
   {
     type: "p",
-    text: "**Raspored:** Ponedeljak (Upper Push), Sreda (Lower Body), Petak (Upper Pull). 30–40 minuta svaki. Dani odmora: 15–20 min šetnja.",
+    text: "**Raspored:** Ponedeljak (gornji potisak), Sreda (donji deo tela), Petak (gornje povlačenje). 30–40 minuta svaki. Dani odmora: 15–20 min šetnja.",
   },
   {
     type: "p",

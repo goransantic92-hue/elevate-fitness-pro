@@ -7,11 +7,11 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Gradnja mišića i „jacked“ izgled može delovati lako prema takozvanim „influenserima“ na Instagramu sa savršenim telom koji osuđuju one koji se usude da izađu na večeru sa prijateljima ili popiju pivo vikendom — ali istina je da **nije lako**. Gradnja mišića je dug, naporan proces koji zahteva strpljenje, rad, motivaciju i odlučnost.",
+    text: "Gradnja mišića i izrazito mišićav izgled mogu delovati lako prema takozvanim influenserima na Instagramu sa savršenim telom koji osuđuju one koji se usude da izađu na večeru sa prijateljima ili popiju pivo vikendom — ali istina je da **nije lako**. Gradnja mišića je dug, naporan proces koji zahteva strpljenje, rad, motivaciju i odlučnost.",
   },
   {
     type: "p",
-    text: "Ne postoje brza rešenja za bulk i ozbiljan mišićni rast, ali ako radite, budete strpljivi i znate šta radite — **rezultati mogu biti impresivni**.",
+    text: "Ne postoje brza rešenja za dodavanje mase i ozbiljan mišićni rast, ali ako radite, budete strpljivi i znate šta radite — **rezultati mogu biti impresivni**.",
   },
   {
     type: "p",
@@ -24,24 +24,24 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Proteini su verovatno najvažniji od tri makronutrijenta (ostala dva su masti i ugljeni hidrati) jer učestvuju u brojnim fiziološkim procesima. Za one koji grade mišiće posebno je važno znati da proteini igraju ključnu ulogu u **rastu i oporavku mišića**. Bez dovoljno proteina, mišići se ne bi popravljali i obnavljali posle treninga — bez obzira koliko ste teško trenirali.",
+    text: "Proteini su verovatno najvažniji od tri makronutrijenta (ostala dva su masti i ugljeni hidrati) jer učestvuju u brojnim fiziološkim procesima. Za one koji grade mišiće posebno je važno znati da proteini igraju ključnu ulogu u **rastu i oporavku mišića**. Bez dovoljno proteina mišići se ne bi popravljali i obnavljali posle treninga — bez obzira koliko ste teško trenirali.",
   },
   {
     type: "p",
-    text: "Da maksimizujete gains, ciljajte **izvor proteina na svakom obroku**. Idealno, dnevno unesite između **0,6 i 1 g proteina po funti telesne težine**.",
+    text: "Da maksimizujete napredak, ciljajte **izvor proteina na svakom obroku**. Idealno, dnevno unesite između **1,3 i 2,2 g proteina po kilogramu telesne težine**.",
   },
   { type: "h2", text: "Jedite više" },
   {
     type: "p",
-    text: "Ako želite bulk i ozbiljnu mišićnu masu, morate naviknuti se da **jedete više**.",
+    text: "Ako želite dodati masu i ozbiljnu mišićnu masu, morate naviknuti se da **jedete više**.",
   },
   {
     type: "p",
-    text: "Da biste gradili mišiće, telo mora biti u **kalorijskom suficit** — unosite više kalorija nego što telo sagoreva na održavanju težine.",
+    text: "Da biste gradili mišiće, telo mora biti u **kalorijskom višku** — unosite više kalorija nego što telo sagoreva na održavanju težine.",
   },
   {
     type: "p",
-    text: "Ciljajte obrok **svake 3 sata ili tako**, zdrave i uravnotežene obroke sa dovoljno hranljivih materija.",
+    text: "Ciljajte obrok **svake tri sata ili tako**, zdrave i uravnotežene obroke sa dovoljno hranljivih materija.",
   },
   {
     type: "p",
@@ -50,7 +50,7 @@ export const blocksSr: BlogBlock[] = [
   { type: "h2", text: "Ne preskačite složene vežbe" },
   {
     type: "p",
-    text: "Ako želite gains, **složene (compound) vežbe** treba da budu okosnica treninga.",
+    text: "Ako želite napredak, **složene vežbe** treba da budu okosnica treninga.",
   },
   {
     type: "p",
@@ -58,7 +58,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Npr. **potisak sa šipkom na klupi** radi grudi, triceps, core i deltoide — sa **jednom vežbom** trenirate 4 velike mišićne grupe.",
+    text: "Npr. **potisak sa šipkom na klupi** radi grudi, triceps, trup i deltoide — sa **jednom vežbom** trenirate četiri velike mišićne grupe.",
   },
   { type: "h2", text: "Trenirajte teško" },
   {
@@ -67,7 +67,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Težak trening opterećuje mišiće koncentrično i ekscentrično, što stvara više mikro-pucanja u mišićnim vlaknima — a to znači **veću hipertrofiju**.",
+    text: "Težak trening opterećuje mišiće koncentrično i ekscentrično, što stvara više mikropucanja u mišićnim vlaknima — a to znači **veću hipertrofiju**.",
   },
   {
     type: "p",
@@ -75,7 +75,7 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Posle 2 zagrevne serije, ciljajte **4–5 serija po 4–6 ponavljanja** po vežbi.",
+    text: "Posle dve zagrevne serije, ciljajte **4–5 serija po 4–6 ponavljanja** po vežbi.",
   },
   {
     type: "cta",
