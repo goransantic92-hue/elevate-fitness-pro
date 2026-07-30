@@ -30,6 +30,10 @@ import {
   parseTestimonialsCms,
 } from "@/lib/memberAppCms";
 import {
+  getDefaultBlogCms,
+  parseBlogCms,
+} from "@/lib/blogCms";
+import {
   getDefaultMemberWorkouts,
   parseMemberWorkouts,
 } from "@/lib/workoutCms";
@@ -155,6 +159,10 @@ export function getDefaultSiteCms<K extends SitePageKey>(pageKey: K, locale: Hom
 
   if (pageKey === "member_workouts") {
     return getDefaultMemberWorkouts(locale) as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "blog") {
+    return getDefaultBlogCms(locale) as SiteCmsPayloadMap[K];
   }
 
   const c = pickLocaleBundle(locale, enCoaching, arCoaching, srCoaching);
@@ -374,6 +382,10 @@ export function parseSiteCmsPayload<K extends SitePageKey>(
 
   if (pageKey === "member_workouts") {
     return parseMemberWorkouts(raw, locale) as SiteCmsPayloadMap[K];
+  }
+
+  if (pageKey === "blog") {
+    return parseBlogCms(raw, locale) as SiteCmsPayloadMap[K];
   }
 
   const d = defaults as CoachingCmsPayload;

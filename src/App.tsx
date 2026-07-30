@@ -40,6 +40,7 @@ const AdminHomepagePage = lazyRoute(() => import("@/pages/admin/AdminHomepagePag
 const AdminSitePagesPage = lazyRoute(() => import("@/pages/admin/AdminSitePagesPage"));
 const AdminMemberAppPage = lazyRoute(() => import("@/pages/admin/AdminMemberAppPage"));
 const AdminTestimonialsPage = lazyRoute(() => import("@/pages/admin/AdminTestimonialsPage"));
+const AdminBlogPage = lazyRoute(() => import("@/pages/admin/AdminBlogPage"));
 
 const queryClient = new QueryClient();
 
@@ -248,6 +249,14 @@ const App = () => (
               element={
                 <Lazy>
                   <AdminTestimonialsPage />
+                </Lazy>
+              }
+            />
+            <Route
+              path="blog"
+              element={
+                <Lazy>
+                  <AdminBlogPage />
                 </Lazy>
               }
             />

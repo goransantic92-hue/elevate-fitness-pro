@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { supabase } from "@/lib/supabase";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Users, LineChart, Bell, BookOpen, Home, Smartphone } from "lucide-react";
+import { Users, LineChart, Bell, BookOpen, Home, Smartphone, Newspaper } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 
@@ -91,7 +91,25 @@ export default function AdminOverview() {
             <Link to="/admin/pages">Edit other pages (Pricing, FAQ…)</Link>
           </Button>
           <Button variant="outline" asChild>
+            <Link to="/admin/blog">Edit blog posts</Link>
+          </Button>
+          <Button variant="outline" asChild>
             <Link to="/admin/member">Edit member app content</Link>
+          </Button>
+        </CardContent>
+      </Card>
+
+      <Card className="glass-card border-primary/20">
+        <CardHeader className="flex flex-row items-center justify-between pb-2">
+          <CardTitle className="text-base font-bold">Blog CMS</CardTitle>
+          <Newspaper className="h-5 w-5 text-primary" />
+        </CardHeader>
+        <CardContent className="space-y-3">
+          <p className="text-sm text-muted-foreground">
+            Add, edit, or delete blog posts — content and cover images — publish without deploy.
+          </p>
+          <Button variant="outline" asChild>
+            <Link to="/admin/blog">Open blog editor</Link>
           </Button>
         </CardContent>
       </Card>

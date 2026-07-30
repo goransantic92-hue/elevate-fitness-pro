@@ -1,16 +1,16 @@
 import { useMemo } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowLeft, ArrowRight, Clock } from "lucide-react";
+import { ArrowLeft, ArrowRight, Clock, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { BlogArticleBody } from "@/components/blog/BlogArticleBody";
 import { BlogPostingSchema } from "@/components/seo/BlogPostingSchema";
 import { PageMeta } from "@/components/seo/PageMeta";
-import { blogPosts, getBlogPostBySlug, getBlogBlocks, hasLocalizedBlogBody } from "@/data/blog";
 import type { BlogBlock } from "@/data/blog";
 import { formatBlogDate } from "@/lib/formatBlogDate";
 import { usePricing } from "@/hooks/usePricing";
 import { useAppLocale } from "@/hooks/useAppLocale";
+import { usePublishedBlogPost } from "@/hooks/usePublishedBlogPosts";
 import NotFound from "@/pages/NotFound";
 
 function resolveBlogBlocks(blocks: BlogBlock[], priceLabel: string): BlogBlock[] {
@@ -33,21 +33,30 @@ const BlogPostPage = () => {
   const { t: tCommon } = useTranslation("common");
   const pricing = usePricing();
   const { to, locale } = useAppLocale();
-  const post = slug ? getBlogPostBySlug(slug) : undefined;
+  const { post, posts, isLoading } = usePublishedBlogPost(slug);
   const articleBlocks = useMemo(
-    () => (post ? resolveBlogBlocks(getBlogBlocks(post, i18n.language), pricing.selfGuided.label) : []),
-    [post, pricing.selfGuided.label, i18n.language],
+    () => (post ? resolveBlogBlocks(post.blocks, pricing.selfGuided.label) : []),
+    [post, pricing.selfGuided.label],
   );
+
+  if (isLoading && !post) {
+    return (
+      <div className="flex items-center justify-center gap-2 py-24 text-muted-foreground">
+        <Loader2 className="h-5 w-5 animate-spin" />
+        Loading article…
+      </div>
+    );
+  }
 
   if (!post) {
     return <NotFound />;
   }
 
   const path = `/blog/${post.slug}`;
-  const otherPosts = blogPosts.filter((p) => p.slug !== post.slug).slice(0, 2);
-  const title = t(`posts.${post.slug}.title`);
-  const metaTitle = t(`posts.${post.slug}.metaTitle`);
-  const metaDescription = t(`posts.${post.slug}.metaDescription`);
+  const otherPosts = posts.filter((p) => p.slug !== post.slug).slice(0, 2);
+  const title = post.title;
+  const metaTitle = post.metaTitle || post.title;
+  const metaDescription = post.metaDescription || post.excerpt;
 
   return (
     <div className="font-sans">
@@ -97,14 +106,6 @@ const BlogPostPage = () => {
 
       <section className="pb-12 px-6">
         <div className="container mx-auto max-w-3xl">
-          {!hasLocalizedBlogBody(post, i18n.language) && (
-            <p
-              role="status"
-              className="mb-6 rounded-lg border border-primary/30 bg-primary/10 px-4 py-3 text-sm leading-relaxed text-foreground"
-            >
-              {t("articleBodyNotice")}
-            </p>
-          )}
           <BlogArticleBody blocks={articleBlocks} />
         </div>
       </section>
@@ -121,7 +122,7 @@ const BlogPostPage = () => {
                     className="group flex items-start justify-between gap-4 rounded-lg border border-border p-4 transition-colors hover:border-primary/40"
                   >
                     <span className="text-sm font-medium text-foreground group-hover:text-primary">
-                      {t(`posts.${other.slug}.title`)}
+                      {other.title}
                     </span>
                     <ArrowRight className="icon-directional h-4 w-4 shrink-0 text-muted-foreground group-hover:text-primary" aria-hidden />
                   </Link>

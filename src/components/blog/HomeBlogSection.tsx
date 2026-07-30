@@ -1,16 +1,17 @@
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, Clock } from "lucide-react";
-import { getHomepageFeaturedPosts } from "@/data/blog";
 import { formatBlogDate } from "@/lib/formatBlogDate";
 import { useAppLocale } from "@/hooks/useAppLocale";
+import { usePublishedBlogPosts } from "@/hooks/usePublishedBlogPosts";
 
 export function HomeBlogSection() {
   const { t, i18n } = useTranslation("blog");
   const { to } = useAppLocale();
-  const posts = getHomepageFeaturedPosts(3);
+  const { posts } = usePublishedBlogPosts();
+  const featured = posts.filter((post) => post.featuredOnHomepage).slice(0, 3);
 
-  if (posts.length === 0) return null;
+  if (featured.length === 0) return null;
 
   return (
     <section className="section-padding border-t border-border/60 bg-background">
@@ -22,7 +23,7 @@ export function HomeBlogSection() {
         <p className="mx-auto mt-2 max-w-[560px] text-center text-pretty text-muted-foreground">{t("home.subhead")}</p>
 
         <div className="mt-12 grid grid-cols-1 gap-8 md:grid-cols-3">
-          {posts.map((post) => (
+          {featured.map((post) => (
             <article
               key={post.slug}
               className="group flex flex-col overflow-hidden rounded-xl border border-border bg-card/50 transition-colors hover:border-primary/40"
@@ -31,7 +32,7 @@ export function HomeBlogSection() {
                 <Link to={to(`/blog/${post.slug}`)} className="block aspect-[16/10] overflow-hidden">
                   <img
                     src={post.coverImage}
-                    alt={post.coverImageAlt ?? t(`posts.${post.slug}.title`)}
+                    alt={post.coverImageAlt ?? post.title}
                     className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                     loading="lazy"
                     decoding="async"
@@ -49,11 +50,11 @@ export function HomeBlogSection() {
                 </div>
                 <h3 className="font-display mt-3 text-xl leading-snug text-foreground">
                   <Link to={to(`/blog/${post.slug}`)} className="hover:text-primary transition-colors">
-                    {t(`posts.${post.slug}.title`)}
+                    {post.title}
                   </Link>
                 </h3>
                 <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
-                  {t(`posts.${post.slug}.excerpt`)}
+                  {post.excerpt}
                 </p>
                 <Link
                   to={to(`/blog/${post.slug}`)}

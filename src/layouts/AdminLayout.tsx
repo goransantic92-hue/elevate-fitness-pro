@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { LayoutDashboard, Users, FileText, Bell, Dumbbell, ArrowLeft, BookOpen, Home, Layers, Smartphone, Video } from "lucide-react";
+import { LayoutDashboard, Users, FileText, Bell, Dumbbell, ArrowLeft, BookOpen, Home, Layers, Smartphone, Video, Newspaper } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { MEMBER_APP_LINK_LABEL } from "@/lib/memberAppLabels";
@@ -8,6 +8,7 @@ const nav = [
   { to: "/admin", label: "Overview", icon: LayoutDashboard, end: true },
   { to: "/admin/homepage", label: "Homepage", icon: Home },
   { to: "/admin/pages", label: "Site pages", icon: Layers },
+  { to: "/admin/blog", label: "Blog", icon: Newspaper },
   { to: "/admin/member", label: "Member app", icon: Smartphone },
   { to: "/admin/testimonials", label: "Testimonials", icon: Video },
   { to: "/admin/members", label: "Members", icon: Users },

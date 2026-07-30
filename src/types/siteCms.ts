@@ -11,7 +11,8 @@ export type SitePageKey =
   | "member_nutrition"
   | "member_roadmap"
   | "testimonials"
-  | "member_workouts";
+  | "member_workouts"
+  | "blog";
 
 export type FaqItem = { q: string; a: string };
 
@@ -214,6 +215,45 @@ export type MemberWorkoutsCmsPayload = {
   emergency: EmergencyWorkoutCms[];
 };
 
+export type BlogBlockCms =
+  | { type: "p"; text: string }
+  | { type: "h2"; text: string }
+  | { type: "h3"; text: string }
+  | { type: "ul"; items: string[] }
+  | { type: "ol"; items: string[] }
+  | { type: "table"; headers: string[]; rows: string[][] }
+  | { type: "blockquote"; text: string }
+  | {
+      type: "cta";
+      title?: string;
+      bullets?: string[];
+      primaryHref: string;
+      primaryLabel: string;
+      secondaryHref?: string;
+      secondaryLabel?: string;
+    };
+
+export type BlogPostCms = {
+  id: string;
+  slug: string;
+  title: string;
+  excerpt: string;
+  metaTitle: string;
+  metaDescription: string;
+  keywords: string[];
+  publishedAt: string;
+  readingTimeMinutes: number;
+  coverPath: string | null;
+  coverAlt: string;
+  featuredOnHomepage: boolean;
+  enabled: boolean;
+  blocks: BlogBlockCms[];
+};
+
+export type BlogCmsPayload = {
+  posts: BlogPostCms[];
+};
+
 export type SiteCmsPayloadMap = {
   pricing: PricingCmsPayload;
   faq: FaqCmsPayload;
@@ -226,6 +266,7 @@ export type SiteCmsPayloadMap = {
   member_roadmap: MemberRoadmapCmsPayload;
   testimonials: TestimonialsCmsPayload;
   member_workouts: MemberWorkoutsCmsPayload;
+  blog: BlogCmsPayload;
 };
 
 export type SiteContentRow<K extends SitePageKey = SitePageKey> = {
@@ -252,6 +293,7 @@ export const SITE_PAGE_LABELS: Record<SitePageKey, string> = {
   member_roadmap: "Member app — roadmap",
   testimonials: "Testimonial videos",
   member_workouts: "Member app — workouts",
+  blog: "Blog",
 };
 
 export const MEMBER_APP_PAGE_KEYS = ["member_dashboard", "member_nutrition", "member_roadmap"] as const;

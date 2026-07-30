@@ -362,7 +362,8 @@ export type Database = {
             | "member_nutrition"
             | "member_roadmap"
             | "testimonials"
-            | "member_workouts";
+            | "member_workouts"
+            | "blog";
           locale: "en" | "ar" | "sr";
           draft: Json;
           published: Json;
@@ -384,7 +385,8 @@ export type Database = {
             | "member_nutrition"
             | "member_roadmap"
             | "testimonials"
-            | "member_workouts";
+            | "member_workouts"
+            | "blog";
           locale: "en" | "ar" | "sr";
           draft?: Json;
           published?: Json;
@@ -406,7 +408,8 @@ export type Database = {
             | "member_nutrition"
             | "member_roadmap"
             | "testimonials"
-            | "member_workouts";
+            | "member_workouts"
+            | "blog";
           locale?: "en" | "ar" | "sr";
           draft?: Json;
           published?: Json;
