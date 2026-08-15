@@ -9,7 +9,7 @@ export default {
     headline: "Šta",
     headlineHighlight: "očekivati",
     subhead:
-      "Ne možete upravljati onim što ne merite. Pratite ove tri stvari i ništa više: (1) Telesnu težinu svakog ponedeljka ujutru — isto vreme, isti uslovi. (2) Fotografije napretka svake 4 nedelje — spreda, sa strane, pozadi, isto osvetljenje. (3) Glavne dizanje svake sesije — zabeležite težinu i ponavljanja za bench press, čučanj i mrtvo dizanje ili veslanje.",
+      "Ne možete upravljati onim što ne merite. Pratite ove tri stvari i ništa više: (1) Telesnu težinu svakog ponedeljka ujutru — isto vreme, isti uslovi. (2) Fotografije napretka svake 4 nedelje — spreda, sa strane, pozadi, isto osvetljenje. (3) Glavna podizanja tegova svake sesije — zabeležite težinu i ponavljanja za potisak sa klupe, čučanj i mrtvo dizanje ili veslanje.",
   },
   timeline: {
     title: "Realistična",
@@ -23,9 +23,9 @@ export default {
     mobileWeek9: "Nedelja 9–12:",
     progressData: [
       { metric: "Telesna težina", week1: "Može ostati ista ili pad 1–2 kg", week5: "1–2 kg gubitka masti", week9: "Još 1–2 kg gubitka masti" },
-      { metric: "Bench press", week1: "+2,5–5 kg moguće", week5: "Još +2,5–5 kg", week9: "Još +2,5 kg" },
+      { metric: "Potisak sa klupe", week1: "+2,5–5 kg moguće", week5: "Još +2,5–5 kg", week9: "Još +2,5 kg" },
       { metric: "Čučanj / leg press", week1: "+5–10 kg moguće", week5: "Još +5–10 kg", week9: "Još +5 kg" },
-      { metric: "Nivo energije", week1: "Raste od nedelje 2", week5: "Primjetno više", week9: "Vrhunac — održano" },
+      { metric: "Nivo energije", week1: "Raste od nedelje 2", week5: "Primetno više", week9: "Vrhunac — održano" },
       { metric: "Vidljiva promena", week1: "Suptilno nedelja 3–4", week5: "Jasne promene nedelja 6–7", week9: "Značajno do nedelje 10" },
     ],
   },
@@ -35,7 +35,7 @@ export default {
     items: [
       { label: "Telesna težina", detail: "Svakog ponedeljka ujutru, isto vreme, isti uslovi" },
       { label: "Fotografije napretka", detail: "Svake 4 nedelje — spreda, sa strane, pozadi, isto osvetljenje" },
-      { label: "Glavna dizanja", detail: "Svaka sesija — zabeležite težinu i ponavljanja za bench, čučanj, veslanje" },
+      { label: "Glavna podizanja", detail: "Svaka sesija — zabeležite težinu i ponavljanja za potisak sa klupe, čučanj, veslanje" },
     ],
   },
   habits: {
@@ -46,10 +46,10 @@ export default {
     actionLabel: "AKCIJA:",
     habits: [
       { n: 1, title: "NEPREGOVARIVI TERMINI TRENINGA", body: "Zakazujte 3 sesije kao doktorske termine — ne pomeraju se. Stavite ih u kalendar sa alarmom. Pre posla, u pauzi za ručak ili posle posla. Isto vreme, isti dani, svake nedelje. Konzistentnost > savršenstvo.", action: "Primer: 6:00 Pon · 12:30 Sre · 6:00 Pet" },
-      { n: 2, title: "SAN JE VAŠ #1 PERFORMANS LEK", body: "7–9 sati je nepregovarivo. Dug sna uništava testosteron, podiže kortizol, ubija motivaciju i povećava skladištenje masti. Nijedan program treninga ne nadoknađuje hroničan nedostatak sna. Štitite san kao sportista.", action: "Cilj: minimum 7,5 sati · Konzistentno vreme buđenja svaki dan" },
+      { n: 2, title: "SAN JE VAŠ #1 SUPLEMENT ZA UČINAK", body: "7–9 sati je nepregovarivo. Dug sna uništava testosteron, podiže kortizol, ubija motivaciju i povećava skladištenje masti. Nijedan program treninga ne nadoknađuje hroničan nedostatak sna. Štitite san kao sportista.", action: "Cilj: minimum 7,5 sati · Konzistentno vreme buđenja svaki dan" },
       { n: 3, title: "DNEVNI PROTEIN PRVO", body: "Na svakom obroku pitajte: gde je moj protein? Gradite tanjir oko njega. 1,6–2,2 g po kg telesne težine dnevno. Samo ova navika transformisaće vašu kompoziciju tela za 90 dana.", action: "Primer 80 kg: 128–176 g proteina dnevno" },
-      { n: 4, title: "PRAVILO 5 MINUTA", body: "Danima kad vam se ne trenira, obavezujte se na samo 5 minuta. Obucite se, počnite zagrevanje. U 20+ godina coaching-a, skoro niko ne stane na 5 minuta. Momentum je sve. Najteži deo je početak.", action: "Izložite odeću za trening veče pre. Uvek." },
-      { n: 5, title: "PRATI NEŠTO — NE SVE", body: "Merite se svakog ponedeljka ujutru, isti uslovi. Mesečne fotografije napretka. Zabeležite glavna dizanja (bench, čučanj, mrtvo dizanje). Ne treba opsesija — trebaju vam 3 podatka da vidite da li sistem radi.", action: "Nedeljno: težina · Mesečno: fotografije · Po sesiji: glavna dizanja" },
+      { n: 4, title: "PRAVILO 5 MINUTA", body: "Danima kad vam se ne trenira, obavezujte se na samo 5 minuta. Obucite se, počnite zagrevanje. U 20+ godina rada sa klijentima, skoro niko ne stane na 5 minuta. Zamah je sve. Najteži deo je početak.", action: "Izložite odeću za trening veče pre. Uvek." },
+      { n: 5, title: "PRATI NEŠTO — NE SVE", body: "Merite se svakog ponedeljka ujutru, isti uslovi. Mesečne fotografije napretka. Zabeležite glavna podizanja (potisak sa klupe, čučanj, mrtvo dizanje). Ne treba opsesija — trebaju vam 3 podatka da vidite da li sistem radi.", action: "Nedeljno: težina · Mesečno: fotografije · Po sesiji: glavna podizanja" },
       { n: 6, title: "NEDELJNI RESET", body: "Svake nedelje: pripremite 3 obroka za nedelju. Pregledajte raspored i potvrdite 3 termina treninga. Kupite izvore proteina. 90 minuta u nedelju štedi vas od 7 dana loših odluka.", action: "Priprema · Plan · Kupovina · San. Svake nedelje." },
     ],
   },
@@ -58,6 +58,6 @@ export default {
     headlineHighlight: "Manje kilograma. Više energije.",
     body: "36 sesija. 6 navika. Napravljeno za zaposlene očeve u Dubaiju.",
     getProgram: "Uzmi program — {{price}}",
-    startCoaching: "Započni coaching",
+    startCoaching: "Započni lični trening",
   },
 } as const;
