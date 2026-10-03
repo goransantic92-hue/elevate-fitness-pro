@@ -54,6 +54,11 @@ export default {
     ar: "العربية",
     sr: "Srpski",
   },
+  currency: {
+    label: "العملة",
+    eur: "يورو (EUR)",
+    aed: "درهم (AED)",
+  },
   misc: {
     oneTime: "دفعة واحدة",
     perMonth: "/ شهر",

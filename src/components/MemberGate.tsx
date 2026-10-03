@@ -8,7 +8,7 @@ import { Lock } from "lucide-react";
 import { localePath } from "@/i18n/localePaths";
 import type { AppLanguage } from "@/i18n/constants";
 import { buildProgramCheckoutUrl } from "@/lib/stripeProgramCheckout";
-import { PRICING_AED } from "@/lib/pricing";
+import { PRICING } from "@/lib/pricing";
 import { trackInitiateCheckout } from "@/lib/metaPixel";
 
 export function MemberGate({ children }: { children: React.ReactNode }) {
@@ -43,7 +43,7 @@ export function MemberGate({ children }: { children: React.ReactNode }) {
             onClick={() => {
               if (!user) return;
               try {
-                trackInitiateCheckout(PRICING_AED.selfGuided.amount, PRICING_AED.currency);
+                trackInitiateCheckout(PRICING.selfGuided.amount, PRICING.currency);
                 window.location.href = buildProgramCheckoutUrl(user);
               } catch {
                 window.location.href = localePath("/pricing", locale);

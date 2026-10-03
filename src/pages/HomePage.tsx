@@ -82,6 +82,10 @@ const HomePage = () => {
         <div className="container relative z-[1] mx-auto max-w-[1100px] px-6">
           <div className="mb-8 grid items-center gap-8 md:grid-cols-12 md:gap-10">
             <div className="min-w-0 md:col-span-7 lg:col-span-7">
+              <div className="mb-5 inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-wider text-primary">
+                <span className="h-2 w-2 animate-pulse rounded-full bg-primary" />
+                {t("hero.offer")}
+              </div>
               <h1 className="font-display text-[clamp(2.4rem,6vw,4rem)] leading-[1.08] text-foreground">
                 <span className="mb-3 block font-sans text-base font-normal normal-case leading-relaxed tracking-normal text-muted-foreground md:text-lg">
                   {hero.eyebrow}
@@ -376,7 +380,11 @@ const HomePage = () => {
                 <AccordionTrigger className="text-left text-base font-semibold hover:text-primary hover:no-underline">
                   {f.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-sm leading-relaxed text-muted-foreground">{f.a}</AccordionContent>
+                <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
+                  {f.a
+                    .replaceAll("{{selfGuided}}", pricing.selfGuided.label)
+                    .replaceAll("{{coachedMonthly}}", pricing.coachedStrong90.labelMonthly)}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

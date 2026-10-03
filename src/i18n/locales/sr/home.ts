@@ -5,6 +5,7 @@ export default {
       "90-dnevni trening i ishrana za zaposlene očeve 35+ u Dubaiju. 30–40 min domaći treninzi, bez kuhinjske vage. Gubitak kilograma, povratak energije. Coached Strong 90 od {{coachingPrice}}.",
   },
   hero: {
+    offer: "Ograničena ponuda do 8. oktobra",
     eyebrow: "Niste trenirali mesecima. Umorni ste. Vaša deca to vide.",
     headline: "Za zaposlene očeve koji žele",
     headlineEnergy: "energiju",

@@ -4,6 +4,7 @@ import { HelmetProvider } from "react-helmet-async";
 import { registerSW } from "virtual:pwa-register";
 import { RootErrorBoundary } from "@/components/RootErrorBoundary";
 import { AuthProvider } from "@/context/AuthContext";
+import { CurrencyProvider } from "@/context/CurrencyContext";
 import { setupBootRecovery } from "@/lib/bootRecovery";
 import App from "./App.tsx";
 import "./index.css";
@@ -22,9 +23,11 @@ registerSW({
 createRoot(document.getElementById("root")!).render(
   <RootErrorBoundary>
     <HelmetProvider>
-      <AuthProvider>
-        <App />
-      </AuthProvider>
+      <CurrencyProvider>
+        <AuthProvider>
+          <App />
+        </AuthProvider>
+      </CurrencyProvider>
     </HelmetProvider>
   </RootErrorBoundary>
 );

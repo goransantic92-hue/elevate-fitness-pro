@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Menu, X, Dumbbell, Instagram, LayoutDashboard, Link2, Shield } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
+import { CurrencySwitcher } from "@/components/CurrencySwitcher";
 import { useAuth } from "@/context/AuthContext";
 import { programPublicPath } from "@/lib/programNav";
 import { CALENDLY_FREE_CALL_URL } from "@/lib/pricing";
@@ -77,6 +78,7 @@ const Navbar = () => {
         </div>
 
         <div className="hidden lg:flex items-center gap-2">
+          <CurrencySwitcher />
           <LanguageSwitcher />
           <div className="flex items-center gap-1">
             <Button asChild variant="ghost" size="icon" className="h-9 w-9 text-muted-foreground hover:text-foreground">
@@ -130,6 +132,7 @@ const Navbar = () => {
         </div>
 
         <div className="flex items-center gap-2 lg:hidden">
+          <CurrencySwitcher />
           <LanguageSwitcher size="icon" />
           <button
             type="button"

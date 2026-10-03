@@ -42,7 +42,11 @@ const FAQPage = () => {
                 <AccordionTrigger className="text-left text-base font-semibold hover:text-primary hover:no-underline">
                   {faq.q}
                 </AccordionTrigger>
-                <AccordionContent className="text-sm leading-relaxed text-muted-foreground">{faq.a}</AccordionContent>
+                <AccordionContent className="text-sm leading-relaxed text-muted-foreground">
+                  {faq.a
+                    .replaceAll("{{selfGuided}}", pricing.selfGuided.label)
+                    .replaceAll("{{coachedMonthly}}", pricing.coachedStrong90.labelMonthly)}
+                </AccordionContent>
               </AccordionItem>
             ))}
           </Accordion>

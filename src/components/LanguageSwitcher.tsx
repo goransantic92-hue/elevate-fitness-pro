@@ -10,6 +10,8 @@ import {
 } from "@/components/ui/dropdown-menu";
 import type { AppLanguage } from "@/i18n/constants";
 import { useAppLocale } from "@/hooks/useAppLocale";
+import { useDisplayCurrency } from "@/context/CurrencyContext";
+import { currencyForLanguage } from "@/lib/pricing";
 
 const LANGUAGES: { code: AppLanguage; labelKey: "en" | "ar" | "sr" }[] = [
   { code: "en", labelKey: "en" },
@@ -27,6 +29,7 @@ export function LanguageSwitcher({ className, variant = "ghost", size = "sm" }: 
   const { i18n, t } = useTranslation();
   const navigate = useNavigate();
   const { locale, switchLocalePath } = useAppLocale();
+  const { setCurrency } = useDisplayCurrency();
   const current = (i18n.language?.split("-")[0] ?? "en") as AppLanguage;
 
   return (
@@ -48,6 +51,7 @@ export function LanguageSwitcher({ className, variant = "ghost", size = "sm" }: 
           <DropdownMenuItem
             key={code}
             onClick={() => {
+              setCurrency(currencyForLanguage(code));
               void i18n.changeLanguage(code);
               navigate(switchLocalePath(code));
             }}
