@@ -51,11 +51,11 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Osećaš motivaciju posle gledanja transformation videa. Osećaš motivaciju 1. januara. Osećaš motivaciju kada farmerke ne staju.",
+    text: "Osećaš motivaciju posle gledanja videa transformacije. Osećaš motivaciju 1. januara. Osećaš motivaciju kada farmerke ne staju.",
   },
   {
     type: "p",
-    text: "Ne osećaš motivaciju u 19h u sredu kada si u sastancima od 8h i toddler plače.",
+    text: "Ne osećaš motivaciju u 19h u sredu kada si u sastancima od 8h i dete plače.",
   },
   {
     type: "p",
@@ -102,7 +102,7 @@ export const blocksSr: BlogBlock[] = [
   {
     type: "ul",
     items: [
-      "**Završeni treningi** (cilj: 3/nedeljno)",
+      "**Završeni treninzi** (cilj: 3/nedeljno)",
       "**Dnevna energija** (skala 1–10)",
       "**Proteini na obrocima** (da/ne)",
     ],
@@ -142,9 +142,9 @@ export const blocksSr: BlogBlock[] = [
     type: "table",
     headers: ["Faza", "Nedelje", "Fokus"],
     rows: [
-      ["Foundation", "1–4", "Nauči pokrete, izgradi naviku"],
-      ["Intensity", "5–8", "Progresivno opterećenje, vidljiv gubitak masti"],
-      ["Transformation", "9–12", "Vrhunska performansa, zaključavanje životnog stila"],
+      ["Osnove", "1–4", "Nauči pokrete, izgradi naviku"],
+      ["Intenzitet", "5–8", "Progresivno opterećenje, vidljiv gubitak masti"],
+      ["Transformacija", "9–12", "Vrhunski učinak, zaključavanje životnog stila"],
     ],
   },
   {
@@ -166,13 +166,13 @@ export const blocksSr: BlogBlock[] = [
   },
   {
     type: "p",
-    text: "Ta promena identiteta je prava transformacija. Ne six-pack. Ne broj na vagi. **Verzija tebe koja više ne pada.**",
+    text: "Ta promena identiteta je prava transformacija. Ne izrezbaren stomak. Ne broj na vagi. **Verzija tebe koja više ne pada.**",
   },
   {
     type: "cta",
     title: "Prestani da odustaješ. Počni da gradiš.",
     primaryHref: "/coaching-apply?plan=coached-strong-90#apply",
-    primaryLabel: "Započni lični coaching",
+    primaryLabel: "Započni lični trening",
     secondaryHref: "/pricing",
     secondaryLabel: "Uzmi samostalni program za {{price}}",
   },

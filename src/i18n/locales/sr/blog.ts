@@ -1,12 +1,12 @@
 export default {
   meta: {
-    title: "Fitness blog za zaposlene muškarce 35+ — BUSY STRONG 90",
+    title: "Fitnes blog za zaposlene muškarce 35+ — BUSY STRONG 90",
     description:
       "Praktični saveti za fitnes za zaposlene očeve u Dubaiju: nema vremena, mala energija, prekidali ste trening — i sistemi koji zaista rade.",
     keywords: [
-      "fitness blog zaposleni muškarci",
+      "fitnes blog zaposleni muškarci",
       "nema vremena za trening",
-      "dad bod fitnes",
+      "tatin stomak fitnes",
       "konzistentnost u fitnesu",
       "trening za zaposlene očeve Dubai",
     ],
@@ -16,7 +16,7 @@ export default {
     headline: "Fitnes za",
     headlineHighlight: "zaposlene muškarce",
     subhead:
-      "Bez hype-a. Bez predavanja u 5 ujutru. Pravi problemi — vreme, energija, konzistentnost, dad bod — i sistemi koji odgovaraju stvarnom životu.",
+      "Bez prenaglašavanja. Bez predavanja u 5 ujutru. Pravi problemi — vreme, energija, konzistentnost, tatin stomak — i sistemi koji odgovaraju stvarnom životu.",
     minRead: "{{minutes}} min čitanja",
     readArticle: "Pročitaj članak",
   },
@@ -34,7 +34,7 @@ export default {
     ctaTitle: "Spremni za sistem koji odgovara vašem životu?",
     ctaSubhead: "90 dana. 3× nedeljno. 30–40 minuta kod kuće.",
     getProgram: "Uzmi program — {{price}}",
-    startCoaching: "Započni coaching",
+    startCoaching: "Započni lični trening",
   },
   posts: {
     "no-time-too-tired-workout-busy-men": {
@@ -54,44 +54,44 @@ export default {
         "Povremeno trenirate, pa prestanete? Zašto zaposleni muškarci odustaju, kako prekinuti ciklus ponavljanja i izgraditi navike koje traju — bez oslanjanja na motivaciju.",
     },
     "dad-bod-out-of-shape-after-kids-fitness": {
-      title: "Dad bod i van forme posle dece? Kako ponovo postati jak bez početka ispočetka",
+      title: "Tatin stomak i van forme posle dece? Kako ponovo postati jak bez početka ispočetka",
       excerpt:
         "Van forme posle dece? Praktičan vodič za muškarce 35+ da ponovo izgrade snagu, skinu kilograme i vrate telo — i energiju — koje ste imali pre nego što je život postao haotičan.",
-      metaTitle: "Dad bod i van forme posle dece? Kako ponovo postati jak bez početka ispočetka",
+      metaTitle: "Tatin stomak i van forme posle dece? Kako ponovo postati jak bez početka ispočetka",
       metaDescription:
         "Van forme posle dece? Praktičan vodič za muškarce 35+ da ponovo izgrade snagu, skinu kilograme i vrate telo — i energiju — koje ste imali pre nego što je život postao haotičan.",
     },
     "tips-for-muscle-growth": {
       title: "4 trika za masivan rast mišića",
       excerpt:
-        "Proteini na svakom obroku, jedite više, složene vežbe i težak trening — četiri proverena trika za ozbiljnu mišićnu masu bez Instagram hype-a.",
-      metaTitle: "4 trika za masivan rast mišića — Coach Milos",
+        "Proteini na svakom obroku, jedite više, složene vežbe i težak trening — četiri proverena trika za ozbiljnu mišićnu masu bez prenaglašavanja sa Instagrama.",
+      metaTitle: "4 trika za masivan rast mišića — trener Miloš",
       metaDescription:
         "Gradite mišiće sa četiri proverena trika: proteini na svakom obroku, kalorijski suficit, složene vežbe i težak trening.",
     },
     "five-foods-for-bodybuilding": {
-      title: "Jedi da rasteš – 5 namirnica savršenih za bodybuildere",
+      title: "Jedi da rasteš – 5 namirnica savršenih za gradnju mišića",
       excerpt:
-        "Mišići se grade u kuhinji. Pet bodybuilding osnova — jaja, losos, ovsena kaša, govedina i piletina — i zašto svaka zaslužuje mesto na tanjiru.",
-      metaTitle: "Jedi da rasteš — 5 namirnica savršenih za bodybuildere",
+        "Mišići se grade u kuhinji. Pet osnovnih namirnica za gradnju mišića — jaja, losos, ovsena kaša, govedina i piletina — i zašto svaka zaslužuje mesto na tanjiru.",
+      metaTitle: "Jedi da rasteš — 5 namirnica savršenih za gradnju mišića",
       metaDescription:
-        "Najbolje bodybuilding namirnice: jaja, losos, ovsena kaša, govedina i piletina. Proteini, energija i nutrijenti za ozbiljan rast mišića.",
+        "Najbolje namirnice za gradnju mišića: jaja, losos, ovsena kaša, govedina i piletina. Proteini, energija i nutrijenti za ozbiljan rast mišića.",
     },
     "four-mistakes-training-arms": {
       title: "4 greške pri treningu ruku",
       excerpt:
-        "Od naginjanja unazad na curls do zanemarivanja tricepsa — četiri česte greške koje sprečavaju rast bicepsa i tricepsa.",
+        "Od naginjanja unazad pri savijanju do zanemarivanja tricepsa — četiri česte greške koje sprečavaju rast bicepsa i tricepsa.",
       metaTitle: "4 greške pri treningu ruku — saveti za biceps i triceps",
       metaDescription:
         "Izbegnite naginjanje unazad, zanemarivanje tricepsa, nedovoljno varijacija i dizanje preteških tegova.",
     },
     "health-fitness-supplements": {
-      title: "4 suplementa za ultimate health and fitness stack",
+      title: "4 suplementa za optimalno zdravlje i fitnes",
       excerpt:
-        "Omega-3, kreatin, multivitamin i protein — četiri suplementa za ultimate fitness stack uz ishranu i vežbanje.",
-      metaTitle: "4 suplementa za ultimate health and fitness stack",
+        "Omega-3, kreatin, multivitamin i protein — četiri suplementa za kompletnu fitnes kombinaciju uz ishranu i vežbanje.",
+      metaTitle: "4 suplementa za optimalno zdravlje i fitnes",
       metaDescription:
-        "Izgradi fitness stack sa omega-3 masnim kiselinama, kreatinom, kvalitetnim multivitaminom i proteinskim suplementima.",
+        "Izgradite fitnes kombinaciju sa omega-3 masnim kiselinama, kreatinom, kvalitetnim multivitaminom i proteinskim suplementima.",
     },
   },
   arabicBodyNotice:

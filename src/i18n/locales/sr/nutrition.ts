@@ -2,7 +2,7 @@ export default {
   meta: {
     title: "Okvir ishrane — pravila, obroci, jedi bilo gde",
     description:
-      "Tri pravila ishrane, primer plana obroka, Eat Anywhere vodič i saveti za suplemente iz BUSY STRONG 90 priručnika.",
+      "Tri pravila ishrane, primer plana obroka, vodič „Jedi bilo gde“ i saveti za suplemente iz BUSY STRONG 90 priručnika.",
   },
   hero: {
     eyebrow: "SISTEM ISHRANE",
@@ -55,19 +55,19 @@ export default {
     title: "Vodič",
     titleHighlight: "Jedi bilo gde",
     subhead:
-      "Jedećete u restoranima. Putovaćete. Eat Anywhere vodič osigurava da uvek imate strategiju — bez izgovora, bez krivice, bez skretanja s puta.",
+      "Jedećete u restoranima. Putovaćete. Vodič „Jedi bilo gde“ osigurava da uvek imate strategiju — bez izgovora, bez krivice, bez skretanja s puta.",
     items: [
       { place: "Brza hrana", tips: ["Pileće na žaru > prženo. Uvek.", "Skinite pecivo, udvostručite salatu.", "Preskočite sosove (200 kcal skriveno).", "Voda ili crna kafa. Nikad gazirano."] },
       { place: "Restoran", tips: ["Pitajte: protein na žaru ili u rerni + povrće.", "Sos sa strane. Vi kontrolišete porciju.", "Počnite proteinom bogatim predjelo.", "Podelite desert ili preskočite. Jedan zalogaj neće ubiti."] },
       { place: "Aerodrom / putovanje", tips: ["Spakujte: proteinska čokoladica, orašasti plodovi, pirinčani krekeri u ručnoj prtljagu.", "Sushi ili poke zdjele: odlične proteinske opcije na aerodromu.", "Izbegavajte: kroasane, mafine, sendviče sa aerodroma.", "Pijte puno vode — let dehidrira mišiće."] },
-      { place: "Kancelarija / zauzeti dani", tips: ["Meal prep posude u frižideru na poslu.", "Bademi i grčki jogurt kao užine za sto.", "Proteinski šejk je uvek prihvatljiv obrok.", "Crna kafa pre sastanaka > energetsko piće."] },
+      { place: "Kancelarija / zauzeti dani", tips: ["Posude sa unapred pripremljenim obrocima u frižideru na poslu.", "Bademi i grčki jogurt kao užine za sto.", "Proteinski šejk je uvek prihvatljiv obrok.", "Crna kafa pre sastanaka > energetsko piće."] },
     ],
     rule9010: {
       title: "Pravilo 90/10",
       body:
         "Budite usklađeni 90% vremena. To znači 54 od 60 obroka u dve nedelje su po planu. Ostalih 6? Uživajte. Život nije takmičenje u dijetama.",
       quote:
-        "Savršenstvo je neprijatelj napretka. Ciljajte usklađenost, ne savršenstvo. — Coach Milos",
+        "Savršenstvo je neprijatelj napretka. Ciljajte usklađenost, ne savršenstvo. — trener Miloš",
     },
   },
   supplements: {
@@ -79,20 +79,20 @@ export default {
     optionalTitle: "Opciono — situaciono",
     wasteTitle: "❌ Bacanje novca — ne kupujte",
     essential: [
-      { name: "Kreatin monohidrat", dose: "5 g/dan", note: "Najistraženiji suplement u istoriji. Snaga, moć, mišići. Bez loading faze." },
-      { name: "Whey protein", dose: "1–2 scoopa/dan", note: "Praktičan proteinski dodatak. Koristite kad hrana nije praktična. Nije magija — samo hrana." },
+      { name: "Kreatin monohidrat", dose: "5 g/dan", note: "Najistraženiji suplement u istoriji. Snaga, moć, mišići. Bez faze uvođenja." },
+      { name: "Proteinski prah (sirutka)", dose: "1–2 merice/dan", note: "Praktičan proteinski dodatak. Koristite kad hrana nije praktična. Nije magija — samo hrana." },
       { name: "Vitamin D3 + K2", dose: "2000–4000 IU D3 dnevno", note: "Većina zaposlenih odraslih je u deficitu. Ključno za testosteron, imunitet, raspoloženje." },
       { name: "Magnezijum glisinat", dose: "300–400 mg pre spavanja", note: "Poboljšava kvalitet sna i oporavak. Jeftin i veoma efikasan." },
       { name: "Omega-3 riblje ulje", dose: "2–3 g EPA+DHA/dan", note: "Anti-inflamatorno, podržava zdravlje srca, kognitivne funkcije, zglobove." },
     ],
     optional: [
-      { name: "Kofein / pre-workout", dose: "100–200 mg kofeina", note: "Pravi performans boost. Samo pre treninga. Izbegavajte posle 14h." },
+      { name: "Kofein / suplement pre treninga", dose: "100–200 mg kofeina", note: "Pravo povećanje učinka. Samo pre treninga. Izbegavajte posle 14h." },
       { name: "ZMA", dose: "Pre spavanja", note: "Cink + magnezijum combo. Dobro ako puno znoite ili često preskačete povrće." },
       { name: "Kolagen + vitamin C", dose: "10 g kolagena + 500 mg C", note: "30–60 min pre treninga. Podržava zdravlje zglobova i tetiva." },
     ],
     waste: [
       { name: "Testosterone boosteri", reason: "Nijedan ne radi. Sačuvajte novac." },
-      { name: "Fat burneri", reason: "Samo marketing. Dijeta i trening su jedini fat burneri koji rade." },
+      { name: "Sagorevači masti", reason: "Samo marketing. Ishrana i trening su jedini načini koji zaista rade." },
       { name: "BCAA (ako već jedete dovoljno proteina)", reason: "Suvišno ako je unos proteina već adekvatan. Preskočite." },
     ],
   },
@@ -111,7 +111,7 @@ export default {
     mealPlanTitle: "Primer dnevnog plana obroka",
     mealPlanSubhead: "Šablon za muškarca od 80 kg — prilagodite svojoj težini. Struktura je važnija od tačne hrane.",
     eatAnywhereTitle: "Jedi bilo gde",
-    coachTip: "Coach savet: {{tip}}",
+    coachTip: "Savet trenera: {{tip}}",
     supplementsTitle: "Suplementi",
     supplementsSubhead: "Suplementi su ~5% rezultata. Hrana ~80%. Trening ~15%.",
     essentialTitle: "Esencijalno — kupite",

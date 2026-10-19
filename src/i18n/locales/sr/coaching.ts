@@ -1,16 +1,16 @@
 export default {
   meta: {
-    title: "Prijavi se za coaching — Coach Milos",
-    description: "Prijavite se za trening sa Coach Milos-om. Ograničen broj mesta. Odgovor u roku od 24 sata.",
+    title: "Prijavi se za lični trening — trener Miloš",
+    description: "Prijavite se za trening sa trenerom Milošem. Ograničen broj mesta. Odgovor u roku od 24 sata.",
   },
   back: {
-    toCoaching: "Nazad na lični coaching",
+    toCoaching: "Nazad na lični trening",
     toPlan: "Nazad na {{planName}}",
   },
   heading: {
     eyebrow: "Prijava",
     title: "Prijavi se za trening sa",
-    titleHighlight: "Coach Milos-om",
+    titleHighlight: "trenerom Milošem",
     body:
       "Radim sa ograničenim brojem klijenata istovremeno da svakom mogu posvetiti pažnju koju zaslužuje. Popunite ovu kratku prijavu i javiću vam se u roku od 24 sata.",
   },
@@ -23,7 +23,7 @@ export default {
     noPlanBodySuffix: "na početnoj stranici.",
     coachedStrong90: {
       name: "Coached Strong 90",
-      tier: "Osnovni coaching · {{price}}",
+      tier: "Osnovni paket sa trenerom · {{price}}",
     },
     privateTransformation: {
       name: "Privatna transformacija",
@@ -125,17 +125,17 @@ export default {
       "Svaku prijavu pregledam lično i odgovaram u roku od 24 sata. Dobićete potvrdni email sa linkom za zakazivanje kratke konsultacije.",
     footerSpamNote: "Nakon slanja, proverite inbox u narednih nekoliko minuta — ako ništa ne stigne, pogledajte u",
     spam: "Spam",
-    promotions: "Promotions",
+    promotions: "Promocije",
   },
   toast: {
     incompleteTitle: "Popunite sva polja",
     successTitle: "Prijava primljena",
     successDescription:
-      "Proverite inbox za potvrdni email sa linkom za zakazivanje konsultacije. Ako ga ne vidite, proverite Spam ili Promotions.",
+      "Proverite inbox za potvrdni email sa linkom za zakazivanje konsultacije. Ako ga ne vidite, proverite folder Spam ili Promocije.",
     errorTitle: "Slanje nije uspelo",
     errorFallback: "Pokušajte ponovo ili pišite na info@ptmilosilic.com.",
     deployError:
-      "Forma nije mogla da kontaktira email servis. Proverite da li je sajt deploy-ovan na Vercel-u sa /api/coaching-apply funkcijom, ili pišite direktno na info@ptmilosilic.com.",
+      "Forma nije mogla da kontaktira email servis. Proverite da li je sajt objavljen na Vercel-u sa /api/coaching-apply funkcijom, ili pišite direktno na info@ptmilosilic.com.",
     serverError: "Nešto je pošlo po zlu",
     emailNotConfigured: "Email servis nije podešen na serveru (nedostaje RESEND_API_KEY).",
   },
