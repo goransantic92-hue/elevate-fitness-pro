@@ -11,7 +11,7 @@ export default {
     subhead: "Bez pretplata. Bez skrivenih troškova. Jedna uplata, doživotni pristup — u skladu sa vašim priručnikom.",
   },
   launchBadge: "LANSIRNA CENA — OGRANIČENO VREME",
-  oneTimeLifetime: "Plaćaš {{price}} jednom · Doživotni pristup",
+  oneTimeLifetime: "Plaćaš {{price}} jednom · ceo 90-dnevni program",
   everythingIncluded: "Sve uključeno:",
   features: [
     "3 teretanska programa (A/B/C)",
@@ -42,22 +42,34 @@ export default {
     failedTitle: "Checkout nije uspeo",
     failedDescription: "Neispravna Stripe payment link konfiguracija.",
   },
-  testimonials: [
-    {
-      quote:
-        "Sada dolazim kući drugačije i deca to primete. Imam energiju da se igram sa njima posle posla umesto da padnem na kauč.",
-      name: "David M.",
-      sub: "Menadžer projekata, 42 — Otac troje dece · Dubai",
-    },
-    {
-      quote:
-        "Tri sesije koje zaista mogu da zaštitim u kalendaru — jači bez života u teretani. Ovo je prvi program koji sam zaista završio.",
-      name: "Marcus V.",
-      sub: "Korporativni rukovodilac, 45 — Otac jednog deteta · Dubai",
-    },
-  ],
+  // Only real client reviews belong here (Google reviews live in src/data/googleReviews.ts).
+  testimonials: [],
   coachQuote: {
     text: "Napravio sam ovaj program da zaista promeni živote — ne samo da prodam PDF. Ako imate pitanja, javite se. Čitam svaku poruku.",
     attribution: "— Coach Milos",
+  },
+  plans: {
+    eyebrow: "PLANOVI I CENE",
+    headline: "Treniraj sa mnom,",
+    headlineHighlight: "odakle god.",
+    subhead:
+      "Online coaching u celom svetu. Počni sam uz aplikaciju ili me uzmi za trenera, sa planom napravljenim oko tvoje nedelje.",
+    proofLabel: "Stvaran rezultat klijenta",
+    proof: "110 kg → 78 kg za godinu dana, sa skoro 50 godina.",
+    programName: "Program",
+    programTier: "Samostalno · aplikacija",
+    programOnce: "jedna uplata · ceo 90-dnevni program",
+    programCta: "Uzmi program",
+    checkoutNote: "Sigurno plaćanje preko Stripe-a · kartica, Apple Pay, Google Pay · bez pravljenja naloga, login za aplikaciju stiže na email",
+    seeAll: "Sve u aplikaciji",
+    coachedCta: "Prijavi se za coaching",
+    eliteCta: "Prijavi se za 1:1",
+    perMonth: "/mesečno",
+    coachedNote: "Većina klijenata počinje ovde",
+    callEyebrow: "Nisi siguran šta da izabereš?",
+    callHeadline: "Zakaži besplatan poziv od 15 minuta",
+    callBody: "Reci mi raspored i cilj. Iskreno ću ti reći šta ti odgovara, čak i kad je to najjeftinija opcija.",
+    callCta: "Zakaži besplatan poziv",
+    guarantee: "Pitanja pre kupovine? Piši mi na Instagramu @_coachmilos ili na info@ptmilosilic.com. Odgovaram lično.",
   },
 } as const;

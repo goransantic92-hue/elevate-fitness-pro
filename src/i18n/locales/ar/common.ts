@@ -17,7 +17,7 @@ export default {
     memberLogin: "دخول الأعضاء",
   },
   footer: {
-    tagline: "تدريب 90 يوماً للآباء المشغولين في دبي. 30–40 دقيقة، 3 مرات أسبوعياً. وزن أقل. طاقة أكثر.",
+    tagline: "تدريب 90 يوماً للآباء المشغولين في دبي. 22 دقيقة، 3 مرات أسبوعياً. وزن أقل. طاقة أكثر.",
     program: "البرنامج",
     programOverview: "نظرة عامة",
     nutritionGuide: "دليل التغذية",
@@ -64,7 +64,7 @@ export default {
   misc: {
     oneTime: "دفعة واحدة",
     perMonth: "/ شهر",
-    paidOnce: "{{price}} دفعة واحدة",
+    paidOnce: "دفعة واحدة · برنامج 90 يوماً كاملاً",
     watchStory: "شاهد القصة",
   },
   notFound: {

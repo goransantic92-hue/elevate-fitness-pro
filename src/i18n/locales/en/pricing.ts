@@ -11,7 +11,7 @@ export default {
     subhead: "No subscriptions. No hidden fees. One payment, lifetime access — aligned with your manual.",
   },
   launchBadge: "LAUNCH PRICE — LIMITED TIME",
-  oneTimeLifetime: "Pay {{price}} once · Lifetime access",
+  oneTimeLifetime: "Pay {{price}} once · full 90-day program",
   everythingIncluded: "Everything Included:",
   features: [
     "3 Gym Training Programs (A/B/C)",
@@ -42,22 +42,34 @@ export default {
     failedTitle: "Checkout failed",
     failedDescription: "Invalid Stripe payment link configuration.",
   },
-  testimonials: [
-    {
-      quote:
-        "I come home differently now and my kids notice. I have energy to play with them after work instead of collapsing on the couch.",
-      name: "David M.",
-      sub: "Project Manager, 42 — Father of 3 · Dubai",
-    },
-    {
-      quote:
-        "Three sessions I can actually protect on my calendar — stronger without living in the gym. This is the first program I actually finished.",
-      name: "Marcus V.",
-      sub: "Corporate Lead, 45 — Father of 1 · Dubai",
-    },
-  ],
+  // Only real client reviews belong here (Google reviews live in src/data/googleReviews.ts).
+  testimonials: [],
   coachQuote: {
     text: "I built this program to genuinely change lives — not just sell a PDF. If you have questions, reach out. I read every message.",
     attribution: "— Coach Milos",
+  },
+  plans: {
+    eyebrow: "PLANS & PRICING",
+    headline: "Train with me,",
+    headlineHighlight: "from anywhere.",
+    subhead:
+      "Online coaching worldwide. Start with the app on your own, or get me as your coach with a plan built around your week.",
+    proofLabel: "Real client result",
+    proof: "110 kg → 78 kg in one year, at almost 50.",
+    programName: "The Program",
+    programTier: "Self-guided · app",
+    programOnce: "one payment · full 90-day program",
+    programCta: "Get the program",
+    checkoutNote: "Secure Stripe checkout · card, Apple Pay, Google Pay · no account needed, your app login arrives by email",
+    seeAll: "Everything in the app",
+    coachedCta: "Apply for coaching",
+    eliteCta: "Apply for 1:1",
+    perMonth: "/month",
+    coachedNote: "Most clients start here",
+    callEyebrow: "Not sure which one?",
+    callHeadline: "Book a free 15-minute call",
+    callBody: "Tell me your schedule and goal. I'll tell you honestly which option fits, even if it's the cheapest one.",
+    callCta: "Book a free call",
+    guarantee: "Questions before you buy? Message me on Instagram @_coachmilos or email info@ptmilosilic.com. I answer personally.",
   },
 } as const;
