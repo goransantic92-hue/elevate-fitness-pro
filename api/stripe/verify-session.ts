@@ -2,6 +2,7 @@ import type { VercelRequest, VercelResponse } from "@vercel/node";
 import Stripe from "stripe";
 import { getUserFromBearer } from "../_lib/authUser.js";
 import { grantProgramAccess } from "../_lib/grantProgramAccess.js";
+import { recordPurchase } from "../_lib/recordPurchase.js";
 
 type Body = { sessionId?: string };
 
@@ -54,6 +55,11 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
     }
 
     await grantProgramAccess(user.id, "stripe");
+    await recordPurchase(
+      session,
+      user.id,
+      session.customer_details?.email?.trim().toLowerCase() || user.email?.toLowerCase() || null,
+    );
 
     const value = session.amount_total != null ? session.amount_total / 100 : undefined;
     const currency = session.currency ? session.currency.toUpperCase() : undefined;

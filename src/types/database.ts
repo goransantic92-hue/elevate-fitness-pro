@@ -64,6 +64,59 @@ export type Database = {
           updated_at?: string;
         };
       };
+      purchases: {
+        Row: {
+          id: string;
+          stripe_session_id: string;
+          stripe_payment_intent_id: string | null;
+          stripe_customer_id: string | null;
+          stripe_payment_link_id: string | null;
+          user_id: string | null;
+          email: string | null;
+          customer_name: string | null;
+          product: string;
+          amount_total: number | null;
+          currency: string | null;
+          status: "paid" | "refunded";
+          livemode: boolean;
+          purchased_at: string;
+          created_at: string;
+        };
+        Insert: {
+          id?: string;
+          stripe_session_id: string;
+          stripe_payment_intent_id?: string | null;
+          stripe_customer_id?: string | null;
+          stripe_payment_link_id?: string | null;
+          user_id?: string | null;
+          email?: string | null;
+          customer_name?: string | null;
+          product?: string;
+          amount_total?: number | null;
+          currency?: string | null;
+          status?: "paid" | "refunded";
+          livemode?: boolean;
+          purchased_at?: string;
+          created_at?: string;
+        };
+        Update: {
+          id?: string;
+          stripe_session_id?: string;
+          stripe_payment_intent_id?: string | null;
+          stripe_customer_id?: string | null;
+          stripe_payment_link_id?: string | null;
+          user_id?: string | null;
+          email?: string | null;
+          customer_name?: string | null;
+          product?: string;
+          amount_total?: number | null;
+          currency?: string | null;
+          status?: "paid" | "refunded";
+          livemode?: boolean;
+          purchased_at?: string;
+          created_at?: string;
+        };
+      };
       progress_checkins: {
         Row: {
           id: string;

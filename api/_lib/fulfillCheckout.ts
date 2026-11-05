@@ -1,5 +1,6 @@
 import type Stripe from "stripe";
 import { grantProgramAccess } from "./grantProgramAccess.js";
+import { recordPurchase } from "./recordPurchase.js";
 import { getSiteUrl } from "./siteUrl.js";
 import { getSupabaseAdmin } from "./supabaseAdmin.js";
 
@@ -63,6 +64,7 @@ export async function fulfillPaidSession(session: Stripe.Checkout.Session): Prom
   if (!userId) return null;
 
   await grantProgramAccess(userId, "stripe_webhook");
+  await recordPurchase(session, userId, email);
   return { userId, email, createdAccount };
 }
 
